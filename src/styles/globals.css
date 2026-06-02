@@ -1,0 +1,9 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+  --briticana-body-bg: #f8f9fa;
+}
+
+body {
+  background-color: var(--briticana-body-bg);
+}

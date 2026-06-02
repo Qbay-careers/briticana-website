@@ -1,0 +1,18 @@
+/* Marketing landing (purchased HTML theme) — vendor CSS; Bootstrap core from globals.css npm import. */
+@import url("/edumove/css/owl.theme.default.min.css");
+@import url("/edumove/css/owl.carousel.min.css");
+@import url("/edumove/css/meanmenu.css");
+@import url("/edumove/css/magnific-popup.css");
+@import url("/edumove/css/scrollcue.css");
+@import url("/edumove/css/remixicon.css");
+@import url("/edumove/css/style.css");
+@import url("/edumove/css/responsive.css");
+
+/* Preloader GIF — theme asset is large; cap size for Next layout */
+.marketing-home-root .preloader img {
+  max-width: min(96px, 26vw);
+  max-height: min(96px, 22vh);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
