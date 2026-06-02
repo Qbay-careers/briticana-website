@@ -1,13 +1,60 @@
 import type { ReactNode } from "react";
 
+import Link from "next/link";
+
+import { demoQuickStats, demoStudentProfile } from "@/lib/demo/studentDashboard";
+
 type DashboardShellProps = {
   children: ReactNode;
 };
 
 export default function DashboardShell({ children }: DashboardShellProps) {
-  // TODO: render student dashboard chrome: welcome header, quick links, and responsive grid for tracker + submissions.
   return (
-    <div className="container py-4" data-component="DashboardShell">
+    <div className="container mw-1345 py-5" data-component="DashboardShell">
+      <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-2">
+        <div className="d-flex align-items-center gap-3">
+          <img
+            src={demoStudentProfile.avatar}
+            className="rounded-circle"
+            style={{ width: "64px", height: "64px", objectFit: "cover" }}
+            alt=""
+          />
+          <div>
+            <h2 className="mb-1">
+              Welcome back, <span>{demoStudentProfile.firstName}</span>
+            </h2>
+            <p className="text-secondary mb-0">{demoStudentProfile.program}</p>
+          </div>
+        </div>
+        <Link href="/login" className="main-btn black">
+          Sign out
+        </Link>
+      </div>
+
+      <p className="small text-secondary col-lg-9 mb-4">
+        Preview how Briticana learners track milestones and submit weekly deliverables. No accounts or API routes are
+        wired in this phase — all data shown here is static demo content.
+      </p>
+
+      <div className="row g-4 mb-4">
+        {demoQuickStats.map((stat) => (
+          <div key={stat.id} className="col-sm-6 col-lg-3">
+            <div className="bg-white rounded-4 shadow-sm h-100 p-4 d-flex align-items-center gap-3">
+              <div
+                className="d-flex justify-content-center align-items-center rounded-circle bg-f7f7f7 flex-shrink-0"
+                style={{ width: "48px", height: "48px" }}
+              >
+                <i className={`${stat.icon} fs-5`} />
+              </div>
+              <div>
+                <span className="small text-secondary d-block">{stat.label}</span>
+                <strong>{stat.value}</strong>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <div className="row g-4">{children}</div>
     </div>
   );
