@@ -1,15 +1,18 @@
+import { demoSubmissionCopy } from "@/lib/demo/studentDashboard";
+
 type SubmissionPanelProps = Record<string, never>;
 
 export default function SubmissionPanel(_props: SubmissionPanelProps) {
-  // TODO: render file / link submission placeholders for weekly deliverables in the demo student dashboard.
   return (
     <div className="col-lg-5">
       <div className="card shadow-sm h-100" data-component="SubmissionPanel">
         <div className="card-body">
-          <h2 className="h5 fw-bold">Submissions</h2>
-          <p className="small text-secondary mb-0">
-            Learners will drop links to repos, decks, or demo videos—this phase keeps the layout only, without persistence or auth.
-          </p>
+          <h2 className="h5 fw-bold">{demoSubmissionCopy.title}</h2>
+          <p className="small text-secondary mb-2">{demoSubmissionCopy.description}</p>
+          <p className="small text-muted mb-3">{demoSubmissionCopy.lockedHint}</p>
+          <button type="button" className="btn btn-secondary btn-sm" disabled>
+            Upload deliverables (locked)
+          </button>
         </div>
       </div>
     </div>
