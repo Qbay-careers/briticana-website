@@ -1,18 +1,19 @@
 import { defineField, defineType } from "sanity";
 
+/** PRD: Briticana.pdf — Explore Internship Domains */
 const DOMAINS = [
-  { title: "Software Engineering", value: "software-engineering" },
-  { title: "Data Science & Analytics", value: "data-science-analytics" },
-  { title: "Cybersecurity", value: "cybersecurity" },
-  { title: "UX / UI Design", value: "ux-ui-design" },
+  { title: "Data Analysis", value: "data-analysis" },
+  { title: "Human Resources (HR)", value: "human-resources" },
+  { title: "Software Development", value: "software-development" },
+  { title: "UI/UX Design", value: "ui-ux-design" },
   { title: "Digital Marketing", value: "digital-marketing" },
-  { title: "Cloud & DevOps", value: "cloud-devops" },
-  { title: "Artificial Intelligence", value: "artificial-intelligence" },
-  { title: "Mobile Development", value: "mobile-development" },
-  { title: "Web Development", value: "web-development" },
+  { title: "Business Operations", value: "business-operations" },
   { title: "Product Management", value: "product-management" },
-  { title: "Business Analysis", value: "business-analysis" },
-  { title: "FinTech", value: "fintech" },
+  { title: "Cybersecurity", value: "cybersecurity" },
+  { title: "Cloud & DevOps", value: "cloud-devops" },
+  { title: "AI & Automation", value: "ai-automation" },
+  { title: "Finance & Research", value: "finance-research" },
+  { title: "Sales & Growth", value: "sales-growth" },
 ] as const;
 
 const DURATION_OPTIONS = [
@@ -23,7 +24,7 @@ const DURATION_OPTIONS = [
 
 const REGIONS = [
   { title: "Ireland", value: "Ireland" },
-  { title: "UK", value: "UK" },
+  { title: "United Kingdom", value: "United Kingdom" },
   { title: "Germany", value: "Germany" },
   { title: "Finland", value: "Finland" },
 ] as const;

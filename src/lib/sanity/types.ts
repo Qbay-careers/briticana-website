@@ -18,22 +18,22 @@ export type SanityImage = {
 };
 
 export type InternshipDomain =
-  | "software-engineering"
-  | "data-science-analytics"
-  | "cybersecurity"
-  | "ux-ui-design"
+  | "data-analysis"
+  | "human-resources"
+  | "software-development"
+  | "ui-ux-design"
   | "digital-marketing"
-  | "cloud-devops"
-  | "artificial-intelligence"
-  | "mobile-development"
-  | "web-development"
+  | "business-operations"
   | "product-management"
-  | "business-analysis"
-  | "fintech";
+  | "cybersecurity"
+  | "cloud-devops"
+  | "ai-automation"
+  | "finance-research"
+  | "sales-growth";
 
 export type InternshipDurationOption = "3 months" | "6 months" | "9 months";
 
-export type InternshipRegion = "Ireland" | "UK" | "Germany" | "Finland";
+export type InternshipRegion = "Ireland" | "United Kingdom" | "Germany" | "Finland";
 
 export type InternshipApplicationStatus = "open" | "closed" | "coming-soon";
 
@@ -54,6 +54,16 @@ export interface Internship {
   batchStartDate?: string;
   googleFormLink?: string;
   featuredImage?: SanityImage;
+}
+
+export interface HomePage {
+  _id: string;
+  _type: "homePage";
+  heroHeadline: string;
+  heroSubheadline?: string;
+  heroOverview?: string;
+  heroCtaApplyUrl?: string;
+  heroCtaExploreUrl?: string;
 }
 
 export interface Testimonial {
@@ -88,6 +98,7 @@ export interface SiteSettings {
   _type: "siteSettings";
   email?: string;
   whatsappNumber?: string;
+  whatsappUrl?: string;
   contactNumber?: string;
   officeAddress?: string;
   googleMapsLink?: string;

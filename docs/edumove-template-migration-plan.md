@@ -12,7 +12,7 @@ The team **owns the EduMove template** and wants **maximum fidelity** with minim
 
 | Location | Purpose |
 | -------- | ------- |
-| [`../src/components/marketing/`](../src/components/marketing/) | React for the template-based marketing home: `MarketingPageShell`, `MarketingNav`, `MarketingHomeTop` / `MarketingHomeBottom`, `MarketingVendorScripts`, `marketingAssetPaths.ts` |
+| [`../src/components/marketing/`](../src/components/marketing/) | React for the template-based marketing home: `MarketingPageShell`, `MarketingNav`, `MarketingHomeSections` + `sections/*`, `MarketingVendorScripts`, `marketingAssetPaths.ts` |
 | [`../src/styles/marketing-home.css`](../src/styles/marketing-home.css) | Imports vendor theme CSS from `/edumove/css/*` (Bootstrap core stays on npm via `globals.css`) |
 | `public/edumove/` | Vendored template static files; URLs remain `/edumove/images/...`, `/edumove/js/...`, etc. |
 

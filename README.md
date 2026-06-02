@@ -36,6 +36,7 @@ Next.js 14 (App Router) marketing site and embedded Sanity Studio for **Britican
    - Create a project at [sanity.io](https://www.sanity.io/) if you do not have one.
    - From the repo root you can run `npx sanity@latest init` **or** attach this codebase to an existing project by setting the env vars above.
    - Deploy schemas from `/sanity/schemas` by running Studio locally (`npm run dev` → `/studio`) and publishing the configured document types.
+   - **CORS:** In [Sanity Manage](https://www.sanity.io/manage) → your project → **API** → **CORS origins**, add `http://localhost:3000` and your production site origin so Studio and the Next app can call the API.
 
 4. **Run the dev server**
 
@@ -56,7 +57,7 @@ Next.js 14 (App Router) marketing site and embedded Sanity Studio for **Britican
 ## CMS access
 
 - Editors open **`/studio`** on the deployed site or local dev server.
-- Content types include internships, testimonials, FAQs, startup partners, singleton site settings, and demo student records for verification.
+- Content types include **home page** (marketing hero), internships, testimonials, FAQs, startup partners, site settings, and demo student records for verification. See [docs/sanity-seed.md](docs/sanity-seed.md) for optional seed examples.
 
 ## Who is working on what
 
