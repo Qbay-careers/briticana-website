@@ -1,10 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
 const LOGO_SRC = marketingImage("logo/logo.webp");
 
+function navLinkClass(pathname: string, href: string): string {
+  if (href === "/") {
+    return pathname === "/" ? "nav-link active" : "nav-link";
+  }
+  if (pathname === href || pathname.startsWith(`${href}/`)) {
+    return "nav-link active";
+  }
+  return "nav-link";
+}
+
 export default function MarketingNav() {
+  const pathname = usePathname() ?? "";
   return (
     <div className="navbar-area">
       <div className="main-nav">
@@ -16,22 +30,27 @@ export default function MarketingNav() {
             <div className="collapse navbar-collapse for-mobile-menu" id="navbarSupportedContent">
               <ul className="navbar-nav m-auto">
                 <li className="nav-item">
-                  <Link href="/" className="nav-link active">
+                  <Link href="/" className={navLinkClass(pathname, "/")}>
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/internships" className="nav-link">
+                  <Link href="/domains" className={navLinkClass(pathname, "/domains")}>
+                    Domains
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link href="/internships" className={navLinkClass(pathname, "/internships")}>
                     Internships
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/verification" className="nav-link">
+                  <Link href="/verification" className={navLinkClass(pathname, "/verification")}>
                     Verification
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/login" className="nav-link">
+                  <Link href="/login" className={navLinkClass(pathname, "/login")}>
                     Login
                   </Link>
                 </li>

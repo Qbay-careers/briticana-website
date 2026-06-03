@@ -94,7 +94,7 @@ export default function MarketingCategoriesSection({
                     ))}
                 <div className="col-md-4 col-sm-6">
                   <Link
-                    href="/internships"
+                    href="/domains"
                     className="categories-single-item text-decoration-none d-block text-center h-100 d-flex justify-content-center align-items-center all gap-2"
                   >
                     <span>All domains</span>

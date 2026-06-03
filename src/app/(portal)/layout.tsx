@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
+import { Suspense } from "react";
 
 import MarketingNav from "@/components/marketing/MarketingNav";
+import MarketingVendorScripts from "@/components/marketing/MarketingVendorScripts";
+import ScrollCueRouteSync from "@/components/marketing/ScrollCueRouteSync";
 import MarketingCopyrightBar from "@/components/marketing/sections/MarketingCopyrightBar";
 import MarketingFooterSection from "@/components/marketing/sections/MarketingFooterSection";
 
@@ -19,6 +22,10 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
         <MarketingFooterSection />
         <MarketingCopyrightBar />
       </footer>
+      <MarketingVendorScripts />
+      <Suspense fallback={null}>
+        <ScrollCueRouteSync />
+      </Suspense>
     </div>
   );
 }

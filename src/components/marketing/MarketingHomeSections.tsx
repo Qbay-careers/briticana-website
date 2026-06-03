@@ -13,20 +13,25 @@ import MarketingPartnersSection from "@/components/marketing/sections/MarketingP
 import MarketingSubscribeSection from "@/components/marketing/sections/MarketingSubscribeSection";
 import MarketingTeamSection from "@/components/marketing/sections/MarketingTeamSection";
 import MarketingTestimonialsSection from "@/components/marketing/sections/MarketingTestimonialsSection";
-import type { InternshipDomainDoc } from "@/lib/sanity/types";
+import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
 
 export type MarketingHomeSectionsProps = {
   homeHero: HomeHeroData;
   internshipDomains?: InternshipDomainDoc[];
+  featuredInternships: Internship[];
 };
 
-export default function MarketingHomeSections({ homeHero, internshipDomains = [] }: MarketingHomeSectionsProps) {
+export default function MarketingHomeSections({
+  homeHero,
+  internshipDomains = [],
+  featuredInternships,
+}: MarketingHomeSectionsProps) {
   return (
     <>
       <MarketingBannerSection homeHero={homeHero} />
       <MarketingPartnersSection />
       <MarketingCategoriesSection internshipDomains={internshipDomains} />
-      <MarketingCoursesSection />
+      <MarketingCoursesSection internships={featuredInternships} />
       <MarketingAboutSection />
       <MarketingChooseUsSection />
       <MarketingTestimonialsSection />

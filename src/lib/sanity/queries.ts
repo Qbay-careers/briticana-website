@@ -13,6 +13,22 @@ export const getAllInternshipDomains = `*[_type == "internshipDomain" && defined
   slug
 }`;
 
+/** Domains listing: same order as home, plus live internship counts per domain. */
+export const getInternshipDomainsWithCounts = `*[_type == "internshipDomain" && defined(slug.current)] | order(coalesce(sortOrder, 999) asc, title asc) {
+  _id,
+  _type,
+  title,
+  slug,
+  shortOverview,
+  "internshipCount": count(*[_type == "internship" && domain._ref == ^._id])
+}`;
+
+/** Marketing home featured band: internships with slug (sort in app: open first, then batch date). */
+export const getFeaturedInternshipsForHome = `*[_type == "internship" && defined(slug.current)] {
+  ...,
+  ${internshipDomainExpand}
+} [0..14]`;
+
 export const getAllInternships = `*[_type == "internship"] | order(coalesce(batchStartDate, _updatedAt) desc) {
   ...,
   ${internshipDomainExpand}

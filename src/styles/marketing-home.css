@@ -16,3 +16,119 @@
   height: auto;
   object-fit: contain;
 }
+
+/* Featured internship intro cards (home featured band) — no hero image */
+.marketing-home-root .internship-intro-card {
+  border: 1px solid rgba(3, 1, 13, 0.08);
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .internship-intro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(3, 1, 13, 0.08) !important;
+}
+
+.marketing-home-root .internship-intro-card__kicker {
+  letter-spacing: 0.04em;
+}
+
+.marketing-home-root .internship-intro-card__title {
+  color: var(--mainColor, #7a4dfc);
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.marketing-home-root a.internship-intro-card__title:hover {
+  color: var(--mainColor, #7a4dfc);
+  text-decoration: underline;
+}
+
+.marketing-home-root .internship-intro-card__subtitle {
+  color: var(--headingColor, #03010d);
+  font-size: 16px;
+}
+
+.marketing-home-root .internship-intro-card__pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.marketing-home-root .internship-intro-card__pill--duration {
+  background-color: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .internship-intro-card__pill--status {
+  background-color: rgba(122, 77, 252, 0.12);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .internship-intro-card__overview {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.marketing-home-root .internship-intro-card__learn li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+}
+
+.marketing-home-root .internship-intro-card__learn li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .internship-intro-card__divider {
+  border-top: 1px solid rgba(3, 1, 13, 0.08);
+}
+
+/* Filter bar on internships listing */
+.marketing-home-root .filter-bar {
+  background-color: #fff;
+  box-shadow: 0 4px 24px rgba(3, 1, 13, 0.06);
+  border: 1px solid rgba(3, 1, 13, 0.06);
+}
+
+.marketing-home-root .filter-bar__select {
+  border-radius: 8px;
+  border-color: rgba(3, 1, 13, 0.12);
+  padding: 10px 14px;
+  font-size: 14px;
+  height: auto;
+}
+
+.marketing-home-root .filter-bar__select:focus {
+  border-color: var(--mainColor, #7a4dfc);
+  box-shadow: 0 0 0 0.2rem rgba(122, 77, 252, 0.15);
+}
+
+.marketing-home-root .filter-bar__clear {
+  background: none;
+  border: 1px solid rgba(3, 1, 13, 0.15);
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--headingColor, #03010d);
+  cursor: pointer;
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .filter-bar__clear:hover {
+  border-color: var(--mainColor, #7a4dfc);
+  color: var(--mainColor, #7a4dfc);
+}
