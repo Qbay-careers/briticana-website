@@ -41,6 +41,11 @@ export interface InternshipDomainDoc {
   shortOverview?: string;
 }
 
+/** Domain row for `/domains` listing (GROQ `getInternshipDomainsWithCounts`). */
+export interface InternshipDomainListItem extends InternshipDomainDoc {
+  internshipCount?: number;
+}
+
 export type InternshipDurationOption = "3 months" | "6 months" | "9 months";
 
 export type InternshipRegion =

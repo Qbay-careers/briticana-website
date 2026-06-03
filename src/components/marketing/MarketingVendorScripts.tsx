@@ -40,6 +40,14 @@ function loadScript(src: string): Promise<void> {
   });
 }
 
+function runScrollCueUpdate(): void {
+  requestAnimationFrame(() => {
+    hideHomePreloader();
+    const g = globalThis as unknown as { scrollCue?: { update: () => void } };
+    g.scrollCue?.update?.();
+  });
+}
+
 export default function MarketingVendorScripts() {
   useEffect(() => {
     let cancelled = false;
@@ -53,11 +61,7 @@ export default function MarketingVendorScripts() {
       } catch (e) {
         console.error("[MarketingVendorScripts] script chain", e);
       } finally {
-        requestAnimationFrame(() => {
-          hideHomePreloader();
-          const g = globalThis as unknown as { scrollCue?: { update: () => void } };
-          g.scrollCue?.update?.();
-        });
+        runScrollCueUpdate();
       }
     })();
 
