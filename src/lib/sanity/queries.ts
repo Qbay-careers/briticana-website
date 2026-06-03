@@ -5,6 +5,14 @@ const internshipDomainExpand = `"domain": domain->{ _id, _type, title, slug, sho
 
 export const getHomePage = `*[_type == "homePage"]|order(_updatedAt desc)[0]`;
 
+/** Marketing home: internship domain tiles (slug used for /internships?domain= filter). */
+export const getAllInternshipDomains = `*[_type == "internshipDomain" && defined(slug.current)] | order(coalesce(sortOrder, 999) asc, title asc) {
+  _id,
+  _type,
+  title,
+  slug
+}`;
+
 export const getAllInternships = `*[_type == "internship"] | order(coalesce(batchStartDate, _updatedAt) desc) {
   ...,
   ${internshipDomainExpand}
