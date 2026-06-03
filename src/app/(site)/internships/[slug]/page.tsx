@@ -78,7 +78,10 @@ export default async function InternshipDetailPage({ params }: InternshipDetailP
   }
 
   const all = await client.fetch<Internship[]>(getAllInternships).catch(() => [] as Internship[]);
-  const related = all.filter((i) => i._id !== internship._id && i.domain === internship.domain).slice(0, 2);
+  const domainId = internship.domain?._id;
+  const related = all
+    .filter((i) => i._id !== internship._id && domainId && i.domain?._id === domainId)
+    .slice(0, 2);
 
   const imgUrl = urlForSanityImage(internship.featuredImage, 960);
   const showApply = internship.applicationStatus === "open" && internship.googleFormLink?.trim();

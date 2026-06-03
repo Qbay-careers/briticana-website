@@ -57,7 +57,7 @@ Next.js 14 (App Router) marketing site and embedded Sanity Studio for **Britican
 ## CMS access
 
 - Editors open **`/studio`** on the deployed site or local dev server.
-- Content types include **home page** (marketing hero), internships, testimonials, FAQs, startup partners, site settings, and demo student records for verification. See [docs/sanity-seed.md](docs/sanity-seed.md) for optional seed examples.
+- Content types include **home page** (marketing hero), **internship domains** (categories referenced by internships), internships, testimonials, FAQs, startup partners, site settings, and demo student records for verification. See [docs/sanity-seed.md](docs/sanity-seed.md) for optional seed examples.
 
 ## Who is working on what
 

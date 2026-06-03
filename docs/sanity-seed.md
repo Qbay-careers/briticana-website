@@ -36,19 +36,54 @@ Create documents in **Studio** (`/studio`) or use **Vision** / **import** with N
 }
 ```
 
+## Internship domains (create before internships)
+
+Each domain is its own document; internships **reference** it (like a foreign key). Use stable `_id` values so NDJSON imports can wire references reliably.
+
+Example — Data Analysis (`_id`: `internshipDomain-data-analysis`):
+
+```json
+{
+  "_id": "internshipDomain-data-analysis",
+  "_type": "internshipDomain",
+  "title": "Data Analysis",
+  "slug": { "_type": "slug", "current": "data-analysis" },
+  "sortOrder": 1,
+  "shortOverview": "Work with real-world data to uncover insights and support decisions."
+}
+```
+
+Repeat for the other PRD slugs (same `_id` pattern: `internshipDomain-<slug>`):
+
+| `_id` | `slug.current` | Suggested title |
+|-------|----------------|-----------------|
+| `internshipDomain-human-resources` | `human-resources` | Human Resources (HR) |
+| `internshipDomain-software-development` | `software-development` | Software Development |
+| `internshipDomain-ui-ux-design` | `ui-ux-design` | UI/UX Design |
+| `internshipDomain-digital-marketing` | `digital-marketing` | Digital Marketing |
+| `internshipDomain-business-operations` | `business-operations` | Business Operations |
+| `internshipDomain-product-management` | `product-management` | Product Management |
+| `internshipDomain-cybersecurity` | `cybersecurity` | Cybersecurity |
+| `internshipDomain-cloud-devops` | `cloud-devops` | Cloud & DevOps |
+| `internshipDomain-ai-automation` | `ai-automation` | AI & Automation |
+| `internshipDomain-finance-research` | `finance-research` | Finance & Research |
+| `internshipDomain-sales-growth` | `sales-growth` | Sales & Growth |
+
 ## Internship (example)
+
+`domain` must be a **reference** to an `internshipDomain` document (not a string).
 
 ```json
 {
   "_type": "internship",
   "title": "Software Development — Spring cohort",
   "slug": { "_type": "slug", "current": "software-development-spring" },
-  "domain": "software-development",
+  "domain": { "_type": "reference", "_ref": "internshipDomain-software-development" },
   "overview": "Team-based sprint work with mentor reviews and a shipping milestone.",
   "skillsCovered": ["Git", "TypeScript", "REST APIs"],
   "toolsUsed": ["VS Code", "GitHub"],
   "durationOptions": ["3 months", "6 months"],
-  "availableRegions": ["Ireland", "United Kingdom", "Germany", "Finland"],
+  "availableRegions": ["Ireland", "United Kingdom", "Germany", "Finland", "Sweden"],
   "certificationDetails": "Briticana experience certificate upon successful completion.",
   "projectStructure": "Kickoff → weekly demos → final submission.",
   "applicationStatus": "open",
@@ -56,6 +91,10 @@ Create documents in **Studio** (`/studio`) or use **Vision** / **import** with N
   "googleFormLink": "https://docs.google.com/forms/"
 }
 ```
+
+### Migrating existing internships
+
+If documents still have `domain` as a **string** (legacy), open each internship in Studio and pick the matching domain from the **Domain** reference field, then publish. Listing/detail GROQ expects a reference.
 
 ## Student (verification demo)
 

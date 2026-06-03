@@ -1,6 +1,6 @@
-import type { InternshipDomain } from "@/lib/sanity/types";
+import type { InternshipDomainDoc, InternshipDomainSlug } from "@/lib/sanity/types";
 
-const LABELS: Record<InternshipDomain, string> = {
+const LABELS: Record<InternshipDomainSlug, string> = {
   "data-analysis": "Data Analysis",
   "human-resources": "Human Resources (HR)",
   "software-development": "Software Development",
@@ -15,7 +15,19 @@ const LABELS: Record<InternshipDomain, string> = {
   "sales-growth": "Sales & Growth",
 };
 
-export function internshipDomainLabel(domain: InternshipDomain | string | undefined): string {
-  if (!domain) return "Domain";
-  return LABELS[domain as InternshipDomain] ?? domain;
+/**
+ * Display label for an internship domain: prefers CMS `title`, then slug-based fallback map.
+ */
+export function internshipDomainLabel(
+  domain: InternshipDomainDoc | InternshipDomainSlug | string | undefined | null,
+): string {
+  if (domain == null) return "Domain";
+  if (typeof domain === "object" && domain.title?.trim()) {
+    return domain.title.trim();
+  }
+  const slug = typeof domain === "object" ? domain.slug?.current : typeof domain === "string" ? domain : undefined;
+  if (slug) {
+    return LABELS[slug as InternshipDomainSlug] ?? slug;
+  }
+  return "Domain";
 }

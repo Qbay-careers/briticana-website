@@ -1,21 +1,5 @@
 import { defineField, defineType } from "sanity";
 
-/** PRD: Briticana.pdf — Explore Internship Domains */
-const DOMAINS = [
-  { title: "Data Analysis", value: "data-analysis" },
-  { title: "Human Resources (HR)", value: "human-resources" },
-  { title: "Software Development", value: "software-development" },
-  { title: "UI/UX Design", value: "ui-ux-design" },
-  { title: "Digital Marketing", value: "digital-marketing" },
-  { title: "Business Operations", value: "business-operations" },
-  { title: "Product Management", value: "product-management" },
-  { title: "Cybersecurity", value: "cybersecurity" },
-  { title: "Cloud & DevOps", value: "cloud-devops" },
-  { title: "AI & Automation", value: "ai-automation" },
-  { title: "Finance & Research", value: "finance-research" },
-  { title: "Sales & Growth", value: "sales-growth" },
-] as const;
-
 const DURATION_OPTIONS = [
   { title: "3 months", value: "3 months" },
   { title: "6 months", value: "6 months" },
@@ -27,6 +11,7 @@ const REGIONS = [
   { title: "United Kingdom", value: "United Kingdom" },
   { title: "Germany", value: "Germany" },
   { title: "Finland", value: "Finland" },
+  { title: "Sweden", value: "Sweden" },
 ] as const;
 
 export default defineType({
@@ -50,8 +35,9 @@ export default defineType({
     defineField({
       name: "domain",
       title: "Domain",
-      type: "string",
-      options: { list: [...DOMAINS], layout: "dropdown" },
+      type: "reference",
+      to: [{ type: "internshipDomain" }],
+      description: "Category for this program — managed under Internship domains.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -138,9 +124,9 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", domain: "domain" },
-    prepare({ title, domain }) {
-      return { title: title ?? "Untitled", subtitle: domain };
+    select: { title: "title", domainTitle: "domain.title" },
+    prepare({ title, domainTitle }) {
+      return { title: title ?? "Untitled", subtitle: domainTitle ?? "Select a domain" };
     },
   },
 });

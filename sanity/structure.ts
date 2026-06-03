@@ -14,6 +14,17 @@ export const structure: StructureResolver = (S) =>
         .child(S.document().schemaType("siteSettings").documentId("siteSettings").title("Site settings")),
       S.divider(),
       S.listItem()
+        .title("Internship domains")
+        .id("internshipDomainList")
+        .child(
+          S.documentTypeList("internshipDomain")
+            .title("Internship domains")
+            .defaultOrdering([
+              { field: "sortOrder", direction: "asc" },
+              { field: "title", direction: "asc" },
+            ]),
+        ),
+      S.listItem()
         .title("Internships")
         .id("internshipList")
         .child(S.documentTypeList("internship").title("Internships").defaultOrdering([{ field: "title", direction: "asc" }])),

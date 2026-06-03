@@ -17,7 +17,8 @@ export type SanityImage = {
   crop?: { top: number; bottom: number; left: number; right: number };
 };
 
-export type InternshipDomain =
+/** Stable slug values for domains (filters, fallbacks when CMS title is absent). */
+export type InternshipDomainSlug =
   | "data-analysis"
   | "human-resources"
   | "software-development"
@@ -31,9 +32,23 @@ export type InternshipDomain =
   | "finance-research"
   | "sales-growth";
 
+/** CMS document: `internshipDomain` — referenced from `internship.domain`. */
+export interface InternshipDomainDoc {
+  _id: string;
+  _type: "internshipDomain";
+  title: string;
+  slug: SanitySlug;
+  shortOverview?: string;
+}
+
 export type InternshipDurationOption = "3 months" | "6 months" | "9 months";
 
-export type InternshipRegion = "Ireland" | "United Kingdom" | "Germany" | "Finland";
+export type InternshipRegion =
+  | "Ireland"
+  | "United Kingdom"
+  | "Germany"
+  | "Finland"
+  | "Sweden";
 
 export type InternshipApplicationStatus = "open" | "closed" | "coming-soon";
 
@@ -42,7 +57,8 @@ export interface Internship {
   _type: "internship";
   title: string;
   slug: SanitySlug;
-  domain: InternshipDomain;
+  /** Dereferenced in GROQ; null if reference missing or broken. */
+  domain?: InternshipDomainDoc | null;
   overview?: string;
   skillsCovered?: string[];
   toolsUsed?: string[];
