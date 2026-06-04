@@ -15,7 +15,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
       <div className="container mw-1345">
         <div className="position-relative z-1">
           <div className="banner-content text-center" data-cues="slideInUp" data-group="images">
-            <h1>{homeHero.headline}</h1>
+            <h3 className="display-3 fw-bold">{homeHero.headline}</h3>
             {homeHero.subheadline ? (
               <p className="mx-auto text-secondary col-lg-10 col-xl-8 mt-3 mb-4">{homeHero.subheadline}</p>
             ) : null}

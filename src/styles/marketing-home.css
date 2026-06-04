@@ -167,6 +167,8 @@
   width: 145px;
   height: 170px;
   object-fit: cover;
+}
+
 /* Internship detail (course-details template) */
 .marketing-home-root .internship-detail-banner h2 .internship-detail-banner__subtitle {
   background-image: none;

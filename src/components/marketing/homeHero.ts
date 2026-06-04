@@ -25,8 +25,8 @@ export type HomeHeroData = {
 
 /** PRD-aligned defaults when Sanity is empty or not configured. */
 export const defaultHomeHero: HomeHeroData = {
-  headline: "Build Real Industry Experience",
-  subheadline: "Before Your First Job",
+  headline: "Get Real Startup Experience Before Your First Job",
+  subheadline: "Work on real startup projects, collaborate with ambitious teams, and build practical experience that helps you stand out in today’s competitive job market.",
   overview:
     "Briticana is an execution-focused experience platform where students collaborate on real-world projects under guided mentorship and structured workflows inspired by modern startups and professional teams.",
   ctaApplyHref: "/contact",
