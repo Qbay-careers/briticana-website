@@ -7,6 +7,12 @@ export default defineType({
   fields: [
     defineField({ name: "email", title: "Email", type: "string" }),
     defineField({ name: "whatsappNumber", title: "WhatsApp number", type: "string" }),
+    defineField({
+      name: "whatsappUrl",
+      title: "WhatsApp link",
+      type: "url",
+      description: "e.g. https://wa.me/3531234567890",
+    }),
     defineField({ name: "contactNumber", title: "Contact number", type: "string" }),
     defineField({ name: "officeAddress", title: "Office address", type: "text", rows: 3 }),
     defineField({ name: "googleMapsLink", title: "Google Maps link", type: "url" }),

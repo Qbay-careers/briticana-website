@@ -1,16 +1,30 @@
-import MarketingHomeBottom from "@/components/marketing/MarketingHomeBottom";
-import MarketingHomeTop from "@/components/marketing/MarketingHomeTop";
+import type { HomeHeroData } from "@/components/marketing/homeHero";
+import MarketingHomeSections from "@/components/marketing/MarketingHomeSections";
 import MarketingNav from "@/components/marketing/MarketingNav";
+import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
 
-export default function MarketingPageShell() {
+type MarketingPageShellProps = {
+  homeHero: HomeHeroData;
+  internshipDomains?: InternshipDomainDoc[];
+  featuredInternships: Internship[];
+};
+
+export default function MarketingPageShell({
+  homeHero,
+  internshipDomains = [],
+  featuredInternships,
+}: MarketingPageShellProps) {
   return (
     <div className="marketing-home-root">
       <div className="preloader">
         <img src="/edumove/images/preloader.gif" alt="preloader" />
       </div>
       <MarketingNav />
-      <MarketingHomeTop />
-      <MarketingHomeBottom />
+      <MarketingHomeSections
+        homeHero={homeHero}
+        internshipDomains={internshipDomains}
+        featuredInternships={featuredInternships}
+      />
     </div>
   );
 }

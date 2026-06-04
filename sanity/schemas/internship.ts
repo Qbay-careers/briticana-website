@@ -1,20 +1,5 @@
 import { defineField, defineType } from "sanity";
 
-const DOMAINS = [
-  { title: "Software Engineering", value: "software-engineering" },
-  { title: "Data Science & Analytics", value: "data-science-analytics" },
-  { title: "Cybersecurity", value: "cybersecurity" },
-  { title: "UX / UI Design", value: "ux-ui-design" },
-  { title: "Digital Marketing", value: "digital-marketing" },
-  { title: "Cloud & DevOps", value: "cloud-devops" },
-  { title: "Artificial Intelligence", value: "artificial-intelligence" },
-  { title: "Mobile Development", value: "mobile-development" },
-  { title: "Web Development", value: "web-development" },
-  { title: "Product Management", value: "product-management" },
-  { title: "Business Analysis", value: "business-analysis" },
-  { title: "FinTech", value: "fintech" },
-] as const;
-
 const DURATION_OPTIONS = [
   { title: "3 months", value: "3 months" },
   { title: "6 months", value: "6 months" },
@@ -23,9 +8,10 @@ const DURATION_OPTIONS = [
 
 const REGIONS = [
   { title: "Ireland", value: "Ireland" },
-  { title: "UK", value: "UK" },
+  { title: "United Kingdom", value: "United Kingdom" },
   { title: "Germany", value: "Germany" },
   { title: "Finland", value: "Finland" },
+  { title: "Sweden", value: "Sweden" },
 ] as const;
 
 export default defineType({
@@ -49,8 +35,9 @@ export default defineType({
     defineField({
       name: "domain",
       title: "Domain",
-      type: "string",
-      options: { list: [...DOMAINS], layout: "dropdown" },
+      type: "reference",
+      to: [{ type: "internshipDomain" }],
+      description: "Category for this program — managed under Internship domains.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -137,9 +124,9 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", domain: "domain" },
-    prepare({ title, domain }) {
-      return { title: title ?? "Untitled", subtitle: domain };
+    select: { title: "title", domainTitle: "domain.title" },
+    prepare({ title, domainTitle }) {
+      return { title: title ?? "Untitled", subtitle: domainTitle ?? "Select a domain" };
     },
   },
 });
