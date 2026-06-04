@@ -1,12 +1,20 @@
 import Link from "next/link";
 
+import type { HomeHeroData } from "@/components/marketing/homeHero";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
-
 import { TESTIMONIALS } from "@/components/marketing/sections/marketingHomeData";
+import { urlForSanityImage } from "@/lib/sanity/image";
+import type { Testimonial } from "@/lib/sanity/types";
 
-const TESTIMONIAL_USER_AVATARS = ["user1.jpg", "user2.jpg", "user3.jpg", "user4.jpg"] as const;
+export type MarketingTestimonialsSectionProps = {
+  testimonials: Testimonial[];
+  homeHero: HomeHeroData;
+};
 
-export default function MarketingTestimonialsSection() {
+export default function MarketingTestimonialsSection({ testimonials, homeHero }: MarketingTestimonialsSectionProps) {
+  // Use Sanity testimonials if available, otherwise fall back to static placeholders.
+  const hasSanity = testimonials.length > 0;
+
   return (
     <div className="testimonial-area ptb-120">
       <div className="container mw-1345">
@@ -28,21 +36,48 @@ export default function MarketingTestimonialsSection() {
           </div>
         </div>
         <div className="testimonial-slide owl-carousel owl-theme">
-          {TESTIMONIALS.map((t) => (
-            <div key={t.name} className="testimonial-single-item bg-f7f7f7">
-              <img src={marketingImage("quat.svg")} className="quat" alt="" />
-              <p>{t.quote}</p>
-              <div className="d-flex align-items-center info">
-                <div className="flex-shrink-0">
-                  <img src={marketingImage(t.img)} style={{ width: "60px" }} className="rounded-circle" alt="" />
+          {hasSanity
+            ? testimonials.map((t) => {
+                const photoUrl = urlForSanityImage(t.photo, 80, 80) ?? marketingImage("user1.jpg");
+                return (
+                  <div key={t._id} className="testimonial-single-item bg-f7f7f7">
+                    <img src={marketingImage("quat.svg")} className="quat" alt="" />
+                    <p>{t.quote}</p>
+                    <div className="d-flex align-items-center info">
+                      <div className="flex-shrink-0">
+                        <img
+                          src={photoUrl}
+                          className="testimonial-avatar rounded-circle"
+                          alt={t.studentName ?? ""}
+                        />
+                      </div>
+                      <div className="flex-grow-1 ms-3">
+                        <h4>{t.studentName}</h4>
+                        <span>{t.role ?? t.cohortTag}</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            : TESTIMONIALS.map((t) => (
+                <div key={t.name} className="testimonial-single-item bg-f7f7f7">
+                  <img src={marketingImage("quat.svg")} className="quat" alt="" />
+                  <p>{t.quote}</p>
+                  <div className="d-flex align-items-center info">
+                    <div className="flex-shrink-0">
+                      <img
+                        src={marketingImage(t.img)}
+                        className="testimonial-avatar rounded-circle"
+                        alt=""
+                      />
+                    </div>
+                    <div className="flex-grow-1 ms-3">
+                      <h4>{t.name}</h4>
+                      <span>{t.role}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-grow-1 ms-3">
-                  <h4>{t.name}</h4>
-                  <span>{t.role}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+              ))}
         </div>
         <div className="more-testimonial d-flex justify-content-center justify-content-md-end">
           <div>
@@ -50,9 +85,9 @@ export default function MarketingTestimonialsSection() {
               Join Our Growing <span>Community of Learners</span>
             </h4>
             <ul className="p-0 m-0 list-unstyled d-flex justify-content-center justify-content-md-start">
-              {TESTIMONIAL_USER_AVATARS.map((u, i) => (
-                <li key={u} className={i === 3 ? "position-relative z-1" : undefined}>
-                  <img src={marketingImage(u)} alt="" />
+              {homeHero.testimonialAvatars.map((u, i) => (
+                <li key={i} className={i === 3 ? "position-relative z-1" : undefined}>
+                  <img src={u} alt={`Participant ${i + 1}`} className="testimonial-community-avatar" />
                   {i === 3 ? (
                     <Link href="/internships" className="more d-flex justify-content-center align-items-center text-decoration-none text-white">
                       <i className="ri-add-line" />

@@ -8,15 +8,18 @@ export default defineType({
   groups: [
     { name: "hero", title: "Hero section" },
     { name: "heroImages", title: "Hero floating images" },
+    { name: "heroStrip", title: "Hero bottom strip" },
+    { name: "about", title: "About section" },
+    { name: "certification", title: "Certification section" },
+    { name: "testimonials", title: "Testimonials section" },
   ],
   fields: [
+    // ── Hero text / CTAs ─────────────────────────────────────────────────
     defineField({
       name: "heroHeadline",
       title: "Hero headline",
       type: "string",
       group: "hero",
-      // No required() — code falls back to a default when empty,
-      // so the client can publish image-only changes without a headline.
     }),
     defineField({
       name: "heroSubheadline",
@@ -48,7 +51,7 @@ export default defineType({
       group: "hero",
     }),
 
-    // ── Hero floating image slots ─────────────────────────────────────────
+    // ── Hero floating image slots (banner1–6) ────────────────────────────
     defineField({
       name: "heroImage1",
       title: "Floating image — slot 1 (top-left)",
@@ -95,6 +98,109 @@ export default defineType({
       type: "image",
       group: "heroImages",
       description: "Positioned bottom-right in the hero. Portrait photo, min 290 × 340 px. Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+
+    // ── Hero bottom strip ────────────────────────────────────────────────
+    defineField({
+      name: "stripMainImage",
+      title: "Strip — main image (left, large)",
+      type: "image",
+      group: "heroStrip",
+      description: "Large landscape image on the left. Recommended aspect ratio 1260 × 900. Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "stripSideImage",
+      title: "Strip — side image (right, tall)",
+      type: "image",
+      group: "heroStrip",
+      description: "Tall portrait image on the right. Recommended aspect ratio 1030 × 1350. Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "stripAvatar1",
+      title: "Strip — educator avatar 1",
+      type: "image",
+      group: "heroStrip",
+      description: "Small circular avatar (45 × 45 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "stripAvatar2",
+      title: "Strip — educator avatar 2",
+      type: "image",
+      group: "heroStrip",
+      description: "Small circular avatar (45 × 45 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "stripAvatar3",
+      title: "Strip — educator avatar 3",
+      type: "image",
+      group: "heroStrip",
+      description: "Small circular avatar (45 × 45 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "stripAvatar4",
+      title: "Strip — educator avatar 4",
+      type: "image",
+      group: "heroStrip",
+      description: "Small circular avatar (45 × 45 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+
+    // ── About section ────────────────────────────────────────────────────
+    defineField({
+      name: "aboutImage",
+      title: "About section — main image",
+      type: "image",
+      group: "about",
+      description: "Large image on the left side of the 'What is Briticana?' section. Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+
+    // ── Certification section ─────────────────────────────────────────────
+    defineField({
+      name: "certImage",
+      title: "Certification section — certificate image",
+      type: "image",
+      group: "certification",
+      description: "Image on the right side of the Certification section (e.g. a certificate mockup). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    // ── Testimonials section ─────────────────────────────────────────────
+    defineField({
+      name: "testimonialAvatar1",
+      title: "Testimonial community avatar 1",
+      type: "image",
+      group: "testimonials",
+      description: "Small avatar in 'Join Our Growing Community' (60 × 60 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "testimonialAvatar2",
+      title: "Testimonial community avatar 2",
+      type: "image",
+      group: "testimonials",
+      description: "Small avatar in 'Join Our Growing Community' (60 × 60 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "testimonialAvatar3",
+      title: "Testimonial community avatar 3",
+      type: "image",
+      group: "testimonials",
+      description: "Small avatar in 'Join Our Growing Community' (60 × 60 px). Leave empty to use the default.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "testimonialAvatar4",
+      title: "Testimonial community avatar 4",
+      type: "image",
+      group: "testimonials",
+      description: "Small avatar in 'Join Our Growing Community' (60 × 60 px). Leave empty to use the default.",
       options: { hotspot: true },
     }),
   ],
