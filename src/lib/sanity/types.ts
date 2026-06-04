@@ -85,6 +85,13 @@ export interface HomePage {
   heroOverview?: string;
   heroCtaApplyUrl?: string;
   heroCtaExploreUrl?: string;
+  /** Named floating image slots — slot 1–6 map to banner1–banner6 positions. */
+  heroImage1?: SanityImage;
+  heroImage2?: SanityImage;
+  heroImage3?: SanityImage;
+  heroImage4?: SanityImage;
+  heroImage5?: SanityImage;
+  heroImage6?: SanityImage;
 }
 
 export interface Testimonial {

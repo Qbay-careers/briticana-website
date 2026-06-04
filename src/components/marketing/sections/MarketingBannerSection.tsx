@@ -30,12 +30,14 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
           </div>
 
           <div className="d-none d-md-inline-block" data-cues="slideInUp" data-group="images">
-            <img src={marketingImage("banner-1.jpg")} className="banner1 position-absolute z-n1 rounded-3" alt="" />
-            <img src={marketingImage("banner-2.jpg")} className="banner2 position-absolute z-n1 rounded-3" alt="" />
-            <img src={marketingImage("banner-3.jpg")} className="banner3 position-absolute z-n1 rounded-3" alt="" />
-            <img src={marketingImage("banner-4.jpg")} className="banner4 position-absolute z-n1 rounded-3" alt="" />
-            <img src={marketingImage("banner-5.jpg")} className="banner5 position-absolute z-n1 rounded-3" alt="" />
-            <img src={marketingImage("banner-6.jpg")} className="banner6 position-absolute z-n1 rounded-3" alt="" />
+            {homeHero.floatingImages.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                className={`banner${index + 1} position-absolute z-n1 rounded-3`}
+                alt=""
+              />
+            ))}
             <img src={marketingImage("shape1.png")} className="shape1 position-absolute z-n1 rounded-3" alt="" />
           </div>
         </div>

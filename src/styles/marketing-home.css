@@ -157,6 +157,16 @@
   color: var(--mainColor, #7a4dfc);
 }
 
+/* Hero floating images — match placeholder dimensions */
+.marketing-home-root .banner1,
+.marketing-home-root .banner2,
+.marketing-home-root .banner3,
+.marketing-home-root .banner4,
+.marketing-home-root .banner5,
+.marketing-home-root .banner6 {
+  width: 145px;
+  height: 170px;
+  object-fit: cover;
 /* Internship detail (course-details template) */
 .marketing-home-root .internship-detail-banner h2 .internship-detail-banner__subtitle {
   background-image: none;
