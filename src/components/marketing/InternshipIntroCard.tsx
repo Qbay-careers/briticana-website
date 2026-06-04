@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
+import { splitInternshipTitle } from "@/lib/splitInternshipTitle";
 import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
 
 export type InternshipIntroCardProps = {
@@ -18,16 +19,6 @@ function statusLabel(status: InternshipApplicationStatus | undefined): string {
     default:
       return "Internship";
   }
-}
-
-/** Split "Data Analyst — Advanced Analytics…" into a short title + descriptive subtitle. */
-function splitTitle(title: string): { main: string; subtitle?: string } {
-  const match = title.split(/\s[—–-]\s/);
-  if (match.length > 1) {
-    const [main, ...rest] = match;
-    return { main: main.trim(), subtitle: rest.join(" — ").trim() };
-  }
-  return { main: title.trim() };
 }
 
 function formatBatch(batchStartDate: string | undefined): string {
@@ -55,7 +46,7 @@ export default function InternshipIntroCard({ internship }: InternshipIntroCardP
   const slug = internship.slug?.current?.trim();
   const detailHref = slug ? `/internships/${slug}` : "/internships";
   const domainLabel = internshipDomainLabel(internship.domain ?? undefined);
-  const { main, subtitle } = splitTitle(internship.title);
+  const { main, subtitle } = splitInternshipTitle(internship.title);
   const skills = internship.skillsCovered?.slice(0, 3) ?? [];
   const duration = internship.durationOptions?.length ? internship.durationOptions.join(" / ") : null;
   const showApply =
