@@ -10,7 +10,7 @@ export default function MarketingJourneyCtaSection() {
           <div className="section-title text-center mx-auto" style={{ maxWidth: "760px" }} data-cues="slideInUp">
             <div className="position-relative z-1 mb-4">
               <h2>
-                Ready to <span>Begin Your</span> Learning Journey?
+                Start Building Experience <span>That Actually Matters</span>
               </h2>
               <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
               <img
@@ -21,15 +21,15 @@ export default function MarketingJourneyCtaSection() {
               />
             </div>
             <p>
-              A gentle calm has wrapped around me, much like the tender embrace of a spring morning that fills my
-              heart with quiet joy.
+              Join Briticana and gain the practical exposure, confidence, and project experience needed to grow your
+              career.
             </p>
             <div className="d-flex flex-wrap justify-content-center mt-lg-5 mt-4" style={{ gap: "20px" }}>
-              <Link href="/courses" className="main-btn black">
-                Browse Courses
+              <Link href="/internships" className="main-btn">
+                Apply Now
               </Link>
-              <Link href="/programs" className="main-btn">
-                Become A Teacher
+              <Link href="/contact" className="main-btn black">
+                Talk to Us
               </Link>
             </div>
           </div>

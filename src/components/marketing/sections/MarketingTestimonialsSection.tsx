@@ -12,8 +12,11 @@ export default function MarketingTestimonialsSection() {
       <div className="container mw-1345">
         <div className="section-title text-center mx-auto" style={{ maxWidth: "615px" }}>
           <div className="position-relative z-1">
+            <p className="small fw-semibold text-secondary text-uppercase mb-2" style={{ letterSpacing: "0.06em" }}>
+              Social proof
+            </p>
             <h2>
-              What <span>Students Say</span> About Briticana
+              Real Experiences From <span>Our Participants</span>
             </h2>
             <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
             <img
@@ -44,14 +47,14 @@ export default function MarketingTestimonialsSection() {
         <div className="more-testimonial d-flex justify-content-center justify-content-md-end">
           <div>
             <h4>
-              Trusted by <span>120K+</span> Learners Worldwide
+              Join Our Growing <span>Community of Learners</span>
             </h4>
             <ul className="p-0 m-0 list-unstyled d-flex justify-content-center justify-content-md-start">
               {TESTIMONIAL_USER_AVATARS.map((u, i) => (
                 <li key={u} className={i === 3 ? "position-relative z-1" : undefined}>
                   <img src={marketingImage(u)} alt="" />
                   {i === 3 ? (
-                    <Link href="/programs" className="more d-flex justify-content-center align-items-center text-decoration-none text-white">
+                    <Link href="/internships" className="more d-flex justify-content-center align-items-center text-decoration-none text-white">
                       <i className="ri-add-line" />
                     </Link>
                   ) : null}

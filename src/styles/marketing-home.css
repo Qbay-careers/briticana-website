@@ -207,3 +207,99 @@
 .marketing-home-root .internship-detail-hero {
   max-height: 420px;
 }
+
+/* Home: shared "check" list (certification, process phases, startups) */
+.marketing-home-root .briti-check-list li {
+  margin-bottom: 10px;
+  line-height: 1.45;
+}
+
+.marketing-home-root .briti-check-list li:last-child {
+  margin-bottom: 0;
+}
+
+.marketing-home-root .briti-check-list li > i {
+  color: var(--mainColor, #7a4dfc);
+  font-size: 18px;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.marketing-home-root .briti-check-list--light li,
+.marketing-home-root .briti-check-list--light li > i {
+  color: #fff;
+}
+
+/* Home: "Why students trust" feature cards */
+.marketing-home-root .trust-feature-card {
+  border: 1px solid rgba(3, 1, 13, 0.07);
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .trust-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(3, 1, 13, 0.08);
+}
+
+.marketing-home-root .trust-feature-card__icon {
+  width: 64px;
+  height: 64px;
+  background-color: rgba(122, 77, 252, 0.1);
+}
+
+.marketing-home-root .trust-feature-card__icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.marketing-home-root .trust-feature-note {
+  font-size: 18px;
+  color: var(--headingColor, #03010d);
+}
+
+/* Home: "How Briticana works" phase cards */
+.marketing-home-root .process-phase-card {
+  border: 1px solid rgba(3, 1, 13, 0.07);
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .process-phase-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(3, 1, 13, 0.08);
+}
+
+.marketing-home-root .process-phase-card__num {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--mainColor, #7a4dfc);
+}
+
+/* Home: "For startups & founders" purple band override (reuses about-content-three) */
+.marketing-home-root .startups-band {
+  padding: 60px;
+}
+
+.marketing-home-root .startups-band__eyebrow,
+.marketing-home-root .startups-band__subtitle {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.marketing-home-root .startups-band .main-btn {
+  background-color: var(--headingColor, #03010d);
+  color: #fff;
+}
+
+.marketing-home-root .startups-band .main-btn:hover {
+  background-color: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+}
+
+@media (max-width: 575px) {
+  .marketing-home-root .startups-band {
+    padding: 36px 24px;
+  }
+}
