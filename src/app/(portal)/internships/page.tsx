@@ -59,7 +59,7 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
         <div className="container mw-1345">
           <div className="position-relative z-1">
             <div className="page-banner-content">
-              <ul className="p-0 list-unstyled d-flex flex-wrap gap-2">
+              <ul className="p-0 list-unstyled d-flex flex-wrap">
                 <li>
                   <Link href="/">Home</Link>
                 </li>
@@ -70,7 +70,7 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
               <h2>
                 Browse <span>Internships</span>
               </h2>
-              <p className="text-secondary mt-2 mb-0" style={{ maxWidth: "600px" }}>
+              <p className="text-secondary mt-2 mb-2" style={{ maxWidth: "600px" }}>
                 Compare mentor-led tracks, filter by domain and region, and apply when your timing aligns with the next
                 batch.
               </p>

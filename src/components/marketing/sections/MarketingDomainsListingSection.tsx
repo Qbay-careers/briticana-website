@@ -32,7 +32,7 @@ export default function MarketingDomainsListingSection({
         <div className="container mw-1345">
           <div className="position-relative z-1">
             <div className="page-banner-content">
-              <ul className="p-0 list-unstyled d-flex flex-wrap gap-2">
+              <ul className="p-0 list-unstyled d-flex flex-wrap">
                 <li>
                   <Link href="/">Home</Link>
                 </li>
