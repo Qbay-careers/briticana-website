@@ -42,7 +42,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
           </div>
         </div>
       </div>
-      <div className="pb-120" />
+      {/* <div className="pb-120" />
       <div className="container mw-1345 position-relative z-1">
         <div className="row g-4" data-cues="slideInUp">
           <div className="col-lg-9">
@@ -80,7 +80,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
           </div>
         </div>
         <img src={marketingImage("shape2.png")} className="shape2 d-none d-lg-inline-block position-absolute" alt="" />
-      </div>
+      </div> */}
     </div>
   );
 }

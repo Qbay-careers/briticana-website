@@ -1,6 +1,15 @@
 import Link from "next/link";
 
-import { marketingIcon, marketingImage } from "@/components/marketing/marketingAssetPaths";
+import { marketingImage } from "@/components/marketing/marketingAssetPaths";
+
+const BRITICANA_BULLETS = [
+  "Work on real business challenges",
+  "Collaborate with teams",
+  "Learn through execution",
+  "Build practical skills",
+  "Create portfolio-ready projects",
+  "Gain confidence through real experience",
+] as const;
 
 export default function MarketingAboutSection() {
   return (
@@ -17,9 +26,16 @@ export default function MarketingAboutSection() {
           </div>
           <div className="col-lg-6">
             <div className="about-content">
-              <div className="d-inline-block position-relative z-1 mb-50">
+              <div className="d-inline-block position-relative z-1 mb-3">
+                <p
+                  className="small fw-semibold text-secondary text-uppercase mb-2"
+                  style={{ letterSpacing: "0.06em" }}
+                >
+                  What is Briticana?
+                </p>
                 <h2>
-                  A Fresh Approach to Enhancing <span>Your Skills</span>
+                  Not Just a Course. Not Just an Internship. A Real{" "}
+                  <span>Experience Platform.</span>
                 </h2>
                 <img src={marketingImage("title-shape.png")} className="ms-lg-5" alt="" />
                 <img
@@ -29,51 +45,32 @@ export default function MarketingAboutSection() {
                   alt=""
                 />
               </div>
-              <p className="dec">
-                Possessing a strong education is among the most important advantages a person can hold. It profoundly
-                impacts personal and professional development.
+              <p className="dec mb-3">
+                Briticana is a project-driven experience platform for students, freshers, and aspiring professionals.
+                Instead of only learning theory, participants work on structured startup-style projects in
+                collaborative teams, guided by mentors and industry-focused workflows.
               </p>
-              <div className="d-sm-flex about-info mt-40">
-                <div className="flex-shrink-0">
-                  <div className="icon d-flex justify-content-center align-items-center rounded-circle">
-                    <img src={marketingIcon("call.svg")} alt="" />
-                  </div>
-                </div>
-                <div className="flex-grow-1 mt-3 mt-sm-0">
-                  <h3>Flexible Study Hours</h3>
-                  <p>Flexible scheduling empowers students to learn at their own pace and convenience.</p>
-                </div>
-              </div>
-              <div className="d-sm-flex about-info">
-                <div className="flex-shrink-0">
-                  <div className="icon d-flex justify-content-center align-items-center rounded-circle">
-                    <img src={marketingIcon("instructors.svg")} alt="" />
-                  </div>
-                </div>
-                <div className="flex-grow-1 mt-3 mt-sm-0">
-                  <h3>Qualified Instructors</h3>
-                  <p>
-                    Every Instructor is certified and holds advanced degrees, ensuring you&apos;re guided by true
-                    professionals.
-                  </p>
-                </div>
-              </div>
-              <div className="d-sm-flex about-info">
-                <div className="flex-shrink-0">
-                  <div className="icon d-flex justify-content-center align-items-center rounded-circle">
-                    <img src={marketingIcon("career.svg")} alt="" />
-                  </div>
-                </div>
-                <div className="flex-grow-1 mt-3 mt-sm-0">
-                  <h3>Advance Your Career</h3>
-                  <p>
-                    Build confidence for job interviews through realistic practice sessions, detailed feedback, and
-                    presentation tips.
-                  </p>
-                </div>
-              </div>
-              <Link href="/programs" className="main-btn">
-                Know More
+              <p className="fw-semibold mb-2">At Briticana, you will:</p>
+              <ul className="list-unstyled mb-4 about-bullets row g-2">
+                {BRITICANA_BULLETS.map((item) => (
+                  <li key={item} className="col-sm-6 d-flex gap-2">
+                    <span
+                      className="flex-shrink-0"
+                      style={{ color: "var(--mainColor, #7a4dfc)" }}
+                      aria-hidden
+                    >
+                      ●
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="dec mb-4">
+                <span className="fw-semibold">Our goal is simple:</span> help students become industry-ready through
+                hands-on project experience.
+              </p>
+              <Link href="/internships" className="main-btn">
+                Explore internships
               </Link>
             </div>
           </div>

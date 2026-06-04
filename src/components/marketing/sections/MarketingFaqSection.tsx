@@ -36,14 +36,14 @@ export default function MarketingFaqSection() {
                     aria-expanded="true"
                     aria-controls="collapseOne"
                   >
-                    What Is Briticana?
+                    Is this a traditional internship?
                   </button>
                 </h2>
                 <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
                     <p>
-                      Briticana is an internship and startup showcase platform designed to help learners build
-                      practical skills through mentor-led programs and flexible options across Europe.
+                      No. Briticana is a structured project-based experience platform focused on practical learning and
+                      execution.
                     </p>
                   </div>
                 </div>
@@ -58,15 +58,12 @@ export default function MarketingFaqSection() {
                     aria-expanded="false"
                     aria-controls="collapseTwo"
                   >
-                    How do I enroll in a program?
+                    Will I work on real projects?
                   </button>
                 </h2>
                 <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
-                    <p>
-                      Browse open internships, pick your domain and region, then follow the application link for your
-                      chosen batch.
-                    </p>
+                    <p>Yes. Participants work on startup-style real-world projects in mentored teams.</p>
                   </div>
                 </div>
               </div>
@@ -80,12 +77,12 @@ export default function MarketingFaqSection() {
                     aria-expanded="false"
                     aria-controls="collapseThree"
                   >
-                    Can I access materials on mobile devices?
+                    Do I need prior experience?
                   </button>
                 </h2>
                 <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
-                    <p>Yes — the platform is responsive and works across modern phones and tablets.</p>
+                    <p>No. Programs are designed for beginners as well as intermediate learners.</p>
                   </div>
                 </div>
               </div>
@@ -99,12 +96,12 @@ export default function MarketingFaqSection() {
                     aria-expanded="false"
                     aria-controls="collapseFour"
                   >
-                    Is there a certificate upon completion?
+                    Do you provide certificates?
                   </button>
                 </h2>
                 <div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
-                    <p>Eligible tracks include verification-friendly completion records; see our certification policy.</p>
+                    <p>Yes. Participants receive a Briticana Experience Certificate after successful completion.</p>
                   </div>
                 </div>
               </div>
@@ -118,12 +115,15 @@ export default function MarketingFaqSection() {
                     aria-expanded="false"
                     aria-controls="collapseFive"
                   >
-                    What is the duration of programs?
+                    Do you guarantee jobs?
                   </button>
                 </h2>
                 <div id="collapseFive" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div className="accordion-body">
-                    <p>Most internship tracks offer 3, 6, or 9 month options depending on the listing.</p>
+                    <p>
+                      We do not guarantee jobs, but we help participants become industry-ready through practical
+                      experience and portfolio development.
+                    </p>
                   </div>
                 </div>
               </div>
