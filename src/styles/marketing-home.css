@@ -17,6 +17,30 @@
   object-fit: contain;
 }
 
+/* Page banner breadcrumbs — flex rows + theme li::before separator stay vertically centered */
+.marketing-home-root .page-banner-content > ul.d-flex {
+  align-items: center;
+}
+
+.marketing-home-root .page-banner-content > ul.d-flex > li {
+  display: flex;
+  align-items: center;
+  line-height: 1.35;
+}
+
+.marketing-home-root .page-banner-content > ul.d-flex > li::before {
+  top: 50%;
+  bottom: auto;
+  height: 14px;
+  transform: translateY(-50%) rotate(10deg);
+}
+
+.marketing-home-root .page-banner-content > ul.d-flex > li > a,
+.marketing-home-root .page-banner-content > ul.d-flex > li > span {
+  display: inline-flex;
+  align-items: center;
+}
+
 /* Featured internship intro cards (home featured band) — no hero image */
 .marketing-home-root .internship-intro-card {
   border: 1px solid rgba(3, 1, 13, 0.08);
@@ -143,4 +167,41 @@
   width: 145px;
   height: 170px;
   object-fit: cover;
+/* Internship detail (course-details template) */
+.marketing-home-root .internship-detail-banner h2 .internship-detail-banner__subtitle {
+  background-image: none;
+  color: var(--mainColor, #7a4dfc);
+  display: inline;
+}
+
+.marketing-home-root .internship-detail-title h2 {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.35;
+}
+
+.marketing-home-root .internship-detail-content h2:first-of-type {
+  margin-top: 0;
+}
+
+.marketing-home-root .internship-detail-sidebar {
+  box-shadow: 0 8px 32px rgba(3, 1, 13, 0.06);
+  border: 1px solid rgba(3, 1, 13, 0.06);
+}
+
+@media (min-width: 992px) {
+  .marketing-home-root .internship-detail-sidebar {
+    top: 100px;
+  }
+}
+
+.marketing-home-root .internship-detail-sidebar-meta .label {
+  font-weight: 600;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .internship-detail-hero {
+  max-height: 420px;
 }
