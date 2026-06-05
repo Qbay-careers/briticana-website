@@ -46,7 +46,7 @@ const PHASES: Phase[] = [
 
 export default function MarketingHowItWorksSection() {
   return (
-    <div className="how-it-works-area ptb-120">
+    <div className="how-it-works-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="section-title text-center mx-auto" style={{ maxWidth: "680px" }} data-cues="slideInUp">
           <div className="position-relative z-1">

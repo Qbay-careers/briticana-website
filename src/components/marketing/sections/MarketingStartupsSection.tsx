@@ -11,7 +11,7 @@ const TEAM_OUTCOMES = [
 
 export default function MarketingStartupsSection() {
   return (
-    <div className="startups-area ptb-120">
+    <div className="startups-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="startups-band about-content-three rounded-4 position-relative overflow-hidden" data-cues="slideInUp">
           <div className="row g-4">

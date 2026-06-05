@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import type { HomeHeroData } from "@/components/marketing/homeHero";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
 const BRITICANA_BULLETS = [
@@ -11,14 +12,23 @@ const BRITICANA_BULLETS = [
   "Gain confidence through real experience",
 ] as const;
 
-export default function MarketingAboutSection() {
+export type MarketingAboutSectionProps = {
+  homeHero: HomeHeroData;
+};
+
+export default function MarketingAboutSection({ homeHero }: MarketingAboutSectionProps) {
   return (
-    <div className="about-area ptb-120">
+    <div className="about-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="row g-4 align-items-center" data-cues="slideInUp">
           <div className="col-lg-6">
             <div className="about-img position-relative z-1">
-              <img src={marketingImage("about.png")} alt="" />
+              {/* Main image: managed via Sanity "About section" tab */}
+              <img
+                src={homeHero.aboutImage}
+                className="about-main-img"
+                alt="What is Briticana?"
+              />
               <img src={marketingImage("shape5.png")} className="shape5 position-absolute d-none d-lg-inline-block" alt="" />
               <img src={marketingImage("shape6.png")} className="shape6 position-absolute d-none d-lg-inline-block" alt="" />
               <img src={marketingImage("shape7.png")} className="shape7 position-absolute d-none d-lg-inline-block" alt="" />

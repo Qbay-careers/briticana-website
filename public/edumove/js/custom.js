@@ -159,7 +159,7 @@
 	// Testimonial Slide JS
 	$('.testimonial-slide').owlCarousel({
 		items: 1,
-		loop: true,
+		loop: false,
 		margin: 25,
 		nav: true,
 		dots: false,

@@ -51,7 +51,7 @@ function runScrollCueUpdate(): void {
 export default function MarketingVendorScripts() {
   useEffect(() => {
     let cancelled = false;
-
+ 
     (async () => {
       try {
         for (const file of SCRIPT_FILES) {

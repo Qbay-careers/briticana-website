@@ -85,6 +85,8 @@ export interface HomePage {
   heroOverview?: string;
   heroCtaApplyUrl?: string;
   heroCtaExploreUrl?: string;
+  /** Wide hero for stacked layout on viewports under 1400px (separate from floating tiles). */
+  heroImageWide?: SanityImage;
   /** Named floating image slots — slot 1–6 map to banner1–banner6 positions. */
   heroImage1?: SanityImage;
   heroImage2?: SanityImage;
@@ -92,6 +94,22 @@ export interface HomePage {
   heroImage4?: SanityImage;
   heroImage5?: SanityImage;
   heroImage6?: SanityImage;
+  /** Hero bottom strip images (below pb-120 spacer). */
+  stripMainImage?: SanityImage;
+  stripSideImage?: SanityImage;
+  stripAvatar1?: SanityImage;
+  stripAvatar2?: SanityImage;
+  stripAvatar3?: SanityImage;
+  stripAvatar4?: SanityImage;
+  /** About section — left side image. */
+  aboutImage?: SanityImage;
+  /** Certification section — certificate mockup image. */
+  certImage?: SanityImage;
+  /** Testimonial section circular avatars. */
+  testimonialAvatar1?: SanityImage;
+  testimonialAvatar2?: SanityImage;
+  testimonialAvatar3?: SanityImage;
+  testimonialAvatar4?: SanityImage;
 }
 
 export interface Testimonial {
