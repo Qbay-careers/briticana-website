@@ -329,6 +329,43 @@
   object-fit: cover;
 }
 
+/* About section — main image (left column) */
+.marketing-home-root .about-img .about-main-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Certification section — certificate image (right column) */
+.marketing-home-root .about-img .cert-main-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* Testimonials section — participant photo avatar */
+.marketing-home-root .testimonial-avatar {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Testimonials section — community avatars under 'Join Our Growing Community' */
+.marketing-home-root .more-testimonial ul li img.testimonial-community-avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
 /* Internship detail (course-details template) */
 .marketing-home-root .internship-detail-banner h2 .internship-detail-banner__subtitle {
   background-image: none;
@@ -461,5 +498,22 @@
 @media (max-width: 575px) {
   .marketing-home-root .startups-band {
     padding: 36px 24px;
+  }
+}
+ 
+/* Hero banner area spacing to prevent overlap with floating images */
+@media (min-width: 768px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: 260px;
+  }
+}
+@media (min-width: 992px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: 300px;
+  }
+}
+@media (min-width: 1200px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: 350px;
   }
 }

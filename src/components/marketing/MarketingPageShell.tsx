@@ -1,18 +1,20 @@
 import type { HomeHeroData } from "@/components/marketing/homeHero";
 import MarketingHomeSections from "@/components/marketing/MarketingHomeSections";
 import MarketingNav from "@/components/marketing/MarketingNav";
-import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
+import type { Internship, InternshipDomainDoc, Testimonial } from "@/lib/sanity/types";
 
 type MarketingPageShellProps = {
   homeHero: HomeHeroData;
   internshipDomains?: InternshipDomainDoc[];
   featuredInternships: Internship[];
+  testimonials: Testimonial[];
 };
 
 export default function MarketingPageShell({
   homeHero,
   internshipDomains = [],
   featuredInternships,
+  testimonials,
 }: MarketingPageShellProps) {
   return (
     <div className="marketing-home-root">
@@ -24,6 +26,7 @@ export default function MarketingPageShell({
         homeHero={homeHero}
         internshipDomains={internshipDomains}
         featuredInternships={featuredInternships}
+        testimonials={testimonials}
       />
     </div>
   );

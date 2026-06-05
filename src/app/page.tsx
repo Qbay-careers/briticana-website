@@ -6,8 +6,8 @@ import MarketingVendorScripts from "@/components/marketing/MarketingVendorScript
 import { resolveFeaturedInternships } from "@/lib/marketing/resolveFeaturedInternships";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
-import { getAllInternshipDomains, getFeaturedInternshipsForHome, getHomePage } from "@/lib/sanity/queries";
-import type { HomePage, Internship, InternshipDomainDoc } from "@/lib/sanity/types";
+import { getAllInternshipDomains, getAllTestimonials, getFeaturedInternshipsForHome, getHomePage } from "@/lib/sanity/queries";
+import type { HomePage, Internship, InternshipDomainDoc, Testimonial } from "@/lib/sanity/types";
 
 import "@/styles/marketing-home.css";
 
@@ -24,21 +24,25 @@ export default async function HomePage() {
   let homeDoc: HomePage | null = null;
   let internshipDomains: InternshipDomainDoc[] = [];
   let featuredInternships: Internship[] = resolveFeaturedInternships([]);
+  let testimonials: Testimonial[] = [];
 
   if (isSanityConfigured()) {
     try {
-      const [fetchedHome, fetchedDomains, fetchedFeatured] = await Promise.all([
+      const [fetchedHome, fetchedDomains, fetchedFeatured, fetchedTestimonials] = await Promise.all([
         client.fetch<HomePage | null>(getHomePage),
         client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains),
         client.fetch<Internship[]>(getFeaturedInternshipsForHome),
+        client.fetch<Testimonial[]>(getAllTestimonials),
       ]);
       homeDoc = fetchedHome;
       internshipDomains = fetchedDomains;
       featuredInternships = resolveFeaturedInternships(fetchedFeatured);
+      testimonials = fetchedTestimonials ?? [];
     } catch {
       homeDoc = null;
       internshipDomains = [];
       featuredInternships = resolveFeaturedInternships([]);
+      testimonials = [];
     }
   }
   const homeHero = homeHeroFromSanity(homeDoc);
@@ -49,6 +53,7 @@ export default async function HomePage() {
         homeHero={homeHero}
         internshipDomains={internshipDomains}
         featuredInternships={featuredInternships}
+        testimonials={testimonials}
       />
       <MarketingVendorScripts />
     </>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import type { HomeHeroData } from "@/components/marketing/homeHero";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
 const CERTIFICATE_INCLUDES = [
@@ -12,14 +13,23 @@ const CERTIFICATE_INCLUDES = [
 
 const PERFECT_FOR = ["Job applications", "LinkedIn profiles", "Freelance opportunities", "Portfolio building"];
 
-export default function MarketingCertificationSection() {
+export type MarketingCertificationSectionProps = {
+  homeHero: HomeHeroData;
+};
+
+export default function MarketingCertificationSection({ homeHero }: MarketingCertificationSectionProps) {
   return (
     <div className="certification-area bg-f7f7f7 marketing-home-section-y">
       <div className="container mw-1345">
         <div className="row g-4 align-items-center" data-cues="slideInUp">
           <div className="col-lg-6 order-lg-2">
             <div className="about-img position-relative z-1 text-center text-lg-end">
-              <img src={marketingImage("choose-us.png")} className="img-fluid" alt="Briticana experience certificate" />
+              {/* Certificate image: managed via Sanity "Certification section" tab */}
+              <img
+                src={homeHero.certImage}
+                className="cert-main-img img-fluid"
+                alt="Briticana experience certificate"
+              />
             </div>
           </div>
           <div className="col-lg-6 order-lg-1">
