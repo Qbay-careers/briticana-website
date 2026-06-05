@@ -51,7 +51,7 @@ const TRUST_FEATURES: TrustFeature[] = [
 
 export default function MarketingChooseUsSection() {
   return (
-    <div className="choose-us-area bg-f7f7f7 ptb-120">
+    <div className="choose-us-area bg-f7f7f7 marketing-home-section-y">
       <div className="container mw-1345">
         <div className="section-title text-center mx-auto" style={{ maxWidth: "640px" }} data-cues="slideInUp">
           <div className="position-relative z-1">
@@ -90,7 +90,7 @@ export default function MarketingChooseUsSection() {
           ))}
         </div>
 
-        <p className="text-center fw-semibold mt-5 mb-0 trust-feature-note">
+        <p className="text-center fw-semibold mt-4 mb-0 trust-feature-note">
           We do not believe in passive learning. We believe skills are built through doing.
         </p>
       </div>

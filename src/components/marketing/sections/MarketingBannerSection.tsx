@@ -3,21 +3,26 @@ import Link from "next/link";
 import type { HomeHeroData } from "@/components/marketing/homeHero";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
-const BANNER_USER_AVATARS = ["user1.jpg", "user2.jpg", "user3.jpg", "user4.jpg"] as const;
-
 export type MarketingBannerSectionProps = {
   homeHero: HomeHeroData;
 };
 
 export default function MarketingBannerSection({ homeHero }: MarketingBannerSectionProps) {
+  const heroWideBg = `url(${JSON.stringify(homeHero.heroWideImage)})`;
+
   return (
     <div className="banner-area">
-      <div className="container mw-1345">
-        <div className="position-relative z-1">
+      <div
+        className="marketing-hero-stack"
+        style={{ ["--marketing-hero-wide-src" as string]: heroWideBg }}
+      >
+        <div className="container mw-1345 position-relative z-1 marketing-hero-stack__inner">
           <div className="banner-content text-center" data-cues="slideInUp" data-group="images">
             <h3 className="display-3 fw-bold">{homeHero.headline}</h3>
             {homeHero.subheadline ? (
-              <p className="mx-auto text-secondary col-lg-10 col-xl-8 mt-3 mb-4">{homeHero.subheadline}</p>
+              <p className="marketing-hero-subheadline mx-auto col-lg-10 col-xl-8 mt-3 mb-4">
+                {homeHero.subheadline}
+              </p>
             ) : null}
             <div className="d-flex flex-wrap justify-content-center gap-3">
               {/* <Link href={homeHero.ctaApplyHref} className="main-btn">
@@ -29,7 +34,8 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
             </div>
           </div>
 
-          <div className="d-none d-md-inline-block" data-cues="slideInUp" data-group="images">
+          {/* Six-image orbit: ≥ 1400px only */}
+          <div className="marketing-hero-collage d-none d-xxl-inline-block" data-cues="slideInUp" data-group="images">
             {homeHero.floatingImages.map((src, index) => (
               <img
                 key={index}
@@ -44,42 +50,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
       </div>
       {/* <div className="pb-120" />
       <div className="container mw-1345 position-relative z-1">
-        <div className="row g-4" data-cues="slideInUp">
-          <div className="col-lg-9">
-            <div className="row g-4">
-              <div className="col-lg-8">
-                <div className="banner-img7">
-                  <img src={marketingImage("banner-7.jpg")} className="rounded-4" alt="" />
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="qualified-success-wrap">
-                  <div className="qualified mb-4">
-                    <ul className="p-0 list-unstyled d-flex align-items-center user-list">
-                      {BANNER_USER_AVATARS.map((u) => (
-                        <li key={u}>
-                          <img src={marketingImage(u)} className="rounded-circle" alt="" />
-                        </li>
-                      ))}
-                    </ul>
-                    <h3>Learn from 40+ Qualified Educators</h3>
-                  </div>
-                  <div className="success-wrap">
-                    <p>&ldquo;Keep growing, believe in your path, and success will find you.&rdquo;</p>
-                    <h4>Eddie Lenz</h4>
-                    <span>Quote from our teacher</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3">
-            <div className="banner-img8 h-100">
-              <img src={marketingImage("banner-8.jpg")} className="h-100 rounded-4" alt="" />
-            </div>
-          </div>
-        </div>
-        <img src={marketingImage("shape2.png")} className="shape2 d-none d-lg-inline-block position-absolute" alt="" />
+        ...
       </div> */}
     </div>
   );

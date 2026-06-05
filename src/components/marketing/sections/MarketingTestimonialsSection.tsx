@@ -8,7 +8,7 @@ const TESTIMONIAL_USER_AVATARS = ["user1.jpg", "user2.jpg", "user3.jpg", "user4.
 
 export default function MarketingTestimonialsSection() {
   return (
-    <div className="testimonial-area ptb-120">
+    <div className="testimonial-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="section-title text-center mx-auto" style={{ maxWidth: "615px" }}>
           <div className="position-relative z-1">

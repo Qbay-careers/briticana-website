@@ -19,6 +19,8 @@ export type HomeHeroData = {
   ctaExploreHref: string;
   ctaApplyLabel: string;
   ctaExploreLabel: string;
+  /** Resolved URL for the wide stacked hero (viewports under 1400px). */
+  heroWideImage: string;
   /** Resolved URLs for the 6 floating hero images (slot 1–6). */
   floatingImages: readonly string[];
 };
@@ -33,6 +35,8 @@ export const defaultHomeHero: HomeHeroData = {
   ctaExploreHref: "/programs",
   ctaApplyLabel: "Apply Now",
   ctaExploreLabel: "Explore Programs",
+  /** Default wide hero when CMS field is empty (same stock as slot 1 until a landscape asset is added). */
+  heroWideImage: "/edumove/images/banner-1.jpg",
   floatingImages: DEFAULT_FLOATING_IMAGES,
 };
 
@@ -53,9 +57,12 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
     return url ?? fallback;
   });
 
+  const heroWideImage =
+    urlForSanityImage(doc?.heroImageWide, 1600, 900) ?? defaultHomeHero.heroWideImage;
+
   // If no headline is set, use text/link defaults but keep the resolved images.
   if (!doc?.heroHeadline?.trim()) {
-    return { ...defaultHomeHero, floatingImages };
+    return { ...defaultHomeHero, floatingImages, heroWideImage };
   }
 
   return {
@@ -65,6 +72,7 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
     ctaExploreHref: doc.heroCtaExploreUrl?.trim() || defaultHomeHero.ctaExploreHref,
     ctaApplyLabel: defaultHomeHero.ctaApplyLabel,
     ctaExploreLabel: defaultHomeHero.ctaExploreLabel,
+    heroWideImage,
     floatingImages,
   };
 }

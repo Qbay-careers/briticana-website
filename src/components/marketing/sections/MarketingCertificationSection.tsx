@@ -14,7 +14,7 @@ const PERFECT_FOR = ["Job applications", "LinkedIn profiles", "Freelance opportu
 
 export default function MarketingCertificationSection() {
   return (
-    <div className="certification-area bg-f7f7f7 ptb-120">
+    <div className="certification-area bg-f7f7f7 marketing-home-section-y">
       <div className="container mw-1345">
         <div className="row g-4 align-items-center" data-cues="slideInUp">
           <div className="col-lg-6 order-lg-2">

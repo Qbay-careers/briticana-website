@@ -13,7 +13,7 @@ const BRITICANA_BULLETS = [
 
 export default function MarketingAboutSection() {
   return (
-    <div className="about-area ptb-120">
+    <div className="about-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="row g-4 align-items-center" data-cues="slideInUp">
           <div className="col-lg-6">

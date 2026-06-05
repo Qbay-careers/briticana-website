@@ -47,6 +47,15 @@ export default defineType({
       description: "e.g. /programs or /internships",
       group: "hero",
     }),
+    defineField({
+      name: "heroImageWide",
+      title: "Hero image — wide (under 1400px)",
+      type: "image",
+      group: "hero",
+      description:
+        "Landscape image used as a soft background behind the headline when the screen is under 1400px (floating tiles only show from 1400px up). Recommended 16:9 (e.g. 1600×900). Leave empty for the default.",
+      options: { hotspot: true },
+    }),
 
     // ── Hero floating image slots ─────────────────────────────────────────
     defineField({

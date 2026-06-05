@@ -26,7 +26,7 @@ export default function MarketingCategoriesSection({
   const useSanityDomains = internshipDomains.length > 0;
 
   return (
-    <div className="categories-area pb-120 tp-panel-pin-area">
+    <div className="categories-area tp-panel-pin-area marketing-home-domains-after-hero marketing-home-section-pb">
       <div className="container mw-1345">
         <div className="row g-4">
           <div className="col-lg-4">

@@ -2,7 +2,7 @@ import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
 export default function MarketingFaqSection() {
   return (
-    <div className="faq-area pb-120">
+    <div className="faq-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="row g-4">
           <div className="col-lg-5">
@@ -13,7 +13,7 @@ export default function MarketingFaqSection() {
               <div className="ms-lg-5 d-none d-lg-block">
                 <img src={marketingImage("title-shape.png")} alt="" />
               </div>
-              <div className="d-none d-lg-block shape3 text-center ms-3 position-absolute mt-50">
+              <div className="d-none d-lg-block shape3 text-center ms-3 position-absolute mt-4">
                 <img src={marketingImage("shape3.png")} alt="" />
               </div>
               <img
