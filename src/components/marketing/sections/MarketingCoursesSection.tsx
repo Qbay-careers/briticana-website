@@ -10,7 +10,7 @@ export type MarketingCoursesSectionProps = {
 
 export default function MarketingCoursesSection({ internships }: MarketingCoursesSectionProps) {
   return (
-    <div className="courses-area ptb-120 bg-f7f7f7">
+    <div className="courses-area marketing-home-section-y bg-f7f7f7">
       <div className="container mw-1345">
         <div
           className="section-title mw-100 d-flex flex-wrap gap-2 align-items-center justify-content-between"

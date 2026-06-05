@@ -6,7 +6,7 @@ export default function MarketingJourneyCtaSection() {
   return (
     <div className="journey-area">
       <div className="container mw-1345">
-        <div className="journey-content ptb-120 position-relative z-1 overflow-hidden">
+        <div className="journey-content marketing-home-section-y position-relative z-1 overflow-hidden">
           <div className="section-title text-center mx-auto" style={{ maxWidth: "760px" }} data-cues="slideInUp">
             <div className="position-relative z-1 mb-4">
               <h2>
@@ -24,7 +24,7 @@ export default function MarketingJourneyCtaSection() {
               Join Briticana and gain the practical exposure, confidence, and project experience needed to grow your
               career.
             </p>
-            <div className="d-flex flex-wrap justify-content-center mt-lg-5 mt-4" style={{ gap: "20px" }}>
+            <div className="d-flex flex-wrap justify-content-center mt-lg-4 mt-4" style={{ gap: "20px" }}>
               <Link href="/internships" className="main-btn">
                 Apply Now
               </Link>

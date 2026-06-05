@@ -85,6 +85,8 @@ export interface HomePage {
   heroOverview?: string;
   heroCtaApplyUrl?: string;
   heroCtaExploreUrl?: string;
+  /** Wide hero for stacked layout on viewports under 1400px (separate from floating tiles). */
+  heroImageWide?: SanityImage;
   /** Named floating image slots — slot 1–6 map to banner1–banner6 positions. */
   heroImage1?: SanityImage;
   heroImage2?: SanityImage;

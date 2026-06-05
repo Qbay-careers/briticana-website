@@ -26,9 +26,11 @@ export type HomeHeroData = {
   ctaExploreHref: string;
   ctaApplyLabel: string;
   ctaExploreLabel: string;
+  /** Resolved URL for the wide stacked hero (viewports under 1400px). */
+  heroWideImage: string;
   /** Resolved URLs for the 6 floating hero images (slot 1–6). */
   floatingImages: readonly string[];
-  /** Hero bottom strip images (below pb-120 spacer). */
+  /** Hero bottom strip images (below headline / spacer layouts). */
   stripMainImage: string;
   stripSideImage: string;
   stripAvatars: readonly string[];
@@ -50,6 +52,7 @@ export const defaultHomeHero: HomeHeroData = {
   ctaExploreHref: "/programs",
   ctaApplyLabel: "Apply Now",
   ctaExploreLabel: "View Programs",
+  heroWideImage: "/edumove/images/banner-1.jpg",
   floatingImages: DEFAULT_FLOATING_IMAGES,
   stripMainImage: "/edumove/images/banner-7.jpg",
   stripSideImage: "/edumove/images/banner-8.jpg",
@@ -62,12 +65,17 @@ export const defaultHomeHero: HomeHeroData = {
 export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroData {
   // ── Floating images (banner1–6): per-slot fallback ───────────────────
   const cmsSlots = [
-    doc?.heroImage1, doc?.heroImage2, doc?.heroImage3,
-    doc?.heroImage4, doc?.heroImage5, doc?.heroImage6,
+    doc?.heroImage1,
+    doc?.heroImage2,
+    doc?.heroImage3,
+    doc?.heroImage4,
+    doc?.heroImage5,
+    doc?.heroImage6,
   ];
-  const floatingImages = DEFAULT_FLOATING_IMAGES.map((fallback, i) =>
-    urlForSanityImage(cmsSlots[i], 290, 340) ?? fallback,
-  );
+  const floatingImages = DEFAULT_FLOATING_IMAGES.map((fallback, i) => urlForSanityImage(cmsSlots[i], 290, 340) ?? fallback);
+
+  const heroWideImage =
+    urlForSanityImage(doc?.heroImageWide, 1600, 900) ?? defaultHomeHero.heroWideImage;
 
   // ── Hero bottom strip ────────────────────────────────────────────────
   const stripMainImage =
@@ -75,23 +83,20 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
   const stripSideImage =
     urlForSanityImage(doc?.stripSideImage, 400, 560) ?? defaultHomeHero.stripSideImage;
   const cmsAvatars = [doc?.stripAvatar1, doc?.stripAvatar2, doc?.stripAvatar3, doc?.stripAvatar4];
-  const stripAvatars = DEFAULT_STRIP_AVATARS.map((fallback, i) =>
-    urlForSanityImage(cmsAvatars[i], 80, 80) ?? fallback,
-  );
+  const stripAvatars = DEFAULT_STRIP_AVATARS.map((fallback, i) => urlForSanityImage(cmsAvatars[i], 80, 80) ?? fallback);
 
-  // ── About section ────────────────────────────────────────────────────
-  const aboutImage =
-    urlForSanityImage(doc?.aboutImage, 800) ?? defaultHomeHero.aboutImage;
-  const certImage =
-    urlForSanityImage(doc?.certImage, 800) ?? defaultHomeHero.certImage;
+  // ── About & certification ─────────────────────────────────────────────
+  const aboutImage = urlForSanityImage(doc?.aboutImage, 800) ?? defaultHomeHero.aboutImage;
+  const certImage = urlForSanityImage(doc?.certImage, 800) ?? defaultHomeHero.certImage;
+
   const cmsTestimonialAvatars = [
     doc?.testimonialAvatar1,
     doc?.testimonialAvatar2,
     doc?.testimonialAvatar3,
     doc?.testimonialAvatar4,
   ];
-  const testimonialAvatars = DEFAULT_STRIP_AVATARS.map((fallback, i) =>
-    urlForSanityImage(cmsTestimonialAvatars[i], 80, 80) ?? fallback,
+  const testimonialAvatars = DEFAULT_STRIP_AVATARS.map(
+    (fallback, i) => urlForSanityImage(cmsTestimonialAvatars[i], 80, 80) ?? fallback,
   );
 
   // If no headline set, return text defaults but keep all resolved images.
@@ -99,6 +104,7 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
     return {
       ...defaultHomeHero,
       floatingImages,
+      heroWideImage,
       stripMainImage,
       stripSideImage,
       stripAvatars,
@@ -115,6 +121,7 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
     ctaExploreHref: doc.heroCtaExploreUrl?.trim() || defaultHomeHero.ctaExploreHref,
     ctaApplyLabel: defaultHomeHero.ctaApplyLabel,
     ctaExploreLabel: defaultHomeHero.ctaExploreLabel,
+    heroWideImage,
     floatingImages,
     stripMainImage,
     stripSideImage,

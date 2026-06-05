@@ -17,6 +17,166 @@
   object-fit: contain;
 }
 
+/* Homepage vertical rhythm — scoped; avoids stacked ptb-120 (~240px) between sections */
+.marketing-home-root {
+  --marketing-section-y: clamp(56px, 5vw, 88px);
+  /* Approximate navbar + bar height for full-viewport hero below xxl */
+  --marketing-nav-offset: 5.75rem;
+}
+
+.marketing-home-root .marketing-home-section-y {
+  padding-top: var(--marketing-section-y);
+  padding-bottom: var(--marketing-section-y);
+}
+
+.marketing-home-root .marketing-home-section-pb {
+  padding-bottom: var(--marketing-section-y);
+}
+
+/* Hero: replace missing template pb-120 bridge; tame oversized theme padding-top for display-3 hero */
+.marketing-home-root .banner-area {
+  padding-bottom: var(--marketing-section-y);
+}
+
+.marketing-home-root .banner-area .banner-content {
+  padding-top: clamp(72px, 12vw, 140px);
+}
+
+@media (min-width: 992px) {
+  .marketing-home-root .banner-area .banner-content {
+    padding-top: clamp(100px, 14vw, 160px);
+  }
+}
+
+@media (max-width: 575px) {
+  .marketing-home-root .banner-area .banner-content {
+    padding-top: clamp(48px, 10vw, 72px);
+  }
+}
+
+/* Hero subheadline — strong body contrast (darker than muted secondary) */
+.marketing-home-root .marketing-hero-subheadline {
+  color: rgba(3, 1, 13, 0.94);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+/* Hero: wide image as background behind copy (viewports below Bootstrap xxl / 1400px) */
+.marketing-home-root .marketing-hero-stack {
+  position: relative;
+}
+
+.marketing-home-root .marketing-hero-stack::before,
+.marketing-home-root .marketing-hero-stack::after {
+  display: none;
+}
+
+@media (max-width: 1399.98px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: 0;
+    overflow-x: clip;
+  }
+
+  .marketing-home-root .marketing-hero-stack {
+    /* Full-bleed edge to edge */
+    width: 100vw;
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    isolation: isolate;
+    border-radius: 0;
+    overflow: hidden;
+    /* Fill viewport below the global nav */
+    min-height: calc(100vh - var(--marketing-nav-offset));
+    min-height: calc(100dvh - var(--marketing-nav-offset));
+    min-height: calc(100svh - var(--marketing-nav-offset));
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding-bottom: var(--marketing-section-y);
+  }
+
+  .marketing-home-root .marketing-hero-stack__inner {
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .marketing-home-root .marketing-hero-stack::before {
+    display: block;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: var(--marketing-hero-wide-src, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Subtle scrim — keep photo visible */
+  .marketing-home-root .marketing-hero-stack::after {
+    display: block;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.14) 100%
+    );
+  }
+
+  .marketing-home-root .marketing-hero-stack .banner-content {
+    position: relative;
+    z-index: 1;
+    padding-top: clamp(1.75rem, 5vw, 3rem);
+    padding-bottom: clamp(1.25rem, 4vw, 2rem);
+    padding-left: clamp(0.75rem, 3vw, 1.5rem);
+    padding-right: clamp(0.75rem, 3vw, 1.5rem);
+  }
+}
+
+@media (min-width: 1400px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: var(--marketing-section-y);
+    overflow-x: visible;
+  }
+
+  .marketing-home-root .marketing-hero-stack {
+    width: auto;
+    max-width: none;
+    left: auto;
+    transform: none;
+    overflow: visible;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .marketing-home-root .marketing-hero-stack__inner {
+    min-height: 0;
+    display: block;
+  }
+
+  .marketing-home-root .banner1 {
+    left: 245px;
+  }
+}
+
+/* Domains band: bottom only (top gap comes from hero padding-bottom) */
+.marketing-home-root .categories-area.marketing-home-domains-after-hero {
+  padding-top: 0;
+}
+
 /* Page banner breadcrumbs — flex rows + theme li::before separator stay vertically centered */
 .marketing-home-root .page-banner-content > ul.d-flex {
   align-items: center;

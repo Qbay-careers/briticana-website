@@ -16,7 +16,7 @@ export default function MarketingTestimonialsSection({ testimonials, homeHero }:
   const hasSanity = testimonials.length > 0;
 
   return (
-    <div className="testimonial-area ptb-120">
+    <div className="testimonial-area marketing-home-section-y">
       <div className="container mw-1345">
         <div className="section-title text-center mx-auto" style={{ maxWidth: "615px" }}>
           <div className="position-relative z-1">
