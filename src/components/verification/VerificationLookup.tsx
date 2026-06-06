@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 
-import {
-  demoVerificationRecords,
-  findVerificationRecord,
-  type VerificationRecord,
-} from "@/lib/demo/verificationRecords";
+import { findVerificationRecord, type VerificationRecord } from "@/lib/demo/verificationRecords";
 
 import VerificationForm from "@/components/verification/VerificationForm";
 import VerificationResult from "@/components/verification/VerificationResult";
@@ -33,12 +29,7 @@ export default function VerificationLookup() {
   return (
     <div className="row g-4 justify-content-center">
       <div className="col-lg-5">
-        <VerificationForm
-          code={code}
-          onCodeChange={setCode}
-          onSubmit={handleSubmit}
-          sampleCodes={demoVerificationRecords.map((r) => r.code)}
-        />
+        <VerificationForm code={code} onCodeChange={setCode} onSubmit={handleSubmit} />
       </div>
       <div className="col-lg-7">
         <VerificationResult state={result} />

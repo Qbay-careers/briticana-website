@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import BatchCalendar from "@/components/internships/BatchCalendar";
 import FilterBar from "@/components/internships/FilterBar";
+import StartDateSelector from "@/components/internships/StartDateSelector";
 import InternshipIntroCard from "@/components/marketing/InternshipIntroCard";
-import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import {
   getAllInternshipDomains,
   getAllInternships,
   getInternshipsFiltered,
+  getSiteSettings,
 } from "@/lib/sanity/queries";
-import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
+import type { Internship, InternshipDomainDoc, SiteSettings } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Internships",
@@ -28,11 +28,12 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
   const sp = searchParams ?? {};
   let internships: Internship[] = [];
   let filterDomains: InternshipDomainDoc[] = [];
+  let batchApplyUrl: string | null = null;
 
   if (isSanityConfigured()) {
     try {
       const hasFilter = Boolean(sp.domain?.trim() || sp.region?.trim() || sp.duration?.trim());
-      const [fetchedInternships, fetchedDomains] = await Promise.all([
+      const [fetchedInternships, fetchedDomains, siteSettings] = await Promise.all([
         client.fetch<Internship[]>(
           hasFilter ? getInternshipsFiltered : getAllInternships,
           hasFilter
@@ -44,12 +45,15 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
             : {},
         ),
         client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains),
+        client.fetch<SiteSettings | null>(getSiteSettings),
       ]);
       internships = fetchedInternships;
       filterDomains = fetchedDomains;
+      batchApplyUrl = siteSettings?.internshipBatchApplyUrl?.trim() ?? null;
     } catch {
       internships = [];
       filterDomains = [];
+      batchApplyUrl = null;
     }
   }
 
@@ -112,7 +116,7 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
           </div>
 
           <div className="mt-5">
-            <BatchCalendar />
+            <StartDateSelector applyUrl={batchApplyUrl} />
           </div>
         </div>
       </div>

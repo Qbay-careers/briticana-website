@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-import Link from "next/link";
-
+import DashboardSignOutButton from "@/components/dashboard/DashboardSignOutButton";
 import { demoQuickStats, demoStudentProfile } from "@/lib/demo/studentDashboard";
 
 type DashboardShellProps = {
@@ -26,14 +25,11 @@ export default function DashboardShell({ children }: DashboardShellProps) {
             <p className="text-secondary mb-0">{demoStudentProfile.program}</p>
           </div>
         </div>
-        <Link href="/login" className="main-btn black">
-          Sign out
-        </Link>
+        <DashboardSignOutButton />
       </div>
 
       <p className="small text-secondary col-lg-9 mb-4">
-        Preview how Briticana learners track milestones and submit weekly deliverables. No accounts or API routes are
-        wired in this phase — all data shown here is static demo content.
+        Track your internship milestones, mentor reviews, and weekly deliverables. Content below is a preview layout.
       </p>
 
       <div className="row g-4 mb-4">

@@ -6,7 +6,7 @@ import SubmissionPanel from "@/components/dashboard/SubmissionPanel";
 
 export const metadata: Metadata = {
   title: "Student dashboard",
-  description: "Demo student portal — milestones and submissions preview (no accounts or API).",
+  description: "Track internship milestones, mentor reviews, and weekly submissions.",
 };
 
 export default function DashboardPage() {

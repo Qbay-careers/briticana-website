@@ -22,6 +22,13 @@ export default defineType({
     defineField({ name: "youtube", title: "YouTube", type: "url" }),
     defineField({ name: "starterPrice", title: "Starter price (label)", type: "string" }),
     defineField({ name: "proPrice", title: "Pro price (label)", type: "string" }),
+    defineField({
+      name: "internshipBatchApplyUrl",
+      title: 'Internships page — "Apply Now" link',
+      type: "string",
+      description:
+        'Target for the green "Apply Now" button in the Choose Your Start Date section on /internships. Use a full URL (e.g. Google Form) or a site path such as /contact.',
+    }),
   ],
   preview: {
     prepare() {

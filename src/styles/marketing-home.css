@@ -519,3 +519,139 @@
     padding: 36px 24px;
   }
 }
+
+/* Internships: "Choose Your Start Date" picker */
+.marketing-home-root .start-date-scroll {
+  max-height: min(360px, 52vh);
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.marketing-home-root .start-date-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.marketing-home-root .start-date-scroll::-webkit-scrollbar-thumb {
+  background: rgba(122, 77, 252, 0.35);
+  border-radius: 50px;
+}
+
+.marketing-home-root .start-date-row {
+  background: #f7f7f9;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: var(--transition, all ease 0.3s);
+}
+
+.marketing-home-root .start-date-row:hover {
+  border-color: rgba(122, 77, 252, 0.35);
+  background: rgba(122, 77, 252, 0.06);
+}
+
+.marketing-home-root .start-date-row.is-selected {
+  background: var(--mainColor, #7a4dfc);
+  border-color: var(--mainColor, #7a4dfc);
+  box-shadow: 0 12px 24px -12px rgba(122, 77, 252, 0.7);
+}
+
+.marketing-home-root .start-date-row.is-selected .start-date-day,
+.marketing-home-root .start-date-row.is-selected .start-date-year {
+  color: #fff !important;
+}
+
+.marketing-home-root .start-date-row.is-closed {
+  opacity: 0.55;
+}
+
+.marketing-home-root .start-date-badge {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(122, 77, 252, 0.12);
+  color: var(--mainColor, #7a4dfc);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.marketing-home-root .start-date-row.is-selected .start-date-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.marketing-home-root .start-date-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.marketing-home-root .start-date-pill.status-open {
+  background: var(--mainColor, #7a4dfc);
+  color: #fff;
+}
+
+.marketing-home-root .start-date-row.is-selected .start-date-pill.status-open {
+  background: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .start-date-pill.status-closing-soon {
+  background: rgba(255, 138, 76, 0.16);
+  color: #d9531e;
+}
+
+.marketing-home-root .start-date-pill.status-closed {
+  background: rgba(3, 1, 13, 0.08);
+  color: #6b6675;
+}
+
+.marketing-home-root .start-date-detail-head {
+  background: linear-gradient(120deg, #7a4dfc 0%, #9b6bff 100%);
+}
+
+.marketing-home-root .start-date-detail-label {
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.04em;
+}
+
+.marketing-home-root .start-date-apply {
+  background: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+  padding: 12px 28px;
+  font-size: 16px;
+}
+
+.marketing-home-root .start-date-apply:hover {
+  background: #fff;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .start-date-perk {
+  background: rgba(122, 77, 252, 0.08);
+  color: var(--headingColor, #03010d);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 50px;
+}
+
+.marketing-home-root .start-date-perk i {
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .start-date-completion {
+  border: 1px solid #ececf0;
+  border-radius: 12px;
+  padding: 14px 10px;
+}
+
+.marketing-home-root .start-date-completion span:last-child {
+  color: var(--headingColor, #03010d);
+}
