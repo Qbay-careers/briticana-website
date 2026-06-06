@@ -25,7 +25,7 @@ export default function MarketingNav() {
         <div className="container mw-1345">
           <nav className="navbar navbar-expand-md navbar-light">
             <Link className="navbar-brand m-0 d-inline-flex align-items-center" href="/" aria-label="Briticana home">
-              <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "44px", width: "auto" }} />
+              <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "90px", width: "auto" }} />
             </Link>
             <div className="collapse navbar-collapse for-mobile-menu" id="navbarSupportedContent">
               <ul className="navbar-nav m-auto">
