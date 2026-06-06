@@ -2,10 +2,9 @@ type VerificationFormProps = {
   code: string;
   onCodeChange: (value: string) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  sampleCodes: readonly string[];
 };
 
-export default function VerificationForm({ code, onCodeChange, onSubmit, sampleCodes }: VerificationFormProps) {
+export default function VerificationForm({ code, onCodeChange, onSubmit }: VerificationFormProps) {
   return (
     <div className="bg-white rounded-4 shadow-sm h-100 p-4 p-sm-5" data-component="VerificationForm">
       <div className="d-flex align-items-center gap-2 mb-2">
@@ -28,7 +27,7 @@ export default function VerificationForm({ code, onCodeChange, onSubmit, sampleC
             id="verification-code"
             type="text"
             className="form-control"
-            placeholder="e.g. BRT-2026-001"
+            placeholder="Enter your access code"
             value={code}
             onChange={(e) => onCodeChange(e.target.value)}
             autoComplete="off"
@@ -40,25 +39,6 @@ export default function VerificationForm({ code, onCodeChange, onSubmit, sampleC
           Verify
         </button>
       </form>
-
-      <div className="mt-4 pt-3 border-top">
-        <p className="small text-secondary mb-2">
-          Demo data only — try one of these sample codes:
-        </p>
-        <div className="d-flex flex-wrap gap-2">
-          {sampleCodes.map((c) => (
-            <button
-              key={c}
-              type="button"
-              className="badge text-bg-light border text-secondary"
-              style={{ cursor: "pointer" }}
-              onClick={() => onCodeChange(c)}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

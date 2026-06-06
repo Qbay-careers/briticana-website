@@ -9,11 +9,31 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Demo only: no auth, no API. Route straight to the mock dashboard.
-    router.push("/dashboard");
+    setError(null);
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/auth/demo-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        setError("Invalid email or password.");
+        return;
+      }
+      router.push("/dashboard");
+      router.refresh();
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -25,8 +45,7 @@ export default function LoginPage() {
               Welcome back to <span>Briticana</span>
             </h2>
             <p className="text-secondary mt-3 mb-4 col-xl-10">
-              Sign in to track your internship milestones, mentor reviews, and submission window. This is a demo
-              experience — no real account is required.
+              Sign in to track your internship milestones, mentor reviews, and submission window.
             </p>
             <ul className="list-unstyled d-flex flex-column gap-3 mb-0">
               <li className="d-flex align-items-center gap-2">
@@ -54,7 +73,13 @@ export default function LoginPage() {
               <p className="text-secondary mt-2 mb-0">Sign in to your student portal</p>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate>
+            <form onSubmit={(e) => void handleSubmit(e)} noValidate>
+              {error ? (
+                <div className="alert alert-danger py-2 small mb-3" role="alert">
+                  {error}
+                </div>
+              ) : null}
+
               <div className="mb-3">
                 <label htmlFor="login-email" className="form-label fw-semibold">
                   Email address
@@ -71,6 +96,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    autoComplete="username"
                   />
                 </div>
               </div>
@@ -91,6 +117,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    autoComplete="current-password"
                   />
                 </div>
               </div>
@@ -107,25 +134,10 @@ export default function LoginPage() {
                 </Link>
               </div>
 
-              <button type="submit" className="main-btn w-100 justify-content-center">
-                Sign in
+              <button type="submit" className="main-btn w-100 justify-content-center" disabled={submitting}>
+                {submitting ? "Signing in…" : "Sign in"}
               </button>
             </form>
-
-            <div className="d-flex align-items-center my-3 text-secondary">
-              <hr className="flex-grow-1 m-0" />
-              <span className="px-3 small">or</span>
-              <hr className="flex-grow-1 m-0" />
-            </div>
-
-            <Link href="/dashboard" className="main-btn black w-100 justify-content-center">
-              Continue as demo student
-            </Link>
-
-            <p className="small text-secondary text-center mt-4 mb-0">
-              This is a demo login. No real authentication is performed and nothing you enter is stored or sent
-              anywhere.
-            </p>
           </div>
         </div>
       </div>

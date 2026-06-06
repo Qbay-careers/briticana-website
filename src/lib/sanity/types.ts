@@ -154,6 +154,8 @@ export interface SiteSettings {
   youtube?: string;
   starterPrice?: string;
   proPrice?: string;
+  /** "Apply Now" in internships start-date section (path or full URL). */
+  internshipBatchApplyUrl?: string;
 }
 
 export type StudentCompletionStatus = "completed" | "in-progress" | "not-started";
