@@ -2584,7 +2584,7 @@
     padding: 0;
     width: 35px;
     height: 30px;
-    padding-top: 1px;
+    padding-top: 24px;
     color: var(--mainColor);
   }
   .navbar-area .mobile-nav .mobile-menu.mean-container .meanmenu-reveal span {
@@ -2598,7 +2598,7 @@
   .navbar-area .mobile-nav .mobile-menu.mean-container .mean-bar {
     background: transparent;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     padding: 0;
   }
   .navbar-area .main-nav {
@@ -2607,7 +2607,7 @@
   .nav-right-options {
     position: absolute;
     right: 50px;
-    top: -5px;
+    top: 18px;
   }
   .nav-right-options ul li {
     margin-right: 0;

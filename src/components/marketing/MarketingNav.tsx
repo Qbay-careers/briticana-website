@@ -74,7 +74,7 @@ export default function MarketingNav() {
           <div className="mobile-menu position-relative">
             <div className="logo">
               <Link href="/" aria-label="Briticana home">
-                <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "40px", width: "auto" }} />
+                <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "70px", width: "auto" }} />
               </Link>
             </div>
             <div className="nav-right-options">
