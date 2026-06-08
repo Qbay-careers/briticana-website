@@ -38,6 +38,8 @@ export type HomeHeroData = {
   aboutImage: string;
   /** Certification section — certificate mockup image. */
   certImage: string;
+  /** Whether the complete testimonials section is visible. */
+  showTestimonials: boolean;
   /** Testimonial section circular avatars. */
   testimonialAvatars: readonly string[];
 };
@@ -59,6 +61,7 @@ export const defaultHomeHero: HomeHeroData = {
   stripAvatars: DEFAULT_STRIP_AVATARS,
   aboutImage: "/edumove/images/about.png",
   certImage: "/edumove/images/choose-us.png",
+  showTestimonials: true,
   testimonialAvatars: DEFAULT_STRIP_AVATARS,
 };
 
@@ -110,6 +113,7 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
       stripAvatars,
       aboutImage,
       certImage,
+      showTestimonials: doc?.showTestimonials ?? true,
       testimonialAvatars,
     };
   }
@@ -128,6 +132,7 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
     stripAvatars,
     aboutImage,
     certImage,
+    showTestimonials: doc.showTestimonials ?? true,
     testimonialAvatars,
   };
 }
