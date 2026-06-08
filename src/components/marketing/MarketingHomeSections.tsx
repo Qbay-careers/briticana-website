@@ -12,13 +12,14 @@ import MarketingHowItWorksSection from "@/components/marketing/sections/Marketin
 import MarketingJourneyCtaSection from "@/components/marketing/sections/MarketingJourneyCtaSection";
 import MarketingStartupsSection from "@/components/marketing/sections/MarketingStartupsSection";
 import MarketingTestimonialsSection from "@/components/marketing/sections/MarketingTestimonialsSection";
-import type { Internship, InternshipDomainDoc, Testimonial } from "@/lib/sanity/types";
+import type { Internship, InternshipDomainDoc, SiteSettings, Testimonial } from "@/lib/sanity/types";
 
 export type MarketingHomeSectionsProps = {
   homeHero: HomeHeroData;
   internshipDomains?: InternshipDomainDoc[];
   featuredInternships: Internship[];
   testimonials: Testimonial[];
+  siteSettings?: SiteSettings | null;
 };
 
 export default function MarketingHomeSections({
@@ -26,6 +27,7 @@ export default function MarketingHomeSections({
   internshipDomains = [],
   featuredInternships,
   testimonials,
+  siteSettings,
 }: MarketingHomeSectionsProps) {
   return (
     <>
@@ -37,10 +39,12 @@ export default function MarketingHomeSections({
       <MarketingHowItWorksSection />
       <MarketingCertificationSection homeHero={homeHero} />
       <MarketingStartupsSection />
-      <MarketingTestimonialsSection testimonials={testimonials} homeHero={homeHero} />
+      {homeHero.showTestimonials ? (
+        <MarketingTestimonialsSection testimonials={testimonials} homeHero={homeHero} />
+      ) : null}
       <MarketingFaqSection />
       <MarketingJourneyCtaSection />
-      <MarketingFooterSection />
+      <MarketingFooterSection settings={siteSettings} />
       <MarketingCopyrightBar />
     </>
   );

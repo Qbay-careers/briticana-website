@@ -105,6 +105,8 @@ export interface HomePage {
   aboutImage?: SanityImage;
   /** Certification section — certificate mockup image. */
   certImage?: SanityImage;
+  /** Set to false to hide the complete testimonials section. */
+  showTestimonials?: boolean;
   /** Testimonial section circular avatars. */
   testimonialAvatar1?: SanityImage;
   testimonialAvatar2?: SanityImage;
@@ -139,6 +141,12 @@ export interface StartupPartner {
   collaborationType?: string;
 }
 
+export interface FooterNavLink {
+  _key: string;
+  label?: string;
+  href?: string;
+}
+
 export interface SiteSettings {
   _id: string;
   _type: "siteSettings";
@@ -151,7 +159,13 @@ export interface SiteSettings {
   instagram?: string;
   linkedin?: string;
   facebook?: string;
+  twitter?: string;
   youtube?: string;
+  marketingApplyUrl?: string;
+  footerTagline?: string;
+  footerLocations?: string;
+  footerExploreLinks?: FooterNavLink[];
+  footerPageLinks?: FooterNavLink[];
   starterPrice?: string;
   proPrice?: string;
   /** "Apply Now" in internships start-date section (path or full URL). */

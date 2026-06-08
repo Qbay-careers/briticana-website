@@ -181,6 +181,13 @@ export default defineType({
     }),
     // ── Testimonials section ─────────────────────────────────────────────
     defineField({
+      name: "showTestimonials",
+      title: "Show testimonials section",
+      type: "boolean",
+      group: "testimonials",
+      initialValue: true,
+    }),
+    defineField({
       name: "testimonialAvatar1",
       title: "Testimonial community avatar 1",
       type: "image",
