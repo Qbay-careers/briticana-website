@@ -9,8 +9,12 @@ type Phase = {
 const PHASES: Phase[] = [
   {
     num: "01",
-    title: "Orientation",
-    points: ["Understanding the project", "Team onboarding", "Workflow introduction", "Goal setting"],
+    title: "Apply & Get Assessed ",
+    points: ["Submit your application",
+      "Share your interests and goals",
+      "Highlight your current skill level",
+      "Get matched to the right project domain and learning path",
+      ],
   },
   {
     num: "02",
@@ -54,7 +58,7 @@ export default function MarketingHowItWorksSection() {
               How Briticana works
             </p>
             <h2>
-              A Simple Yet Powerful <span>Learning Journey</span>
+              A simple yet powerful <span>learning journey</span>
             </h2>
             <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
             <img

@@ -32,7 +32,7 @@ export default function MarketingCategoriesSection({
           <div className="col-lg-4">
             <div className="categories-content position-sticky z-1">
               <h2>
-                Explore Internship <span>Domains</span>
+                Explore internship <span>domains</span>
               </h2>
               <div className="ms-lg-5 d-none d-lg-block">
                 <img src={marketingImage("title-shape.png")} alt="" />

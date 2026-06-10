@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
+import type { SiteSettings } from "@/lib/sanity/types";
 
 const LOGO_SRC = marketingImage("logo/logo.webp");
 
@@ -17,8 +18,14 @@ function navLinkClass(pathname: string, href: string): string {
   return "nav-link";
 }
 
-export default function MarketingNav() {
+export type MarketingNavProps = {
+  settings?: SiteSettings | null;
+};
+
+export default function MarketingNav({ settings }: MarketingNavProps) {
   const pathname = usePathname() ?? "";
+  const applyUrl = settings?.marketingApplyUrl?.trim() || "/contact";
+
   return (
     <div className="navbar-area">
       <div className="main-nav">
@@ -59,8 +66,8 @@ export default function MarketingNav() {
             <div className="nav-right-options">
               <ul>
                 <li>
-                  <Link href="/contact" className="main-btn">
-                    Contact Us
+                  <Link href={applyUrl} className="main-btn">
+                    Apply Now
                   </Link>
                 </li>
               </ul>

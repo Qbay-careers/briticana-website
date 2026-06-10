@@ -39,7 +39,7 @@ export default function MarketingCertificationSection({ homeHero }: MarketingCer
                   Certification
                 </p>
                 <h2>
-                  Earn Experience You <span>Can Actually Show</span>
+                  Earn experience you <span>can actually show</span>
                 </h2>
                 <img src={marketingImage("title-shape.png")} className="ms-lg-5" alt="" />
               </div>

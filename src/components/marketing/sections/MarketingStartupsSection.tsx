@@ -19,7 +19,7 @@ export default function MarketingStartupsSection() {
               <p className="small fw-semibold text-uppercase mb-2 startups-band__eyebrow" style={{ letterSpacing: "0.06em" }}>
                 For startups &amp; founders
               </p>
-              <h2 className="mb-3">Build With Mentored Talent Teams</h2>
+              <h2 className="mb-3">Build with mentored talent teams</h2>
               <p className="mb-4">
                 Briticana also supports startups and founders exploring early-stage ideas through supervised project
                 teams. All projects are mentor-supervised and designed for educational and execution value.

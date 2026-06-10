@@ -18,7 +18,7 @@ export default function MarketingCoursesSection({ internships }: MarketingCourse
         >
           <div className="position-relative z-1 text-center">
             <h2>
-              Featured <span>Internships</span>
+              Featured <span>internships</span>
             </h2>
             <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block " alt="" />
             <img

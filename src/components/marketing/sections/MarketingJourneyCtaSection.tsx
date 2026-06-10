@@ -10,7 +10,7 @@ export default function MarketingJourneyCtaSection() {
           <div className="section-title text-center mx-auto" style={{ maxWidth: "760px" }} data-cues="slideInUp">
             <div className="position-relative z-1 mb-4">
               <h2>
-                Start Building Experience <span>That Actually Matters</span>
+                Start building your experience <span>that actually matters</span>
               </h2>
               <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
               <img
@@ -28,7 +28,7 @@ export default function MarketingJourneyCtaSection() {
               <Link href="/internships" className="main-btn">
                 Apply Now
               </Link>
-              <Link href="/contact" className="main-btn black">
+              <Link href="" className="main-btn black">
                 Talk to Us
               </Link>
             </div>
