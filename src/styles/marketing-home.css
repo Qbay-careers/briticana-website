@@ -19,7 +19,7 @@
 
 /* Homepage vertical rhythm — scoped; avoids stacked ptb-120 (~240px) between sections */
 .marketing-home-root {
-  --marketing-section-y: clamp(56px, 5vw, 88px);
+  --marketing-section-y: clamp(40px, 3.75vw, 64px);
   /* Approximate navbar + bar height for full-viewport hero below xxl */
   --marketing-nav-offset: 5.75rem;
 }
@@ -467,11 +467,19 @@
   width: 30px;
   height: 30px;
   object-fit: contain;
+  /* Theme SVGs use brand purple; PNG/SVG from /images vary — normalize to black */
+  filter: brightness(0) saturate(100%);
 }
 
 .marketing-home-root .trust-feature-note {
   font-size: 18px;
   color: var(--headingColor, #03010d);
+}
+
+/* Footer — logo sizing (same asset as nav; no tile/filter) */
+.marketing-home-root .footer-area .marketing-footer-logo {
+  max-width: min(300px, 85vw);
+  object-fit: contain;
 }
 
 /* Home: "How Briticana works" phase cards */

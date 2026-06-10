@@ -24,7 +24,7 @@ export default function MarketingTestimonialsSection({ testimonials, homeHero }:
               Social proof
             </p>
             <h2>
-              Real Experiences From <span>Our Participants</span>
+              Real experiences from <span>our participants</span>
             </h2>
             <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
             <img

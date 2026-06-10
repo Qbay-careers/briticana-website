@@ -43,9 +43,23 @@ const TRUST_FEATURES: TrustFeature[] = [
     isThemeIcon: true,
   },
   {
-    title: "Experience certificate with proof",
+    title: "Internship certificate with experience verification",
     description: "Finish with a verifiable certificate backed by real project evidence.",
     icon: "resume.svg",
+  },
+  {
+    title: "Practical applications of concepts",
+    description:
+      "Turn ideas into action with hands-on tasks that mirror how concepts are used on real projects.",
+    icon: "categories2.svg",
+    isThemeIcon: true,
+  },
+  {
+    title: "Industry relevant skill development",
+    description:
+      "Grow capabilities that match how modern teams collaborate, communicate, and deliver outcomes.",
+    icon: "categories4.svg",
+    isThemeIcon: true,
   },
 ];
 
@@ -59,7 +73,7 @@ export default function MarketingChooseUsSection() {
               Why students trust Briticana
             </p>
             <h2>
-              Real Work. Real Learning. <span>Real Growth.</span>
+              Real work. Real learning. <span>Real growth.</span>
             </h2>
             <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
             <img

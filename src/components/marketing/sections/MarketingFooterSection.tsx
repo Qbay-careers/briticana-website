@@ -1,6 +1,9 @@
 import Link from "next/link";
 
+import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { FooterNavLink, SiteSettings } from "@/lib/sanity/types";
+
+const FOOTER_LOGO_SRC = marketingImage("logo/logo.webp");
 
 const DEFAULT_TAGLINE =
   "Internship experiences and startup collaboration across Ireland, the UK, Germany, and Finland.";
@@ -22,9 +25,25 @@ const DEFAULT_PAGE_LINKS: FooterNavLink[] = [
 
 type SocialEntry = { url: string; icon: string };
 
+function socialLinksFromSettings(settings?: SiteSettings | null): SocialEntry[] {
+  const out: SocialEntry[] = [];
+  const fb = settings?.facebook?.trim();
+  if (fb) out.push({ url: fb, icon: "ri-facebook-fill" });
+  const tw = settings?.twitter?.trim();
+  if (tw) out.push({ url: tw, icon: "ri-twitter-fill" });
+  const li = settings?.linkedin?.trim();
+  if (li) out.push({ url: li, icon: "ri-linkedin-fill" });
+  const ig = settings?.instagram?.trim();
+  if (ig) out.push({ url: ig, icon: "ri-instagram-fill" });
+  return out;
+}
+
 export type MarketingFooterSectionProps = {
   settings?: SiteSettings | null;
 };
+
+/** Desktop navbar brand height — keep footer logo aligned (`MarketingNav`). */
+const FOOTER_LOGO_HEIGHT_PX = 90;
 
 export default function MarketingFooterSection({ settings }: MarketingFooterSectionProps) {
   const tagline = settings?.footerTagline?.trim() || DEFAULT_TAGLINE;
@@ -37,13 +56,7 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
   const pageLinks =
     settings?.footerPageLinks?.length ? settings.footerPageLinks : DEFAULT_PAGE_LINKS;
 
-  // Build social links from settings, falling back to placeholder URLs.
-  const socials: SocialEntry[] = [
-    { url: settings?.facebook?.trim() || "https://www.facebook.com/", icon: "ri-facebook-fill" },
-    { url: settings?.twitter?.trim() || "https://x.com/", icon: "ri-twitter-fill" },
-    { url: settings?.linkedin?.trim() || "https://www.linkedin.com/", icon: "ri-linkedin-fill" },
-    { url: settings?.instagram?.trim() || "https://www.instagram.com/", icon: "ri-instagram-fill" },
-  ];
+  const socials = socialLinksFromSettings(settings);
 
   return (
     <div className="footer-area bg-03010d">
@@ -52,19 +65,26 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
           {/* Column 1 — Brand */}
           <div className="col-lg-3 col-sm-6">
             <div className="footer-single-item">
-              <Link href="/" className="fw-bold logo text-white">
-                <span>Briti</span>cana
+              <Link href="/" className="logo d-inline-block text-decoration-none" aria-label="Briticana home">
+                <img
+                  src={FOOTER_LOGO_SRC}
+                  alt="Briticana"
+                  className="marketing-footer-logo d-block"
+                  style={{ height: `${FOOTER_LOGO_HEIGHT_PX}px`, width: "auto" }}
+                />
               </Link>
               <p>{tagline}</p>
-              <ul className="p-0 list-unstyled d-flex align-items-center social">
-                {socials.map((s) => (
-                  <li key={s.icon}>
-                    <a href={s.url} target="_blank" rel="noopener noreferrer" className="bg-white text-decoration-none">
-                      <i className={s.icon} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {socials.length > 0 ? (
+                <ul className="p-0 list-unstyled d-flex align-items-center social">
+                  {socials.map((s) => (
+                    <li key={s.icon}>
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="bg-white text-decoration-none">
+                        <i className={s.icon} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           </div>
 

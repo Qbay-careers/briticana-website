@@ -8,7 +8,7 @@ export default function MarketingFaqSection() {
           <div className="col-lg-5">
             <div className="categories-content position-sticky z-1">
               <h2>
-                Frequently <span>Asked</span> Questions
+                Frequently <span>asked</span> questions
               </h2>
               <div className="ms-lg-5 d-none d-lg-block">
                 <img src={marketingImage("title-shape.png")} alt="" />

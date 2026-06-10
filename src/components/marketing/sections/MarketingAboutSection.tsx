@@ -44,8 +44,8 @@ export default function MarketingAboutSection({ homeHero }: MarketingAboutSectio
                   What is Briticana?
                 </p>
                 <h2>
-                  Not Just a Course. Not Just an Internship. A Real{" "}
-                  <span>Experience Platform.</span>
+                  Not just a course. Not just an internship. A real{" "}
+                  <span>experience platform.</span>
                 </h2>
                 <img src={marketingImage("title-shape.png")} className="ms-lg-5" alt="" />
                 <img
