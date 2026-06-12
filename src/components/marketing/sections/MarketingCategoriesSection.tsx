@@ -25,6 +25,9 @@ export default function MarketingCategoriesSection({
   internshipDomains = [],
 }: MarketingCategoriesSectionProps) {
   const useSanityDomains = internshipDomains.length > 0;
+  /** At most 8 domain cards; the 9th tile is always “All domains”. */
+  const sanityDomainsToShow = internshipDomains.slice(0, 8);
+  const fallbackCategoriesToShow = CATEGORY_ITEMS.slice(0, 8);
 
   return (
     <div className="categories-area tp-panel-pin-area marketing-home-domains-after-hero marketing-home-section-pb">
@@ -50,7 +53,7 @@ export default function MarketingCategoriesSection({
             <div className="categories-wrap">
               <div className="row g-4" data-cues="slideInUp">
                 {useSanityDomains
-                  ? internshipDomains.map((d, index) => {
+                  ? sanityDomainsToShow.map((d, index) => {
                       const slug = d.slug?.current?.trim();
                       const href = slug ? `/internships?domain=${encodeURIComponent(slug)}` : "/internships";
                       const icon = DOMAIN_CARD_ICONS[index % DOMAIN_CARD_ICONS.length];
@@ -75,7 +78,7 @@ export default function MarketingCategoriesSection({
                         </div>
                       );
                     })
-                  : CATEGORY_ITEMS.map((c) => (
+                  : fallbackCategoriesToShow.map((c) => (
                       <div key={c.title} className="col-md-4 col-sm-6">
                         <Link
                           href={c.href}

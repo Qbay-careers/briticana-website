@@ -33,13 +33,15 @@ export default function MarketingCoursesSection({ internships }: MarketingCourse
           </Link>
         </div>
 
-        <div className="row g-4" data-cues="slideInUp">
-          {internships.map((internship) => (
-            <div key={internship._id} className="col-lg-4 col-md-6 d-flex">
-              <InternshipIntroCard internship={internship} />
-            </div>
-          ))}
-        </div>
+        {internships.length > 0 ? (
+          <div className="featured-internships-slide owl-carousel owl-theme">
+            {internships.map((internship) => (
+              <div key={internship._id} className="featured-internships-slide__item d-flex h-100">
+                <InternshipIntroCard internship={internship} />
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   );
