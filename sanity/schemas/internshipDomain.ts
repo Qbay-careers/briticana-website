@@ -30,6 +30,13 @@ export default defineType({
       rows: 4,
     }),
     defineField({
+      name: "icon",
+      title: "Icon",
+      type: "image",
+      description: "Optional icon or image used for domain cards. Prefer SVG for crisp vector icons.",
+      options: { hotspot: true },
+    }),
+    defineField({
       name: "sortOrder",
       title: "Sort order",
       type: "number",

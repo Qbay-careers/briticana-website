@@ -112,7 +112,7 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
                   </div>
                 </li>
                 <li>
-                  <div className="d-flex align-items-center gap-2">
+                  <div className="d-flex align-items-start gap-2">
                     <i className="ri-mail-line text-white" />
                     <a href={`mailto:${email}`}>{email}</a>
                   </div>

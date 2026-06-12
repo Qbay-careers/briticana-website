@@ -39,6 +39,7 @@ export interface InternshipDomainDoc {
   title: string;
   slug: SanitySlug;
   shortOverview?: string;
+  icon?: SanityImage;
 }
 
 /** Domain row for `/domains` listing (GROQ `getInternshipDomainsWithCounts`). */

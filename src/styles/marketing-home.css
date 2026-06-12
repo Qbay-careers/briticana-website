@@ -398,6 +398,17 @@
   margin-right: auto;
   font-size: clamp(1.35rem, 2.5vw, 2rem);
   line-height: 1.35;
+
+/* Domain / category icon images served from Sanity or fallback assets */
+.marketing-home-root .categories-single-item .icon img,
+.marketing-home-root .categories-single-item-three .icon img,
+.domain-icon-img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
 }
 
 .marketing-home-root .internship-detail-content h2:first-of-type {
