@@ -6,12 +6,7 @@ import StartDateSelector from "@/components/internships/StartDateSelector";
 import InternshipIntroCard from "@/components/marketing/InternshipIntroCard";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
-import {
-  getAllInternshipDomains,
-  getAllInternships,
-  getInternshipsFiltered,
-  getSiteSettings,
-} from "@/lib/sanity/queries";
+import { getAllInternshipDomains, getInternshipsFiltered, getSiteSettings } from "@/lib/sanity/queries";
 import type { Internship, InternshipDomainDoc, SiteSettings } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
@@ -21,31 +16,39 @@ export const metadata: Metadata = {
 };
 
 type InternshipsPageProps = {
-  searchParams?: { domain?: string; region?: string; duration?: string };
+  searchParams?: Record<string, string | string[] | undefined>;
 };
+
+/** Next.js may pass a query value as `string` or `string[]`; normalize so `.trim()` never throws. */
+function searchParamFirst(v: string | string[] | undefined): string {
+  if (v === undefined) return "";
+  const raw = Array.isArray(v) ? v[0] : v;
+  return typeof raw === "string" ? raw.trim() : "";
+}
+
+const SANITY_REVALIDATE_SECONDS = 60;
+const sanityFetchOptions = { next: { revalidate: SANITY_REVALIDATE_SECONDS } };
 
 export default async function InternshipsPage({ searchParams }: InternshipsPageProps) {
   const sp = searchParams ?? {};
+  const domain = searchParamFirst(sp.domain);
+  const region = searchParamFirst(sp.region);
+  const duration = searchParamFirst(sp.duration);
+
   let internships: Internship[] = [];
   let filterDomains: InternshipDomainDoc[] = [];
   let batchApplyUrl: string | null = null;
 
   if (isSanityConfigured()) {
     try {
-      const hasFilter = Boolean(sp.domain?.trim() || sp.region?.trim() || sp.duration?.trim());
       const [fetchedInternships, fetchedDomains, siteSettings] = await Promise.all([
         client.fetch<Internship[]>(
-          hasFilter ? getInternshipsFiltered : getAllInternships,
-          hasFilter
-            ? {
-                domain: sp.domain?.trim() ?? "",
-                region: sp.region?.trim() ?? "",
-                duration: sp.duration?.trim() ?? "",
-              }
-            : {},
+          getInternshipsFiltered,
+          { domain, region, duration },
+          sanityFetchOptions,
         ),
-        client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains),
-        client.fetch<SiteSettings | null>(getSiteSettings),
+        client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, sanityFetchOptions),
+        client.fetch<SiteSettings | null>(getSiteSettings, {}, sanityFetchOptions),
       ]);
       internships = fetchedInternships;
       filterDomains = fetchedDomains;
@@ -86,11 +89,11 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
       <div className="courses-area pt-5 pb-120 bg-f7f7f7">
         <div className="container mw-1345">
           <FilterBar
-            key={`${sp.domain ?? ""}-${sp.region ?? ""}-${sp.duration ?? ""}`}
+            key={`${domain}-${region}-${duration}`}
             domains={filterDomains}
-            initialDomain={sp.domain?.trim() ?? ""}
-            initialRegion={sp.region?.trim() ?? ""}
-            initialDuration={sp.duration?.trim() ?? ""}
+            initialDomain={domain}
+            initialRegion={region}
+            initialDuration={duration}
           />
 
           {internships.length === 0 ? (

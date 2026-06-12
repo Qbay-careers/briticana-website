@@ -51,9 +51,9 @@ export const defaultHomeHero: HomeHeroData = {
   overview:
     "Briticana is an execution-focused experience platform where students collaborate on real-world projects under guided mentorship and structured workflows inspired by modern startups and professional teams.",
   ctaApplyHref: "/contact",
-  ctaExploreHref: "/programs",
+  ctaExploreHref: "/internships",
   ctaApplyLabel: "Apply Now",
-  ctaExploreLabel: "View Programs",
+  ctaExploreLabel: "View Internships",
   heroWideImage: "/edumove/images/banner-1.jpg",
   floatingImages: DEFAULT_FLOATING_IMAGES,
   stripMainImage: "/edumove/images/banner-7.jpg",

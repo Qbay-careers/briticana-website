@@ -220,6 +220,45 @@
   align-items: center;
 }
 
+/* Featured internships carousel (home) */
+.marketing-home-root .featured-internships-slide.owl-carousel .owl-item {
+  display: flex;
+}
+
+.marketing-home-root .featured-internships-slide__item {
+  width: 100%;
+}
+
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav {
+  margin-top: 1.5rem !important;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  position: static;
+}
+
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-prev,
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-next {
+  width: 48px;
+  height: 48px;
+  line-height: 46px;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid rgba(3, 1, 13, 0.12);
+  color: var(--headingColor, #03010d);
+  font-size: 20px;
+  margin: 0;
+  transition: var(--transition, 0.3s);
+  background: #fff;
+}
+
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-prev:hover,
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-next:hover {
+  background-color: var(--mainColor, #7a4dfc);
+  color: #fff;
+  border-color: var(--mainColor, #7a4dfc);
+}
+
 /* Featured internship intro cards (home featured band) — no hero image */
 .marketing-home-root .internship-intro-card {
   border: 1px solid rgba(3, 1, 13, 0.08);
@@ -398,6 +437,17 @@
   margin-right: auto;
   font-size: clamp(1.35rem, 2.5vw, 2rem);
   line-height: 1.35;
+
+/* Domain / category icon images served from Sanity or fallback assets */
+.marketing-home-root .categories-single-item .icon img,
+.marketing-home-root .categories-single-item-three .icon img,
+.domain-icon-img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
 }
 
 .marketing-home-root .internship-detail-content h2:first-of-type {
