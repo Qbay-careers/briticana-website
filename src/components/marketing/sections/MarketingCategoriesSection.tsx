@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { marketingIcon, marketingImage } from "@/components/marketing/marketingAssetPaths";
+import { urlForSanityImage } from "@/lib/sanity/image";
 import { CATEGORY_ITEMS } from "@/components/marketing/sections/marketingHomeData";
 import type { InternshipDomainDoc } from "@/lib/sanity/types";
 
@@ -53,6 +54,7 @@ export default function MarketingCategoriesSection({
                       const slug = d.slug?.current?.trim();
                       const href = slug ? `/internships?domain=${encodeURIComponent(slug)}` : "/internships";
                       const icon = DOMAIN_CARD_ICONS[index % DOMAIN_CARD_ICONS.length];
+                      const sanityIconUrl = urlForSanityImage((d as any).icon, 80, 80);
                       return (
                         <div key={d._id} className="col-md-4 col-sm-6">
                           <Link
@@ -61,7 +63,7 @@ export default function MarketingCategoriesSection({
                           >
                             <div className="icon-border">
                               <div className="icon d-flex justify-content-center align-items-center mx-auto rounded-circle">
-                                <img src={marketingIcon(icon)} alt="" />
+                                <img src={sanityIconUrl ?? marketingIcon(icon)} alt={d.title ?? ""} className="domain-icon-img" />
                               </div>
                             </div>
                             <h3>{d.title}</h3>

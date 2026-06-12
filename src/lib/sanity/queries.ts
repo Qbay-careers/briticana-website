@@ -1,7 +1,7 @@
 /** GROQ query strings for Briticana content. Pass to `client.fetch` with params where noted. */
 
 /** Dereference internship → domain for app types (slug.current used in filters). */
-const internshipDomainExpand = `"domain": domain->{ _id, _type, title, slug, shortOverview }`;
+const internshipDomainExpand = `"domain": domain->{ _id, _type, title, slug, shortOverview, icon }`;
 
 export const getHomePage = `*[_type == "homePage"]|order(_updatedAt desc)[0]`;
 
@@ -10,7 +10,8 @@ export const getAllInternshipDomains = `*[_type == "internshipDomain" && defined
   _id,
   _type,
   title,
-  slug
+  slug,
+  icon
 }`;
 
 /** Domains listing: same order as home, plus live internship counts per domain. */
@@ -20,6 +21,7 @@ export const getInternshipDomainsWithCounts = `*[_type == "internshipDomain" && 
   title,
   slug,
   shortOverview,
+  icon,
   "internshipCount": count(*[_type == "internship" && domain._ref == ^._id])
 }`;
 
