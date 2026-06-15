@@ -279,6 +279,52 @@
   color: var(--headingColor, #03010d);
 }
 
+/* Testimonials: custom nav buttons below carousel */
+.marketing-home-root .testimonial-nav {
+  gap: 1rem;
+}
+.marketing-home-root .testimonial-nav .btn {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(3,1,13,0.16);
+  border: none;
+}
+.marketing-home-root .testimonial-nav .btn i {
+  font-size: 18px;
+}
+
+/* Featured internships controls (placed under testimonials) */
+.marketing-home-root .featured-internships-controls .btn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(3,1,13,0.06);
+}
+.marketing-home-root .featured-internships-controls .btn i {
+  font-size: 16px;
+}
+
+/* Centered controls for featured internships carousel */
+.marketing-home-root .featured-internships-controls {
+  margin-top: 1.5rem;
+}
+.marketing-home-root .featured-internships-controls .btn {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(3,1,13,0.06);
+}
+.marketing-home-root .featured-internships-controls .btn i {
+  font-size: 18px;
+}
+
 .marketing-home-root .internship-intro-card__pill--status {
   background-color: rgba(122, 77, 252, 0.12);
   color: var(--mainColor, #7a4dfc);
