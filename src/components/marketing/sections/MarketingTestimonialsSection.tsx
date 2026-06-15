@@ -79,6 +79,23 @@ export default function MarketingTestimonialsSection({ testimonials, homeHero }:
                 </div>
               ))}
         </div>
+        <div className="testimonial-nav d-flex justify-content-between align-items-center mt-3">
+          <button type="button" className="testimonial-prev btn btn-light rounded-circle">
+            <i className="ri-arrow-left-line" />
+          </button>
+          <button type="button" className="testimonial-next btn btn-light rounded-circle">
+            <i className="ri-arrow-right-line" />
+          </button>
+          <div className="featured-internships-controls d-flex gap-2">
+            <button type="button" className="featured-internships-prev btn btn-outline-light rounded-circle">
+              <i className="ri-arrow-left-line" />
+            </button>
+            <button type="button" className="featured-internships-next btn btn-outline-light rounded-circle">
+              <i className="ri-arrow-right-line" />
+            </button>
+          </div>
+        </div>
+
         <div className="more-testimonial d-flex justify-content-center justify-content-md-end">
           <div>
             <h4>

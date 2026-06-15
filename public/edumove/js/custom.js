@@ -187,6 +187,25 @@
 		},
 	});
 
+	// Wire custom nav buttons placed below the testimonial carousel
+	$('.testimonial-area').each(function () {
+		var $area = $(this);
+		var $slide = $area.find('.testimonial-slide');
+		$area.find('.testimonial-prev').on('click', function () {
+			$slide.trigger('prev.owl.carousel');
+		});
+		$area.find('.testimonial-next').on('click', function () {
+			$slide.trigger('next.owl.carousel');
+		});
+	});
+
+	$('.featured-internships-prev').on('click', function () {
+		$('.featured-internships-slide').trigger('prev.owl.carousel');
+	});
+	$('.featured-internships-next').on('click', function () {
+		$('.featured-internships-slide').trigger('next.owl.carousel');
+	});
+
 	function initFeaturedInternshipsSlide() {
 		$(".featured-internships-slide").each(function () {
 			var $el = $(this);

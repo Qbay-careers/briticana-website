@@ -1,7 +1,7 @@
 import { featuredInternshipsFallback, sortFeaturedInternships } from "@/lib/marketing/featuredInternshipsFallback";
 import type { Internship } from "@/lib/sanity/types";
 
-const MAX_FEATURED = 3;
+const MAX_FEATURED = 8;
 
 /** Preserve the selected order from CMS; otherwise marketing fallback samples. */
 export function resolveFeaturedInternships(fetched: Internship[] | null | undefined): Internship[] {

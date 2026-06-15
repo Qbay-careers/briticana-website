@@ -176,8 +176,8 @@ export default defineType({
       type: "array",
       group: "featured",
       of: [{ type: "reference", to: [{ type: "internship" }] }],
-      validation: (Rule) => Rule.max(3),
-      description: "Choose up to 3 internships to feature on the homepage.",
+      validation: (Rule) => Rule.max(8),
+      description: "Choose up to 8 internships to feature on the homepage.",
     }),
 
     // ── Certification section ─────────────────────────────────────────────
