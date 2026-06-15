@@ -21,6 +21,8 @@ export default function ScrollCueRouteSync() {
 
   useEffect(() => {
     runScrollCueUpdate();
+    const globalWindow = globalThis as unknown as { briticanaMarketingInit?: () => void };
+    globalWindow.briticanaMarketingInit?.();
   }, [pathname, searchKey]);
 
   return null;

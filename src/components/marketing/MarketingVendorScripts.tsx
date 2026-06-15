@@ -62,6 +62,8 @@ export default function MarketingVendorScripts() {
         console.error("[MarketingVendorScripts] script chain", e);
       } finally {
         runScrollCueUpdate();
+        const globalWindow = window as typeof window & { briticanaMarketingInit?: () => void };
+        globalWindow.briticanaMarketingInit?.();
       }
     })();
 
@@ -72,3 +74,4 @@ export default function MarketingVendorScripts() {
 
   return null;
 }
+
