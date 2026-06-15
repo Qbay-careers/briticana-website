@@ -10,6 +10,7 @@ export default defineType({
     { name: "heroImages", title: "Hero floating images" },
     { name: "heroStrip", title: "Hero bottom strip" },
     { name: "about", title: "About section" },
+    { name: "featured", title: "Featured internships" },
     { name: "certification", title: "Certification section" },
     { name: "testimonials", title: "Testimonials section" },
   ],
@@ -168,6 +169,15 @@ export default defineType({
       group: "about",
       description: "Large image on the left side of the 'What is Briticana?' section. Leave empty to use the default.",
       options: { hotspot: true },
+    }),
+    defineField({
+      name: "featuredInternships",
+      title: "Featured internships",
+      type: "array",
+      group: "featured",
+      of: [{ type: "reference", to: [{ type: "internship" }] }],
+      validation: (Rule) => Rule.max(8),
+      description: "Choose up to 8 internships to feature on the homepage.",
     }),
 
     // ── Certification section ─────────────────────────────────────────────

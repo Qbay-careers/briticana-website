@@ -187,37 +187,68 @@
 		},
 	});
 
-	// Featured internships (home) — card carousel
-	$(".featured-internships-slide").each(function () {
-		var $el = $(this);
-		if (!$el.children().length) return;
-		var count = $el.children().length;
-		$el.owlCarousel({
-			items: 1,
-			loop: count > 3,
-			margin: 24,
-			nav: count > 1,
-			dots: false,
-			autoplay: false,
-			smartSpeed: 700,
-			autoplayHoverPause: true,
-			navText: [
-				"<i class='ri-arrow-left-line'></i>",
-				"<i class='ri-arrow-right-line'></i>",
-			],
-			responsive: {
-				0: {
-					items: 1,
-				},
-				768: {
-					items: 2,
-				},
-				992: {
-					items: 3,
-				},
-			},
+	// Wire custom nav buttons placed below the testimonial carousel
+	$('.testimonial-area').each(function () {
+		var $area = $(this);
+		var $slide = $area.find('.testimonial-slide');
+		$area.find('.testimonial-prev').on('click', function () {
+			$slide.trigger('prev.owl.carousel');
+		});
+		$area.find('.testimonial-next').on('click', function () {
+			$slide.trigger('next.owl.carousel');
 		});
 	});
+
+	$('.featured-internships-prev').on('click', function () {
+		$('.featured-internships-slide').trigger('prev.owl.carousel');
+	});
+	$('.featured-internships-next').on('click', function () {
+		$('.featured-internships-slide').trigger('next.owl.carousel');
+	});
+
+	function initFeaturedInternshipsSlide() {
+		$(".featured-internships-slide").each(function () {
+			var $el = $(this);
+			if (!$el.children().length) return;
+			if ($el.data("owl.carousel")) {
+				$el.trigger("destroy.owl.carousel");
+				$el.removeClass("owl-loaded owl-drag");
+				$el.find(".owl-stage-outer").children().unwrap();
+			}
+			var count = $el.children().length;
+			$el.owlCarousel({
+				items: 1,
+				loop: count > 3,
+				margin: 24,
+				nav: count > 1,
+				dots: false,
+				autoplay: false,
+				smartSpeed: 700,
+				autoplayHoverPause: true,
+				navText: [
+					"<i class='ri-arrow-left-line'></i>",
+					"<i class='ri-arrow-right-line'></i>",
+				],
+				responsive: {
+					0: {
+						items: 1,
+					},
+					768: {
+						items: 2,
+					},
+					992: {
+						items: 3,
+					},
+				},
+			});
+		});
+	}
+
+	window.briticanaMarketingInit = window.briticanaMarketingInit || function () {
+		initFeaturedInternshipsSlide();
+	};
+
+	window.briticanaMarketingInit();
 
 	// Active Removed Class JS
 	let hide = true;

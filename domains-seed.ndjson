@@ -1,0 +1,39 @@
+{"_id":"internshipDomain-administration","_type":"internshipDomain","title":"Administration","slug":{"_type":"slug","current":"administration"},"sortOrder":1}
+{"_id":"internshipDomain-artificial-intelligence","_type":"internshipDomain","title":"Artificial Intelligence","slug":{"_type":"slug","current":"artificial-intelligence"},"sortOrder":2}
+{"_id":"internshipDomain-asset-management","_type":"internshipDomain","title":"Asset Management","slug":{"_type":"slug","current":"asset-management"},"sortOrder":3}
+{"_id":"internshipDomain-audit","_type":"internshipDomain","title":"Audit","slug":{"_type":"slug","current":"audit"},"sortOrder":4}
+{"_id":"internshipDomain-business-analysis","_type":"internshipDomain","title":"Business Analysis","slug":{"_type":"slug","current":"business-analysis"},"sortOrder":5}
+{"_id":"internshipDomain-clinical","_type":"internshipDomain","title":"Clinical","slug":{"_type":"slug","current":"clinical"},"sortOrder":6}
+{"_id":"internshipDomain-compliance","_type":"internshipDomain","title":"Compliance","slug":{"_type":"slug","current":"compliance"},"sortOrder":7}
+{"_id":"internshipDomain-cybersecurity","_type":"internshipDomain","title":"Cybersecurity","slug":{"_type":"slug","current":"cybersecurity"},"sortOrder":8}
+{"_id":"internshipDomain-data-analytics-operations","_type":"internshipDomain","title":"Data Analytics & Data Operations","slug":{"_type":"slug","current":"data-analytics-operations"},"sortOrder":9}
+{"_id":"internshipDomain-digital-transformation","_type":"internshipDomain","title":"Digital Transformation","slug":{"_type":"slug","current":"digital-transformation"},"sortOrder":10}
+{"_id":"internshipDomain-finance","_type":"internshipDomain","title":"Finance","slug":{"_type":"slug","current":"finance"},"sortOrder":11}
+{"_id":"internshipDomain-food-quality","_type":"internshipDomain","title":"Food Quality","slug":{"_type":"slug","current":"food-quality"},"sortOrder":12}
+{"_id":"internshipDomain-graphic-design","_type":"internshipDomain","title":"Graphic Design","slug":{"_type":"slug","current":"graphic-design"},"sortOrder":13}
+{"_id":"internshipDomain-hr","_type":"internshipDomain","title":"HR","slug":{"_type":"slug","current":"hr"},"sortOrder":14}
+{"_id":"internshipDomain-infrastructure-operations","_type":"internshipDomain","title":"Infrastructure Operations","slug":{"_type":"slug","current":"infrastructure-operations"},"sortOrder":15}
+{"_id":"internshipDomain-it-operations","_type":"internshipDomain","title":"IT Operations","slug":{"_type":"slug","current":"it-operations"},"sortOrder":16}
+{"_id":"internshipDomain-laboratory-operations","_type":"internshipDomain","title":"Laboratory Operations","slug":{"_type":"slug","current":"laboratory-operations"},"sortOrder":17}
+{"_id":"internshipDomain-legal","_type":"internshipDomain","title":"Legal","slug":{"_type":"slug","current":"legal"},"sortOrder":18}
+{"_id":"internshipDomain-machine-learning","_type":"internshipDomain","title":"Machine Learning","slug":{"_type":"slug","current":"machine-learning"},"sortOrder":19}
+{"_id":"internshipDomain-marketing","_type":"internshipDomain","title":"Marketing","slug":{"_type":"slug","current":"marketing"},"sortOrder":20}
+{"_id":"internshipDomain-mechanical-quality","_type":"internshipDomain","title":"Mechanical Quality","slug":{"_type":"slug","current":"mechanical-quality"},"sortOrder":21}
+{"_id":"internshipDomain-nursing","_type":"internshipDomain","title":"Nursing","slug":{"_type":"slug","current":"nursing"},"sortOrder":22}
+{"_id":"internshipDomain-operations","_type":"internshipDomain","title":"Operations","slug":{"_type":"slug","current":"operations"},"sortOrder":23}
+{"_id":"internshipDomain-pharmaceutical-quality","_type":"internshipDomain","title":"Pharmaceutical Quality","slug":{"_type":"slug","current":"pharmaceutical-quality"},"sortOrder":24}
+{"_id":"internshipDomain-procurement","_type":"internshipDomain","title":"Procurement","slug":{"_type":"slug","current":"procurement"},"sortOrder":25}
+{"_id":"internshipDomain-product-management","_type":"internshipDomain","title":"Product Management","slug":{"_type":"slug","current":"product-management"},"sortOrder":26}
+{"_id":"internshipDomain-project-management","_type":"internshipDomain","title":"Project Management","slug":{"_type":"slug","current":"project-management"},"sortOrder":27}
+{"_id":"internshipDomain-quality-assurance","_type":"internshipDomain","title":"Quality Assurance","slug":{"_type":"slug","current":"quality-assurance"},"sortOrder":28}
+{"_id":"internshipDomain-quantity-surveying","_type":"internshipDomain","title":"Quantity Surveying","slug":{"_type":"slug","current":"quantity-surveying"},"sortOrder":29}
+{"_id":"internshipDomain-renewable-energy","_type":"internshipDomain","title":"Renewable Energy","slug":{"_type":"slug","current":"renewable-energy"},"sortOrder":30}
+{"_id":"internshipDomain-site-reliability","_type":"internshipDomain","title":"Site Reliability","slug":{"_type":"slug","current":"site-reliability"},"sortOrder":31}
+{"_id":"internshipDomain-smart-manufacturing","_type":"internshipDomain","title":"Smart Manufacturing","slug":{"_type":"slug","current":"smart-manufacturing"},"sortOrder":32}
+{"_id":"internshipDomain-software-development","_type":"internshipDomain","title":"Software Development","slug":{"_type":"slug","current":"software-development"},"sortOrder":33}
+{"_id":"internshipDomain-software-testing","_type":"internshipDomain","title":"Software Testing","slug":{"_type":"slug","current":"software-testing"},"sortOrder":34}
+{"_id":"internshipDomain-supply-chain","_type":"internshipDomain","title":"Supply Chain","slug":{"_type":"slug","current":"supply-chain"},"sortOrder":35}
+{"_id":"internshipDomain-sustainability","_type":"internshipDomain","title":"Sustainability","slug":{"_type":"slug","current":"sustainability"},"sortOrder":36}
+{"_id":"internshipDomain-ux","_type":"internshipDomain","title":"UX","slug":{"_type":"slug","current":"ux"},"sortOrder":37}
+{"_id":"internshipDomain-warehouse-operations","_type":"internshipDomain","title":"Warehouse Operations","slug":{"_type":"slug","current":"warehouse-operations"},"sortOrder":38}
+{"_id":"internshipDomain-engineering","_type":"internshipDomain","title":"Engineering","slug":{"_type":"slug","current":"engineering"},"sortOrder":39}

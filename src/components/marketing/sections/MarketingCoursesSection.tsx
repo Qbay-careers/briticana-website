@@ -34,13 +34,23 @@ export default function MarketingCoursesSection({ internships }: MarketingCourse
         </div>
 
         {internships.length > 0 ? (
-          <div className="featured-internships-slide owl-carousel owl-theme">
+          <>
+            <div className="featured-internships-slide owl-carousel owl-theme">
             {internships.map((internship) => (
               <div key={internship._id} className="featured-internships-slide__item d-flex h-100">
                 <InternshipIntroCard internship={internship} />
               </div>
             ))}
-          </div>
+            </div>
+            <div className="featured-internships-controls d-flex justify-content-center gap-3 mt-4">
+              <button type="button" className="featured-internships-prev btn btn-outline-secondary rounded-circle">
+                <i className="ri-arrow-left-line" />
+              </button>
+              <button type="button" className="featured-internships-next btn btn-outline-secondary rounded-circle">
+                <i className="ri-arrow-right-line" />
+              </button>
+            </div>
+          </>
         ) : null}
       </div>
     </div>

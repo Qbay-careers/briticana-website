@@ -17,6 +17,12 @@ export type SanityImage = {
   crop?: { top: number; bottom: number; left: number; right: number };
 };
 
+export type SanityReference<T> = {
+  _type?: "reference";
+  _ref: string;
+  _weak?: boolean;
+};
+
 /** Stable slug values for domains (filters, fallbacks when CMS title is absent). */
 export type InternshipDomainSlug =
   | "data-analysis"
@@ -104,6 +110,7 @@ export interface HomePage {
   stripAvatar4?: SanityImage;
   /** About section — left side image. */
   aboutImage?: SanityImage;
+  featuredInternships?: SanityReference<Internship>[];
   /** Certification section — certificate mockup image. */
   certImage?: SanityImage;
   /** Set to false to hide the complete testimonials section. */
