@@ -17,23 +17,44 @@ export type SanityImage = {
   crop?: { top: number; bottom: number; left: number; right: number };
 };
 
-export type InternshipDomain =
-  | "software-engineering"
-  | "data-science-analytics"
-  | "cybersecurity"
-  | "ux-ui-design"
+/** Stable slug values for domains (filters, fallbacks when CMS title is absent). */
+export type InternshipDomainSlug =
+  | "data-analysis"
+  | "human-resources"
+  | "software-development"
+  | "ui-ux-design"
   | "digital-marketing"
-  | "cloud-devops"
-  | "artificial-intelligence"
-  | "mobile-development"
-  | "web-development"
+  | "business-operations"
   | "product-management"
-  | "business-analysis"
-  | "fintech";
+  | "cybersecurity"
+  | "cloud-devops"
+  | "ai-automation"
+  | "finance-research"
+  | "sales-growth";
+
+/** CMS document: `internshipDomain` — referenced from `internship.domain`. */
+export interface InternshipDomainDoc {
+  _id: string;
+  _type: "internshipDomain";
+  title: string;
+  slug: SanitySlug;
+  shortOverview?: string;
+  icon?: SanityImage;
+}
+
+/** Domain row for `/domains` listing (GROQ `getInternshipDomainsWithCounts`). */
+export interface InternshipDomainListItem extends InternshipDomainDoc {
+  internshipCount?: number;
+}
 
 export type InternshipDurationOption = "3 months" | "6 months" | "9 months";
 
-export type InternshipRegion = "Ireland" | "UK" | "Germany" | "Finland";
+export type InternshipRegion =
+  | "Ireland"
+  | "United Kingdom"
+  | "Germany"
+  | "Finland"
+  | "Sweden";
 
 export type InternshipApplicationStatus = "open" | "closed" | "coming-soon";
 
@@ -42,7 +63,8 @@ export interface Internship {
   _type: "internship";
   title: string;
   slug: SanitySlug;
-  domain: InternshipDomain;
+  /** Dereferenced in GROQ; null if reference missing or broken. */
+  domain?: InternshipDomainDoc | null;
   overview?: string;
   skillsCovered?: string[];
   toolsUsed?: string[];
@@ -54,6 +76,43 @@ export interface Internship {
   batchStartDate?: string;
   googleFormLink?: string;
   featuredImage?: SanityImage;
+}
+
+export interface HomePage {
+  _id: string;
+  _type: "homePage";
+  heroHeadline: string;
+  heroSubheadline?: string;
+  heroOverview?: string;
+  heroCtaApplyUrl?: string;
+  heroCtaExploreUrl?: string;
+  /** Wide hero for stacked layout on viewports under 1400px (separate from floating tiles). */
+  heroImageWide?: SanityImage;
+  /** Named floating image slots — slot 1–6 map to banner1–banner6 positions. */
+  heroImage1?: SanityImage;
+  heroImage2?: SanityImage;
+  heroImage3?: SanityImage;
+  heroImage4?: SanityImage;
+  heroImage5?: SanityImage;
+  heroImage6?: SanityImage;
+  /** Hero bottom strip images (below pb-120 spacer). */
+  stripMainImage?: SanityImage;
+  stripSideImage?: SanityImage;
+  stripAvatar1?: SanityImage;
+  stripAvatar2?: SanityImage;
+  stripAvatar3?: SanityImage;
+  stripAvatar4?: SanityImage;
+  /** About section — left side image. */
+  aboutImage?: SanityImage;
+  /** Certification section — certificate mockup image. */
+  certImage?: SanityImage;
+  /** Set to false to hide the complete testimonials section. */
+  showTestimonials?: boolean;
+  /** Testimonial section circular avatars. */
+  testimonialAvatar1?: SanityImage;
+  testimonialAvatar2?: SanityImage;
+  testimonialAvatar3?: SanityImage;
+  testimonialAvatar4?: SanityImage;
 }
 
 export interface Testimonial {
@@ -83,20 +142,35 @@ export interface StartupPartner {
   collaborationType?: string;
 }
 
+export interface FooterNavLink {
+  _key: string;
+  label?: string;
+  href?: string;
+}
+
 export interface SiteSettings {
   _id: string;
   _type: "siteSettings";
   email?: string;
   whatsappNumber?: string;
+  whatsappUrl?: string;
   contactNumber?: string;
   officeAddress?: string;
   googleMapsLink?: string;
   instagram?: string;
   linkedin?: string;
   facebook?: string;
+  twitter?: string;
   youtube?: string;
+  marketingApplyUrl?: string;
+  footerTagline?: string;
+  footerLocations?: string;
+  footerExploreLinks?: FooterNavLink[];
+  footerPageLinks?: FooterNavLink[];
   starterPrice?: string;
   proPrice?: string;
+  /** "Apply Now" in internships start-date section (path or full URL). */
+  internshipBatchApplyUrl?: string;
 }
 
 export type StudentCompletionStatus = "completed" | "in-progress" | "not-started";

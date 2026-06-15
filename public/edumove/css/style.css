@@ -531,8 +531,6 @@ textarea.form-control {
 .navbar-area {
   position: relative;
   background-color: var(--whiteColor);
-  padding-top: 15.5px;
-  padding-bottom: 15.5px;
   border-bottom: 1px solid #EEEEEE;
 }
 .navbar-area .container-fluid {

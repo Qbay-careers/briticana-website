@@ -16,3 +16,700 @@
   height: auto;
   object-fit: contain;
 }
+
+/* Homepage vertical rhythm — scoped; avoids stacked ptb-120 (~240px) between sections */
+.marketing-home-root {
+  --marketing-section-y: clamp(40px, 3.75vw, 64px);
+  /* Approximate navbar + bar height for full-viewport hero below xxl */
+  --marketing-nav-offset: 5.75rem;
+}
+
+.marketing-home-root .marketing-home-section-y {
+  padding-top: var(--marketing-section-y);
+  padding-bottom: var(--marketing-section-y);
+}
+
+.marketing-home-root .marketing-home-section-pb {
+  padding-bottom: var(--marketing-section-y);
+}
+
+/* Hero: replace missing template pb-120 bridge; tame oversized theme padding-top for display-3 hero */
+.marketing-home-root .banner-area {
+  padding-bottom: var(--marketing-section-y);
+}
+
+.marketing-home-root .banner-area .banner-content {
+  padding-top: clamp(72px, 12vw, 140px);
+}
+
+@media (min-width: 992px) {
+  .marketing-home-root .banner-area .banner-content {
+    padding-top: clamp(100px, 14vw, 160px);
+  }
+}
+
+@media (max-width: 575px) {
+  .marketing-home-root .banner-area .banner-content {
+    padding-top: clamp(48px, 10vw, 72px);
+  }
+}
+
+/* Hero subheadline — strong body contrast (darker than muted secondary) */
+.marketing-home-root .marketing-hero-subheadline {
+  color: rgba(3, 1, 13, 0.94);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+/* Hero: wide image as background behind copy (viewports below Bootstrap xxl / 1400px) */
+.marketing-home-root .marketing-hero-stack {
+  position: relative;
+}
+
+.marketing-home-root .marketing-hero-stack::before,
+.marketing-home-root .marketing-hero-stack::after {
+  display: none;
+}
+
+@media (max-width: 1399.98px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: 0;
+    overflow-x: clip;
+  }
+
+  .marketing-home-root .marketing-hero-stack {
+    /* Full-bleed edge to edge */
+    width: 100vw;
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    isolation: isolate;
+    border-radius: 0;
+    overflow: hidden;
+    /* Fill viewport below the global nav */
+    min-height: calc(100vh - var(--marketing-nav-offset));
+    min-height: calc(100dvh - var(--marketing-nav-offset));
+    min-height: calc(100svh - var(--marketing-nav-offset));
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding-bottom: var(--marketing-section-y);
+  }
+
+  .marketing-home-root .marketing-hero-stack__inner {
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .marketing-home-root .marketing-hero-stack::before {
+    display: block;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: var(--marketing-hero-wide-src, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Subtle scrim — keep photo visible */
+  .marketing-home-root .marketing-hero-stack::after {
+    display: block;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.14) 100%
+    );
+  }
+
+  .marketing-home-root .marketing-hero-stack .banner-content {
+    position: relative;
+    z-index: 1;
+    padding-top: clamp(1.75rem, 5vw, 3rem);
+    padding-bottom: clamp(1.25rem, 4vw, 2rem);
+    padding-left: clamp(0.75rem, 3vw, 1.5rem);
+    padding-right: clamp(0.75rem, 3vw, 1.5rem);
+  }
+}
+
+/* Full-bleed hero: gap before domains on small phones (banner-area is pb-0 above) */
+@media (max-width: 767.98px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: var(--marketing-section-y);
+  }
+}
+
+/* Tablet / laptop full-bleed hero: clear space before domains (768px–1399px) */
+@media (min-width: 768px) and (max-width: 1399.98px) {
+  .marketing-home-root .banner-area {
+    padding-bottom: clamp(3.25rem, 6.5vw, 5.5rem);
+  }
+
+  .marketing-home-root .marketing-hero-stack {
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+}
+
+@media (min-width: 1400px) {
+  .marketing-home-root .banner-area {
+    /* Room under six-image orbit — tighter than legacy 260–350px */
+    padding-bottom: clamp(5rem, 8vw, 7rem);
+    overflow-x: visible;
+  }
+
+  .marketing-home-root .marketing-hero-stack {
+    width: auto;
+    max-width: none;
+    left: auto;
+    transform: none;
+    overflow: visible;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .marketing-home-root .marketing-hero-stack__inner {
+    min-height: 0;
+    display: block;
+  }
+
+  .marketing-home-root .banner1 {
+    left: 245px;
+  }
+}
+
+/* Domains band: bottom only (top gap comes from hero padding-bottom) */
+.marketing-home-root .categories-area.marketing-home-domains-after-hero {
+  padding-top: 0;
+}
+
+/* Page banner breadcrumbs — flex rows + theme li::before separator stay vertically centered */
+.marketing-home-root .page-banner-content > ul.d-flex {
+  align-items: center;
+}
+
+.marketing-home-root .page-banner-content > ul.d-flex > li {
+  display: flex;
+  align-items: center;
+  line-height: 1.35;
+}
+
+.marketing-home-root .page-banner-content > ul.d-flex > li::before {
+  top: 50%;
+  bottom: auto;
+  height: 14px;
+  transform: translateY(-50%) rotate(10deg);
+}
+
+.marketing-home-root .page-banner-content > ul.d-flex > li > a,
+.marketing-home-root .page-banner-content > ul.d-flex > li > span {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Featured internships carousel (home) */
+.marketing-home-root .featured-internships-slide.owl-carousel .owl-item {
+  display: flex;
+}
+
+.marketing-home-root .featured-internships-slide__item {
+  width: 100%;
+}
+
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav {
+  margin-top: 1.5rem !important;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  position: static;
+}
+
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-prev,
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-next {
+  width: 48px;
+  height: 48px;
+  line-height: 46px;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid rgba(3, 1, 13, 0.12);
+  color: var(--headingColor, #03010d);
+  font-size: 20px;
+  margin: 0;
+  transition: var(--transition, 0.3s);
+  background: #fff;
+}
+
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-prev:hover,
+.marketing-home-root .featured-internships-slide.owl-theme .owl-nav .owl-next:hover {
+  background-color: var(--mainColor, #7a4dfc);
+  color: #fff;
+  border-color: var(--mainColor, #7a4dfc);
+}
+
+/* Featured internship intro cards (home featured band) — no hero image */
+.marketing-home-root .internship-intro-card {
+  border: 1px solid rgba(3, 1, 13, 0.08);
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .internship-intro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(3, 1, 13, 0.08) !important;
+}
+
+.marketing-home-root .internship-intro-card__kicker {
+  letter-spacing: 0.04em;
+}
+
+.marketing-home-root .internship-intro-card__title {
+  color: var(--mainColor, #7a4dfc);
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.marketing-home-root a.internship-intro-card__title:hover {
+  color: var(--mainColor, #7a4dfc);
+  text-decoration: underline;
+}
+
+.marketing-home-root .internship-intro-card__subtitle {
+  color: var(--headingColor, #03010d);
+  font-size: 16px;
+}
+
+.marketing-home-root .internship-intro-card__pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.marketing-home-root .internship-intro-card__pill--duration {
+  background-color: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .internship-intro-card__pill--status {
+  background-color: rgba(122, 77, 252, 0.12);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .internship-intro-card__overview {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.marketing-home-root .internship-intro-card__learn li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+}
+
+.marketing-home-root .internship-intro-card__learn li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .internship-intro-card__divider {
+  border-top: 1px solid rgba(3, 1, 13, 0.08);
+}
+
+/* Filter bar on internships listing */
+.marketing-home-root .filter-bar {
+  background-color: #fff;
+  box-shadow: 0 4px 24px rgba(3, 1, 13, 0.06);
+  border: 1px solid rgba(3, 1, 13, 0.06);
+}
+
+.marketing-home-root .filter-bar__select {
+  border-radius: 8px;
+  border-color: rgba(3, 1, 13, 0.12);
+  padding: 10px 14px;
+  font-size: 14px;
+  height: auto;
+}
+
+.marketing-home-root .filter-bar__select:focus {
+  border-color: var(--mainColor, #7a4dfc);
+  box-shadow: 0 0 0 0.2rem rgba(122, 77, 252, 0.15);
+}
+
+.marketing-home-root .filter-bar__clear {
+  background: none;
+  border: 1px solid rgba(3, 1, 13, 0.15);
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--headingColor, #03010d);
+  cursor: pointer;
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .filter-bar__clear:hover {
+  border-color: var(--mainColor, #7a4dfc);
+  color: var(--mainColor, #7a4dfc);
+}
+
+/* Hero floating images — match placeholder dimensions */
+.marketing-home-root .banner1,
+.marketing-home-root .banner2,
+.marketing-home-root .banner3,
+.marketing-home-root .banner4,
+.marketing-home-root .banner5,
+.marketing-home-root .banner6 {
+  width: 145px;
+  height: 170px;
+  object-fit: cover;
+}
+
+/* About section — main image (left column) */
+.marketing-home-root .about-img .about-main-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Certification section — certificate image (right column) */
+.marketing-home-root .about-img .cert-main-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* Testimonials section — participant photo avatar */
+.marketing-home-root .testimonial-avatar {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Testimonials section — community avatars under 'Join Our Growing Community' */
+.marketing-home-root .more-testimonial ul li img.testimonial-community-avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Internship detail (course-details template) */
+.marketing-home-root .internship-detail-banner h2 .internship-detail-banner__subtitle {
+  background-image: none;
+  color: var(--mainColor, #7a4dfc);
+  display: inline;
+}
+
+.marketing-home-root .internship-detail-title h2 {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.35;
+
+/* Domain / category icon images served from Sanity or fallback assets */
+.marketing-home-root .categories-single-item .icon img,
+.marketing-home-root .categories-single-item-three .icon img,
+.domain-icon-img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+}
+
+.marketing-home-root .internship-detail-content h2:first-of-type {
+  margin-top: 0;
+}
+
+.marketing-home-root .internship-detail-sidebar {
+  box-shadow: 0 8px 32px rgba(3, 1, 13, 0.06);
+  border: 1px solid rgba(3, 1, 13, 0.06);
+}
+
+@media (min-width: 992px) {
+  .marketing-home-root .internship-detail-sidebar {
+    top: 100px;
+  }
+}
+
+.marketing-home-root .internship-detail-sidebar-meta .label {
+  font-weight: 600;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .internship-detail-hero {
+  max-height: 420px;
+}
+
+/* Home: shared "check" list (certification, process phases, startups) */
+.marketing-home-root .briti-check-list li {
+  margin-bottom: 10px;
+  line-height: 1.45;
+}
+
+.marketing-home-root .briti-check-list li:last-child {
+  margin-bottom: 0;
+}
+
+.marketing-home-root .briti-check-list li > i {
+  color: var(--mainColor, #7a4dfc);
+  font-size: 18px;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.marketing-home-root .briti-check-list--light li,
+.marketing-home-root .briti-check-list--light li > i {
+  color: #fff;
+}
+
+/* Home: "Why students trust" feature cards */
+.marketing-home-root .trust-feature-card {
+  border: 1px solid rgba(3, 1, 13, 0.07);
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .trust-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(3, 1, 13, 0.08);
+}
+
+.marketing-home-root .trust-feature-card__icon {
+  width: 64px;
+  height: 64px;
+  background-color: rgba(122, 77, 252, 0.1);
+}
+
+.marketing-home-root .trust-feature-card__icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  /* Theme SVGs use brand purple; PNG/SVG from /images vary — normalize to black */
+  filter: brightness(0) saturate(100%);
+}
+
+.marketing-home-root .trust-feature-note {
+  font-size: 18px;
+  color: var(--headingColor, #03010d);
+}
+
+/* Footer — logo sizing (same asset as nav; no tile/filter) */
+.marketing-home-root .footer-area .marketing-footer-logo {
+  max-width: min(300px, 85vw);
+  object-fit: contain;
+}
+
+/* Home: "How Briticana works" phase cards */
+.marketing-home-root .process-phase-card {
+  border: 1px solid rgba(3, 1, 13, 0.07);
+  transition: var(--transition, 0.3s);
+}
+
+.marketing-home-root .process-phase-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(3, 1, 13, 0.08);
+}
+
+.marketing-home-root .process-phase-card__num {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--mainColor, #7a4dfc);
+}
+
+/* Home: "For startups & founders" purple band override (reuses about-content-three) */
+.marketing-home-root .startups-band {
+  padding: 60px;
+}
+
+.marketing-home-root .startups-band__eyebrow,
+.marketing-home-root .startups-band__subtitle {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.marketing-home-root .startups-band .main-btn {
+  background-color: var(--headingColor, #03010d);
+  color: #fff;
+}
+
+.marketing-home-root .startups-band .main-btn:hover {
+  background-color: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+}
+
+@media (max-width: 575px) {
+  .marketing-home-root .startups-band {
+    padding: 36px 24px;
+  }
+}
+
+/* Internships: "Choose Your Start Date" picker */
+.marketing-home-root .start-date-scroll {
+  max-height: min(360px, 52vh);
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.marketing-home-root .start-date-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.marketing-home-root .start-date-scroll::-webkit-scrollbar-thumb {
+  background: rgba(122, 77, 252, 0.35);
+  border-radius: 50px;
+}
+
+.marketing-home-root .start-date-row {
+  background: #f7f7f9;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: var(--transition, all ease 0.3s);
+}
+
+.marketing-home-root .start-date-row:hover {
+  border-color: rgba(122, 77, 252, 0.35);
+  background: rgba(122, 77, 252, 0.06);
+}
+
+.marketing-home-root .start-date-row.is-selected {
+  background: var(--mainColor, #7a4dfc);
+  border-color: var(--mainColor, #7a4dfc);
+  box-shadow: 0 12px 24px -12px rgba(122, 77, 252, 0.7);
+}
+
+.marketing-home-root .start-date-row.is-selected .start-date-day,
+.marketing-home-root .start-date-row.is-selected .start-date-year {
+  color: #fff !important;
+}
+
+.marketing-home-root .start-date-row.is-closed {
+  opacity: 0.55;
+}
+
+.marketing-home-root .start-date-badge {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(122, 77, 252, 0.12);
+  color: var(--mainColor, #7a4dfc);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.marketing-home-root .start-date-row.is-selected .start-date-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.marketing-home-root .start-date-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.marketing-home-root .start-date-pill.status-open {
+  background: var(--mainColor, #7a4dfc);
+  color: #fff;
+}
+
+.marketing-home-root .start-date-row.is-selected .start-date-pill.status-open {
+  background: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .start-date-pill.status-closing-soon {
+  background: rgba(255, 138, 76, 0.16);
+  color: #d9531e;
+}
+
+.marketing-home-root .start-date-pill.status-closed {
+  background: rgba(3, 1, 13, 0.08);
+  color: #6b6675;
+}
+
+.marketing-home-root .start-date-detail-head {
+  background: linear-gradient(120deg, #7a4dfc 0%, #9b6bff 100%);
+}
+
+.marketing-home-root .start-date-detail-label {
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.04em;
+}
+
+.marketing-home-root .start-date-apply {
+  background: var(--optionalColor, #e6fe82);
+  color: var(--headingColor, #03010d);
+  padding: 12px 28px;
+  font-size: 16px;
+}
+
+.marketing-home-root .start-date-apply:hover {
+  background: #fff;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .start-date-perk {
+  background: rgba(122, 77, 252, 0.08);
+  color: var(--headingColor, #03010d);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 50px;
+}
+
+.marketing-home-root .start-date-perk i {
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .start-date-completion {
+  border: 1px solid #ececf0;
+  border-radius: 12px;
+  padding: 14px 10px;
+}
+
+.marketing-home-root .start-date-completion span:last-child {
+  color: var(--headingColor, #03010d);
+}

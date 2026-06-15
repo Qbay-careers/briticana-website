@@ -1,0 +1,4 @@
+/** True when public reads against Sanity are expected to work (project id set). */
+export function isSanityConfigured(): boolean {
+  return Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID?.trim());
+}

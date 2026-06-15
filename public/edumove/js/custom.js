@@ -159,7 +159,7 @@
 	// Testimonial Slide JS
 	$('.testimonial-slide').owlCarousel({
 		items: 1,
-		loop: true,
+		loop: false,
 		margin: 25,
 		nav: true,
 		dots: false,
@@ -185,6 +185,38 @@
 				items: 3,
 			},
 		},
+	});
+
+	// Featured internships (home) — card carousel
+	$(".featured-internships-slide").each(function () {
+		var $el = $(this);
+		if (!$el.children().length) return;
+		var count = $el.children().length;
+		$el.owlCarousel({
+			items: 1,
+			loop: count > 3,
+			margin: 24,
+			nav: count > 1,
+			dots: false,
+			autoplay: false,
+			smartSpeed: 700,
+			autoplayHoverPause: true,
+			navText: [
+				"<i class='ri-arrow-left-line'></i>",
+				"<i class='ri-arrow-right-line'></i>",
+			],
+			responsive: {
+				0: {
+					items: 1,
+				},
+				768: {
+					items: 2,
+				},
+				992: {
+					items: 3,
+				},
+			},
+		});
 	});
 
 	// Active Removed Class JS

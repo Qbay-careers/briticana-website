@@ -1,48 +1,63 @@
-import Link from "next/link";
+"use client";
 
-export default function MarketingNav() {
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { marketingImage } from "@/components/marketing/marketingAssetPaths";
+import type { SiteSettings } from "@/lib/sanity/types";
+
+const LOGO_SRC = marketingImage("logo/logo.webp");
+
+function navLinkClass(pathname: string, href: string): string {
+  if (href === "/") {
+    return pathname === "/" ? "nav-link active" : "nav-link";
+  }
+  if (pathname === href || pathname.startsWith(`${href}/`)) {
+    return "nav-link active";
+  }
+  return "nav-link";
+}
+
+export type MarketingNavProps = {
+  settings?: SiteSettings | null;
+};
+
+export default function MarketingNav({ settings }: MarketingNavProps) {
+  const pathname = usePathname() ?? "";
+  const applyUrl = settings?.marketingApplyUrl?.trim() || "/contact";
+
   return (
     <div className="navbar-area">
       <div className="main-nav">
         <div className="container mw-1345">
           <nav className="navbar navbar-expand-md navbar-light">
-            <Link className="navbar-brand fw-bold m-0" href="/">
-              <span>Briti</span>cana
+            <Link className="navbar-brand m-0 d-inline-flex align-items-center" href="/" aria-label="Briticana home">
+              <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "90px", width: "auto" }} />
             </Link>
             <div className="collapse navbar-collapse for-mobile-menu" id="navbarSupportedContent">
               <ul className="navbar-nav m-auto">
                 <li className="nav-item">
-                  <Link href="/" className="nav-link active">
+                  <Link href="/" className={navLinkClass(pathname, "/")}>
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/internships" className="nav-link">
+                  <Link href="/domains" className={navLinkClass(pathname, "/domains")}>
+                    Domains
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link href="/internships" className={navLinkClass(pathname, "/internships")}>
                     Internships
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/programs" className="nav-link">
-                    Programs
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/courses" className="nav-link">
-                    Courses
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/verification" className="nav-link">
+                  <Link href="/verification" className={navLinkClass(pathname, "/verification")}>
                     Verification
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/contact" className="nav-link">
-                    Contact
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/login" className="nav-link">
+                  <Link href="/login" className={navLinkClass(pathname, "/login")}>
                     Login
                   </Link>
                 </li>
@@ -51,8 +66,8 @@ export default function MarketingNav() {
             <div className="nav-right-options">
               <ul>
                 <li>
-                  <Link href="/contact" className="main-btn">
-                    Contact Us
+                  <Link href={applyUrl} className="main-btn">
+                    Apply Now
                   </Link>
                 </li>
               </ul>
@@ -65,8 +80,8 @@ export default function MarketingNav() {
         <div className="container">
           <div className="mobile-menu position-relative">
             <div className="logo">
-              <Link href="/">
-                <span>Briti</span>cana
+              <Link href="/" aria-label="Briticana home">
+                <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "70px", width: "auto" }} />
               </Link>
             </div>
             <div className="nav-right-options">
