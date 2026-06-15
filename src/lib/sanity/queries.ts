@@ -25,11 +25,11 @@ export const getInternshipDomainsWithCounts = `*[_type == "internshipDomain" && 
   "internshipCount": count(*[_type == "internship" && domain._ref == ^._id])
 }`;
 
-/** Marketing home featured band: internships with slug (sort in app: open first, then batch date). */
-export const getFeaturedInternshipsForHome = `*[_type == "internship" && defined(slug.current)] {
+/** Marketing home featured band: selected internships from the Home page singleton. */
+export const getFeaturedInternshipsForHome = `*[_type == "homePage"][0].featuredInternships[]->{
   ...,
   ${internshipDomainExpand}
-} [0..14]`;
+}`;
 
 export const getAllInternships = `*[_type == "internship"] | order(coalesce(batchStartDate, _updatedAt) desc) {
   ...,

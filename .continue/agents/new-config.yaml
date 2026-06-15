@@ -1,18 +1,17 @@
-name: DeepSeek Config
+name: Local Config
 version: 1.0.0
 schema: v1
 
 models:
-  - name: DeepSeek-V3
-    provider: openai
-    model: deepseek-chat
-    apiKey: "sk-bec27d3da65e47f39c33f67e9e2558b4"
-    apiBase: https://api.deepseek.com/v1
+  - name: Qwen2.5 Coder
+    provider: ollama
+    model: qwen2.5-coder:7b-instruct-q4_K_M
+    apiBase: http://localhost:11434
     roles:
       - chat
       - edit
       - apply
-      - autocomplete
 
 tabAutocomplete:
-  model: DeepSeek-V3
+  model: Qwen2.5 Coder
+  disable: true

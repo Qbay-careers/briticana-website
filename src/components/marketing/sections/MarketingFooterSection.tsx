@@ -138,8 +138,8 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
                   </div>
                 </li>
                 <li>
-                  <div className="d-flex align-items-center gap-2">
-                    <i className="ri-map-pin-line text-white" />
+                  <div className="d-flex align-items-start gap-2">
+                    <i className="ri-map-pin-line text-white align-self-start" />
                     <span className="text-white">{locations}</span>
                   </div>
                 </li>
