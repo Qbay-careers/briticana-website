@@ -13,6 +13,16 @@ export type VerificationRecord = {
 
 export const demoVerificationRecords: readonly VerificationRecord[] = [
   {
+    code: "BRT-2026-884",
+    name: "Priya Nair",
+    domain: "Data Analysis & Business Intelligence",
+    duration: "3 months",
+    region: "Germany",
+    status: "Completed",
+    certificateIssued: true,
+    mentorEvaluation: "Excellent",
+  },
+  {
     code: "BRT-2026-001",
     name: "John Doe",
     domain: "Data Analyst",

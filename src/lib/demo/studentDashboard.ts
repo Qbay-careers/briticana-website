@@ -90,7 +90,7 @@ const PROFILES: Record<DashboardProfileId, DashboardProfile> = {
       { id: "batch", label: "Current batch", value: "Summer 2026", icon: "ri-calendar-line" },
       { id: "region", label: "Region", value: "Ireland", icon: "ri-map-pin-line" },
       { id: "duration", label: "Duration", value: "6 months", icon: "ri-time-line" },
-      { id: "certificate", label: "Certificate", value: "In progress", icon: "ri-medal-line" },
+      { id: "verification", label: "Verification code", value: "Not issued yet", icon: "ri-shield-check-line" },
     ],
     milestones: [
       { id: "kickoff", title: "Kickoff & onboarding", done: true },
@@ -126,7 +126,7 @@ const PROFILES: Record<DashboardProfileId, DashboardProfile> = {
       { id: "batch", label: "Current batch", value: "Autumn 2026", icon: "ri-calendar-line" },
       { id: "region", label: "Region", value: "United Kingdom", icon: "ri-map-pin-line" },
       { id: "duration", label: "Duration", value: "6 months", icon: "ri-time-line" },
-      { id: "certificate", label: "Certificate", value: "In progress", icon: "ri-medal-line" },
+      { id: "verification", label: "Verification code", value: "Not issued yet", icon: "ri-shield-check-line" },
     ],
     milestones: [
       { id: "kickoff", title: "Kickoff & onboarding", done: true },
@@ -162,7 +162,7 @@ const PROFILES: Record<DashboardProfileId, DashboardProfile> = {
       { id: "batch", label: "Current batch", value: "Winter 2026", icon: "ri-calendar-line" },
       { id: "region", label: "Region", value: "Finland", icon: "ri-map-pin-line" },
       { id: "duration", label: "Duration", value: "9 months", icon: "ri-time-line" },
-      { id: "certificate", label: "Certificate", value: "Awaiting submission", icon: "ri-medal-line" },
+      { id: "verification", label: "Verification code", value: "Pending issuance", icon: "ri-shield-check-line" },
     ],
     milestones: [
       { id: "kickoff", title: "Kickoff & onboarding", done: true },
@@ -196,7 +196,7 @@ const PROFILES: Record<DashboardProfileId, DashboardProfile> = {
       { id: "batch", label: "Completed batch", value: "Spring 2026", icon: "ri-calendar-line" },
       { id: "region", label: "Region", value: "Germany", icon: "ri-map-pin-line" },
       { id: "duration", label: "Duration", value: "3 months", icon: "ri-time-line" },
-      { id: "certificate", label: "Certificate", value: "Issued", icon: "ri-medal-line" },
+      { id: "verification", label: "Verification code", value: "BRT-2026-884", icon: "ri-shield-check-line" },
     ],
     milestones: [
       { id: "kickoff", title: "Kickoff & onboarding", done: true },

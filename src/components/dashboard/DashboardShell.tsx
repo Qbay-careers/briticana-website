@@ -46,7 +46,9 @@ export default function DashboardShell({ profile, quickStats, children }: Dashbo
               </div>
               <div>
                 <span className="small text-secondary d-block">{stat.label}</span>
-                <strong>{stat.value}</strong>
+                <strong className={stat.id === "verification" ? "font-monospace text-break" : undefined}>
+                  {stat.value}
+                </strong>
               </div>
             </div>
           </div>
