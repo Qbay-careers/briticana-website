@@ -6,6 +6,7 @@ import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
 import { splitInternshipTitle } from "@/lib/splitInternshipTitle";
 import { urlForSanityImage } from "@/lib/sanity/image";
 import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
+import { buildInternshipPrefilledApplyUrl } from "@/lib/studentApplicationForm";
 
 export type InternshipDetailMarketingProps = {
   internship: Internship;
@@ -40,18 +41,6 @@ function formatBatch(batchStartDate: string | undefined): string {
   });
 }
 
-function buildApplyUrl(base: string | undefined, title: string): string | undefined {
-  const b = base?.trim();
-  if (!b) return undefined;
-  try {
-    const u = new URL(b);
-    u.searchParams.set("internship_title", title);
-    return u.toString();
-  } catch {
-    return `${b}${b.includes("?") ? "&" : "?"}internship_title=${encodeURIComponent(title)}`;
-  }
-}
-
 function statusMetaClass(status: InternshipApplicationStatus | undefined): { icon: string; text: string } {
   switch (status) {
     case "open":
@@ -70,9 +59,8 @@ export default function InternshipDetailMarketing({ internship, related }: Inter
   const domainSlug = internship.domain?.slug?.current?.trim();
   const domainFilterHref = domainSlug ? `/internships?domain=${encodeURIComponent(domainSlug)}` : null;
   const domainLabel = internshipDomainLabel(internship.domain ?? undefined);
-  const showApply =
-    internship.applicationStatus === "open" && Boolean(internship.googleFormLink?.trim());
-  const applyHref = showApply ? buildApplyUrl(internship.googleFormLink, internship.title) : undefined;
+  const showApply = internship.applicationStatus === "open";
+  const applyHref = showApply ? buildInternshipPrefilledApplyUrl(internship.googleFormLink, internship.title) : undefined;
   const { main, subtitle } = splitInternshipTitle(internship.title);
   const statusMeta = statusMetaClass(internship.applicationStatus);
 

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { isInternalAppPath, resolveStudentApplyUrl } from "@/lib/studentApplicationForm";
+
 type BatchStatus = "closed" | "closing-soon" | "open";
 
 type StartDate = {
@@ -11,7 +13,7 @@ type StartDate = {
 };
 
 export type StartDateSelectorProps = {
-  /** From Sanity Site settings — path (e.g. /contact) or full URL. Falls back to /contact when empty. */
+  /** From Sanity Site settings — path or full URL. Falls back to the default student application form when empty. */
   applyUrl?: string | null;
 };
 
@@ -30,8 +32,6 @@ const COMPLETION_OPTIONS = [
 ];
 
 const PROGRAM_PERKS = ["Mentor-Led Projects", "Real-World Experience", "Verifiable Certificate"];
-
-const DEFAULT_APPLY = "/contact";
 
 function addDays(date: Date, days: number): Date {
   const next = new Date(date);
@@ -81,15 +81,9 @@ const MONTH_SHORT = (d: Date) => d.toLocaleDateString("en-US", { month: "short" 
 const FULL_DATE = (d: Date) => d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 const SHORT_DATE = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
-function resolveApplyHref(raw?: string | null): string {
-  const t = raw?.trim();
-  if (!t) return DEFAULT_APPLY;
-  return t;
-}
-
 function ApplyNowButton({ href, className }: { href: string; className?: string }) {
-  const target = resolveApplyHref(href);
-  const isAppPath = target.startsWith("/") && !target.startsWith("//");
+  const target = resolveStudentApplyUrl(href);
+  const isAppPath = isInternalAppPath(target);
 
   if (isAppPath) {
     return (

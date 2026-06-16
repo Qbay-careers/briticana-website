@@ -1,39 +1,41 @@
 import type { ReactNode } from "react";
 
 import DashboardSignOutButton from "@/components/dashboard/DashboardSignOutButton";
-import { demoQuickStats, demoStudentProfile } from "@/lib/demo/studentDashboard";
+import type { QuickStat, StudentProfile } from "@/lib/demo/studentDashboard";
 
 type DashboardShellProps = {
+  profile: StudentProfile;
+  quickStats: readonly QuickStat[];
   children: ReactNode;
 };
 
-export default function DashboardShell({ children }: DashboardShellProps) {
+export default function DashboardShell({ profile, quickStats, children }: DashboardShellProps) {
   return (
     <div className="container mw-1345 py-5" data-component="DashboardShell">
       <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-2">
         <div className="d-flex align-items-center gap-3">
           <img
-            src={demoStudentProfile.avatar}
+            src={profile.avatar}
             className="rounded-circle"
             style={{ width: "64px", height: "64px", objectFit: "cover" }}
             alt=""
           />
           <div>
             <h2 className="mb-1">
-              Welcome back, <span>{demoStudentProfile.firstName}</span>
+              Welcome back, <span>{profile.firstName}</span>
             </h2>
-            <p className="text-secondary mb-0">{demoStudentProfile.program}</p>
+            <p className="text-secondary mb-0">{profile.program}</p>
           </div>
         </div>
         <DashboardSignOutButton />
       </div>
 
       <p className="small text-secondary col-lg-9 mb-4">
-        Track your internship milestones, mentor reviews, and weekly deliverables. Content below is a preview layout.
+        Track your internship milestones, mentor reviews, and final deliverables.
       </p>
 
       <div className="row g-4 mb-4">
-        {demoQuickStats.map((stat) => (
+        {quickStats.map((stat) => (
           <div key={stat.id} className="col-sm-6 col-lg-3">
             <div className="bg-white rounded-4 shadow-sm h-100 p-4 d-flex align-items-center gap-3">
               <div

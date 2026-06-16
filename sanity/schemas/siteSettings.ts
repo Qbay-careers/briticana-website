@@ -55,7 +55,8 @@ export default defineType({
       title: '"Apply Now" link',
       type: "string",
       group: "navigation",
-      description: "Link used by the Apply Now button in the marketing navigation.",
+      description:
+        "Link for the Apply Now button in the marketing navigation. Leave empty to use the default student application form (Google Form).",
       validation: (Rule) =>
         Rule.custom((value) =>
           !value || value.startsWith("/") || /^https?:\/\//i.test(value)
@@ -118,7 +119,7 @@ export default defineType({
       type: "string",
       group: "other",
       description:
-        'Target for the green "Apply Now" button in the Choose Your Start Date section on /internships. Use a full URL (e.g. Google Form) or a site path such as /contact.',
+        'Target for the green "Apply Now" button in the Choose Your Start Date section on /internships. Leave empty to use the default student application form (Google Form); or set a full URL or a site path.',
     }),
   ],
   preview: {

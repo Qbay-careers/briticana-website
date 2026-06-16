@@ -1,8 +1,14 @@
 import Link from "next/link";
 
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
-export default function MarketingJourneyCtaSection() {
+export type MarketingJourneyCtaSectionProps = {
+  /** Resolved apply target (Sanity home hero Apply URL or site default). */
+  applyHref: string;
+};
+
+export default function MarketingJourneyCtaSection({ applyHref }: MarketingJourneyCtaSectionProps) {
   return (
     <div className="journey-area">
       <div className="container mw-1345">
@@ -25,10 +31,10 @@ export default function MarketingJourneyCtaSection() {
               career.
             </p>
             <div className="d-flex flex-wrap justify-content-center mt-lg-4 mt-4" style={{ gap: "20px" }}>
-              <Link href="/internships" className="main-btn">
+              <MarketingCtaLink href={applyHref} className="main-btn">
                 Apply Now
-              </Link>
-              <Link href="" className="main-btn black">
+              </MarketingCtaLink>
+              <Link href="/contact" className="main-btn black">
                 Talk to Us
               </Link>
             </div>

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { validateDemoStudentCredentials } from "@/lib/auth/demoStudentCredentials";
+import { resolveDemoAccount } from "@/lib/auth/demoStudentAccounts";
 
 const COOKIE_NAME = "briticana_demo_auth";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
@@ -24,11 +24,12 @@ export async function POST(request: Request) {
   const email = typeof body.email === "string" ? body.email : "";
   const password = typeof body.password === "string" ? body.password : "";
 
-  if (!validateDemoStudentCredentials(email, password)) {
+  const profileId = resolveDemoAccount(email, password);
+  if (!profileId) {
     return NextResponse.json({ ok: false, error: "Invalid email or password" }, { status: 401 });
   }
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.set(COOKIE_NAME, "1", cookieOptions);
+  res.cookies.set(COOKIE_NAME, profileId, cookieOptions);
   return res;
 }

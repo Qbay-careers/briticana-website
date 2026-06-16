@@ -41,7 +41,7 @@ export default defineType({
       name: "heroCtaApplyUrl",
       title: "Apply CTA URL",
       type: "url",
-      description: "e.g. Google Form or /contact",
+      description: "Google Form or site path. Leave empty to use the default student application form.",
       group: "hero",
     }),
     defineField({

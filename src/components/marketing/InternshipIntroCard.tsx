@@ -3,6 +3,7 @@ import Link from "next/link";
 import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
 import { splitInternshipTitle } from "@/lib/splitInternshipTitle";
 import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
+import { resolveStudentApplyUrl } from "@/lib/studentApplicationForm";
 
 export type InternshipIntroCardProps = {
   internship: Internship;
@@ -30,18 +31,6 @@ function formatBatch(batchStartDate: string | undefined): string {
   });
 }
 
-function buildApplyUrl(base: string | undefined, title: string): string | undefined {
-  const b = base?.trim();
-  if (!b) return undefined;
-  try {
-    const u = new URL(b);
-    u.searchParams.set("internship_title", title);
-    return u.toString();
-  } catch {
-    return `${b}${b.includes("?") ? "&" : "?"}internship_title=${encodeURIComponent(title)}`;
-  }
-}
-
 export default function InternshipIntroCard({ internship }: InternshipIntroCardProps) {
   const slug = internship.slug?.current?.trim();
   const detailHref = slug ? `/internships/${slug}` : "/internships";
@@ -49,9 +38,7 @@ export default function InternshipIntroCard({ internship }: InternshipIntroCardP
   const { main, subtitle } = splitInternshipTitle(internship.title);
   const skills = internship.skillsCovered?.slice(0, 3) ?? [];
   const duration = internship.durationOptions?.length ? internship.durationOptions.join(" / ") : null;
-  const showApply =
-    internship.applicationStatus === "open" && Boolean(internship.googleFormLink?.trim());
-  const applyHref = showApply ? buildApplyUrl(internship.googleFormLink, internship.title) : undefined;
+  const applyHref = resolveStudentApplyUrl(internship.googleFormLink);
 
   return (
     <article className="internship-intro-card bg-white rounded-4 shadow-sm p-4 p-lg-4 h-100 w-100 d-flex flex-column">
@@ -99,15 +86,9 @@ export default function InternshipIntroCard({ internship }: InternshipIntroCardP
           <span className="small text-secondary d-block">Next batch</span>
           <span className="fw-bold">{formatBatch(internship.batchStartDate)}</span>
         </div>
-        {applyHref ? (
-          <a className="main-btn" href={applyHref} target="_blank" rel="noopener noreferrer">
-            Apply Now
-          </a>
-        ) : (
-          <Link href={detailHref} className="main-btn">
-            View details
-          </Link>
-        )}
+        <a className="main-btn" href={applyHref} target="_blank" rel="noopener noreferrer">
+          Apply Now
+        </a>
       </div>
     </article>
   );

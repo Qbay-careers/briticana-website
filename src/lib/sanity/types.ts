@@ -80,6 +80,7 @@ export interface Internship {
   projectStructure?: string;
   applicationStatus?: InternshipApplicationStatus;
   batchStartDate?: string;
+  /** Optional per-track form; when empty and status is open, the site default application form is used. */
   googleFormLink?: string;
   featuredImage?: SanityImage;
 }
@@ -90,6 +91,7 @@ export interface HomePage {
   heroHeadline: string;
   heroSubheadline?: string;
   heroOverview?: string;
+  /** When set, overrides the default student application URL for hero and journey Apply CTAs. */
   heroCtaApplyUrl?: string;
   heroCtaExploreUrl?: string;
   /** Wide hero for stacked layout on viewports under 1400px (separate from floating tiles). */
@@ -169,6 +171,7 @@ export interface SiteSettings {
   facebook?: string;
   twitter?: string;
   youtube?: string;
+  /** Nav "Apply Now" — falls back to default student application form when unset. */
   marketingApplyUrl?: string;
   footerTagline?: string;
   footerLocations?: string;
@@ -176,7 +179,7 @@ export interface SiteSettings {
   footerPageLinks?: FooterNavLink[];
   starterPrice?: string;
   proPrice?: string;
-  /** "Apply Now" in internships start-date section (path or full URL). */
+  /** Internships page start-date "Apply Now" — falls back to default student application form when unset. */
   internshipBatchApplyUrl?: string;
 }
 

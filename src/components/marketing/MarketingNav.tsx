@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { SiteSettings } from "@/lib/sanity/types";
+import { resolveStudentApplyUrl } from "@/lib/studentApplicationForm";
 
 const LOGO_SRC = marketingImage("logo/logo.webp");
 
@@ -24,7 +26,7 @@ export type MarketingNavProps = {
 
 export default function MarketingNav({ settings }: MarketingNavProps) {
   const pathname = usePathname() ?? "";
-  const applyUrl = settings?.marketingApplyUrl?.trim() || "/contact";
+  const applyUrl = resolveStudentApplyUrl(settings?.marketingApplyUrl);
 
   return (
     <div className="navbar-area">
@@ -66,9 +68,9 @@ export default function MarketingNav({ settings }: MarketingNavProps) {
             <div className="nav-right-options">
               <ul>
                 <li>
-                  <Link href={applyUrl} className="main-btn">
+                  <MarketingCtaLink href={applyUrl} className="main-btn">
                     Apply Now
-                  </Link>
+                  </MarketingCtaLink>
                 </li>
               </ul>
             </div>

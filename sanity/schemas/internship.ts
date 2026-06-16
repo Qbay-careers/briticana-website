@@ -115,6 +115,8 @@ export default defineType({
       name: "googleFormLink",
       title: "Google Form link",
       type: "url",
+      description:
+        "Optional. When applications are open, the Apply button uses this URL. Leave empty to use the site-wide default application form. Listing cards use the link as-is; the internship detail page may append the track title for prefill.",
     }),
     defineField({
       name: "featuredImage",

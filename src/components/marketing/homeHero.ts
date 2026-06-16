@@ -1,5 +1,6 @@
 import type { HomePage } from "@/lib/sanity/types";
 import { urlForSanityImage } from "@/lib/sanity/image";
+import { DEFAULT_STUDENT_APPLICATION_FORM_URL } from "@/lib/studentApplicationForm";
 
 const DEFAULT_FLOATING_IMAGES = [
   "/edumove/images/banner-1.jpg",
@@ -50,7 +51,7 @@ export const defaultHomeHero: HomeHeroData = {
   subheadline: "Before Your First Job",
   overview:
     "Briticana is an execution-focused experience platform where students collaborate on real-world projects under guided mentorship and structured workflows inspired by modern startups and professional teams.",
-  ctaApplyHref: "/contact",
+  ctaApplyHref: DEFAULT_STUDENT_APPLICATION_FORM_URL,
   ctaExploreHref: "/internships",
   ctaApplyLabel: "Apply Now",
   ctaExploreLabel: "View Internships",

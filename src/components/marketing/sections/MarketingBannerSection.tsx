@@ -25,9 +25,6 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
               </p>
             ) : null}
             <div className="d-flex flex-wrap justify-content-center gap-3">
-              {/* <Link href={homeHero.ctaApplyHref} className="main-btn">
-                {homeHero.ctaApplyLabel}
-              </Link> */}
               <Link href={homeHero.ctaExploreHref} className="main-btn">
                 {homeHero.ctaExploreLabel}
               </Link>

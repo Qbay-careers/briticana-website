@@ -43,7 +43,7 @@ export default function MarketingHomeSections({
         <MarketingTestimonialsSection testimonials={testimonials} homeHero={homeHero} />
       ) : null}
       <MarketingFaqSection />
-      <MarketingJourneyCtaSection />
+      <MarketingJourneyCtaSection applyHref={homeHero.ctaApplyHref} />
       <MarketingFooterSection settings={siteSettings} />
       <MarketingCopyrightBar />
     </>
