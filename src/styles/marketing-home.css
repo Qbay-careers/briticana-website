@@ -733,3 +733,68 @@
 .marketing-home-root .start-date-completion span:last-child {
   color: var(--headingColor, #03010d);
 }
+
+/* Legal / policy documents (portal) — typography aligned with marketing theme */
+.marketing-home-root .legal-doc {
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .legal-doc__meta {
+  border-bottom: 1px solid #ececf0;
+  padding-bottom: 1rem;
+}
+
+.marketing-home-root .legal-doc__h2 {
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .legal-doc__h2:first-of-type {
+  margin-top: 0;
+}
+
+.marketing-home-root .legal-doc__h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .legal-doc__p {
+  color: #5b5b5b;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.marketing-home-root .legal-doc__p a {
+  color: var(--mainColor, #7a4dfc);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.marketing-home-root .legal-doc__p a:hover {
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .legal-doc__ul {
+  margin: 0 0 1.25rem 0;
+  padding-left: 1.25rem;
+  color: #5b5b5b;
+  line-height: 1.7;
+}
+
+.marketing-home-root .legal-doc__ul li {
+  margin-bottom: 0.5rem;
+}
+
+.marketing-home-root .legal-doc__ul li::marker {
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .page-banner-content h2 span {
+  color: var(--mainColor, #7a4dfc);
+}

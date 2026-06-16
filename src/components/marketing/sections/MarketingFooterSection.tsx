@@ -21,6 +21,7 @@ const DEFAULT_PAGE_LINKS: FooterNavLink[] = [
   { _key: "2", label: "Privacy Policy", href: "/privacy-policy" },
   { _key: "3", label: "Terms & Conditions", href: "/terms-and-conditions" },
   { _key: "4", label: "Refund Policy", href: "/refund-policy" },
+  { _key: "5", label: "Certification Policy", href: "/certification-policy" },
 ];
 
 type SocialEntry = { url: string; icon: string };
