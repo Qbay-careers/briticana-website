@@ -8,6 +8,54 @@
 @import url("/edumove/css/style.css");
 @import url("/edumove/css/responsive.css");
 
+/* Marketing nav: keep MeanMenu's injected toggle visible across mobile/tablet. */
+@media (max-width: 991px) {
+  .marketing-home-root .navbar-area .mobile-nav {
+    display: block !important;
+  }
+
+  .marketing-home-root .navbar-area .main-nav {
+    display: none !important;
+  }
+
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-bar {
+    inset: 0 0 auto 0;
+    width: auto;
+    min-height: 70px;
+    pointer-events: none;
+  }
+
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container a.meanmenu-reveal {
+    display: block !important;
+    right: 0 !important;
+    left: auto !important;
+    z-index: 20;
+    pointer-events: auto;
+  }
+
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav,
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav ul,
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav li,
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav a {
+    pointer-events: auto;
+  }
+
+  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+@media (min-width: 992px) {
+  .marketing-home-root .navbar-area .mobile-nav {
+    display: none !important;
+  }
+
+  .marketing-home-root .navbar-area .main-nav {
+    display: block !important;
+  }
+}
+
 /* Preloader GIF — theme asset is large; cap size for Next layout */
 .marketing-home-root .preloader img {
   max-width: min(96px, 26vw);

@@ -48,6 +48,11 @@ function runScrollCueUpdate(): void {
   });
 }
 
+type MarketingWindow = typeof window & {
+  briticanaInitMeanMenu?: () => void;
+  briticanaMarketingInit?: () => void;
+};
+
 export default function MarketingVendorScripts() {
   useEffect(() => {
     let cancelled = false;
@@ -62,7 +67,8 @@ export default function MarketingVendorScripts() {
         console.error("[MarketingVendorScripts] script chain", e);
       } finally {
         runScrollCueUpdate();
-        const globalWindow = window as typeof window & { briticanaMarketingInit?: () => void };
+        const globalWindow = window as MarketingWindow;
+        globalWindow.briticanaInitMeanMenu?.();
         globalWindow.briticanaMarketingInit?.();
       }
     })();

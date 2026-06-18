@@ -23,9 +23,19 @@
 	});
 
 	// Mobile Menu JS
-	$('.for-mobile-menu').meanmenu({
-		meanScreenWidth: "991",
-	});
+	window.briticanaInitMeanMenu = function () {
+		$('.for-mobile-menu').each(function () {
+			var $menu = $(this);
+			if ($menu.data('briticanaMeanMenuReady')) {
+				return;
+			}
+			$menu.data('briticanaMeanMenuReady', true);
+			$menu.meanmenu({
+				meanScreenWidth: "991",
+			});
+		});
+	};
+	window.briticanaInitMeanMenu();
 
 	// Go Top JS
 	$('.back-to-top').on('click', function() {
