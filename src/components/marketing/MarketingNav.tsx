@@ -32,7 +32,7 @@ export default function MarketingNav({ settings }: MarketingNavProps) {
     <div className="navbar-area">
       <div className="main-nav">
         <div className="container mw-1345">
-          <nav className="navbar navbar-expand-md navbar-light">
+          <nav className="navbar navbar-expand-lg navbar-light">
             <Link className="navbar-brand m-0 d-inline-flex align-items-center" href="/" aria-label="Briticana home">
               <img src={LOGO_SRC} alt="Briticana" className="d-block" style={{ height: "90px", width: "auto" }} />
             </Link>
@@ -89,9 +89,9 @@ export default function MarketingNav({ settings }: MarketingNavProps) {
             <div className="nav-right-options">
               <ul>
                 <li>
-                  <Link href="/contact" className="main-btn">
-                    Contact Us
-                  </Link>
+                  <MarketingCtaLink href={applyUrl} className="main-btn">
+                    Apply Now
+                  </MarketingCtaLink>
                 </li>
               </ul>
             </div>
