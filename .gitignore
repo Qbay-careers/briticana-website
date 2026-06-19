@@ -3,6 +3,10 @@
 node_modules/
 .sanity/
 
+# Google Cloud service account keys (never commit)
+briticana-applications*.json
+*-service-account*.json
+
 # common local / build artifacts
 out/
 *.tsbuildinfo

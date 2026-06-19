@@ -3,7 +3,7 @@ import Link from "next/link";
 import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
 import { splitInternshipTitle } from "@/lib/splitInternshipTitle";
 import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
-import { resolveStudentApplyUrl } from "@/lib/studentApplicationForm";
+import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 export type InternshipIntroCardProps = {
   internship: Internship;
@@ -38,7 +38,11 @@ export default function InternshipIntroCard({ internship }: InternshipIntroCardP
   const { main, subtitle } = splitInternshipTitle(internship.title);
   const skills = internship.skillsCovered?.slice(0, 3) ?? [];
   const duration = internship.durationOptions?.length ? internship.durationOptions.join(" / ") : null;
-  const applyHref = resolveStudentApplyUrl(internship.googleFormLink);
+  const applyHref = buildApplyHref({
+    internship: internship.title,
+    domain: domainLabel,
+    source: "internship-card",
+  });
 
   return (
     <article className="internship-intro-card bg-white rounded-4 shadow-sm p-4 p-lg-4 h-100 w-100 d-flex flex-column">
@@ -86,9 +90,9 @@ export default function InternshipIntroCard({ internship }: InternshipIntroCardP
           <span className="small text-secondary d-block">Next batch</span>
           <span className="fw-bold">{formatBatch(internship.batchStartDate)}</span>
         </div>
-        <a className="main-btn" href={applyHref} target="_blank" rel="noopener noreferrer">
+        <Link className="main-btn" href={applyHref}>
           Apply Now
-        </a>
+        </Link>
       </div>
     </article>
   );

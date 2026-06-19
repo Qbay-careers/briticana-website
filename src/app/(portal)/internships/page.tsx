@@ -6,8 +6,8 @@ import StartDateSelector from "@/components/internships/StartDateSelector";
 import InternshipIntroCard from "@/components/marketing/InternshipIntroCard";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
-import { getAllInternshipDomains, getInternshipsFiltered, getSiteSettings } from "@/lib/sanity/queries";
-import type { Internship, InternshipDomainDoc, SiteSettings } from "@/lib/sanity/types";
+import { getAllInternshipDomains, getInternshipsFiltered } from "@/lib/sanity/queries";
+import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
 
 export const metadata: Metadata = {
   title: "Internships",
@@ -37,26 +37,22 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
 
   let internships: Internship[] = [];
   let filterDomains: InternshipDomainDoc[] = [];
-  let batchApplyUrl: string | null = null;
 
   if (isSanityConfigured()) {
     try {
-      const [fetchedInternships, fetchedDomains, siteSettings] = await Promise.all([
+      const [fetchedInternships, fetchedDomains] = await Promise.all([
         client.fetch<Internship[]>(
           getInternshipsFiltered,
           { domain, region, duration },
           sanityFetchOptions,
         ),
         client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, sanityFetchOptions),
-        client.fetch<SiteSettings | null>(getSiteSettings, {}, sanityFetchOptions),
       ]);
       internships = fetchedInternships;
       filterDomains = fetchedDomains;
-      batchApplyUrl = siteSettings?.internshipBatchApplyUrl?.trim() ?? null;
     } catch {
       internships = [];
       filterDomains = [];
-      batchApplyUrl = null;
     }
   }
 
@@ -119,7 +115,7 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
           </div>
 
           <div className="mt-5">
-            <StartDateSelector applyUrl={batchApplyUrl} />
+            <StartDateSelector />
           </div>
         </div>
       </div>

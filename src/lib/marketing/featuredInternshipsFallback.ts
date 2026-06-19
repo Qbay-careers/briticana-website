@@ -1,5 +1,4 @@
 import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
-import { DEFAULT_STUDENT_APPLICATION_FORM_URL } from "@/lib/studentApplicationForm";
 
 const domainDataAnalysis: InternshipDomainDoc = {
   _id: "fallback-domain-data-analysis",
@@ -41,7 +40,6 @@ export const featuredInternshipsFallback: Internship[] = [
       "Three phases — Foundation (core skills), Advanced Development (techniques and emerging tools), Professional Integration (projects and industry scenarios). Scope scales with 3, 6, or 9 month tracks.",
     applicationStatus: "open",
     batchStartDate: "2026-06-15",
-    googleFormLink: DEFAULT_STUDENT_APPLICATION_FORM_URL,
   },
   {
     _id: "fallback-internship-finance-research",
@@ -67,7 +65,6 @@ export const featuredInternshipsFallback: Internship[] = [
       "Three phases — Foundation (core finance and research skills), Advanced Development (valuation, forecasting, frameworks), Professional Integration (case studies and industry assignments). Scope scales with 3, 6, or 9 month tracks.",
     applicationStatus: "open",
     batchStartDate: "2026-06-22",
-    googleFormLink: DEFAULT_STUDENT_APPLICATION_FORM_URL,
   },
 ];
 

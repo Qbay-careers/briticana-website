@@ -15,6 +15,9 @@ const LABELS: Record<InternshipDomainSlug, string> = {
   "sales-growth": "Sales & Growth",
 };
 
+/** All known domain display labels (used for the application form's domain select). */
+export const INTERNSHIP_DOMAIN_LABELS: readonly string[] = Object.values(LABELS);
+
 /**
  * Display label for an internship domain: prefers CMS `title`, then slug-based fallback map.
  */

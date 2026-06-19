@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { SiteSettings } from "@/lib/sanity/types";
-import { resolveStudentApplyUrl } from "@/lib/studentApplicationForm";
+import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 const LOGO_SRC = marketingImage("logo/logo.webp");
 
@@ -24,9 +24,9 @@ export type MarketingNavProps = {
   settings?: SiteSettings | null;
 };
 
-export default function MarketingNav({ settings }: MarketingNavProps) {
+export default function MarketingNav({ settings: _settings }: MarketingNavProps) {
   const pathname = usePathname() ?? "";
-  const applyUrl = resolveStudentApplyUrl(settings?.marketingApplyUrl);
+  const applyUrl = buildApplyHref({ source: "nav" });
 
   return (
     <div className="navbar-area">

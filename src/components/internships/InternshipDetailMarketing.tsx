@@ -6,7 +6,7 @@ import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
 import { splitInternshipTitle } from "@/lib/splitInternshipTitle";
 import { urlForSanityImage } from "@/lib/sanity/image";
 import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
-import { buildInternshipPrefilledApplyUrl } from "@/lib/studentApplicationForm";
+import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 export type InternshipDetailMarketingProps = {
   internship: Internship;
@@ -60,7 +60,9 @@ export default function InternshipDetailMarketing({ internship, related }: Inter
   const domainFilterHref = domainSlug ? `/internships?domain=${encodeURIComponent(domainSlug)}` : null;
   const domainLabel = internshipDomainLabel(internship.domain ?? undefined);
   const showApply = internship.applicationStatus === "open";
-  const applyHref = showApply ? buildInternshipPrefilledApplyUrl(internship.googleFormLink, internship.title) : undefined;
+  const applyHref = showApply
+    ? buildApplyHref({ internship: internship.title, domain: domainLabel, source: "internship-detail" })
+    : undefined;
   const { main, subtitle } = splitInternshipTitle(internship.title);
   const statusMeta = statusMetaClass(internship.applicationStatus);
 
@@ -201,15 +203,13 @@ export default function InternshipDetailMarketing({ internship, related }: Inter
                 <p className="text-secondary small mb-4">Mentor-led internship track</p>
 
                 {applyHref ? (
-                  <a
+                  <Link
                     className="main-btn rounded-3 gap-2 d-flex justify-content-center align-items-center w-100"
                     href={applyHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     <span>Apply now</span>
                     <i className="ri-arrow-right-long-line lh-1" aria-hidden />
-                  </a>
+                  </Link>
                 ) : (
                   <Link
                     href="/internships"

@@ -846,3 +846,180 @@
 .marketing-home-root .page-banner-content h2 span {
   color: var(--mainColor, #7a4dfc);
 }
+
+/* Application form — minimal but refined */
+.marketing-home-root .apply-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #ececf0;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -32px rgba(20, 12, 48, 0.28);
+}
+
+.marketing-home-root .apply-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--mainColor, #7a4dfc), #a37dff 55%, #c9b4ff);
+}
+
+.marketing-home-root .apply-card__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.75rem 2rem 1.5rem;
+  border-bottom: 1px solid #f1f1f4;
+}
+
+.marketing-home-root .apply-card__head-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--mainColor, #7a4dfc);
+  background: rgba(122, 77, 252, 0.1);
+}
+
+.marketing-home-root .apply-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .apply-card__subtitle {
+  font-size: 0.85rem;
+  color: #8a8a96;
+  margin: 0.15rem 0 0;
+}
+
+.marketing-home-root .apply-card__body {
+  padding: 1.75rem 2rem 2rem;
+}
+
+.marketing-home-root .apply-note {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba(122, 77, 252, 0.07);
+  border: 1px solid rgba(122, 77, 252, 0.16);
+  color: var(--headingColor, #03010d);
+  font-size: 0.9rem;
+}
+
+.marketing-home-root .apply-note i {
+  color: var(--mainColor, #7a4dfc);
+  font-size: 1.1rem;
+}
+
+.marketing-home-root .apply-form .form-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--headingColor, #03010d);
+  margin-bottom: 0.45rem;
+}
+
+.marketing-home-root .apply-required {
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-control {
+  position: relative;
+}
+
+.marketing-home-root .apply-control__icon {
+  position: absolute;
+  left: 0.95rem;
+  top: 0.85rem;
+  font-size: 1.05rem;
+  color: #a7a7b3;
+  pointer-events: none;
+  transition: color 0.15s ease;
+}
+
+.marketing-home-root .apply-control:focus-within .apply-control__icon {
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-form .form-control,
+.marketing-home-root .apply-form .form-select {
+  border: 1px solid #e6e6ec;
+  border-radius: 0.8rem;
+  padding: 0.7rem 0.95rem 0.7rem 2.6rem;
+  background-color: #fbfbfd;
+  color: var(--headingColor, #03010d);
+  font-size: 0.95rem;
+  box-shadow: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.marketing-home-root .apply-form .form-select {
+  padding-right: 2.4rem;
+  background-position: right 0.95rem center;
+}
+
+.marketing-home-root .apply-form .form-control::placeholder {
+  color: #b0b0bb;
+}
+
+.marketing-home-root .apply-form .form-control:focus,
+.marketing-home-root .apply-form .form-select:focus {
+  border-color: var(--mainColor, #7a4dfc);
+  box-shadow: 0 0 0 4px rgba(122, 77, 252, 0.12);
+  background-color: #fff;
+  outline: none;
+}
+
+.marketing-home-root .apply-form .form-control.is-invalid,
+.marketing-home-root .apply-form .form-select.is-invalid {
+  border-color: #e0566f;
+  background-image: none;
+}
+
+.marketing-home-root .apply-form .form-control.is-invalid:focus,
+.marketing-home-root .apply-form .form-select.is-invalid:focus {
+  box-shadow: 0 0 0 4px rgba(224, 86, 111, 0.13);
+}
+
+.marketing-home-root .apply-control--textarea .apply-control__icon {
+  top: 0.95rem;
+}
+
+.marketing-home-root .apply-form textarea.form-control {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.marketing-home-root .apply-form .invalid-feedback {
+  font-size: 0.78rem;
+}
+
+.marketing-home-root .apply-form .apply-submit {
+  border-radius: 0.85rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  font-weight: 600;
+}
+
+.marketing-home-root .apply-form .apply-consent a {
+  color: var(--mainColor, #7a4dfc);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 575.98px) {
+  .marketing-home-root .apply-card__head,
+  .marketing-home-root .apply-card__body {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}

@@ -3,18 +3,13 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { isInternalAppPath, resolveStudentApplyUrl } from "@/lib/studentApplicationForm";
+import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 type BatchStatus = "closed" | "closing-soon" | "open";
 
 type StartDate = {
   date: Date;
   status: BatchStatus;
-};
-
-export type StartDateSelectorProps = {
-  /** From Sanity Site settings — path or full URL. Falls back to the default student application form when empty. */
-  applyUrl?: string | null;
 };
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -81,26 +76,8 @@ const MONTH_SHORT = (d: Date) => d.toLocaleDateString("en-US", { month: "short" 
 const FULL_DATE = (d: Date) => d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 const SHORT_DATE = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
-function ApplyNowButton({ href, className }: { href: string; className?: string }) {
-  const target = resolveStudentApplyUrl(href);
-  const isAppPath = isInternalAppPath(target);
-
-  if (isAppPath) {
-    return (
-      <Link href={target} className={className}>
-        Apply Now
-      </Link>
-    );
-  }
-
-  return (
-    <a href={target} className={className} target="_blank" rel="noopener noreferrer">
-      Apply Now
-    </a>
-  );
-}
-
-export default function StartDateSelector({ applyUrl }: StartDateSelectorProps) {
+export default function StartDateSelector() {
+  const applyHref = buildApplyHref({ source: "internships-start-date" });
   const startDates = useMemo(() => buildStartDates(new Date()), []);
   const defaultIndex = useMemo(() => {
     const openIndex = startDates.findIndex((s) => s.status === "open");
@@ -169,7 +146,9 @@ export default function StartDateSelector({ applyUrl }: StartDateSelectorProps) 
                 <span className="small text-uppercase d-block mb-1 start-date-detail-label">Selected Start Date</span>
                 <span className="h3 mb-0 text-white d-block">{FULL_DATE(selected.date)}</span>
               </div>
-              <ApplyNowButton href={applyUrl ?? ""} className="main-btn start-date-apply flex-shrink-0" />
+              <Link href={applyHref} className="main-btn start-date-apply flex-shrink-0">
+                Apply Now
+              </Link>
             </div>
 
             <div className="bg-white p-4">
