@@ -7,16 +7,20 @@ import { google } from "googleapis";
  * Server-only Google Sheets client for storing application submissions.
  * Never import this module from a client component.
  *
- * Required environment variables (set in .env.local / hosting provider):
- *   GOOGLE_SHEETS_SPREADSHEET_ID        — the long ID from the sheet URL
- *   GOOGLE_SERVICE_ACCOUNT_EMAIL        — service account ...@...iam.gserviceaccount.com
- *   GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY  — the private key (keep \n escapes; wrap in quotes)
+ * Required:
+ *   GOOGLE_SHEETS_SPREADSHEET_ID
+ *
+ * Service account credentials (first match wins):
+ *   1. GOOGLE_SERVICE_ACCOUNT_JSON     — full JSON key (recommended for Vercel/production)
+ *   2. GOOGLE_SERVICE_ACCOUNT_KEY_PATH — path to JSON file (local dev)
+ *   3. GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+ *
  * Optional:
- *   GOOGLE_SHEETS_TAB_NAME              — worksheet/tab name (default "Applications")
- *   GOOGLE_SERVICE_ACCOUNT_KEY_PATH     — local dev only: path to service account JSON file
+ *   GOOGLE_SHEETS_TAB_NAME             — worksheet/tab name (default "Applications")
  */
 
 const DEFAULT_TAB = "Applications";
+const SHEETS_SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
 /** Column order written to the sheet; the first row should hold these headers. */
 export const APPLICATION_SHEET_HEADERS = [
@@ -49,11 +53,24 @@ export type ApplicationRecord = {
   source: string;
 };
 
+type ServiceAccountCredentials = {
+  client_email: string;
+  private_key: string;
+};
+
+function hasLegacyKeyPair(): boolean {
+  return Boolean(
+    process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL?.trim() &&
+      process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.trim(),
+  );
+}
+
 export function isSheetsConfigured(): boolean {
   return Boolean(
-    process.env.GOOGLE_SHEETS_SPREADSHEET_ID &&
-      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
-      (process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY || process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH),
+    process.env.GOOGLE_SHEETS_SPREADSHEET_ID?.trim() &&
+      (process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.trim() ||
+        process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH?.trim() ||
+        hasLegacyKeyPair()),
   );
 }
 
@@ -65,40 +82,60 @@ function normalizePrivateKey(raw: string): string {
   ) {
     key = key.slice(1, -1);
   }
-  // Hosting env vars often store literal "\n"; restore real PEM line breaks.
   return key.replace(/\\n/g, "\n");
 }
 
-function readPrivateKeyFromJsonFile(relativePath: string): string | null {
+function parseServiceAccountJson(raw: string): ServiceAccountCredentials | null {
   try {
-    const abs = path.isAbsolute(relativePath) ? relativePath : path.join(process.cwd(), relativePath);
-    const parsed = JSON.parse(fs.readFileSync(abs, "utf8")) as { private_key?: string };
-    const key = parsed.private_key?.trim();
-    return key ? normalizePrivateKey(key) : null;
+    const parsed = JSON.parse(raw) as { client_email?: string; private_key?: string };
+    const client_email = parsed.client_email?.trim();
+    const private_key = parsed.private_key?.trim();
+    if (!client_email || !private_key) return null;
+    return { client_email, private_key: normalizePrivateKey(private_key) };
   } catch {
     return null;
   }
 }
 
-function getPrivateKey(): string {
+function readServiceAccountFromFile(relativePath: string): ServiceAccountCredentials | null {
+  try {
+    const abs = path.isAbsolute(relativePath) ? relativePath : path.join(process.cwd(), relativePath);
+    return parseServiceAccountJson(fs.readFileSync(abs, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function getServiceAccountCredentials(): ServiceAccountCredentials {
+  const jsonEnv = process.env.GOOGLE_SERVICE_ACCOUNT_JSON?.trim();
+  if (jsonEnv) {
+    const fromJson = parseServiceAccountJson(jsonEnv);
+    if (fromJson) return fromJson;
+    console.error("GOOGLE_SERVICE_ACCOUNT_JSON is set but could not be parsed.");
+  }
+
   const keyPath = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH?.trim();
   if (keyPath) {
-    const fromFile = readPrivateKeyFromJsonFile(keyPath);
+    const fromFile = readServiceAccountFromFile(keyPath);
     if (fromFile) return fromFile;
     console.error("Could not read GOOGLE_SERVICE_ACCOUNT_KEY_PATH:", keyPath);
   }
 
-  const fromEnv = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
-  if (fromEnv) return normalizePrivateKey(fromEnv);
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL?.trim();
+  const privateKey = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.trim();
+  if (email && privateKey) {
+    return { client_email: email, private_key: normalizePrivateKey(privateKey) };
+  }
 
-  throw new Error("Google service account private key is not configured.");
+  throw new Error("Google service account credentials are not configured.");
 }
 
 function getSheetsClient() {
+  const { client_email, private_key } = getServiceAccountCredentials();
   const auth = new google.auth.JWT({
-    email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    key: getPrivateKey(),
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    email: client_email,
+    key: private_key,
+    scopes: [SHEETS_SCOPE],
   });
   return google.sheets({ version: "v4", auth });
 }
