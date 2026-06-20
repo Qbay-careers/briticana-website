@@ -1,7 +1,7 @@
-import Link from "next/link";
-
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
+
+const TALK_TO_US_PHONE_HREF = "tel:+17342498898";
 
 export type MarketingJourneyCtaSectionProps = {
   /** Resolved apply target (Sanity home hero Apply URL or site default). */
@@ -34,9 +34,9 @@ export default function MarketingJourneyCtaSection({ applyHref }: MarketingJourn
               <MarketingCtaLink href={applyHref} className="main-btn">
                 Apply Now
               </MarketingCtaLink>
-              <Link href="/contact" className="main-btn black">
+              <a href={TALK_TO_US_PHONE_HREF} className="main-btn black">
                 Talk to Us
-              </Link>
+              </a>
             </div>
           </div>
           <img src={marketingImage("shape9.png")} className="position-absolute top-50 start-50 translate-middle z-n1" alt="" />
