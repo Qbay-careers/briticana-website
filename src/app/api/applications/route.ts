@@ -1,34 +1,17 @@
 import { NextResponse } from "next/server";
 
+import {
+  labelForCurrentStatus,
+  labelForVisaStatus,
+  labelForYesNo,
+} from "@/lib/applications/applicationTypes";
 import { appendApplicationRow, isSheetsConfigured } from "@/lib/applications/googleSheets";
+import { isR2Configured, uploadResumeToR2 } from "@/lib/applications/r2Storage";
+import { validateApplicationForm } from "@/lib/applications/validateApplication";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MAX_FIELD_LENGTH = 2000;
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-type ApplicationBody = {
-  fullName?: unknown;
-  email?: unknown;
-  phone?: unknown;
-  country?: unknown;
-  domain?: unknown;
-  duration?: unknown;
-  region?: unknown;
-  educationLevel?: unknown;
-  introduction?: unknown;
-  internship?: unknown;
-  source?: unknown;
-  /** Honeypot — must stay empty; bots tend to fill every field. */
-  website?: unknown;
-};
-
-function str(value: unknown): string {
-  return typeof value === "string" ? value.trim().slice(0, MAX_FIELD_LENGTH) : "";
-}
-
-// Best-effort in-memory rate limit (per server instance).
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 5;
 const hits = new Map<string, number[]>();
@@ -48,15 +31,24 @@ function clientIp(request: Request): string {
 }
 
 export async function POST(request: Request) {
-  let body: ApplicationBody;
+  let formData: FormData;
   try {
-    body = (await request.json()) as ApplicationBody;
+    formData = await request.formData();
   } catch {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  // Honeypot: silently accept so bots think they succeeded, but store nothing.
-  if (str(body.website)) {
+  const { data, errors } = validateApplicationForm(formData);
+
+  if (errors) {
+    return NextResponse.json({ ok: false, error: "Please check the form.", fields: errors }, { status: 400 });
+  }
+
+  if (!data) {
+    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
+  }
+
+  if (data.website) {
     return NextResponse.json({ ok: true });
   }
 
@@ -67,29 +59,6 @@ export async function POST(request: Request) {
     );
   }
 
-  const fullName = str(body.fullName);
-  const email = str(body.email);
-  const phone = str(body.phone);
-  const country = str(body.country);
-  const domain = str(body.domain);
-  const duration = str(body.duration);
-  const region = str(body.region);
-  const educationLevel = str(body.educationLevel);
-  const introduction = str(body.introduction);
-  const internship = str(body.internship);
-  const source = str(body.source);
-
-  const errors: Record<string, string> = {};
-  if (!fullName) errors.fullName = "Please enter your full name.";
-  if (!email) errors.email = "Please enter your email.";
-  else if (!EMAIL_RE.test(email)) errors.email = "Please enter a valid email.";
-  if (!phone) errors.phone = "Please enter your phone number.";
-  if (!domain) errors.domain = "Please choose a domain.";
-
-  if (Object.keys(errors).length > 0) {
-    return NextResponse.json({ ok: false, error: "Please check the form.", fields: errors }, { status: 400 });
-  }
-
   if (!isSheetsConfigured()) {
     return NextResponse.json(
       { ok: false, error: "Applications aren't configured yet. Please try again later or email us." },
@@ -97,28 +66,68 @@ export async function POST(request: Request) {
     );
   }
 
+  if (!isR2Configured()) {
+    return NextResponse.json(
+      { ok: false, error: "Resume upload isn't configured yet. Please try again later or email us." },
+      { status: 503 },
+    );
+  }
+
   try {
+    const buffer = Buffer.from(await data.resume.arrayBuffer());
+    const upload = await uploadResumeToR2(
+      buffer,
+      data.resume.type || "application/octet-stream",
+      data.resume.name,
+      { firstName: data.firstName, lastName: data.lastName },
+    );
+
     await appendApplicationRow({
       submittedAt: new Date().toISOString(),
-      fullName,
-      email,
-      phone,
-      country,
-      domain,
-      duration,
-      region,
-      educationLevel,
-      introduction,
-      internship,
-      source,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      country: data.country,
+      university: data.university,
+      currentQualification: data.currentQualification,
+      linkedIn: data.linkedIn,
+      duration: data.duration,
+      careerAssistance: labelForYesNo(data.careerAssistance),
+      jobOpportunitiesAfter: labelForYesNo(data.jobOpportunitiesAfter),
+      previousInternship: labelForYesNo(data.previousInternship),
+      previousInternshipDetails: data.previousInternshipDetails,
+      relevantWorkExperience: labelForYesNo(data.relevantWorkExperience),
+      relevantWorkExperienceDetails: data.relevantWorkExperienceDetails,
+      currentStatus: labelForCurrentStatus(data.currentStatus),
+      relevantSkills: data.relevantSkills,
+      projectsCertificationsCourses: labelForYesNo(data.projectsCertificationsCourses),
+      projectsCertificationsDetails: data.projectsCertificationsDetails,
+      visaStatus: labelForVisaStatus(data.visaStatus),
+      visaDetails: data.visaDetails,
+      industryOrCareerPath: data.industryOrCareerPath,
+      biggestCareerChallenge: data.biggestCareerChallenge,
+      whyChoseInternship: data.whyChoseInternship,
+      careerGrowthHelp: data.careerGrowthHelp,
+      resumeUrl: upload.url,
+      internshipTrack: data.internshipTrack,
+      source: data.source,
+      declarationAccepted: labelForYesNo(data.declarationAccepted),
     });
+
+    return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("Failed to append application to Google Sheets:", err);
+    console.error("Failed to submit application:", err);
+    const message = err instanceof Error ? err.message : String(err);
+    if (message.includes("EPROTO") || message.includes("handshake failure")) {
+      console.error(
+        "R2 upload failed: check R2_ACCOUNT_ID is your Cloudflare Account ID (not Access Key ID). " +
+          "Find it on Dashboard home or R2 Overview.",
+      );
+    }
     return NextResponse.json(
       { ok: false, error: "We couldn't submit your application. Please try again." },
       { status: 502 },
     );
   }
-
-  return NextResponse.json({ ok: true });
 }

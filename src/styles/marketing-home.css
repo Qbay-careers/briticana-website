@@ -925,7 +925,7 @@
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--headingColor, #03010d);
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.55rem;
 }
 
 .marketing-home-root .apply-required {
@@ -1016,10 +1016,367 @@
   text-underline-offset: 2px;
 }
 
+.marketing-home-root .apply-section {
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid #ececf0;
+}
+
+.marketing-home-root .apply-section:first-of-type {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
+}
+
+.marketing-home-root .apply-section > .row {
+  --bs-gutter-y: 1.65rem;
+}
+
+.marketing-home-root .apply-section__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.marketing-home-root .apply-section__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: var(--mainColor, #7a4dfc);
+  background: rgba(122, 77, 252, 0.1);
+}
+
+.marketing-home-root .apply-section__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.35;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .apply-section__subtitle {
+  font-size: 0.82rem;
+  color: #8a8a96;
+  margin: 0.2rem 0 0;
+  line-height: 1.45;
+}
+
+.marketing-home-root .apply-fieldset {
+  border: 0;
+  padding: 0.15rem 0 0.35rem;
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.marketing-home-root .apply-choice-group {
+  border: 0;
+  padding: 15px;
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Conditional fields shown after Yes/No — sit flush under the choice group */
+.marketing-home-root .apply-section > .row > .apply-choice-group + [class*="col-"] {
+  margin-top: 0;
+}
+
+.marketing-home-root .apply-fieldset__legend,
+.marketing-home-root .apply-fieldset legend.form-label,
+.marketing-home-root .apply-choice-group .apply-fieldset__legend {
+  display: block;
+  width: 100%;
+  float: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  color: var(--headingColor, #03010d);
+}
+
+.marketing-home-root .apply-choice-group__field {
+  min-height: 2.85rem;
+  display: flex;
+  align-items: center;
+  padding: 0.15rem 0 0.35rem;
+  margin-bottom: 0.15rem;
+}
+
+.marketing-home-root .apply-choice-group .invalid-feedback {
+  margin-top: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+
+.marketing-home-root .apply-yesno,
+.marketing-home-root .apply-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.marketing-home-root .apply-yesno__option,
+.marketing-home-root .apply-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid #e6e6ec;
+  background: #fbfbfd;
+  color: var(--headingColor, #03010d);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.marketing-home-root .apply-yesno__option:hover,
+.marketing-home-root .apply-pill:hover {
+  border-color: rgba(122, 77, 252, 0.35);
+}
+
+.marketing-home-root .apply-yesno__option.is-selected,
+.marketing-home-root .apply-pill.is-selected {
+  border-color: var(--mainColor, #7a4dfc);
+  background: rgba(122, 77, 252, 0.1);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .is-invalid-group .apply-yesno__option,
+.marketing-home-root .is-invalid-group .apply-pill,
+.marketing-home-root .is-invalid-group .apply-check {
+  border-color: #e0566f;
+}
+
+.marketing-home-root .apply-check-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.marketing-home-root .apply-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #e8e8ee;
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.marketing-home-root .apply-check input {
+  accent-color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-check:hover {
+  border-color: rgba(122, 77, 252, 0.35);
+}
+
+.marketing-home-root .apply-check.is-selected {
+  border-color: var(--mainColor, #7a4dfc);
+  background: rgba(122, 77, 252, 0.1);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-declaration {
+  border: 1px solid #ececf2;
+  border-radius: 1rem;
+  background: #fbfbfd;
+  padding: 1.25rem;
+}
+
+.marketing-home-root .apply-declaration ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  color: #5a5a66;
+  font-size: 0.92rem;
+}
+
+.marketing-home-root .apply-declaration label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.marketing-home-root .apply-file-upload {
+  border: 1px dashed #d8d8e0;
+  border-radius: 1rem;
+  background: #fbfbfd;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.marketing-home-root .apply-file-upload.has-file {
+  border-style: solid;
+  border-color: rgba(122, 77, 252, 0.35);
+  background: rgba(122, 77, 252, 0.05);
+}
+
+.marketing-home-root .apply-file-upload.is-invalid-group {
+  border-color: #e0566f;
+}
+
+.marketing-home-root .apply-file-upload__icon {
+  font-size: 2rem;
+  color: var(--mainColor, #7a4dfc);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.marketing-home-root .apply-file-upload__hint {
+  color: #8a8a96;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.marketing-home-root .apply-file-upload__name {
+  font-weight: 600;
+  color: var(--headingColor, #03010d);
+  word-break: break-all;
+}
+
+.marketing-home-root .apply-form__submit {
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid #ececf0;
+}
+
+/* ---- Step-based wizard ---- */
+.marketing-home-root .apply-stepper {
+  padding: 1.25rem 2rem 0;
+}
+
+.marketing-home-root .apply-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: #eeeef3;
+  overflow: hidden;
+}
+
+.marketing-home-root .apply-progress__bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--mainColor, #7a4dfc), #a37dff);
+  transition: width 0.3s ease;
+}
+
+.marketing-home-root .apply-stepper__track {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.marketing-home-root .apply-step-tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid #e8e8ee;
+  border-radius: 999px;
+  background: #fff;
+  color: #8a8a96;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.marketing-home-root .apply-step-tab:hover {
+  border-color: rgba(122, 77, 252, 0.35);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-step-tab__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #eeeef3;
+  color: #8a8a96;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.marketing-home-root .apply-step-tab.is-active {
+  border-color: var(--mainColor, #7a4dfc);
+  background: rgba(122, 77, 252, 0.1);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-step-tab.is-active .apply-step-tab__num {
+  background: var(--mainColor, #7a4dfc);
+  color: #fff;
+}
+
+.marketing-home-root .apply-step-tab.is-complete {
+  color: #5a5a66;
+  border-color: rgba(122, 77, 252, 0.25);
+}
+
+.marketing-home-root .apply-step-tab.is-complete .apply-step-tab__num {
+  background: rgba(122, 77, 252, 0.15);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.marketing-home-root .apply-wizard__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid #ececf0;
+}
+
+.marketing-home-root .apply-wizard__next {
+  margin-left: auto;
+}
+
 @media (max-width: 575.98px) {
   .marketing-home-root .apply-card__head,
-  .marketing-home-root .apply-card__body {
+  .marketing-home-root .apply-card__body,
+  .marketing-home-root .apply-stepper {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .marketing-home-root .apply-step-tab__label {
+    display: none;
+  }
+
+  .marketing-home-root .apply-step-tab {
+    padding: 0.4rem;
+  }
+
+  .marketing-home-root .apply-wizard__nav .main-btn {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
   }
 }

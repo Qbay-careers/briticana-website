@@ -15,3 +15,5 @@ yarn-debug.log*
 yarn-error.log*
 build_proposal.py
 Voltix_Systems_Proposal.pdf
+.vercel
+.env*

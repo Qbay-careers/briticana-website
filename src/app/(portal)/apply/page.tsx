@@ -47,9 +47,9 @@ export default function ApplyPage({ searchParams }: ApplyPageProps) {
               <h2 className="mb-2">
                 Apply to an <span>internship</span>
               </h2>
-              <p className="text-secondary mt-2 mb-2" style={{ maxWidth: "720px" }}>
-                Tell us about yourself and the track you&apos;re interested in. Our team reviews every application and
-                follows up by email with the next steps.
+              <p className="text-secondary mt-2 mb-2" style={{ maxWidth: "760px" }}>
+                Complete the detailed application below — including your education, experience, visa details, resume,
+                and motivation. Our team reviews every submission carefully and follows up by email.
               </p>
             </div>
           </div>
@@ -59,7 +59,7 @@ export default function ApplyPage({ searchParams }: ApplyPageProps) {
       <div className="courses-area pt-5 pb-120 bg-f7f7f7">
         <div className="container mw-1345">
           <div className="row justify-content-center">
-            <div className="col-lg-9 col-xl-8">
+            <div className="col-lg-10 col-xl-9">
               <ApplyForm initial={initial} />
             </div>
           </div>
