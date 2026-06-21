@@ -4,8 +4,6 @@ import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { FooterNavLink, SiteSettings } from "@/lib/sanity/types";
 
 const FOOTER_LOGO_SRC = marketingImage("logo/logo.webp");
-const DEFAULT_EMAIL = "hello@briticana.com";
-const EMAIL_PATTERN = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 
 const DEFAULT_TAGLINE =
   "Internship experiences and startup collaboration across Ireland, the UK, Germany, and Finland.";
@@ -41,13 +39,6 @@ function socialLinksFromSettings(settings?: SiteSettings | null): SocialEntry[] 
   return out;
 }
 
-function contactEmailsFromSettings(email?: string): string[] {
-  const rawEmail = email?.trim() || DEFAULT_EMAIL;
-  const parsedEmails = rawEmail.match(EMAIL_PATTERN)?.map((item) => item.trim()).filter(Boolean) ?? [];
-
-  return parsedEmails.length > 0 ? Array.from(new Set(parsedEmails)) : [rawEmail];
-}
-
 export type MarketingFooterSectionProps = {
   settings?: SiteSettings | null;
 };
@@ -59,7 +50,7 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
   const tagline = settings?.footerTagline?.trim() || DEFAULT_TAGLINE;
   const locations = settings?.footerLocations?.trim() || DEFAULT_LOCATIONS;
   const phone = settings?.contactNumber?.trim() || "+353 (0) 000 0000";
-  const emails = contactEmailsFromSettings(settings?.email);
+  const email = settings?.email?.trim() || "hello@briticana.com";
 
   const exploreLinks =
     settings?.footerExploreLinks?.length ? settings.footerExploreLinks : DEFAULT_EXPLORE_LINKS;
@@ -144,13 +135,7 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
                 <li>
                   <div className="d-flex align-items-start gap-2">
                     <i className="ri-mail-line text-white" />
-                    <div className="d-flex flex-column align-items-start gap-1">
-                      {emails.map((email) => (
-                        <a key={email} href={`mailto:${email}`}>
-                          {email}
-                        </a>
-                      ))}
-                    </div>
+                    <a href={`mailto:${email}`}>{email}</a>
                   </div>
                 </li>
                 <li>

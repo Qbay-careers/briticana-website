@@ -1,4 +1,4 @@
-const TALK_TO_US_PHONE_HREF = "tel:+17342498898";
+import Link from "next/link";
 
 const STARTUP_SUBMISSIONS = ["Product ideas", "MVP concepts", "Research tasks", "Marketing projects", "Design requirements"];
 
@@ -24,9 +24,9 @@ export default function MarketingStartupsSection() {
                 Briticana also supports startups and founders exploring early-stage ideas through supervised project
                 teams. All projects are mentor-supervised and designed for educational and execution value.
               </p>
-              <a href={TALK_TO_US_PHONE_HREF} className="main-btn">
+              <Link href="/contact" className="main-btn">
                 Talk to us
-              </a>
+              </Link>
             </div>
             <div className="col-lg-6">
               <div className="row g-4">
