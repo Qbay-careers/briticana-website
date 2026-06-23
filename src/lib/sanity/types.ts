@@ -94,7 +94,11 @@ export interface HomePage {
   /** When set, overrides the default student application URL for hero and journey Apply CTAs. */
   heroCtaApplyUrl?: string;
   heroCtaExploreUrl?: string;
-  /** Wide hero for stacked layout on viewports under 1400px (separate from floating tiles). */
+  /** Full-bleed hero treatment on viewports under 1200px. */
+  heroSmallScreenBackground?: "image" | "white" | "none";
+  /** 0–100 overlay strength when heroSmallScreenBackground is "image". */
+  heroBackgroundOverlay?: number;
+  /** Wide hero for stacked layout on viewports under 1200px (separate from floating tiles). */
   heroImageWide?: SanityImage;
   /** Named floating image slots — slot 1–6 map to banner1–banner6 positions. */
   heroImage1?: SanityImage;

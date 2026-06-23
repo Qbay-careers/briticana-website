@@ -52,18 +52,36 @@ export default defineType({
       group: "hero",
     }),
     defineField({
+      name: "heroWideBackgroundMode",
+      title: "Small-screen background (under 1200px)",
+      type: "string",
+      group: "hero",
+      description:
+        "Controls the hero band on phones and tablets. Desktop (1200px+) always uses the floating image collage when slots are filled.",
+      options: {
+        list: [
+          { title: "Background image", value: "image" },
+          { title: "White background", value: "white" },
+          { title: "No background image", value: "none" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "image",
+    }),
+    defineField({
       name: "heroImageWide",
       title: "Hero image — wide (under 1400px)",
       type: "image",
       group: "hero",
       description:
-        "Landscape image used as a soft background behind the headline when the screen is under 1400px (floating tiles only show from 1400px up). Recommended 16:9 (e.g. 1600×900). Leave empty for the default.",
+        "Landscape photo used when “Background image” is selected above. Recommended 16:9 (e.g. 1600×900). Leave empty for the default.",
       options: { hotspot: true },
+      hidden: ({ parent }) => parent?.heroWideBackgroundMode !== "image",
     }),
 
     // ── Hero floating image slots (banner1–6) ────────────────────────────
     defineField({
-      name: "heroImage1",
+      title: "Hero image — wide (under 1200px)",
       title: "Floating image — slot 1 (top-left)",
       type: "image",
       group: "heroImages",

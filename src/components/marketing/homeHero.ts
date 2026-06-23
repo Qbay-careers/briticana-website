@@ -27,7 +27,11 @@ export type HomeHeroData = {
   ctaExploreHref: string;
   ctaApplyLabel: string;
   ctaExploreLabel: string;
-  /** Resolved URL for the wide stacked hero (viewports under 1400px). */
+  /** Full-bleed hero background on viewports under 1200px. */
+  smallScreenBackground: "image" | "white" | "none";
+  /** 0–1 overlay opacity when smallScreenBackground is "image". */
+  backgroundOverlay: number;
+  /** Resolved URL for the wide stacked hero (viewports under 1200px). */
   heroWideImage: string;
   /** Resolved URLs for the 6 floating hero images (slot 1–6). */
   floatingImages: readonly string[];
@@ -55,6 +59,8 @@ export const defaultHomeHero: HomeHeroData = {
   ctaExploreHref: "/internships",
   ctaApplyLabel: "Apply Now",
   ctaExploreLabel: "View Internships",
+  smallScreenBackground: "image",
+  backgroundOverlay: 0.55,
   heroWideImage: "/edumove/images/banner-1.jpg",
   floatingImages: DEFAULT_FLOATING_IMAGES,
   stripMainImage: "/edumove/images/banner-7.jpg",
@@ -66,7 +72,26 @@ export const defaultHomeHero: HomeHeroData = {
   testimonialAvatars: DEFAULT_STRIP_AVATARS,
 };
 
+function resolveSmallScreenBackground(
+  doc: HomePage | null | undefined,
+): HomeHeroData["smallScreenBackground"] {
+  const mode = doc?.heroSmallScreenBackground;
+  if (mode === "image" || mode === "white" || mode === "none") return mode;
+  return defaultHomeHero.smallScreenBackground;
+}
+
+function resolveBackgroundOverlay(doc: HomePage | null | undefined): number {
+  const raw = doc?.heroBackgroundOverlay;
+  if (typeof raw === "number" && Number.isFinite(raw)) {
+    return Math.min(1, Math.max(0, raw / 100));
+  }
+  return defaultHomeHero.backgroundOverlay;
+}
+
 export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroData {
+  const smallScreenBackground = resolveSmallScreenBackground(doc);
+  const backgroundOverlay = resolveBackgroundOverlay(doc);
+
   // ── Floating images (banner1–6): per-slot fallback ───────────────────
   const cmsSlots = [
     doc?.heroImage1,
@@ -107,6 +132,8 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
   if (!doc?.heroHeadline?.trim()) {
     return {
       ...defaultHomeHero,
+      smallScreenBackground,
+      backgroundOverlay,
       floatingImages,
       heroWideImage,
       stripMainImage,
@@ -122,10 +149,13 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
   return {
     headline: doc.heroHeadline,
     subheadline: doc.heroSubheadline ?? defaultHomeHero.subheadline,
-    ctaApplyHref: defaultHomeHero.ctaApplyHref,
+    overview: doc.heroOverview ?? defaultHomeHero.overview,
+    ctaApplyHref: doc.heroCtaApplyUrl?.trim() || defaultHomeHero.ctaApplyHref,
     ctaExploreHref: doc.heroCtaExploreUrl?.trim() || defaultHomeHero.ctaExploreHref,
     ctaApplyLabel: defaultHomeHero.ctaApplyLabel,
     ctaExploreLabel: defaultHomeHero.ctaExploreLabel,
+    smallScreenBackground,
+    backgroundOverlay,
     heroWideImage,
     floatingImages,
     stripMainImage,

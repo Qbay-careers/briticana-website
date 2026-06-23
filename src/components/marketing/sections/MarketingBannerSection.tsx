@@ -7,15 +7,30 @@ export type MarketingBannerSectionProps = {
   homeHero: HomeHeroData;
 };
 
+const BACKGROUND_MODE_CLASS: Record<HomeHeroData["smallScreenBackground"], string> = {
+  image: "marketing-hero-stack--bg-image",
+  white: "marketing-hero-stack--bg-white",
+  none: "marketing-hero-stack--bg-none",
+};
+
 export default function MarketingBannerSection({ homeHero }: MarketingBannerSectionProps) {
-  const heroWideBg = `url(${JSON.stringify(homeHero.heroWideImage)})`;
+  const { smallScreenBackground, backgroundOverlay } = homeHero;
+  const stackClassName = [
+    "marketing-hero-stack",
+    BACKGROUND_MODE_CLASS[smallScreenBackground],
+  ].join(" ");
+
+  const stackStyle =
+    smallScreenBackground === "image"
+      ? {
+          ["--marketing-hero-wide-src" as string]: `url(${JSON.stringify(homeHero.heroWideImage)})`,
+          ["--marketing-hero-overlay" as string]: String(backgroundOverlay),
+        }
+      : undefined;
 
   return (
     <div className="banner-area">
-      <div
-        className="marketing-hero-stack"
-        style={{ ["--marketing-hero-wide-src" as string]: heroWideBg }}
-      >
+      <div className={stackClassName} style={stackStyle}>
         <div className="container mw-1345 position-relative z-1 marketing-hero-stack__inner">
           <div className="banner-content text-center" data-cues="slideInUp" data-group="images">
             <h3 className="display-3 fw-bold">{homeHero.headline}</h3>
@@ -31,8 +46,8 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
             </div>
           </div>
 
-          {/* Six-image orbit: ≥ 1400px only */}
-          <div className="marketing-hero-collage d-none d-xxl-inline-block" data-cues="slideInUp" data-group="images">
+          {/* Six-image orbit: ≥ 1200px only */}
+          <div className="marketing-hero-collage d-none d-xl-inline-block" data-cues="slideInUp" data-group="images">
             {homeHero.floatingImages.map((src, index) => (
               <img
                 key={index}
@@ -45,10 +60,6 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
           </div>
         </div>
       </div>
-      {/* <div className="pb-120" />
-      <div className="container mw-1345 position-relative z-1">
-        ...
-      </div> */}
     </div>
   );
 }

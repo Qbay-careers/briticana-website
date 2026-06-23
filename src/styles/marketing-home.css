@@ -68,8 +68,14 @@
 /* Homepage vertical rhythm — scoped; avoids stacked ptb-120 (~240px) between sections */
 .marketing-home-root {
   --marketing-section-y: clamp(40px, 3.75vw, 64px);
-  /* Approximate navbar + bar height for full-viewport hero below xxl */
+  /* Navbar height estimate for full-viewport hero (below 1200px) */
   --marketing-nav-offset: 5.75rem;
+}
+
+@media (max-width: 991.98px) {
+  .marketing-home-root {
+    --marketing-nav-offset: 4.75rem;
+  }
 }
 
 .marketing-home-root .marketing-home-section-y {
@@ -109,9 +115,10 @@
   line-height: 1.55;
 }
 
-/* Hero: wide image as background behind copy (viewports below Bootstrap xxl / 1400px) */
+/* Hero: wide image as background behind copy (viewports below Bootstrap xl / 1200px) */
 .marketing-home-root .marketing-hero-stack {
   position: relative;
+  --marketing-hero-overlay: 0.55;
 }
 
 .marketing-home-root .marketing-hero-stack::before,
@@ -119,13 +126,33 @@
   display: none;
 }
 
-@media (max-width: 1399.98px) {
+@media (max-width: 1199.98px) {
   .marketing-home-root .banner-area {
+    min-height: calc(100svh - var(--marketing-nav-offset));
+    min-height: calc(100dvh - var(--marketing-nav-offset));
+    display: flex;
+    flex-direction: column;
     padding-bottom: 0;
+  }
+
+  .marketing-home-root .banner-area:has(.marketing-hero-stack--bg-image),
+  .marketing-home-root .banner-area:has(.marketing-hero-stack--bg-white) {
     overflow-x: clip;
   }
 
   .marketing-home-root .marketing-hero-stack {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: calc(100svh - var(--marketing-nav-offset));
+    min-height: calc(100dvh - var(--marketing-nav-offset));
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-image,
+  .marketing-home-root .marketing-hero-stack--bg-white {
     /* Full-bleed edge to edge */
     width: 100vw;
     max-width: 100vw;
@@ -135,18 +162,18 @@
     isolation: isolate;
     border-radius: 0;
     overflow: hidden;
-    /* Fill viewport below the global nav */
-    min-height: calc(100vh - var(--marketing-nav-offset));
-    min-height: calc(100dvh - var(--marketing-nav-offset));
-    min-height: calc(100svh - var(--marketing-nav-offset));
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
     padding-bottom: var(--marketing-section-y);
   }
 
-  .marketing-home-root .marketing-hero-stack__inner {
+  .marketing-home-root .marketing-hero-stack--bg-white {
+    background-color: #fff;
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-none {
+    padding-bottom: var(--marketing-section-y);
+  }
+
+  .marketing-home-root .marketing-hero-stack .marketing-hero-stack__inner {
     width: 100%;
     flex: 1 1 auto;
     display: flex;
@@ -156,7 +183,7 @@
     min-height: 0;
   }
 
-  .marketing-home-root .marketing-hero-stack::before {
+  .marketing-home-root .marketing-hero-stack--bg-image::before {
     display: block;
     content: "";
     position: absolute;
@@ -168,8 +195,8 @@
     background-repeat: no-repeat;
   }
 
-  /* Subtle scrim — keep photo visible */
-  .marketing-home-root .marketing-hero-stack::after {
+  /* Dark scrim — keeps headline readable over photos */
+  .marketing-home-root .marketing-hero-stack--bg-image::after {
     display: block;
     content: "";
     position: absolute;
@@ -178,48 +205,65 @@
     pointer-events: none;
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.22) 0%,
-      rgba(255, 255, 255, 0.06) 50%,
-      rgba(255, 255, 255, 0.14) 100%
+      rgba(3, 1, 13, calc(var(--marketing-hero-overlay) * 0.9)) 0%,
+      rgba(3, 1, 13, calc(var(--marketing-hero-overlay) * 0.72)) 50%,
+      rgba(3, 1, 13, calc(var(--marketing-hero-overlay) * 0.82)) 100%
     );
   }
 
-  .marketing-home-root .marketing-hero-stack .banner-content {
+  .marketing-home-root .marketing-hero-stack--bg-image .banner-content h3 {
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-image .marketing-hero-subheadline {
+    color: rgba(255, 255, 255, 0.94);
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-image .banner-content,
+  .marketing-home-root .marketing-hero-stack--bg-white .banner-content,
+  .marketing-home-root .marketing-hero-stack--bg-none .banner-content {
     position: relative;
     z-index: 1;
-    padding-top: clamp(1.75rem, 5vw, 3rem);
+    padding-top: clamp(1rem, 4vw, 2rem);
     padding-bottom: clamp(1.25rem, 4vw, 2rem);
     padding-left: clamp(0.75rem, 3vw, 1.5rem);
     padding-right: clamp(0.75rem, 3vw, 1.5rem);
   }
 }
 
-/* Full-bleed hero: gap before domains on small phones (banner-area is pb-0 above) */
+/* Full-bleed hero: gap before domains on small phones */
 @media (max-width: 767.98px) {
   .marketing-home-root .banner-area {
-    padding-bottom: var(--marketing-section-y);
+    margin-bottom: var(--marketing-section-y);
   }
 }
 
 /* Tablet / laptop full-bleed hero: clear space before domains (768px–1399px) */
-@media (min-width: 768px) and (max-width: 1399.98px) {
+@media (min-width: 768px) and (max-width: 1199.98px) {
   .marketing-home-root .banner-area {
-    padding-bottom: clamp(3.25rem, 6.5vw, 5.5rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
   }
 
-  .marketing-home-root .marketing-hero-stack {
+  .marketing-home-root .marketing-hero-stack--bg-image,
+  .marketing-home-root .marketing-hero-stack--bg-white {
     padding-bottom: clamp(2.5rem, 5vw, 4rem);
   }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
   .marketing-home-root .banner-area {
     /* Room under six-image orbit — tighter than legacy 260–350px */
+    min-height: 0;
+    display: block;
+    margin-bottom: 0;
     padding-bottom: clamp(5rem, 8vw, 7rem);
     overflow-x: visible;
   }
 
   .marketing-home-root .marketing-hero-stack {
+    flex: none;
     width: auto;
     max-width: none;
     left: auto;
@@ -227,6 +271,7 @@
     overflow: visible;
     min-height: 0;
     padding-bottom: 0;
+    display: block;
   }
 
   .marketing-home-root .marketing-hero-stack__inner {
