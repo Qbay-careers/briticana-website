@@ -7,6 +7,7 @@ import ApplyFormControl from "@/components/apply/ApplyFormControl";
 import ApplyFormSection from "@/components/apply/ApplyFormSection";
 import ApplyYesNoGroup from "@/components/apply/ApplyYesNoGroup";
 import {
+  CONFIDENCE_LEVEL_OPTIONS,
   CURRENT_STATUS_OPTIONS,
   INTERNSHIP_DURATION_OPTIONS,
   MIN_CAREER_GOAL_LENGTH,
@@ -32,8 +33,8 @@ const STEPS = [
   { id: "internship", title: "Internship", icon: "ri-stack-line" },
   { id: "education", title: "Experience", icon: "ri-graduation-cap-line" },
   { id: "skills", title: "Skills", icon: "ri-tools-line" },
-  { id: "visa", title: "Visa", icon: "ri-passport-line" },
-  { id: "resume", title: "Resume", icon: "ri-attachment-2" },
+  { id: "visa-resume", title: "Visa & CV", icon: "ri-passport-line" },
+  { id: "career-goals", title: "Career goals", icon: "ri-compass-3-line" },
   { id: "feedback", title: "Feedback", icon: "ri-chat-quote-line" },
   { id: "consent", title: "Consent", icon: "ri-shield-check-line" },
 ] as const;
@@ -63,11 +64,17 @@ const FIELD_STEP: Record<string, number> = {
   projectsCertificationsDetails: 3,
   visaStatus: 4,
   visaDetails: 4,
-  resume: 5,
-  industryOrCareerPath: 6,
-  biggestCareerChallenge: 6,
-  whyChoseInternship: 6,
-  careerGrowthHelp: 6,
+  resume: 4,
+  industryOrCareerPath: 5,
+  biggestCareerChallenge: 5,
+  whyChoseInternship: 5,
+  careerGrowthHelp: 5,
+  whyChoseBriticana: 6,
+  internshipExpectations: 6,
+  impactAcademicProfessionalGrowth: 6,
+  specificLearningOutcomes: 6,
+  challengesToOvercome: 6,
+  confidenceLevel: 6,
   declarationAccepted: 7,
 };
 
@@ -102,9 +109,17 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
   const [biggestCareerChallenge, setBiggestCareerChallenge] = useState("");
   const [whyChoseInternship, setWhyChoseInternship] = useState("");
   const [careerGrowthHelp, setCareerGrowthHelp] = useState("");
+  const [whyChoseBriticana, setWhyChoseBriticana] = useState("");
+  const [internshipExpectations, setInternshipExpectations] = useState("");
+  const [impactAcademicProfessionalGrowth, setImpactAcademicProfessionalGrowth] = useState("");
+  const [specificLearningOutcomes, setSpecificLearningOutcomes] = useState("");
+  const [challengesToOvercome, setChallengesToOvercome] = useState("");
+  const [confidenceLevel, setConfidenceLevel] = useState("");
   const [declarationAccepted, setDeclarationAccepted] = useState(false);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [website, setWebsite] = useState("");
+
+  const confidenceLegendId = useId();
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
@@ -163,11 +178,9 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
       case 4:
         if (!visaStatus) e.visaStatus = "Please select your current visa status.";
         if (visaStatus === "other" && !visaDetails.trim()) e.visaDetails = "Please describe your visa type.";
-        break;
-      case 5:
         if (!resumeFile) e.resume = "Please upload your resume (PDF or Word, max 5 MB).";
         break;
-      case 6:
+      case 5:
         if (goalTooShort(industryOrCareerPath))
           e.industryOrCareerPath = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
         if (goalTooShort(biggestCareerChallenge))
@@ -176,6 +189,20 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
           e.whyChoseInternship = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
         if (goalTooShort(careerGrowthHelp))
           e.careerGrowthHelp = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
+        break;
+      case 6:
+        if (goalTooShort(whyChoseBriticana))
+          e.whyChoseBriticana = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
+        if (goalTooShort(internshipExpectations))
+          e.internshipExpectations = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
+        if (goalTooShort(impactAcademicProfessionalGrowth))
+          e.impactAcademicProfessionalGrowth = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
+        if (goalTooShort(specificLearningOutcomes))
+          e.specificLearningOutcomes = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
+        if (goalTooShort(challengesToOvercome))
+          e.challengesToOvercome = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
+        if (!confidenceLevel)
+          e.confidenceLevel = "Please rate your current confidence level in your chosen domain.";
         break;
       case 7:
         if (!declarationAccepted)
@@ -282,6 +309,12 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
     body.set("biggestCareerChallenge", biggestCareerChallenge);
     body.set("whyChoseInternship", whyChoseInternship);
     body.set("careerGrowthHelp", careerGrowthHelp);
+    body.set("whyChoseBriticana", whyChoseBriticana);
+    body.set("internshipExpectations", internshipExpectations);
+    body.set("impactAcademicProfessionalGrowth", impactAcademicProfessionalGrowth);
+    body.set("specificLearningOutcomes", specificLearningOutcomes);
+    body.set("challengesToOvercome", challengesToOvercome);
+    body.set("confidenceLevel", confidenceLevel);
     body.set("declarationAccepted", declarationAccepted ? "yes" : "no");
     body.set("internshipTrack", initial?.internship ?? "");
     body.set("source", initial?.source ?? "apply-page");
@@ -672,7 +705,7 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
         ) : null}
 
         {step === 4 ? (
-          <ApplyFormSection icon="ri-passport-line" title="Visa information">
+          <ApplyFormSection icon="ri-passport-line" title="Visa & resume" subtitle="Visa details and CV upload">
             <ApplyFormControl
               id="apply-visa-status"
               label={required("Current visa status")}
@@ -708,15 +741,12 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
                 }}
               />
             ) : null}
-          </ApplyFormSection>
-        ) : null}
 
-        {step === 5 ? (
-          <ApplyFormSection icon="ri-attachment-2" title="Resume" subtitle="PDF or Word, max 5 MB">
             <div className="col-12">
               <label htmlFor="apply-resume" className="form-label">
                 {required("Upload resume / CV")}
               </label>
+              <p className="small text-secondary mb-2">PDF or Word, max 5 MB</p>
               <div
                 className={`apply-file-upload${fieldErrors.resume ? " is-invalid-group" : ""}${resumeFile ? " has-file" : ""}`}
               >
@@ -761,10 +791,10 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
           </ApplyFormSection>
         ) : null}
 
-        {step === 6 ? (
+        {step === 5 ? (
           <ApplyFormSection
-            icon="ri-chat-quote-line"
-            title="Feedback & career goals"
+            icon="ri-compass-3-line"
+            title="Career goals"
             subtitle={`Please answer in detail (min. ${MIN_CAREER_GOAL_LENGTH} characters each)`}
           >
             <ApplyFormControl
@@ -825,6 +855,124 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
                 placeholder: "How this opportunity supports your long-term career goals…",
               }}
             />
+          </ApplyFormSection>
+        ) : null}
+
+        {step === 6 ? (
+          <ApplyFormSection
+            icon="ri-chat-quote-line"
+            title="Feedback & expectations"
+            subtitle={`Please answer in detail (min. ${MIN_CAREER_GOAL_LENGTH} characters each)`}
+          >
+            <ApplyFormControl
+              id="apply-why-briticana"
+              label={required(
+                "Why did you choose the Briticana Internship Program? (Please share the key reasons that motivated you to apply for this internship.)",
+              )}
+              icon="ri-lightbulb-line"
+              colClass="col-12"
+              textarea
+              error={fieldErrors.whyChoseBriticana}
+              textareaProps={{
+                rows: 4,
+                value: whyChoseBriticana,
+                onChange: (e) => setWhyChoseBriticana(e.target.value),
+                placeholder: "Key reasons that motivated you to apply…",
+              }}
+            />
+            <ApplyFormControl
+              id="apply-expectations"
+              label={required(
+                "What are your expectations from this internship? (What skills, knowledge, exposure, or career outcomes are you hoping to gain?)",
+              )}
+              icon="ri-flag-line"
+              colClass="col-12"
+              textarea
+              error={fieldErrors.internshipExpectations}
+              textareaProps={{
+                rows: 4,
+                value: internshipExpectations,
+                onChange: (e) => setInternshipExpectations(e.target.value),
+                placeholder: "Skills, knowledge, exposure, or career outcomes you hope to gain…",
+              }}
+            />
+            <ApplyFormControl
+              id="apply-impact"
+              label={required(
+                "How do you believe this internship will impact your academic, professional, or career growth? (Please explain how this opportunity aligns with your long-term goals.)",
+              )}
+              icon="ri-rocket-line"
+              colClass="col-12"
+              textarea
+              error={fieldErrors.impactAcademicProfessionalGrowth}
+              textareaProps={{
+                rows: 4,
+                value: impactAcademicProfessionalGrowth,
+                onChange: (e) => setImpactAcademicProfessionalGrowth(e.target.value),
+                placeholder: "How this opportunity aligns with your long-term goals…",
+              }}
+            />
+            <ApplyFormControl
+              id="apply-learning-outcomes"
+              label={required(
+                "What specific learning outcomes would you like to achieve during the internship? (Examples: Technical skills, industry exposure, research experience, professional networking, portfolio development, etc.)",
+              )}
+              icon="ri-book-open-line"
+              colClass="col-12"
+              textarea
+              error={fieldErrors.specificLearningOutcomes}
+              textareaProps={{
+                rows: 4,
+                value: specificLearningOutcomes,
+                onChange: (e) => setSpecificLearningOutcomes(e.target.value),
+                placeholder: "Technical skills, industry exposure, networking, portfolio development…",
+              }}
+            />
+            <ApplyFormControl
+              id="apply-challenges-overcome"
+              label={required(
+                "What challenges do you expect to overcome through this internship experience? (Examples: Lack of practical experience, career clarity, technical skills gap, communication skills, interview readiness, etc.)",
+              )}
+              icon="ri-shield-star-line"
+              colClass="col-12"
+              textarea
+              error={fieldErrors.challengesToOvercome}
+              textareaProps={{
+                rows: 4,
+                value: challengesToOvercome,
+                onChange: (e) => setChallengesToOvercome(e.target.value),
+                placeholder: "Practical experience, career clarity, skills gap, communication, interview readiness…",
+              }}
+            />
+
+            <div className="col-12 apply-choice-group" role="radiogroup" aria-labelledby={confidenceLegendId}>
+              <p id={confidenceLegendId} className="form-label apply-fieldset__legend">
+                {required("How would you rate your current confidence level in your chosen domain?")}
+              </p>
+              <div className="apply-choice-group__field">
+                <div className={`apply-pill-group${fieldErrors.confidenceLevel ? " is-invalid-group" : ""}`}>
+                  {CONFIDENCE_LEVEL_OPTIONS.map((opt) => (
+                    <label
+                      key={opt.value}
+                      className={`apply-pill${confidenceLevel === opt.value ? " is-selected" : ""}`}
+                    >
+                      <input
+                        type="radio"
+                        name="confidenceLevel"
+                        value={opt.value}
+                        checked={confidenceLevel === opt.value}
+                        onChange={() => setConfidenceLevel(opt.value)}
+                        className="visually-hidden"
+                      />
+                      {opt.label}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              {fieldErrors.confidenceLevel ? (
+                <div className="invalid-feedback d-block">{fieldErrors.confidenceLevel}</div>
+              ) : null}
+            </div>
           </ApplyFormSection>
         ) : null}
 

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import {
+  labelForConfidenceLevel,
   labelForCurrentStatus,
   labelForVisaStatus,
   labelForYesNo,
@@ -109,6 +110,12 @@ export async function POST(request: Request) {
       biggestCareerChallenge: data.biggestCareerChallenge,
       whyChoseInternship: data.whyChoseInternship,
       careerGrowthHelp: data.careerGrowthHelp,
+      whyChoseBriticana: data.whyChoseBriticana,
+      internshipExpectations: data.internshipExpectations,
+      impactAcademicProfessionalGrowth: data.impactAcademicProfessionalGrowth,
+      specificLearningOutcomes: data.specificLearningOutcomes,
+      challengesToOvercome: data.challengesToOvercome,
+      confidenceLevel: labelForConfidenceLevel(data.confidenceLevel),
       resumeUrl: upload.url,
       internshipTrack: data.internshipTrack,
       source: data.source,

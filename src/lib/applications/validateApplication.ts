@@ -1,6 +1,7 @@
 import {
   ALLOWED_RESUME_EXTENSIONS,
   ALLOWED_RESUME_MIME_TYPES,
+  CONFIDENCE_LEVEL_OPTIONS,
   CURRENT_STATUS_OPTIONS,
   INTERNSHIP_DURATION_OPTIONS,
   MAX_APPLICATION_FIELD_LENGTH,
@@ -49,6 +50,12 @@ export type ValidatedApplication = {
   biggestCareerChallenge: string;
   whyChoseInternship: string;
   careerGrowthHelp: string;
+  whyChoseBriticana: string;
+  internshipExpectations: string;
+  impactAcademicProfessionalGrowth: string;
+  specificLearningOutcomes: string;
+  challengesToOvercome: string;
+  confidenceLevel: string;
   declarationAccepted: YesNo;
   internshipTrack: string;
   source: string;
@@ -93,6 +100,12 @@ export function validateApplicationForm(formData: FormData): {
   const biggestCareerChallenge = trimField(formData.get("biggestCareerChallenge"));
   const whyChoseInternship = trimField(formData.get("whyChoseInternship"));
   const careerGrowthHelp = trimField(formData.get("careerGrowthHelp"));
+  const whyChoseBriticana = trimField(formData.get("whyChoseBriticana"));
+  const internshipExpectations = trimField(formData.get("internshipExpectations"));
+  const impactAcademicProfessionalGrowth = trimField(formData.get("impactAcademicProfessionalGrowth"));
+  const specificLearningOutcomes = trimField(formData.get("specificLearningOutcomes"));
+  const challengesToOvercome = trimField(formData.get("challengesToOvercome"));
+  const confidenceLevel = trimField(formData.get("confidenceLevel"));
   const declarationAccepted = trimField(formData.get("declarationAccepted"));
   const internshipTrack = trimField(formData.get("internshipTrack"));
   const source = trimField(formData.get("source")) || "apply-page";
@@ -168,6 +181,23 @@ export function validateApplicationForm(formData: FormData): {
   requireCareerGoal(errors, "whyChoseInternship", whyChoseInternship, "why you chose this programme");
   requireCareerGoal(errors, "careerGrowthHelp", careerGrowthHelp, "how this internship will help your career growth");
 
+  requireCareerGoal(errors, "whyChoseBriticana", whyChoseBriticana, "why you chose the Briticana Internship Program");
+  requireCareerGoal(errors, "internshipExpectations", internshipExpectations, "your expectations from this internship");
+  requireCareerGoal(
+    errors,
+    "impactAcademicProfessionalGrowth",
+    impactAcademicProfessionalGrowth,
+    "how this internship will impact your growth",
+  );
+  requireCareerGoal(errors, "specificLearningOutcomes", specificLearningOutcomes, "specific learning outcomes");
+  requireCareerGoal(errors, "challengesToOvercome", challengesToOvercome, "challenges you expect to overcome");
+
+  if (!confidenceLevel) {
+    errors.confidenceLevel = "Please rate your current confidence level in your chosen domain.";
+  } else if (!CONFIDENCE_LEVEL_OPTIONS.some((o) => o.value === confidenceLevel)) {
+    errors.confidenceLevel = "Please select a valid confidence level.";
+  }
+
   if (declarationAccepted !== "yes") {
     errors.declarationAccepted = "Please confirm the declaration to submit your application.";
   }
@@ -220,6 +250,12 @@ export function validateApplicationForm(formData: FormData): {
       biggestCareerChallenge,
       whyChoseInternship,
       careerGrowthHelp,
+      whyChoseBriticana,
+      internshipExpectations,
+      impactAcademicProfessionalGrowth,
+      specificLearningOutcomes,
+      challengesToOvercome,
+      confidenceLevel,
       declarationAccepted: declarationAccepted as YesNo,
       internshipTrack,
       source,

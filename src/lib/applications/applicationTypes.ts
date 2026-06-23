@@ -38,6 +38,12 @@ export const YES_NO_OPTIONS = [
 
 export type YesNo = (typeof YES_NO_OPTIONS)[number]["value"];
 
+export const CONFIDENCE_LEVEL_OPTIONS = [
+  { value: "beginner", label: "Beginner" },
+  { value: "intermediate", label: "Intermediate" },
+  { value: "advanced", label: "Advanced" },
+] as const;
+
 /** Column order for Google Sheets row 1 — keep in sync with ApplicationRecord. */
 export const APPLICATION_SHEET_HEADERS = [
   "Submitted At",
@@ -66,6 +72,12 @@ export const APPLICATION_SHEET_HEADERS = [
   "Biggest Career Challenge",
   "Why Chose Internship",
   "Career Growth Help",
+  "Why Chose Briticana",
+  "Internship Expectations",
+  "Impact Academic Professional Growth",
+  "Specific Learning Outcomes",
+  "Challenges To Overcome",
+  "Confidence Level",
   "Resume URL",
   "Internship Track",
   "Source",
@@ -99,6 +111,12 @@ export type ApplicationRecord = {
   biggestCareerChallenge: string;
   whyChoseInternship: string;
   careerGrowthHelp: string;
+  whyChoseBriticana: string;
+  internshipExpectations: string;
+  impactAcademicProfessionalGrowth: string;
+  specificLearningOutcomes: string;
+  challengesToOvercome: string;
+  confidenceLevel: string;
   resumeUrl: string;
   internshipTrack: string;
   source: string;
@@ -133,6 +151,12 @@ export function applicationRecordToRow(record: ApplicationRecord): string[] {
     record.biggestCareerChallenge,
     record.whyChoseInternship,
     record.careerGrowthHelp,
+    record.whyChoseBriticana,
+    record.internshipExpectations,
+    record.impactAcademicProfessionalGrowth,
+    record.specificLearningOutcomes,
+    record.challengesToOvercome,
+    record.confidenceLevel,
     record.resumeUrl,
     record.internshipTrack,
     record.source,
@@ -150,6 +174,10 @@ export function labelForVisaStatus(value: string): string {
 
 export function labelForYesNo(value: string): string {
   return YES_NO_OPTIONS.find((o) => o.value === value)?.label ?? value;
+}
+
+export function labelForConfidenceLevel(value: string): string {
+  return CONFIDENCE_LEVEL_OPTIONS.find((o) => o.value === value)?.label ?? value;
 }
 
 /** Normalise duration prefill from internship pages (e.g. "3 months" → "3 Months"). */
