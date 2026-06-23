@@ -1,14 +1,11 @@
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
+import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 const TALK_TO_US_PHONE_HREF = "tel:+17342498898";
 
-export type MarketingJourneyCtaSectionProps = {
-  /** Resolved apply target (Sanity home hero Apply URL or site default). */
-  applyHref: string;
-};
-
-export default function MarketingJourneyCtaSection({ applyHref }: MarketingJourneyCtaSectionProps) {
+export default function MarketingJourneyCtaSection() {
+  const applyHref = buildApplyHref({ source: "journey-cta" });
   return (
     <div className="journey-area">
       <div className="container mw-1345">
