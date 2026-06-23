@@ -81,7 +81,7 @@ export default defineType({
 
     // ── Hero floating image slots (banner1–6) ────────────────────────────
     defineField({
-      title: "Hero image — wide (under 1200px)",
+      name: "heroImage1",
       title: "Floating image — slot 1 (top-left)",
       type: "image",
       group: "heroImages",
