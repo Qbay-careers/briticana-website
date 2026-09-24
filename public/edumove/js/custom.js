@@ -22,18 +22,9 @@
 		};
 	});
 
-	// Mobile Menu JS
+	// Mobile Menu JS - Handled natively by React in MarketingNav
 	window.briticanaInitMeanMenu = function () {
-		$('.for-mobile-menu').each(function () {
-			var $menu = $(this);
-			if ($menu.data('briticanaMeanMenuReady')) {
-				return;
-			}
-			$menu.data('briticanaMeanMenuReady', true);
-			$menu.meanmenu({
-				meanScreenWidth: "991",
-			});
-		});
+		// Native React responsive menu active; MeanMenu safely bypassed
 	};
 	window.briticanaInitMeanMenu();
 

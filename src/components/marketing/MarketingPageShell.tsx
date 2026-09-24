@@ -20,9 +20,6 @@ export default function MarketingPageShell({
 }: MarketingPageShellProps) {
   return (
     <div className="marketing-home-root">
-      <div className="preloader">
-        <img src="/edumove/images/preloader.gif" alt="preloader" />
-      </div>
       <MarketingNav settings={siteSettings} />
       <MarketingHomeSections
         homeHero={homeHero}

@@ -1,80 +1,314 @@
 /* Marketing landing (purchased HTML theme) — vendor CSS; Bootstrap core from globals.css npm import. */
 @import url("/edumove/css/owl.theme.default.min.css");
 @import url("/edumove/css/owl.carousel.min.css");
-@import url("/edumove/css/meanmenu.css");
 @import url("/edumove/css/magnific-popup.css");
 @import url("/edumove/css/scrollcue.css");
 @import url("/edumove/css/remixicon.css");
 @import url("/edumove/css/style.css");
 @import url("/edumove/css/responsive.css");
 
-/* Marketing nav: keep MeanMenu's injected toggle visible across mobile/tablet. */
-@media (max-width: 991px) {
-  .marketing-home-root .navbar-area .mobile-nav {
-    display: block !important;
-  }
-
-  .marketing-home-root .navbar-area .main-nav {
-    display: none !important;
-  }
-
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-bar {
-    inset: 0 0 auto 0;
-    width: auto;
-    min-height: 70px;
-    pointer-events: none;
-  }
-
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container a.meanmenu-reveal {
-    display: block !important;
-    right: 0 !important;
-    left: auto !important;
-    z-index: 20;
-    pointer-events: auto;
-  }
-
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav,
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav ul,
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav li,
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav a {
-    pointer-events: auto;
-  }
-
-  .marketing-home-root .navbar-area .mobile-nav .mobile-menu.mean-container .mean-nav {
-    position: relative;
-    z-index: 10;
-  }
+/* ── Modern Responsive Header (Desktop, Tablet, Mobile) ────────── */
+.marketing-home-root .navbar-area {
+  display: none !important;
 }
 
-@media (min-width: 992px) {
-  .marketing-home-root .navbar-area .mobile-nav {
-    display: none !important;
-  }
-
-  .marketing-home-root .navbar-area .main-nav {
-    display: block !important;
-  }
+.briti-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(3, 1, 13, 0.06);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Preloader GIF — theme asset is large; cap size for Next layout */
-.marketing-home-root .preloader img {
-  max-width: min(96px, 26vw);
-  max-height: min(96px, 22vh);
+.briti-header.is-sticky {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 24px -2px rgba(13, 7, 31, 0.08);
+  border-bottom-color: rgba(3, 1, 13, 0.08);
+}
+
+.briti-brand {
+  outline: none;
+  flex-shrink: 0;
+}
+
+.briti-logo-img {
+  height: 56px;
   width: auto;
-  height: auto;
-  object-fit: contain;
+  display: block;
+  transition: transform 0.2s ease;
 }
 
-/* Homepage vertical rhythm — scoped; avoids stacked ptb-120 (~240px) between sections */
+.briti-mobile-logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.briti-brand:hover .briti-logo-img {
+  transform: scale(1.02);
+}
+
+.briti-nav-list {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.briti-nav-item {
+  position: relative;
+}
+
+.briti-nav-link {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 8px 11px;
+  font-size: clamp(13.5px, 0.95vw, 15.5px);
+  font-weight: 500;
+  color: #2b2838;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+@media (min-width: 1200px) {
+  .briti-nav-link {
+    padding: 8px 13px;
+    font-size: 15.5px;
+  }
+}
+
+@media (min-width: 1320px) {
+  .briti-nav-link {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+}
+
+.briti-nav-link:hover {
+  color: var(--mainColor, #7a4dfc);
+  background-color: rgba(122, 77, 252, 0.07);
+}
+
+.briti-nav-link.active {
+  color: var(--mainColor, #7a4dfc);
+  font-weight: 600;
+}
+
+.briti-active-pill {
+  position: absolute;
+  bottom: 0px;
+  left: 12px;
+  right: 12px;
+  height: 2.5px;
+  border-radius: 99px;
+  background: var(--mainColor, #7a4dfc);
+}
+
+.briti-apply-btn {
+  padding: 9px 22px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #7a4dfc 0%, #6337ed 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(122, 77, 252, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.briti-apply-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(122, 77, 252, 0.45);
+  color: #ffffff !important;
+}
+
+.briti-mobile-cta-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--mainColor, #7a4dfc);
+  color: #ffffff !important;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.briti-hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(3, 1, 13, 0.04);
+  border: 1px solid rgba(3, 1, 13, 0.08);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.briti-hamburger:hover {
+  background: rgba(122, 77, 252, 0.1);
+  border-color: rgba(122, 77, 252, 0.2);
+}
+
+.briti-hamburger-box {
+  position: relative;
+  width: 20px;
+  height: 14px;
+  display: inline-block;
+}
+
+.briti-hamburger-inner,
+.briti-hamburger-inner::before,
+.briti-hamburger-inner::after {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: #03010d;
+  border-radius: 2px;
+  transition: transform 0.25s ease, top 0.25s ease, opacity 0.25s ease;
+}
+
+.briti-hamburger-inner {
+  top: 6px;
+}
+
+.briti-hamburger-inner::before {
+  content: "";
+  top: -6px;
+}
+
+.briti-hamburger-inner::after {
+  content: "";
+  top: 6px;
+}
+
+.briti-hamburger.is-active .briti-hamburger-inner {
+  background-color: transparent;
+}
+
+.briti-hamburger.is-active .briti-hamburger-inner::before {
+  top: 0;
+  transform: rotate(45deg);
+  background-color: var(--mainColor, #7a4dfc);
+}
+
+.briti-hamburger.is-active .briti-hamburger-inner::after {
+  top: 0;
+  transform: rotate(-45deg);
+  background-color: var(--mainColor, #7a4dfc);
+}
+
+.briti-mobile-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(3, 1, 13, 0.08);
+  box-shadow: 0 20px 40px rgba(13, 7, 31, 0.1);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.briti-mobile-drawer.is-open {
+  max-height: 85vh;
+  opacity: 1;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.briti-mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.briti-mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #1f1b2d;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.briti-mobile-nav-link:hover,
+.briti-mobile-nav-link:active {
+  background-color: rgba(122, 77, 252, 0.08);
+  color: var(--mainColor, #7a4dfc);
+}
+
+.briti-mobile-nav-link.active {
+  background-color: rgba(122, 77, 252, 0.1);
+  color: var(--mainColor, #7a4dfc);
+  font-weight: 600;
+}
+
+.briti-mobile-nav-link i {
+  font-size: 18px;
+  color: #8c8893;
+}
+
+.briti-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  top: 60px;
+  background: rgba(3, 1, 13, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 1040;
+}
+
+/* Preloader deactivated & hidden completely to guarantee immediate single-click interactions */
+.marketing-home-root .preloader {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Homepage vertical rhythm — scoped */
 .marketing-home-root {
-  --marketing-section-y: clamp(40px, 3.75vw, 64px);
-  /* Navbar height estimate for full-viewport hero (below 1200px) */
-  --marketing-nav-offset: 5.75rem;
+  --marketing-section-y: clamp(48px, 4.5vw, 76px);
+  --marketing-nav-offset: 4.5rem;
 }
 
 @media (max-width: 991.98px) {
   .marketing-home-root {
-    --marketing-nav-offset: 4.75rem;
+    --marketing-nav-offset: 4rem;
   }
 }
 
@@ -87,32 +321,515 @@
   padding-bottom: var(--marketing-section-y);
 }
 
-/* Hero: replace missing template pb-120 bridge; tame oversized theme padding-top for display-3 hero */
+/* ── Modern Premium Hero Section ───────────────────────────── */
 .marketing-home-root .banner-area {
+  padding-top: clamp(24px, 3.5vw, 52px);
   padding-bottom: var(--marketing-section-y);
+  position: relative;
+  overflow: hidden;
 }
 
-.marketing-home-root .banner-area .banner-content {
-  padding-top: clamp(72px, 12vw, 140px);
+.marketing-home-root .banner-area [data-cues],
+.marketing-home-root .banner-area [data-cue] {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
-@media (min-width: 992px) {
-  .marketing-home-root .banner-area .banner-content {
-    padding-top: clamp(100px, 14vw, 160px);
+.marketing-home-root .briti-hero-section {
+  background: radial-gradient(circle 800px at 50% 50%, rgba(122, 77, 252, 0.05) 0%, rgba(250, 250, 252, 0.4) 60%, #fafafc 100%);
+}
+
+/* ── Central Circular / Orbit-Style Hero Composition ────────── */
+.marketing-home-root .briti-orbit-hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orbit Stage Container */
+.marketing-home-root .hero-orbit-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: clamp(660px, 84vh, 880px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 4.5vh, 60px) 16px;
+}
+
+/* Subtle Concentric Orbital Background Rings */
+.marketing-home-root .hero-orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none !important;
+  z-index: 1;
+}
+
+.marketing-home-root .hero-orbit-ring--outer {
+  width: min(92%, 1080px);
+  height: min(94%, 680px);
+  border: 1.5px dashed rgba(122, 77, 252, 0.12);
+}
+
+.marketing-home-root .hero-orbit-ring--inner {
+  width: min(72%, 800px);
+  height: min(74%, 500px);
+  border: 1px solid rgba(122, 77, 252, 0.06);
+}
+
+/* Center Content - The Visual Focus */
+.marketing-home-root .hero-orbit-center {
+  position: relative;
+  z-index: 10;
+  max-width: clamp(520px, 44vw, 640px);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 12px;
+}
+
+/* Orbit Groups: display: contents on desktop & tablet */
+@media (min-width: 768px) {
+  .marketing-home-root .hero-orbit-group {
+    display: contents;
   }
 }
 
-@media (max-width: 575px) {
-  .marketing-home-root .banner-area .banner-content {
-    padding-top: clamp(48px, 10vw, 72px);
-  }
+/* Pill Eyebrow */
+.marketing-home-root .hero-eyebrow-pill {
+  background: rgba(122, 77, 252, 0.08);
+  border: 1px solid rgba(122, 77, 252, 0.2);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--mainColor, #7a4dfc);
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
 }
 
-/* Hero subheadline — strong body contrast (darker than muted secondary) */
+.marketing-home-root .hero-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: heroDotPulse 2s infinite ease-in-out;
+}
+
+@keyframes heroDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.7; }
+}
+
+/* Headline Typography */
+.marketing-home-root .hero-headline {
+  font-size: clamp(2.1rem, 3.8vw, 3.4rem);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--headingColor, #03010d);
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .marketing-home-root .marketing-hero-subheadline {
-  color: rgba(3, 1, 13, 0.94);
-  font-weight: 500;
-  line-height: 1.55;
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  line-height: 1.62;
+  color: #4b5563;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hero Action Buttons */
+.marketing-home-root .hero-cta-group {
+  margin-top: 1.75rem;
+}
+
+.marketing-home-root .hero-primary-btn {
+  padding: 13px 32px;
+  font-size: 15.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7a4dfc 0%, #6337ed 100%);
+  color: #ffffff !important;
+  box-shadow: 0 10px 28px -4px rgba(122, 77, 252, 0.42);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.marketing-home-root .hero-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -4px rgba(122, 77, 252, 0.55);
+  color: #ffffff !important;
+}
+
+.marketing-home-root .hero-secondary-btn {
+  padding: 12.5px 28px;
+  font-size: 15.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1.5px solid rgba(3, 1, 13, 0.12);
+  color: #1f1b2d !important;
+  box-shadow: 0 2px 8px rgba(3, 1, 13, 0.04);
+  transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.marketing-home-root .hero-secondary-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--mainColor, #7a4dfc);
+  color: var(--mainColor, #7a4dfc) !important;
+  box-shadow: 0 8px 20px rgba(122, 77, 252, 0.12);
+}
+
+/* ── Orbit Cards: Shared Visual Styling ─────────────────────── */
+.marketing-home-root .hero-orbit-card,
+.marketing-home-root .hero-floating-card,
+.marketing-home-root .banner1,
+.marketing-home-root .banner2,
+.marketing-home-root .banner3,
+.marketing-home-root .banner4,
+.marketing-home-root .banner5,
+.marketing-home-root .banner6 {
+  z-index: 3 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  animation: heroCardEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.marketing-home-root .hero-orbit-card__inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  border: 3.5px solid #ffffff;
+  box-shadow: 0 12px 32px -4px rgba(13, 7, 31, 0.08), 0 3px 10px rgba(13, 7, 31, 0.03);
+  background: #ffffff;
+  overflow: hidden;
+  display: block;
+}
+
+.marketing-home-root .hero-orbit-card__img,
+.marketing-home-root .hero-orbit-card img,
+.marketing-home-root .banner1 img,
+.marketing-home-root .banner2 img,
+.marketing-home-root .banner3 img,
+.marketing-home-root .banner4 img,
+.marketing-home-root .banner5 img,
+.marketing-home-root .banner6 img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+
+/* Staggered entrance delays (soft sequential appearance on load) */
+.marketing-home-root .hero-orbit-card--top-left,
+.marketing-home-root .hero-orbit-card--1 {
+  animation-delay: 0.08s;
+}
+.marketing-home-root .hero-orbit-card--top-right,
+.marketing-home-root .hero-orbit-card--2 {
+  animation-delay: 0.18s;
+}
+.marketing-home-root .hero-orbit-card--mid-left,
+.marketing-home-root .hero-orbit-card--3 {
+  animation-delay: 0.28s;
+}
+.marketing-home-root .hero-orbit-card--mid-right,
+.marketing-home-root .hero-orbit-card--6 {
+  animation-delay: 0.38s;
+}
+.marketing-home-root .hero-orbit-card--bottom-left,
+.marketing-home-root .hero-orbit-card--4 {
+  animation-delay: 0.48s;
+}
+.marketing-home-root .hero-orbit-card--bottom-right,
+.marketing-home-root .hero-orbit-card--5 {
+  animation-delay: 0.58s;
+}
+
+/* Post-load continuous subtle motion: ultra-slow, gentle floating (±2px drift, 18s–22s) */
+.marketing-home-root .hero-orbit-card--top-left .hero-orbit-card__inner,
+.marketing-home-root .hero-orbit-card--1 .hero-orbit-card__inner {
+  animation: heroCardFloatSlow1 19s ease-in-out infinite 0.8s;
+}
+.marketing-home-root .hero-orbit-card--top-right .hero-orbit-card__inner,
+.marketing-home-root .hero-orbit-card--2 .hero-orbit-card__inner {
+  animation: heroCardFloatSlow2 20s ease-in-out infinite 1.2s;
+}
+.marketing-home-root .hero-orbit-card--mid-left .hero-orbit-card__inner,
+.marketing-home-root .hero-orbit-card--3 .hero-orbit-card__inner {
+  animation: heroCardFloatSlow3 18s ease-in-out infinite 1.6s;
+}
+.marketing-home-root .hero-orbit-card--mid-right .hero-orbit-card__inner,
+.marketing-home-root .hero-orbit-card--6 .hero-orbit-card__inner {
+  animation: heroCardFloatSlow2 21s ease-in-out infinite 2.0s;
+}
+.marketing-home-root .hero-orbit-card--bottom-left .hero-orbit-card__inner,
+.marketing-home-root .hero-orbit-card--4 .hero-orbit-card__inner {
+  animation: heroCardFloatSlow4 22s ease-in-out infinite 2.4s;
+}
+.marketing-home-root .hero-orbit-card--bottom-right .hero-orbit-card__inner,
+.marketing-home-root .hero-orbit-card--5 .hero-orbit-card__inner {
+  animation: heroCardFloatSlow1 19s ease-in-out infinite 2.8s;
+}
+
+/* Strictly disable mouse hover scaling, 3D tilt, or cursor follow */
+.marketing-home-root .hero-orbit-card:hover,
+.marketing-home-root .hero-orbit-card__inner:hover,
+.marketing-home-root .banner1:hover,
+.marketing-home-root .banner2:hover,
+.marketing-home-root .banner3:hover,
+.marketing-home-root .banner4:hover,
+.marketing-home-root .banner5:hover,
+.marketing-home-root .banner6:hover,
+.marketing-home-root .hero-orbit-shape:hover {
+  transform: none !important;
+  cursor: default !important;
+}
+
+/* ── Desktop & Tablet Circular / Orbit Coordinates (≥ 768px) ── */
+@media (min-width: 768px) {
+  .marketing-home-root .hero-orbit-card {
+    position: absolute !important;
+  }
+
+  /* 2 Upper Images (Top-Left & Top-Right) */
+  .marketing-home-root .hero-orbit-card--top-left,
+  .marketing-home-root .banner1 {
+    top: clamp(24px, 4.5vh, 48px) !important;
+    left: clamp(15%, 19vw, 24%) !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  .marketing-home-root .hero-orbit-card--top-right,
+  .marketing-home-root .banner2 {
+    top: clamp(24px, 4.5vh, 48px) !important;
+    right: clamp(15%, 19vw, 24%) !important;
+    left: auto !important;
+    bottom: auto !important;
+  }
+
+  /* 2 Middle Side Images (Mid-Left & Mid-Right) */
+  .marketing-home-root .hero-orbit-card--mid-left,
+  .marketing-home-root .banner3 {
+    top: 50% !important;
+    left: clamp(12px, 2.5vw, 55px) !important;
+    transform: translateY(-50%) !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  .marketing-home-root .hero-orbit-card--mid-right,
+  .marketing-home-root .banner6 {
+    top: 50% !important;
+    right: clamp(12px, 2.5vw, 55px) !important;
+    transform: translateY(-50%) !important;
+    left: auto !important;
+    bottom: auto !important;
+  }
+
+  /* 2 Lower Images (Bottom-Left & Bottom-Right) */
+  .marketing-home-root .hero-orbit-card--bottom-left,
+  .marketing-home-root .banner4 {
+    bottom: clamp(24px, 4.5vh, 48px) !important;
+    left: clamp(15%, 19vw, 24%) !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  .marketing-home-root .hero-orbit-card--bottom-right,
+  .marketing-home-root .banner5 {
+    bottom: clamp(24px, 4.5vh, 48px) !important;
+    right: clamp(15%, 19vw, 24%) !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  /* Shape Accent (Lightning Bolt) */
+  .marketing-home-root .hero-orbit-shape,
+  .marketing-home-root .shape1 {
+    top: clamp(40px, 6.5vh, 75px) !important;
+    right: clamp(10%, 14vw, 18%) !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: clamp(26px, 2.5vw, 36px) !important;
+    height: auto !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    animation: heroShapeBreathe 16s ease-in-out infinite alternate !important;
+  }
+}
+
+/* Card Dimensions by Breakpoint */
+@media (min-width: 1200px) {
+  .marketing-home-root .hero-orbit-card,
+  .marketing-home-root .banner1,
+  .marketing-home-root .banner2,
+  .marketing-home-root .banner3,
+  .marketing-home-root .banner4,
+  .marketing-home-root .banner5,
+  .marketing-home-root .banner6 {
+    width: clamp(116px, 8vw, 138px) !important;
+    height: clamp(138px, 9.6vw, 166px) !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .marketing-home-root .hero-orbit-card,
+  .marketing-home-root .banner1,
+  .marketing-home-root .banner2,
+  .marketing-home-root .banner3,
+  .marketing-home-root .banner4,
+  .marketing-home-root .banner5,
+  .marketing-home-root .banner6 {
+    width: clamp(88px, 9.5vw, 110px) !important;
+    height: clamp(105px, 11.5vw, 132px) !important;
+  }
+  .marketing-home-root .hero-orbit-center {
+    max-width: clamp(440px, 50vw, 540px);
+  }
+  .marketing-home-root .hero-headline {
+    font-size: clamp(1.85rem, 3.4vw, 2.6rem);
+  }
+}
+
+/* ── Mobile Responsive Composition (< 768px) ────────────────── */
+@media (max-width: 767.98px) {
+  .marketing-home-root .hero-orbit-stage {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 12px 36px;
+  }
+
+  .marketing-home-root .hero-orbit-ring,
+  .marketing-home-root .hero-orbit-shape,
+  .marketing-home-root .shape1 {
+    display: none !important;
+  }
+
+  .marketing-home-root .hero-orbit-group--upper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 20px;
+    z-index: 5;
+  }
+
+  .marketing-home-root .hero-orbit-center {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 24px;
+    padding: 0 4px;
+  }
+
+  .marketing-home-root .hero-headline {
+    font-size: clamp(1.85rem, 6.5vw, 2.35rem);
+    max-width: 100%;
+  }
+
+  .marketing-home-root .marketing-hero-subheadline {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  .marketing-home-root .hero-orbit-group--mid,
+  .marketing-home-root .hero-orbit-group--lower {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    z-index: 5;
+  }
+
+  .marketing-home-root .hero-orbit-group--lower {
+    margin-top: 12px;
+  }
+
+  .marketing-home-root .hero-orbit-card,
+  .marketing-home-root .banner1,
+  .marketing-home-root .banner2,
+  .marketing-home-root .banner3,
+  .marketing-home-root .banner4,
+  .marketing-home-root .banner5,
+  .marketing-home-root .banner6 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    width: clamp(74px, 20vw, 88px) !important;
+    height: clamp(88px, 24vw, 106px) !important;
+  }
+
+  .marketing-home-root .hero-orbit-card__inner {
+    border-width: 2.5px;
+    border-radius: 14px;
+  }
+}
+
+/* ── Animation Keyframes ─────────────────────────────────────── */
+/* Soft appearance on initial page load: gentle fade + subtle scale */
+@keyframes heroCardEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.93);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Continuous ultra-slow breathing float (±2px to ±2.5px vertical drift) */
+@keyframes heroCardFloatSlow1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2.5px); }
+}
+
+@keyframes heroCardFloatSlow2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(2.5px); }
+}
+
+@keyframes heroCardFloatSlow3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
+}
+
+@keyframes heroCardFloatSlow4 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(2px); }
+}
+
+@keyframes heroShapeBreathe {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
 }
 
 /* Hero: wide image as background behind copy (viewports below Bootstrap xl / 1200px) */
@@ -128,11 +845,14 @@
 
 @media (max-width: 1199.98px) {
   .marketing-home-root .banner-area {
-    min-height: calc(100svh - var(--marketing-nav-offset));
-    min-height: calc(100dvh - var(--marketing-nav-offset));
+    min-height: auto;
     display: flex;
     flex-direction: column;
     padding-bottom: 0;
+  }
+
+  .marketing-home-root .banner-area:has(.marketing-hero-stack--bg-image) {
+    min-height: clamp(520px, 80svh, 680px);
   }
 
   .marketing-home-root .banner-area:has(.marketing-hero-stack--bg-image),
@@ -143,17 +863,19 @@
   .marketing-home-root .marketing-hero-stack {
     flex: 1 1 auto;
     width: 100%;
-    min-height: calc(100svh - var(--marketing-nav-offset));
-    min-height: calc(100dvh - var(--marketing-nav-offset));
+    min-height: auto;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
   }
 
+  .marketing-home-root .marketing-hero-stack--bg-image {
+    min-height: clamp(520px, 80svh, 680px);
+  }
+
   .marketing-home-root .marketing-hero-stack--bg-image,
   .marketing-home-root .marketing-hero-stack--bg-white {
-    /* Full-bleed edge to edge */
     width: 100vw;
     max-width: 100vw;
     position: relative;
@@ -205,20 +927,38 @@
     pointer-events: none;
     background: linear-gradient(
       180deg,
-      rgba(3, 1, 13, calc(var(--marketing-hero-overlay) * 0.9)) 0%,
-      rgba(3, 1, 13, calc(var(--marketing-hero-overlay) * 0.72)) 50%,
-      rgba(3, 1, 13, calc(var(--marketing-hero-overlay) * 0.82)) 100%
+      rgba(3, 1, 13, 0.88) 0%,
+      rgba(3, 1, 13, 0.72) 50%,
+      rgba(3, 1, 13, 0.85) 100%
     );
   }
 
-  .marketing-home-root .marketing-hero-stack--bg-image .banner-content h3 {
-    color: #fff;
-    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.38);
+  .marketing-home-root .marketing-hero-stack--bg-image .hero-headline {
+    color: #fff !important;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
   }
 
   .marketing-home-root .marketing-hero-stack--bg-image .marketing-hero-subheadline {
-    color: rgba(255, 255, 255, 0.94);
-    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.94) !important;
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-image .hero-eyebrow-pill {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    backdrop-filter: blur(12px);
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-image .hero-secondary-btn {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff !important;
+  }
+
+  .marketing-home-root .marketing-hero-stack--bg-image .hero-secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    color: #ffffff !important;
   }
 
   .marketing-home-root .marketing-hero-stack--bg-image .banner-content,
@@ -226,8 +966,8 @@
   .marketing-home-root .marketing-hero-stack--bg-none .banner-content {
     position: relative;
     z-index: 1;
-    padding-top: clamp(1rem, 4vw, 2rem);
-    padding-bottom: clamp(1.25rem, 4vw, 2rem);
+    padding-top: clamp(1rem, 4vw, 2.5rem);
+    padding-bottom: clamp(1.25rem, 4vw, 2.5rem);
     padding-left: clamp(0.75rem, 3vw, 1.5rem);
     padding-right: clamp(0.75rem, 3vw, 1.5rem);
   }
@@ -254,11 +994,10 @@
 
 @media (min-width: 1200px) {
   .marketing-home-root .banner-area {
-    /* Room under six-image orbit — tighter than legacy 260–350px */
     min-height: 0;
     display: block;
     margin-bottom: 0;
-    padding-bottom: clamp(5rem, 8vw, 7rem);
+    padding-bottom: clamp(4rem, 6vw, 6rem);
     overflow-x: visible;
   }
 
@@ -277,10 +1016,6 @@
   .marketing-home-root .marketing-hero-stack__inner {
     min-height: 0;
     display: block;
-  }
-
-  .marketing-home-root .banner1 {
-    left: 245px;
   }
 }
 
@@ -488,17 +1223,7 @@
   color: var(--mainColor, #7a4dfc);
 }
 
-/* Hero floating images — match placeholder dimensions */
-.marketing-home-root .banner1,
-.marketing-home-root .banner2,
-.marketing-home-root .banner3,
-.marketing-home-root .banner4,
-.marketing-home-root .banner5,
-.marketing-home-root .banner6 {
-  width: 145px;
-  height: 170px;
-  object-fit: cover;
-}
+/* Hero floating images styled cleanly above in .hero-floating-card / .banner1–6 */
 
 /* About section — main image (left column) */
 .marketing-home-root .about-img .about-main-img {
@@ -1423,5 +2148,150 @@
   .marketing-home-root .apply-wizard__nav .main-btn {
     padding-left: 1.1rem;
     padding-right: 1.1rem;
+  }
+}
+
+/* ==========================================================================
+   Modern UI Polish: Cards, Elevation, Motion & Responsive Refinements
+   ========================================================================== */
+
+/* Prevent horizontal overflow on entire marketing layout */
+.marketing-home-root {
+  overflow-x: clip;
+}
+
+/* 1. Category / Domain Cards */
+.marketing-home-root .categories-single-item {
+  border-radius: 18px !important;
+  border: 1px solid rgba(3, 1, 13, 0.07) !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(3, 1, 13, 0.04);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+  padding: 38px 24px !important;
+}
+
+.marketing-home-root .categories-single-item:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 40px rgba(122, 77, 252, 0.12) !important;
+  border-color: rgba(122, 77, 252, 0.3) !important;
+}
+
+.marketing-home-root .categories-single-item .icon {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.marketing-home-root .categories-single-item:hover .icon {
+  transform: scale(1.08);
+}
+
+.marketing-home-root .categories-single-item .domain-icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.marketing-home-root .categories-single-item.all {
+  background: linear-gradient(135deg, #7a4dfc 0%, #6337ed 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 28px rgba(122, 77, 252, 0.3);
+}
+
+.marketing-home-root .categories-single-item.all:hover {
+  box-shadow: 0 18px 40px rgba(122, 77, 252, 0.45) !important;
+  color: #ffffff !important;
+}
+
+/* 2. Featured Internship Intro Cards */
+.marketing-home-root .internship-intro-card {
+  border-radius: 18px !important;
+  border: 1px solid rgba(3, 1, 13, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(3, 1, 13, 0.04);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+}
+
+.marketing-home-root .internship-intro-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 40px rgba(122, 77, 252, 0.12) !important;
+  border-color: rgba(122, 77, 252, 0.25) !important;
+}
+
+/* 3. Why Students Trust Feature Cards */
+.marketing-home-root .trust-feature-card {
+  border-radius: 18px !important;
+  border: 1px solid rgba(3, 1, 13, 0.07) !important;
+  box-shadow: 0 4px 18px rgba(3, 1, 13, 0.03);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease !important;
+}
+
+.marketing-home-root .trust-feature-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 18px 36px rgba(122, 77, 252, 0.1) !important;
+  border-color: rgba(122, 77, 252, 0.25) !important;
+}
+
+.marketing-home-root .trust-feature-card__icon {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.marketing-home-root .trust-feature-card:hover .trust-feature-card__icon {
+  transform: scale(1.08);
+}
+
+/* 4. Main Section Images (About & Certificate) */
+.marketing-home-root .about-img .about-main-img,
+.marketing-home-root .about-img .cert-main-img {
+  box-shadow: 0 16px 44px -8px rgba(13, 7, 31, 0.12);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  border-radius: 18px;
+}
+
+.marketing-home-root .about-img .about-main-img:hover,
+.marketing-home-root .about-img .cert-main-img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 54px -8px rgba(122, 77, 252, 0.18);
+}
+
+/* 5. Subtle Decorative Shape Motions - Calmed down to 15s - 18s slow drifting */
+@keyframes subtleFloatShape {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3.5px); }
+}
+
+@keyframes subtlePulseShape {
+  0%, 100% { transform: translateY(-120%) scale(1); }
+  50% { transform: translateY(-120%) scale(1.03); }
+}
+
+.marketing-home-root .about-img .shape5,
+.marketing-home-root .about-img .shape7 {
+  animation: subtleFloatShape 16s ease-in-out infinite alternate;
+}
+
+.marketing-home-root .about-img .shape6 {
+  animation: subtlePulseShape 15s ease-in-out infinite alternate;
+}
+
+.marketing-home-root .categories-content img[src*="shape4.png"],
+.marketing-home-root .about-content img[src*="shape4.png"] {
+  animation: subtleFloatShape 18s ease-in-out infinite alternate 1.5s;
+}
+
+/* 6. Buttons Smooth Transitions */
+.marketing-home-root .main-btn {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+/* 7. Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-floating-card,
+  .hero-floating-shape,
+  .hero-pulse-dot,
+  .marketing-home-root .about-img .shape5,
+  .marketing-home-root .about-img .shape6,
+  .marketing-home-root .about-img .shape7,
+  .marketing-home-root .categories-content img[src*="shape4.png"],
+  .marketing-home-root .about-content img[src*="shape4.png"] {
+    animation: none !important;
   }
 }

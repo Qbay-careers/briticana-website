@@ -3,12 +3,12 @@ import { urlForSanityImage } from "@/lib/sanity/image";
 import { APPLY_PATH } from "@/lib/studentApplicationForm";
 
 const DEFAULT_FLOATING_IMAGES = [
-  "/edumove/images/banner-1.jpg",
-  "/edumove/images/banner-2.jpg",
-  "/edumove/images/banner-3.jpg",
-  "/edumove/images/banner-4.jpg",
-  "/edumove/images/banner-5.jpg",
-  "/edumove/images/banner-6.jpg",
+  "https://cdn.sanity.io/images/8lpmdwks/production/19286b042af770f852ff7805a73370690b9ac61b-1080x1080.webp?rect=80,0,921,1080&w=290&h=340&fit=crop&auto=format",
+  "https://cdn.sanity.io/images/8lpmdwks/production/f3f8abcbdec7cd7030b8c6ffc4d874f6a955c033-1080x1080.webp?rect=80,0,921,1080&w=290&h=340&fit=crop&auto=format",
+  "https://cdn.sanity.io/images/8lpmdwks/production/612279b499cfc338e4546e86e6f0743c43aa5b29-1080x1080.webp?rect=80,0,921,1080&w=290&h=340&fit=crop&auto=format",
+  "https://cdn.sanity.io/images/8lpmdwks/production/7b23ec7ee6c31387fea9c0c8eb9438da3bebfd9c-1080x1080.webp?rect=80,0,921,1080&w=290&h=340&fit=crop&auto=format",
+  "https://cdn.sanity.io/images/8lpmdwks/production/aae95dc11aa6d9b7d3cc1d09356e6503b109f0b3-1080x1080.webp?rect=80,0,921,1080&w=290&h=340&fit=crop&auto=format",
+  "https://cdn.sanity.io/images/8lpmdwks/production/bea2c51ca02767d2d41172cb702691a607f91984-1080x1080.webp?rect=80,0,921,1080&w=290&h=340&fit=crop&auto=format",
 ] as const;
 
 const DEFAULT_STRIP_AVATARS = [
@@ -49,26 +49,31 @@ export type HomeHeroData = {
   testimonialAvatars: readonly string[];
 };
 
-/** PRD-aligned defaults when Sanity is empty or not configured. */
+/** Production-aligned defaults matching live briticana.us Sanity content. */
 export const defaultHomeHero: HomeHeroData = {
-  headline: "Build Real Industry Experience",
-  subheadline: "Before Your First Job",
+  headline: "Get real startup experience before your first job",
+  subheadline:
+    "Work on real startup projects, collaborate with ambitious teams, and build practical experience that helps you stand out in today's competitive job market.",
   overview:
     "Briticana is an execution-focused experience platform where students collaborate on real-world projects under guided mentorship and structured workflows inspired by modern startups and professional teams.",
-  ctaApplyHref: APPLY_PATH,
+  ctaApplyHref:
+    "https://docs.google.com/forms/d/e/1FAIpQLSfPhiyXsWr8-jnrMOWAx6lUVJ75NUFNxdOiqwWGx59G-w6LGA/viewform?usp=header",
   ctaExploreHref: "/internships",
   ctaApplyLabel: "Apply Now",
   ctaExploreLabel: "View Internships",
-  smallScreenBackground: "image",
-  backgroundOverlay: 0.55,
-  heroWideImage: "/edumove/images/banner-1.jpg",
+  smallScreenBackground: "white",
+  backgroundOverlay: 0.5,
+  heroWideImage:
+    "https://cdn.sanity.io/images/8lpmdwks/production/7d6001304b07c9116d0c1d20e8b1125926dae0bd-4146x6218-jpg.jpg?w=1600&auto=format",
   floatingImages: DEFAULT_FLOATING_IMAGES,
   stripMainImage: "/edumove/images/banner-7.jpg",
   stripSideImage: "/edumove/images/banner-8.jpg",
   stripAvatars: DEFAULT_STRIP_AVATARS,
-  aboutImage: "/edumove/images/about.png",
-  certImage: "/edumove/images/choose-us.png",
-  showTestimonials: true,
+  aboutImage:
+    "https://cdn.sanity.io/images/8lpmdwks/production/c2505b56bab7b0f217b2a38897ca8df71c82edc9-1080x1080.webp?w=800&auto=format",
+  certImage:
+    "https://cdn.sanity.io/images/8lpmdwks/production/0105aafcd37d8448f234b7f092ec6ca70a8a706b-1080x1080.webp?w=800&auto=format",
+  showTestimonials: false,
   testimonialAvatars: DEFAULT_STRIP_AVATARS,
 };
 

@@ -23,43 +23,168 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
   const stackStyle =
     smallScreenBackground === "image"
       ? {
-          ["--marketing-hero-wide-src" as string]: `url(${JSON.stringify(homeHero.heroWideImage)})`,
+          ["--marketing-hero-wide-src" as string]: `url(${homeHero.heroWideImage})`,
           ["--marketing-hero-overlay" as string]: String(backgroundOverlay),
         }
       : undefined;
 
-  return (
-    <div className="banner-area">
-      <div className={stackClassName} style={stackStyle}>
-        <div className="container mw-1345 position-relative z-1 marketing-hero-stack__inner">
-          <div className="banner-content text-center" data-cues="slideInUp" data-group="images">
-            <h3 className="display-3 fw-bold">{homeHero.headline}</h3>
-            {homeHero.subheadline ? (
-              <p className="marketing-hero-subheadline mx-auto col-lg-10 col-xl-8 mt-3 mb-4">
-                {homeHero.subheadline}
-              </p>
-            ) : null}
-            <div className="d-flex flex-wrap justify-content-center gap-3">
-              <Link href={homeHero.ctaExploreHref} className="main-btn">
-                {homeHero.ctaExploreLabel}
-              </Link>
-            </div>
-          </div>
+  // 6 cards grouped into 2 upper, 2 middle sides, 2 lower around center content
+  const upperCards = [
+    {
+      src: homeHero.floatingImages[0],
+      roleClass: "hero-orbit-card--top-left hero-orbit-card--1",
+      legacyClass: "banner1",
+      label: "Turn Skills Into Proof",
+    },
+    {
+      src: homeHero.floatingImages[1],
+      roleClass: "hero-orbit-card--top-right hero-orbit-card--2",
+      legacyClass: "banner2",
+      label: "From Learning To Doing",
+    },
+  ];
 
-          {/* Six-image orbit: ≥ 1200px only */}
-          <div className="marketing-hero-collage d-none d-xl-inline-block" data-cues="slideInUp" data-group="images">
-            {homeHero.floatingImages.map((src, index) => (
-              <img
-                key={index}
-                src={src}
-                className={`banner${index + 1} position-absolute z-n1 rounded-3`}
-                alt=""
-              />
-            ))}
-            <img src={marketingImage("shape1.png")} className="shape1 position-absolute z-n1 rounded-3" alt="" />
+  const midCards = [
+    {
+      src: homeHero.floatingImages[2],
+      roleClass: "hero-orbit-card--mid-left hero-orbit-card--3",
+      legacyClass: "banner3",
+      label: "Gain Real Exposure",
+    },
+    {
+      src: homeHero.floatingImages[5],
+      roleClass: "hero-orbit-card--mid-right hero-orbit-card--6",
+      legacyClass: "banner6",
+      label: "Verified Project Proof",
+    },
+  ];
+
+  const lowerCards = [
+    {
+      src: homeHero.floatingImages[3],
+      roleClass: "hero-orbit-card--bottom-left hero-orbit-card--4",
+      legacyClass: "banner4",
+      label: "Product Building Journey",
+    },
+    {
+      src: homeHero.floatingImages[4],
+      roleClass: "hero-orbit-card--bottom-right hero-orbit-card--5",
+      legacyClass: "banner5",
+      label: "Work On Live Ideas",
+    },
+  ];
+
+  return (
+    <section className="banner-area briti-hero-section briti-orbit-hero-section position-relative">
+      <div className={stackClassName} style={stackStyle}>
+        <div className="container mw-1345 position-relative">
+          <div className="hero-orbit-stage position-relative">
+            {/* Visual orbit connection rings (desktop & tablet) */}
+            <div className="hero-orbit-ring hero-orbit-ring--outer" aria-hidden="true" />
+            <div className="hero-orbit-ring hero-orbit-ring--inner" aria-hidden="true" />
+
+            {/* Decorative orbit accent shape (lightning bolt) */}
+            <img
+              src={marketingImage("shape1.png")}
+              className="hero-orbit-shape position-absolute"
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+            />
+
+            {/* Upper pair: 2 images in the upper orbit area */}
+            <div className="hero-orbit-group hero-orbit-group--upper">
+              {upperCards.map((card, idx) => (
+                <div
+                  key={`upper-${idx}`}
+                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}`}
+                >
+                  <div className="hero-orbit-card__inner">
+                    <img
+                      src={card.src}
+                      className="hero-orbit-card__img"
+                      alt={card.label}
+                      loading="eager"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mid pair: 2 images around the middle sides */}
+            <div className="hero-orbit-group hero-orbit-group--mid">
+              {midCards.map((card, idx) => (
+                <div
+                  key={`mid-${idx}`}
+                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}`}
+                >
+                  <div className="hero-orbit-card__inner">
+                    <img
+                      src={card.src}
+                      className="hero-orbit-card__img"
+                      alt={card.label}
+                      loading="eager"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Central Visual Focus: Headline, Subheadline, Dual CTA Buttons */}
+            <div className="hero-orbit-center text-center">
+              {/* Premium Eyebrow Pill */}
+              <div className="hero-eyebrow-pill d-inline-flex align-items-center gap-2 mb-3">
+                <span className="hero-pulse-dot" aria-hidden="true" />
+                <span className="hero-eyebrow-text">Europe&apos;s Premier Project Experience Platform</span>
+              </div>
+
+              {/* Hero Main Headline */}
+              <h1 className="hero-headline fw-bold mb-3">{homeHero.headline}</h1>
+
+              {/* Subheadline / Overview */}
+              {homeHero.subheadline ? (
+                <p className="marketing-hero-subheadline mx-auto mb-4">
+                  {homeHero.subheadline}
+                </p>
+              ) : null}
+
+              {/* Dual CTA Actions */}
+              <div className="hero-cta-group d-flex flex-wrap justify-content-center align-items-center gap-3">
+                <Link href={homeHero.ctaApplyHref} className="main-btn hero-primary-btn" prefetch={true}>
+                  <span>{homeHero.ctaApplyLabel}</span>
+                  <i className="ri-arrow-right-line ms-1" aria-hidden="true" />
+                </Link>
+                <Link href={homeHero.ctaExploreHref} className="hero-secondary-btn" prefetch={true}>
+                  <span>{homeHero.ctaExploreLabel}</span>
+                  <i className="ri-compass-3-line ms-1" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Lower pair: 2 images in the lower orbit area */}
+            <div className="hero-orbit-group hero-orbit-group--lower">
+              {lowerCards.map((card, idx) => (
+                <div
+                  key={`lower-${idx}`}
+                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}`}
+                >
+                  <div className="hero-orbit-card__inner">
+                    <img
+                      src={card.src}
+                      className="hero-orbit-card__img"
+                      alt={card.label}
+                      loading="eager"
+                      draggable={false}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

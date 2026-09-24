@@ -1,0 +1,838 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+.briticana-experience-page {
+  --ink: #080512;
+  --muted: #686471;
+  --violet: #7a4dfc;
+  --violet2: #a88cff;
+  --paper: #f5f5f7;
+  --white: #fff;
+  --line: #e2dfe8;
+  --glass: rgba(255, 255, 255, 0.13);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Outfit', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.briticana-experience-page * {
+  box-sizing: border-box;
+}
+
+.briticana-experience-page img,
+.briticana-experience-page video {
+  display: block;
+  max-width: 100%;
+}
+
+.briticana-experience-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.briticana-experience-page .shell {
+  width: min(1180px, calc(100% - 48px));
+  margin: auto;
+}
+
+.briticana-experience-page .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 29px;
+  border-radius: 99px;
+  background: var(--violet);
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 14px 36px rgba(122, 77, 252, 0.25);
+  transition: 0.25s;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.briticana-experience-page .button:hover {
+  transform: translateY(-3px);
+  background: #6337ed;
+  color: #fff !important;
+}
+
+.briticana-experience-page .hero {
+  position: relative;
+  min-height: 790px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+  background: radial-gradient(circle at 84% 12%, rgba(122, 77, 252, 0.45), transparent 29%),
+    linear-gradient(135deg, #080512, #171124 55%, #09060f);
+}
+
+.briticana-experience-page .hero:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(to right, #000, transparent 80%);
+  -webkit-mask-image: linear-gradient(to right, #000, transparent 80%);
+}
+
+.briticana-experience-page .hero-grid {
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  align-items: center;
+  gap: 74px;
+  padding: 78px 0 92px;
+}
+
+.briticana-experience-page .glass {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 34px 90px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(26px) saturate(145%);
+  -webkit-backdrop-filter: blur(26px) saturate(145%);
+}
+
+.briticana-experience-page .hero-copy {
+  padding: 45px;
+  border-radius: 34px;
+}
+
+.briticana-experience-page .eyebrow {
+  margin: 0 0 18px;
+  color: var(--violet);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.briticana-experience-page .hero .eyebrow {
+  color: #c0adff;
+}
+
+.briticana-experience-page h1,
+.briticana-experience-page h2,
+.briticana-experience-page h3,
+.briticana-experience-page p {
+  margin-top: 0;
+}
+
+.briticana-experience-page h1 {
+  margin-bottom: 26px;
+  font-size: clamp(3.2rem, 5.5vw, 5.9rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+}
+
+.briticana-experience-page h1 span {
+  color: var(--violet2);
+}
+
+.briticana-experience-page .subhead {
+  font-size: clamp(1.28rem, 2vw, 1.72rem);
+  font-weight: 600;
+  line-height: 1.28;
+  margin-bottom: 1rem;
+}
+
+.briticana-experience-page .intro {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.06rem;
+  margin-bottom: 2rem;
+}
+
+.briticana-experience-page .visual {
+  position: relative;
+  min-height: 610px;
+}
+
+.briticana-experience-page .visual > figure {
+  position: absolute;
+  inset: 14px 0 72px 24px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 42px;
+  box-shadow: 0 44px 110px rgba(0, 0, 0, 0.45);
+  transform: perspective(1200px) rotateY(-4deg);
+}
+
+.briticana-experience-page .visual > figure:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 48%, rgba(8, 5, 18, 0.5));
+}
+
+.briticana-experience-page .visual > figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.briticana-experience-page .float-card {
+  position: absolute;
+  z-index: 3;
+  border-radius: 22px;
+}
+
+.briticana-experience-page .stat {
+  left: -18px;
+  top: 36px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.briticana-experience-page .stat small {
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.briticana-experience-page .stat strong {
+  font-size: 1.25rem;
+}
+
+.briticana-experience-page .video-card {
+  right: -24px;
+  bottom: 0;
+  width: 260px;
+  overflow: hidden;
+}
+
+.briticana-experience-page .video-card video {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.briticana-experience-page .video-card span {
+  display: block;
+  padding: 12px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.briticana-experience-page .blob {
+  position: absolute;
+  z-index: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 45% 55% 62% 38% / 42% 35% 65% 58%;
+  background: linear-gradient(135deg, rgba(144, 103, 255, 0.42), rgba(53, 20, 140, 0.06));
+  animation: experienceMorph 12s ease-in-out infinite alternate;
+}
+
+.briticana-experience-page .blob.a {
+  left: -160px;
+  top: 40px;
+}
+
+.briticana-experience-page .blob.b {
+  right: 20%;
+  bottom: -240px;
+  animation-delay: -5s;
+}
+
+.briticana-experience-page .dark-strip {
+  background: var(--ink);
+  color: #fff;
+}
+
+.briticana-experience-page .strip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 42px;
+  padding: 52px 0;
+}
+
+.briticana-experience-page .strip-grid p {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.briticana-experience-page .section {
+  padding: 105px 0;
+}
+
+.briticana-experience-page .section.white {
+  background: #fff;
+}
+
+.briticana-experience-page .section.lavender {
+  background: #eee9ff;
+}
+
+.briticana-experience-page .section-head {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: end;
+  gap: 86px;
+  margin-bottom: 54px;
+}
+
+.briticana-experience-page .section-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.06rem;
+}
+
+.briticana-experience-page h2 {
+  margin-bottom: 26px;
+  font-size: clamp(2.5rem, 4.5vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+}
+
+.briticana-experience-page .section-head h2 {
+  margin: 0;
+}
+
+.briticana-experience-page .copy p {
+  color: var(--muted);
+  font-size: 1.04rem;
+  margin-bottom: 1rem;
+}
+
+.briticana-experience-page .copy p:last-child {
+  margin-bottom: 0;
+}
+
+.briticana-experience-page .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.briticana-experience-page .card {
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+  transition: 0.28s;
+  box-shadow: none;
+}
+
+.briticana-experience-page .card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(122, 77, 252, 0.4);
+  box-shadow: 0 24px 60px rgba(30, 13, 75, 0.12);
+}
+
+.briticana-experience-page .card.purple {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+  transform: translateY(-15px);
+}
+
+.briticana-experience-page .card.purple:hover {
+  transform: translateY(-22px);
+}
+
+.briticana-experience-page .card .num {
+  display: block;
+  color: #aaa6b2;
+  text-align: right;
+  font-weight: 700;
+}
+
+.briticana-experience-page .card.purple .num,
+.briticana-experience-page .card.purple p {
+  color: #fff;
+}
+
+.briticana-experience-page .card .icon {
+  display: block;
+  margin: 42px 0 22px;
+  color: var(--violet);
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.briticana-experience-page .card.purple .icon {
+  color: #fff;
+}
+
+.briticana-experience-page .card h3 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.briticana-experience-page .card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.briticana-experience-page .two-col {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 100px;
+  align-items: start;
+}
+
+.briticana-experience-page .sticky {
+  position: sticky;
+  top: 130px;
+}
+
+.briticana-experience-page .sticky .index {
+  color: #c8c4cf;
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.briticana-experience-page .sticky > p:last-child {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.briticana-experience-page .panel {
+  padding: 48px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: var(--paper);
+}
+
+.briticana-experience-page .panel.dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.briticana-experience-page .panel .lead {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.briticana-experience-page .checks {
+  display: grid;
+  gap: 12px;
+  margin: 26px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.briticana-experience-page .checks.cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.briticana-experience-page .checks li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.briticana-experience-page .checks li:before {
+  content: '✓';
+  color: var(--violet);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.briticana-experience-page .panel.dark .checks li:before {
+  color: #bca7ff;
+}
+
+.briticana-experience-page .media {
+  position: relative;
+  height: 550px;
+  margin: 0 0 48px;
+  overflow: hidden;
+  border-radius: 34px;
+  box-shadow: 0 32px 80px rgba(27, 12, 68, 0.18);
+}
+
+.briticana-experience-page .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.briticana-experience-page .media figcaption {
+  position: absolute;
+  right: 26px;
+  bottom: 26px;
+  max-width: 390px;
+  padding: 20px 24px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.briticana-experience-page .statements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(122, 77, 252, 0.2);
+  border-radius: 24px;
+  background: rgba(122, 77, 252, 0.2);
+}
+
+.briticana-experience-page .statements p {
+  margin: 0;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.briticana-experience-page .wide-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 26px;
+  padding: 0;
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+.briticana-experience-page .wide-list li {
+  display: flex;
+  align-items: flex-start;
+}
+
+.briticana-experience-page .wide-list li:before {
+  content: '✓';
+  margin-right: 10px;
+  color: var(--violet);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.briticana-experience-page .story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.briticana-experience-page .story {
+  padding: 44px;
+  border-top: 4px solid var(--violet);
+  border-radius: 0 0 24px 24px;
+  background: #fff;
+}
+
+.briticana-experience-page .story p {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.briticana-experience-page .story p:last-child {
+  margin-bottom: 0;
+}
+
+.briticana-experience-page .vision {
+  padding: 115px 0;
+  background: var(--violet);
+  color: #fff;
+}
+
+.briticana-experience-page .vision-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 90px;
+}
+
+.briticana-experience-page .vision .eyebrow {
+  color: #d8ccff;
+}
+
+.briticana-experience-page .vision-copy {
+  padding-left: 65px;
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.briticana-experience-page .vision-copy p {
+  margin-bottom: 1rem;
+}
+
+.briticana-experience-page .vision-copy .big {
+  margin: 36px 0 8px;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.briticana-experience-page .office-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.briticana-experience-page .office {
+  padding: 38px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+}
+
+.briticana-experience-page .office .flag {
+  font-size: 2.25rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.briticana-experience-page .office h3 {
+  font-size: 1.7rem;
+  line-height: 1.18;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.briticana-experience-page .office p,
+.briticana-experience-page .office li {
+  color: var(--muted);
+}
+
+.briticana-experience-page .office ul {
+  padding-left: 20px;
+  margin: 1rem 0;
+}
+
+.briticana-experience-page .email {
+  display: block;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--violet);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.briticana-experience-page .email:hover {
+  text-decoration: underline;
+}
+
+.briticana-experience-page .process {
+  background: var(--ink);
+  color: #fff;
+}
+
+.briticana-experience-page .process-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 95px;
+}
+
+.briticana-experience-page .process p {
+  color: #b8b4c0;
+}
+
+.briticana-experience-page .steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #3c3844;
+}
+
+.briticana-experience-page .steps li {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  padding: 16px 0;
+  border-bottom: 1px solid #3c3844;
+  font-size: 1.1rem;
+}
+
+.briticana-experience-page .steps span {
+  color: #b79fff;
+  font-weight: 800;
+}
+
+.briticana-experience-page .benefits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.briticana-experience-page .benefits li {
+  padding: 19px 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.briticana-experience-page .benefits li:before {
+  content: '✓';
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-right: 15px;
+  border-radius: 50%;
+  background: #eee9ff;
+  color: var(--violet);
+  flex-shrink: 0;
+}
+
+.briticana-experience-page .directory {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.briticana-experience-page .directory article {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.briticana-experience-page .directory .flag {
+  font-size: 1.7rem;
+}
+
+.briticana-experience-page .directory small {
+  display: block;
+  color: var(--muted);
+}
+
+.briticana-experience-page .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+
+.briticana-experience-page .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes experienceMorph {
+  to {
+    border-radius: 62% 38% 35% 65% / 55% 63% 37% 45%;
+    transform: rotate(10deg) scale(1.08);
+  }
+}
+
+@media (max-width: 900px) {
+  .briticana-experience-page .hero-grid,
+  .briticana-experience-page .section-head,
+  .briticana-experience-page .two-col,
+  .briticana-experience-page .vision-grid,
+  .briticana-experience-page .process-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .briticana-experience-page .visual {
+    width: min(620px, 100%);
+    margin: auto;
+  }
+  .briticana-experience-page .strip-grid {
+    grid-template-columns: 1fr;
+  }
+  .briticana-experience-page .sticky {
+    position: static;
+  }
+  .briticana-experience-page .office-grid {
+    grid-template-columns: 1fr;
+  }
+  .briticana-experience-page .vision-copy {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .briticana-experience-page .shell {
+    width: min(100% - 32px, 1180px);
+  }
+  .briticana-experience-page .hero {
+    min-height: auto;
+  }
+  .briticana-experience-page .hero-grid {
+    padding: 44px 0 72px;
+  }
+  .briticana-experience-page .hero-copy {
+    padding: 27px;
+    border-radius: 25px;
+  }
+  .briticana-experience-page h1 {
+    font-size: clamp(3rem, 14vw, 4.7rem);
+  }
+  .briticana-experience-page .visual {
+    min-height: 460px;
+  }
+  .briticana-experience-page .visual > figure {
+    inset: 0 0 50px;
+    border-radius: 28px;
+    transform: none;
+  }
+  .briticana-experience-page .stat {
+    left: 10px;
+    top: 16px;
+  }
+  .briticana-experience-page .video-card {
+    right: 8px;
+    width: 210px;
+  }
+  .briticana-experience-page .section {
+    padding: 78px 0;
+  }
+  .briticana-experience-page .cards,
+  .briticana-experience-page .statements,
+  .briticana-experience-page .story-grid,
+  .briticana-experience-page .directory {
+    grid-template-columns: 1fr;
+  }
+  .briticana-experience-page .card.purple {
+    transform: none;
+  }
+  .briticana-experience-page .card.purple:hover {
+    transform: translateY(-7px);
+  }
+  .briticana-experience-page .panel,
+  .briticana-experience-page .story,
+  .briticana-experience-page .office {
+    padding: 28px;
+  }
+  .briticana-experience-page .checks.cols,
+  .briticana-experience-page .wide-list {
+    grid-template-columns: 1fr;
+  }
+  .briticana-experience-page .media {
+    height: 440px;
+    border-radius: 24px;
+  }
+  .briticana-experience-page .media figcaption {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .briticana-experience-page .blob {
+    animation: none;
+  }
+  .briticana-experience-page .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .briticana-experience-page .button,
+  .briticana-experience-page .card {
+    transition: none;
+  }
+}

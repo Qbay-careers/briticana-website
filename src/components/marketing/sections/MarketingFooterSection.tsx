@@ -15,7 +15,9 @@ const DEFAULT_EXPLORE_LINKS: FooterNavLink[] = [
   // { _key: "1", label: "Programs", href: "/programs" },
   // { _key: "2", label: "Courses", href: "/courses" },
   { _key: "3", label: "Internships", href: "/internships" },
-  { _key: "4", label: "Verification", href: "/verification" },
+  { _key: "4", label: "Experience Centers", href: "/experience-centers" },
+  { _key: "5", label: "Briticana World", href: "/briticana-world" },
+  { _key: "6", label: "Verification", href: "/verification" },
 ];
 
 const DEFAULT_PAGE_LINKS: FooterNavLink[] = [
