@@ -2298,31 +2298,43 @@
 
 /* ── Internship 6 Benefit Cards: Page-Load Entrance Animation ── */
 .marketing-home-root .internship-benefit-card {
-  animation: internshipBenefitEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+  opacity: 0;
+  transform: scale(0.75);
+  animation: none !important;
 }
 
 @media (min-width: 768px) {
   .marketing-home-root .internship-benefit-card--mid {
+    transform: translateY(-50%) scale(0.75);
+  }
+}
+
+.marketing-home-root .internship-benefit-card.is-animated {
+  animation: internshipBenefitEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@media (min-width: 768px) {
+  .marketing-home-root .internship-benefit-card--mid.is-animated {
     animation-name: internshipBenefitEntranceMid !important;
   }
 }
 
-.marketing-home-root .internship-benefit-card--1 {
+.marketing-home-root .internship-benefit-card--1.is-animated {
   animation-delay: 0.10s !important;
 }
-.marketing-home-root .internship-benefit-card--2 {
+.marketing-home-root .internship-benefit-card--2.is-animated {
   animation-delay: 0.22s !important;
 }
-.marketing-home-root .internship-benefit-card--3 {
+.marketing-home-root .internship-benefit-card--3.is-animated {
   animation-delay: 0.34s !important;
 }
-.marketing-home-root .internship-benefit-card--6 {
+.marketing-home-root .internship-benefit-card--6.is-animated {
   animation-delay: 0.46s !important;
 }
-.marketing-home-root .internship-benefit-card--4 {
+.marketing-home-root .internship-benefit-card--4.is-animated {
   animation-delay: 0.58s !important;
 }
-.marketing-home-root .internship-benefit-card--5 {
+.marketing-home-root .internship-benefit-card--5.is-animated {
   animation-delay: 0.70s !important;
 }
 
@@ -2363,14 +2375,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marketing-home-root .internship-benefit-card {
+  .marketing-home-root .internship-benefit-card,
+  .marketing-home-root .internship-benefit-card.is-animated {
     animation: none !important;
     opacity: 1 !important;
+    transform: none !important;
     scale: 1 !important;
   }
   @media (min-width: 768px) {
-    .marketing-home-root .internship-benefit-card--mid {
+    .marketing-home-root .internship-benefit-card--mid,
+    .marketing-home-root .internship-benefit-card--mid.is-animated {
       transform: translateY(-50%) !important;
     }
   }
 }
+

@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import type { HomeHeroData } from "@/components/marketing/homeHero";
@@ -14,6 +17,22 @@ const BACKGROUND_MODE_CLASS: Record<HomeHeroData["smallScreenBackground"], strin
 };
 
 export default function MarketingBannerSection({ homeHero }: MarketingBannerSectionProps) {
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  useEffect(() => {
+    const trigger = () => setIsAnimated(true);
+    if (document.readyState === "complete") {
+      const timer = setTimeout(trigger, 60);
+      return () => clearTimeout(timer);
+    }
+    window.addEventListener("load", trigger, { once: true });
+    const timer = setTimeout(trigger, 250);
+    return () => {
+      window.removeEventListener("load", trigger);
+      clearTimeout(timer);
+    };
+  }, []);
+
   const { smallScreenBackground, backgroundOverlay } = homeHero;
   const stackClassName = [
     "marketing-hero-stack",
@@ -83,6 +102,20 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
             <div className="hero-orbit-ring hero-orbit-ring--outer" aria-hidden="true" />
             <div className="hero-orbit-ring hero-orbit-ring--inner" aria-hidden="true" />
 
+            <noscript>
+              <style>{`
+                .marketing-home-root .internship-benefit-card {
+                  opacity: 1 !important;
+                  transform: none !important;
+                }
+                @media (min-width: 768px) {
+                  .marketing-home-root .internship-benefit-card--mid {
+                    transform: translateY(-50%) !important;
+                  }
+                }
+              `}</style>
+            </noscript>
+
             {/* Decorative orbit accent shape (lightning bolt) */}
             <img
               src={marketingImage("shape1.png")}
@@ -97,7 +130,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
               {upperCards.map((card, idx) => (
                 <div
                   key={`upper-${idx}`}
-                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}`}
+                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}${isAnimated ? " is-animated" : ""}`}
                 >
                   <div className="hero-orbit-card__inner">
                     <img
@@ -117,7 +150,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
               {midCards.map((card, idx) => (
                 <div
                   key={`mid-${idx}`}
-                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}`}
+                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}${isAnimated ? " is-animated" : ""}`}
                 >
                   <div className="hero-orbit-card__inner">
                     <img
@@ -168,7 +201,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
               {lowerCards.map((card, idx) => (
                 <div
                   key={`lower-${idx}`}
-                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}`}
+                  className={`hero-orbit-card ${card.roleClass} ${card.legacyClass}${isAnimated ? " is-animated" : ""}`}
                 >
                   <div className="hero-orbit-card__inner">
                     <img
