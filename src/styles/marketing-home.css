@@ -2295,3 +2295,82 @@
     animation: none !important;
   }
 }
+
+/* ── Internship 6 Benefit Cards: Page-Load Entrance Animation ── */
+.marketing-home-root .internship-benefit-card {
+  animation: internshipBenefitEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@media (min-width: 768px) {
+  .marketing-home-root .internship-benefit-card--mid {
+    animation-name: internshipBenefitEntranceMid !important;
+  }
+}
+
+.marketing-home-root .internship-benefit-card--1 {
+  animation-delay: 0.10s !important;
+}
+.marketing-home-root .internship-benefit-card--2 {
+  animation-delay: 0.22s !important;
+}
+.marketing-home-root .internship-benefit-card--3 {
+  animation-delay: 0.34s !important;
+}
+.marketing-home-root .internship-benefit-card--6 {
+  animation-delay: 0.46s !important;
+}
+.marketing-home-root .internship-benefit-card--4 {
+  animation-delay: 0.58s !important;
+}
+.marketing-home-root .internship-benefit-card--5 {
+  animation-delay: 0.70s !important;
+}
+
+@keyframes internshipBenefitEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+    scale: 0.75;
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.02);
+    scale: 1.02;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    scale: 1;
+  }
+}
+
+@keyframes internshipBenefitEntranceMid {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.75);
+    scale: 0.75;
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.02);
+    scale: 1.02;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-home-root .internship-benefit-card {
+    animation: none !important;
+    opacity: 1 !important;
+    scale: 1 !important;
+  }
+  @media (min-width: 768px) {
+    .marketing-home-root .internship-benefit-card--mid {
+      transform: translateY(-50%) !important;
+    }
+  }
+}

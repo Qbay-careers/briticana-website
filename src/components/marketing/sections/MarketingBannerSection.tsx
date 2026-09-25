@@ -32,13 +32,13 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
   const upperCards = [
     {
       src: homeHero.floatingImages[0],
-      roleClass: "hero-orbit-card--top-left hero-orbit-card--1",
+      roleClass: "hero-orbit-card--top-left hero-orbit-card--1 internship-benefit-card internship-benefit-card--1",
       legacyClass: "banner1",
       label: "Turn Skills Into Proof",
     },
     {
       src: homeHero.floatingImages[1],
-      roleClass: "hero-orbit-card--top-right hero-orbit-card--2",
+      roleClass: "hero-orbit-card--top-right hero-orbit-card--2 internship-benefit-card internship-benefit-card--2",
       legacyClass: "banner2",
       label: "From Learning To Doing",
     },
@@ -47,13 +47,13 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
   const midCards = [
     {
       src: homeHero.floatingImages[2],
-      roleClass: "hero-orbit-card--mid-left hero-orbit-card--3",
+      roleClass: "hero-orbit-card--mid-left hero-orbit-card--3 internship-benefit-card internship-benefit-card--3 internship-benefit-card--mid",
       legacyClass: "banner3",
       label: "Gain Real Exposure",
     },
     {
       src: homeHero.floatingImages[5],
-      roleClass: "hero-orbit-card--mid-right hero-orbit-card--6",
+      roleClass: "hero-orbit-card--mid-right hero-orbit-card--6 internship-benefit-card internship-benefit-card--6 internship-benefit-card--mid",
       legacyClass: "banner6",
       label: "Verified Project Proof",
     },
@@ -62,13 +62,13 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
   const lowerCards = [
     {
       src: homeHero.floatingImages[3],
-      roleClass: "hero-orbit-card--bottom-left hero-orbit-card--4",
+      roleClass: "hero-orbit-card--bottom-left hero-orbit-card--4 internship-benefit-card internship-benefit-card--4",
       legacyClass: "banner4",
       label: "Product Building Journey",
     },
     {
       src: homeHero.floatingImages[4],
-      roleClass: "hero-orbit-card--bottom-right hero-orbit-card--5",
+      roleClass: "hero-orbit-card--bottom-right hero-orbit-card--5 internship-benefit-card internship-benefit-card--5",
       legacyClass: "banner5",
       label: "Work On Live Ideas",
     },
