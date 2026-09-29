@@ -20,17 +20,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
   const [isAnimated, setIsAnimated] = useState(false);
 
   useEffect(() => {
-    const trigger = () => setIsAnimated(true);
-    if (document.readyState === "complete") {
-      const timer = setTimeout(trigger, 60);
-      return () => clearTimeout(timer);
-    }
-    window.addEventListener("load", trigger, { once: true });
-    const timer = setTimeout(trigger, 250);
-    return () => {
-      window.removeEventListener("load", trigger);
-      clearTimeout(timer);
-    };
+    setIsAnimated(true);
   }, []);
 
   const { smallScreenBackground, backgroundOverlay } = homeHero;
@@ -98,9 +88,74 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
       <div className={stackClassName} style={stackStyle}>
         <div className="container mw-1345 position-relative">
           <div className="hero-orbit-stage position-relative">
-            {/* Visual orbit connection rings (desktop & tablet) */}
-            <div className="hero-orbit-ring hero-orbit-ring--outer" aria-hidden="true" />
-            <div className="hero-orbit-ring hero-orbit-ring--inner" aria-hidden="true" />
+            {/* Visual orbit connection rings (desktop & tablet) with smooth traveling light beam */}
+            <div className="hero-orbit-ring hero-orbit-ring--outer" aria-hidden="true">
+              <svg
+                className="hero-orbit-svg"
+                viewBox="0 0 1080 680"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <filter id="orbitGlowOuter" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                {/* Base dashed orbit path */}
+                <path
+                  d="M 540,2 A 538,338 0 1,1 539.9,2 Z"
+                  className="hero-orbit-path-base"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* Traveling glowing light beam */}
+                <path
+                  d="M 540,2 A 538,338 0 1,1 539.9,2 Z"
+                  pathLength="1000"
+                  className="hero-orbit-path-beam hero-orbit-path-beam--outer"
+                  vectorEffect="non-scaling-stroke"
+                  filter="url(#orbitGlowOuter)"
+                />
+              </svg>
+            </div>
+
+            <div className="hero-orbit-ring hero-orbit-ring--inner" aria-hidden="true">
+              <svg
+                className="hero-orbit-svg"
+                viewBox="0 0 800 500"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <filter id="orbitGlowInner" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="2.5" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                {/* Base solid faint orbit path */}
+                <path
+                  d="M 400,2 A 398,248 0 1,1 399.9,2 Z"
+                  className="hero-orbit-path-base hero-orbit-path-base--inner"
+                  vectorEffect="non-scaling-stroke"
+                />
+                {/* Traveling glowing light beam */}
+                <path
+                  d="M 400,2 A 398,248 0 1,1 399.9,2 Z"
+                  pathLength="1000"
+                  className="hero-orbit-path-beam hero-orbit-path-beam--inner"
+                  vectorEffect="non-scaling-stroke"
+                  filter="url(#orbitGlowInner)"
+                />
+              </svg>
+            </div>
 
             <noscript>
               <style>{`

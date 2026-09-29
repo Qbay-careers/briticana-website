@@ -80,6 +80,20 @@
   user-select: none;
 }
 
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .briti-logo-img {
+    height: 48px;
+  }
+  .briti-nav-link {
+    padding: 6px 9px;
+    font-size: 13.5px;
+  }
+  .briti-apply-btn {
+    padding: 7px 16px;
+    font-size: 13px;
+  }
+}
+
 @media (min-width: 1200px) {
   .briti-nav-link {
     padding: 8px 13px;
@@ -155,16 +169,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   background: rgba(3, 1, 13, 0.04);
   border: 1px solid rgba(3, 1, 13, 0.08);
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .briti-hamburger:hover {
@@ -176,18 +192,21 @@
   position: relative;
   width: 20px;
   height: 14px;
-  display: inline-block;
+  display: block;
 }
 
 .briti-hamburger-inner,
 .briti-hamburger-inner::before,
 .briti-hamburger-inner::after {
   position: absolute;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 auto;
   width: 20px;
   height: 2px;
   background-color: #03010d;
   border-radius: 2px;
-  transition: transform 0.25s ease, top 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.25s ease, top 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
 }
 
 .briti-hamburger-inner {
@@ -197,11 +216,13 @@
 .briti-hamburger-inner::before {
   content: "";
   top: -6px;
+  left: 0 !important;
 }
 
 .briti-hamburger-inner::after {
   content: "";
   top: 6px;
+  left: 0 !important;
 }
 
 .briti-hamburger.is-active .briti-hamburger-inner {
@@ -210,14 +231,43 @@
 
 .briti-hamburger.is-active .briti-hamburger-inner::before {
   top: 0;
+  left: 0 !important;
   transform: rotate(45deg);
   background-color: var(--mainColor, #7a4dfc);
 }
 
 .briti-hamburger.is-active .briti-hamburger-inner::after {
   top: 0;
+  left: 0 !important;
   transform: rotate(-45deg);
   background-color: var(--mainColor, #7a4dfc);
+}
+
+@media (max-width: 991.98px) {
+  .briti-header-mobile .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .briti-mobile-logo-img {
+    height: clamp(34px, 4.5vw, 42px);
+    max-width: 140px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 480px) {
+  .briti-header-mobile .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .briti-mobile-cta-btn {
+    padding: 6px 12px;
+    font-size: 12.5px;
+  }
+  .briti-hamburger {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 .briti-mobile-drawer {
@@ -352,14 +402,14 @@
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
-  min-height: clamp(660px, 84vh, 880px);
+  min-height: clamp(720px, 86vh, 920px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: clamp(32px, 4.5vh, 60px) 16px;
 }
 
-/* Subtle Concentric Orbital Background Rings */
+/* Subtle Concentric Orbital Background Rings & Traveling Light Beam */
 .marketing-home-root .hero-orbit-ring {
   position: absolute;
   top: 50%;
@@ -368,18 +418,102 @@
   border-radius: 50%;
   pointer-events: none !important;
   z-index: 1;
+  border: none !important;
 }
 
 .marketing-home-root .hero-orbit-ring--outer {
   width: min(92%, 1080px);
   height: min(94%, 680px);
-  border: 1.5px dashed rgba(122, 77, 252, 0.12);
 }
 
 .marketing-home-root .hero-orbit-ring--inner {
   width: min(72%, 800px);
   height: min(74%, 500px);
-  border: 1px solid rgba(122, 77, 252, 0.06);
+}
+
+.marketing-home-root .hero-orbit-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.marketing-home-root .hero-orbit-path-base {
+  stroke: rgba(122, 77, 252, 0.12);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  fill: none;
+}
+
+.marketing-home-root .hero-orbit-path-base--inner {
+  stroke: rgba(122, 77, 252, 0.06);
+  stroke-width: 1;
+  stroke-dasharray: none;
+}
+
+.marketing-home-root .hero-orbit-path-beam {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.marketing-home-root .hero-orbit-path-beam--outer {
+  stroke: #7a4dfc;
+  stroke-width: 2.5;
+  stroke-dasharray: 140 860;
+  stroke-dashoffset: 1000;
+  filter: drop-shadow(0 0 6px rgba(122, 77, 252, 0.75)) drop-shadow(0 0 12px rgba(157, 116, 255, 0.4));
+  animation: orbitBeamTravelOuterOnce 2.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+}
+
+.marketing-home-root .hero-orbit-path-beam--inner {
+  stroke: #9d74ff;
+  stroke-width: 2;
+  stroke-dasharray: 100 900;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 5px rgba(157, 116, 255, 0.55));
+  animation: orbitBeamTravelInnerOnce 2.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+
+@keyframes orbitBeamTravelOuterOnce {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes orbitBeamTravelInnerOnce {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-home-root .hero-orbit-path-beam {
+    animation: none !important;
+    display: none !important;
+  }
 }
 
 /* Center Content - The Visual Focus */
@@ -391,6 +525,7 @@
   margin-right: auto;
   text-align: center;
   padding: 12px;
+  transform: translateY(-14px);
 }
 
 /* Orbit Groups: display: contents on desktop & tablet */
@@ -651,17 +786,17 @@
   /* 2 Lower Images (Bottom-Left & Bottom-Right) */
   .marketing-home-root .hero-orbit-card--bottom-left,
   .marketing-home-root .banner4 {
-    bottom: clamp(24px, 4.5vh, 48px) !important;
-    left: clamp(15%, 19vw, 24%) !important;
-    right: auto !important;
+    bottom: clamp(65px, 10.5vh, 105px) !important;
+    right: calc(50% + clamp(216px, 17vw, 230px)) !important;
+    left: auto !important;
     top: auto !important;
   }
 
   .marketing-home-root .hero-orbit-card--bottom-right,
   .marketing-home-root .banner5 {
-    bottom: clamp(24px, 4.5vh, 48px) !important;
-    right: clamp(15%, 19vw, 24%) !important;
-    left: auto !important;
+    bottom: clamp(65px, 10.5vh, 105px) !important;
+    left: calc(50% + clamp(216px, 17vw, 230px)) !important;
+    right: auto !important;
     top: auto !important;
   }
 
@@ -1019,9 +1154,9 @@
   }
 }
 
-/* Domains band: bottom only (top gap comes from hero padding-bottom) */
+/* Domains band: provide breathing space from hero orbit section */
 .marketing-home-root .categories-area.marketing-home-domains-after-hero {
-  padding-top: 0;
+  padding-top: clamp(24px, 4vh, 50px);
 }
 
 /* Page banner breadcrumbs — flex rows + theme li::before separator stay vertically centered */
@@ -2298,43 +2433,31 @@
 
 /* ── Internship 6 Benefit Cards: Page-Load Entrance Animation ── */
 .marketing-home-root .internship-benefit-card {
-  opacity: 0;
-  transform: scale(0.75);
-  animation: none !important;
-}
-
-@media (min-width: 768px) {
-  .marketing-home-root .internship-benefit-card--mid {
-    transform: translateY(-50%) scale(0.75);
-  }
-}
-
-.marketing-home-root .internship-benefit-card.is-animated {
   animation: internshipBenefitEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) both !important;
 }
 
 @media (min-width: 768px) {
-  .marketing-home-root .internship-benefit-card--mid.is-animated {
+  .marketing-home-root .internship-benefit-card--mid {
     animation-name: internshipBenefitEntranceMid !important;
   }
 }
 
-.marketing-home-root .internship-benefit-card--1.is-animated {
+.marketing-home-root .internship-benefit-card--1 {
   animation-delay: 0.10s !important;
 }
-.marketing-home-root .internship-benefit-card--2.is-animated {
+.marketing-home-root .internship-benefit-card--2 {
   animation-delay: 0.22s !important;
 }
-.marketing-home-root .internship-benefit-card--3.is-animated {
+.marketing-home-root .internship-benefit-card--3 {
   animation-delay: 0.34s !important;
 }
-.marketing-home-root .internship-benefit-card--6.is-animated {
+.marketing-home-root .internship-benefit-card--6 {
   animation-delay: 0.46s !important;
 }
-.marketing-home-root .internship-benefit-card--4.is-animated {
+.marketing-home-root .internship-benefit-card--4 {
   animation-delay: 0.58s !important;
 }
-.marketing-home-root .internship-benefit-card--5.is-animated {
+.marketing-home-root .internship-benefit-card--5 {
   animation-delay: 0.70s !important;
 }
 
