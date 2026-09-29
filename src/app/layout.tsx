@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   },
   description:
     "Briticana connects learners with structured internship experiences and showcases collaboration with startups across Ireland, the UK, Germany, and Finland.",
+  icons: {
+    icon: "/edumove/images/favicon.png",
+    shortcut: "/favicon.ico",
+  },
 };
 
 type RootLayoutProps = {
