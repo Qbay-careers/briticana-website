@@ -1,8 +1,11 @@
 "use client";
 
+import { installSanityStudioListenFallback } from "./sanityStudioSetup";
 import { NextStudio } from "next-sanity/studio";
 
 import config from "../../../../sanity.config";
+
+installSanityStudioListenFallback();
 
 export const dynamic = "force-dynamic";
 
