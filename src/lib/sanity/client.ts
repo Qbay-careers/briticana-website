@@ -10,6 +10,5 @@ export const client: SanityClient = createClient({
   dataset,
   apiVersion: "2024-10-01",
   useCdn: dataset === "production",
-  token: process.env.SANITY_API_TOKEN || undefined,
   perspective: "published",
 });

@@ -62,4 +62,15 @@ export const getAllStartupPartners = `*[_type == "startupPartner"] | order(name 
 
 export const getSiteSettings = `*[_type == "siteSettings"]|order(_updatedAt desc)[0]`;
 
-export const getStudentByCode = `*[_type == "student" && internshipId == $code][0]`;
+export const getStudentByCode = `*[_type == "student" && defined(internshipId) && (internshipId == $code || lower(internshipId) == lower($code))][0]{
+  _id,
+  _type,
+  studentName,
+  internshipId,
+  domain,
+  duration,
+  region,
+  completionStatus,
+  certificateIssued,
+  mentorEvaluation
+}`;

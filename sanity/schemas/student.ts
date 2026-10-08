@@ -2,15 +2,15 @@ import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "student",
-  title: "Student (verification demo)",
+  title: "Student Verification",
   type: "document",
   fields: [
     defineField({ name: "studentName", title: "Student name", type: "string" }),
     defineField({
       name: "internshipId",
-      title: "Internship ID (verification code)",
+      title: "Student ID / Certificate ID",
       type: "string",
-      description: "Used as the public lookup code on the verification page.",
+      description: "Unique Student ID or Certificate ID used for public verification lookup.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({ name: "domain", title: "Domain", type: "string" }),

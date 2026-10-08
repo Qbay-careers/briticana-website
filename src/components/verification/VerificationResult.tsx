@@ -1,16 +1,27 @@
-import type { VerificationRecord } from "@/lib/demo/verificationRecords";
+export type VerificationRecord = {
+  code: string;
+  name: string;
+  domain: string;
+  duration: string;
+  region: string;
+  status: string;
+  certificateIssued: boolean;
+  mentorEvaluation: string;
+};
 
-type VerificationResultState =
+export type VerificationResultState =
   | { status: "idle" }
+  | { status: "loading" }
   | { status: "found"; record: VerificationRecord }
-  | { status: "not-found"; code: string };
+  | { status: "not-found"; code: string }
+  | { status: "error"; message: string };
 
 type VerificationResultProps = {
   state: VerificationResultState;
 };
 
 const DETAIL_ICONS: Record<string, string> = {
-  "Access code": "ri-hashtag",
+  "Student ID / Certificate ID": "ri-hashtag",
   Domain: "ri-briefcase-line",
   Duration: "ri-time-line",
   Region: "ri-map-pin-line",
@@ -40,8 +51,32 @@ export default function VerificationResult({ state }: VerificationResultProps) {
         <i className="ri-search-eye-line fs-1 text-secondary mb-3" aria-hidden />
         <h3 className="mb-2">Lookup result</h3>
         <p className="small text-secondary mb-0 mx-auto col-md-9">
-          Enter an access code and select <strong>Verify</strong> to view the learner&apos;s internship completion
-          details sourced from the Briticana record.
+          Enter a Student ID or Certificate ID and select <strong>Verify</strong> to view the learner&apos;s internship
+          completion details sourced from the Briticana record.
+        </p>
+      </div>
+    );
+  }
+
+  if (state.status === "loading") {
+    return (
+      <div className="bg-white rounded-4 shadow-sm h-100 p-4 p-sm-5 d-flex flex-column justify-content-center text-center" data-component="VerificationResult">
+        <i className="ri-loader-4-line fs-1 text-secondary mb-3" aria-hidden />
+        <h3 className="mb-2">Verifying certificate...</h3>
+        <p className="small text-secondary mb-0 mx-auto col-md-9">
+          Checking the Briticana verification registry for the submitted Student ID / Certificate ID.
+        </p>
+      </div>
+    );
+  }
+
+  if (state.status === "error") {
+    return (
+      <div className="bg-white rounded-4 shadow-sm h-100 p-4 p-sm-5 d-flex flex-column justify-content-center text-center" data-component="VerificationResult">
+        <i className="ri-error-warning-line fs-1 text-danger mb-3" aria-hidden />
+        <h3 className="mb-2">Verification unavailable</h3>
+        <p className="small text-secondary mb-0 mx-auto col-md-9">
+          {state.message}
         </p>
       </div>
     );
@@ -51,11 +86,11 @@ export default function VerificationResult({ state }: VerificationResultProps) {
     return (
       <div className="bg-white rounded-4 shadow-sm h-100 p-4 p-sm-5 d-flex flex-column justify-content-center text-center" data-component="VerificationResult">
         <i className="ri-error-warning-line fs-1 text-warning mb-3" aria-hidden />
-        <h3 className="mb-2">No record found</h3>
+        <h3 className="mb-2">Verification record not found</h3>
         <p className="small text-secondary mb-0 mx-auto col-md-9">
-          We couldn&apos;t find a certificate for
-          {state.code ? <> code <strong>{state.code}</strong></> : <> the code entered</>}. Check the access code printed
-          on the certificate and try again.
+          We couldn&apos;t find a verification record for
+          {state.code ? <> ID <strong>{state.code}</strong></> : <> the ID entered</>}. Check the Student ID or
+          Certificate ID printed on the certificate and try again.
         </p>
       </div>
     );
@@ -84,13 +119,17 @@ export default function VerificationResult({ state }: VerificationResultProps) {
       </div>
 
       <div className="row g-2">
-        <DetailRow label="Access code" value={record.code} />
+        <DetailRow label="Student ID / Certificate ID" value={record.code} />
         <DetailRow label="Domain" value={record.domain} />
         <DetailRow label="Duration" value={record.duration} />
         <DetailRow label="Region" value={record.region} />
         <DetailRow
           label="Completion status"
-          value={<span className="text-success">{record.status}</span>}
+          value={
+            <span className={record.status === "Completed" ? "text-success" : "text-body"}>
+              {record.status}
+            </span>
+          }
         />
         <DetailRow
           label="Certificate issued"

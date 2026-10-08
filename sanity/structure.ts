@@ -39,6 +39,11 @@ export const structure: StructureResolver = (S) =>
         .child(S.documentTypeList("startupPartner").title("Startup partners")),
       S.divider(),
       S.listItem()
-        .title("Students (verification demo)")
-        .child(S.documentTypeList("student").title("Students")),
+        .title("Students (Verification)")
+        .id("studentVerificationList")
+        .child(
+          S.documentTypeList("student")
+            .title("Student Verification Records")
+            .defaultOrdering([{ field: "_createdAt", direction: "desc" }]),
+        ),
     ]);
