@@ -39,7 +39,7 @@ export const featuredInternshipsFallback: Internship[] = [
     projectStructure:
       "Three phases — Foundation (core skills), Advanced Development (techniques and emerging tools), Professional Integration (projects and industry scenarios). Scope scales with 3, 6, or 9 month tracks.",
     applicationStatus: "open",
-    batchStartDate: "2026-06-15",
+    batchStartDate: "2026-10-10",
   },
   {
     _id: "fallback-internship-finance-research",
@@ -64,7 +64,7 @@ export const featuredInternshipsFallback: Internship[] = [
     projectStructure:
       "Three phases — Foundation (core finance and research skills), Advanced Development (valuation, forecasting, frameworks), Professional Integration (case studies and industry assignments). Scope scales with 3, 6, or 9 month tracks.",
     applicationStatus: "open",
-    batchStartDate: "2026-06-22",
+    batchStartDate: "2026-10-10",
   },
 ];
 

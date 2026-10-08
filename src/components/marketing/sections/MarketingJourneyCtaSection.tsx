@@ -1,5 +1,4 @@
 import MarketingCtaLink from "@/components/marketing/MarketingCtaLink";
-import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 const TALK_TO_US_PHONE_HREF = "tel:+17342498898";
@@ -7,38 +6,29 @@ const TALK_TO_US_PHONE_HREF = "tel:+17342498898";
 export default function MarketingJourneyCtaSection() {
   const applyHref = buildApplyHref({ source: "journey-cta" });
   return (
-    <div className="journey-area">
-      <div className="container mw-1345">
-        <div className="journey-content marketing-home-section-y position-relative z-1 overflow-hidden">
-          <div className="section-title text-center mx-auto" style={{ maxWidth: "760px" }} data-cues="slideInUp">
-            <div className="position-relative z-1 mb-4">
-              <h2>
-                Start building your experience <span>that actually matters</span>
-              </h2>
-              <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
-              <img
-                src={marketingImage("shape4.png")}
-                className="d-none d-lg-inline-block position-absolute top-0"
-                style={{ right: "-40px" }}
-                alt=""
-              />
-            </div>
-            <p>
-              Join Briticana and gain the practical exposure, confidence, and project experience needed to grow your
-              career.
-            </p>
-            <div className="d-flex flex-wrap justify-content-center mt-lg-4 mt-4" style={{ gap: "20px" }}>
-              <MarketingCtaLink href={applyHref} className="main-btn">
-                Apply Now
-              </MarketingCtaLink>
-              <a href={TALK_TO_US_PHONE_HREF} className="main-btn black">
-                Talk to Us
-              </a>
-            </div>
+    <section className="briti-journey-cta-section">
+      <div className="container mw-1380">
+        <div className="briti-journey-cta__inner">
+          <span className="briti-journey-cta__eyebrow">Start Your Career Journey</span>
+          <h2 className="briti-journey-cta__title">
+            Start building your experience{" "}
+            <span className="briti-journey-cta__accent">that actually matters</span>
+          </h2>
+          <p className="briti-journey-cta__desc">
+            Join Briticana and gain the practical exposure, confidence, and project
+            experience needed to grow your career.
+          </p>
+          <div className="briti-journey-cta__actions">
+            <MarketingCtaLink href={applyHref} className="briti-journey-cta__btn-primary">
+              <span>Apply Now</span>
+              <i className="ri-arrow-right-line" aria-hidden="true" />
+            </MarketingCtaLink>
+            <a href={TALK_TO_US_PHONE_HREF} className="briti-journey-cta__btn-secondary">
+              <span>Talk to Us</span>
+            </a>
           </div>
-          <img src={marketingImage("shape9.png")} className="position-absolute top-50 start-50 translate-middle z-n1" alt="" />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

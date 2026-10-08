@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import FilterBar from "@/components/internships/FilterBar";
+import InternshipsExplorerSection from "@/components/internships/InternshipsExplorerSection";
+import InternshipSectionIntro from "@/components/internships/InternshipSectionIntro";
 import StartDateSelector from "@/components/internships/StartDateSelector";
-import InternshipIntroCard from "@/components/marketing/InternshipIntroCard";
+import {
+  DEFAULT_OVERVIEW_CONTENT,
+  dbContentToInternship,
+  fetchAllInternshipContent,
+  mergeInternshipWithDbContent,
+  type EnrichedInternship,
+} from "@/lib/internships/internshipContentApi";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import { getAllInternshipDomains, getInternshipsFiltered } from "@/lib/sanity/queries";
 import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Internships",
   description:
-    "Browse Briticana mentor-led internship tracks, filter by domain, region, and duration, and apply when your profile matches startup demand.",
+    "Explore real-world internship opportunities designed to help you build practical skills, gain experience and become career-ready.",
 };
 
 type InternshipsPageProps = {
@@ -26,99 +36,178 @@ function searchParamFirst(v: string | string[] | undefined): string {
   return typeof raw === "string" ? raw.trim() : "";
 }
 
-const SANITY_REVALIDATE_SECONDS = 60;
-const sanityFetchOptions = { next: { revalidate: SANITY_REVALIDATE_SECONDS } };
-
 export default async function InternshipsPage({ searchParams }: InternshipsPageProps) {
   const sp = searchParams ?? {};
   const domain = searchParamFirst(sp.domain);
   const region = searchParamFirst(sp.region);
   const duration = searchParamFirst(sp.duration);
 
-  let internships: Internship[] = [];
-  let filterDomains: InternshipDomainDoc[] = [];
+  const [allDbContent, sanityBundle] = await Promise.all([
+    fetchAllInternshipContent(),
+    (async () => {
+      if (!isSanityConfigured()) {
+        return { internships: [] as Internship[], domains: [] as InternshipDomainDoc[] };
+      }
+      try {
+        const [fetchedInternships, fetchedDomains] = await Promise.all([
+          client.fetch<Internship[]>(
+            getInternshipsFiltered,
+            { domain, region, duration },
+            { cache: "no-store" },
+          ),
+          client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, { cache: "no-store" }),
+        ]);
+        return { internships: fetchedInternships, domains: fetchedDomains };
+      } catch {
+        return { internships: [] as Internship[], domains: [] as InternshipDomainDoc[] };
+      }
+    })(),
+  ]);
 
-  if (isSanityConfigured()) {
-    try {
-      const [fetchedInternships, fetchedDomains] = await Promise.all([
-        client.fetch<Internship[]>(
-          getInternshipsFiltered,
-          { domain, region, duration },
-          sanityFetchOptions,
-        ),
-        client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, sanityFetchOptions),
-      ]);
-      internships = fetchedInternships;
-      filterDomains = fetchedDomains;
-    } catch {
-      internships = [];
-      filterDomains = [];
-    }
+  const overviewContent =
+    allDbContent.find((item) => item.page_key === "internships-overview") ??
+    DEFAULT_OVERVIEW_CONTENT;
+
+  const dbTrackMap = new Map(
+    allDbContent
+      .filter((item) => item.page_type === "track")
+      .map((item) => [item.page_key, item]),
+  );
+
+  let internships: EnrichedInternship[] = sanityBundle.internships.map((row) => {
+    const slug = row.slug?.current?.trim() || "";
+    return mergeInternshipWithDbContent(row, dbTrackMap.get(slug));
+  });
+
+  if (internships.length === 0 && !domain && !region && !duration && dbTrackMap.size > 0) {
+    internships = Array.from(dbTrackMap.values())
+      .filter((item) => item.application_status === "open")
+      .map((item) => dbContentToInternship(item));
   }
+
+  const filterDomains = sanityBundle.domains;
 
   return (
     <>
-      <div className="page-banner-area position-relative z-1 pt-100 pb-0">
-        <div className="container mw-1345">
-          <div className="position-relative z-1">
-            <div className="page-banner-content">
-              <ul className="p-0 list-unstyled d-flex flex-wrap">
-                <li>
-                  <Link href="/">Home</Link>
-                </li>
-                <li>
-                  <span>Internships</span>
-                </li>
-              </ul>
-              <h2>
-                Browse <span>Internships</span>
-              </h2>
-              <p className="text-secondary mt-2 mb-2" style={{ maxWidth: "600px" }}>
-                Compare mentor-led tracks, filter by domain and region, and apply when your timing aligns with the next
-                batch.
-              </p>
-            </div>
-          </div>
+      <section className="briti-internships-page-hero">
+        <div className="container mw-1380">
+          <InternshipSectionIntro
+            showBreadcrumbs={true}
+            customHeading={overviewContent.heading}
+            customDescription={overviewContent.description}
+            durationBadge={overviewContent.duration}
+          />
         </div>
-      </div>
+      </section>
 
-      <div className="courses-area pt-5 pb-120 bg-f7f7f7">
-        <div className="container mw-1345">
-          <FilterBar
-            key={`${domain}-${region}-${duration}`}
-            domains={filterDomains}
-            initialDomain={domain}
-            initialRegion={region}
-            initialDuration={duration}
+      <section className="courses-area briti-internship-section briti-internship-section--page">
+        <div className="container mw-1380">
+          <InternshipsExplorerSection
+            internships={internships}
+            defaultDurationLabel={overviewContent.duration}
+            defaultCtaText={overviewContent.cta_button_text}
+            isHomePreview={false}
+            advancedFilterSlot={
+              <FilterBar
+                key={`${domain}-${region}-${duration}`}
+                domains={filterDomains}
+                initialDomain={domain}
+                initialRegion={region}
+                initialDuration={duration}
+              />
+            }
           />
 
-          {internships.length === 0 ? (
-            <p className="text-secondary text-center mb-5">
-              {isSanityConfigured()
-                ? "No internships match your filters yet. Adjust filters or check back soon."
-                : "Connect Sanity (set NEXT_PUBLIC_SANITY_PROJECT_ID) and publish internship documents to list live tracks here."}
-            </p>
-          ) : (
-            <div className="row g-4 mb-5">
-              {internships.map((row) => (
-                <div key={row._id} className="col-lg-4 col-md-6 d-flex">
-                  <InternshipIntroCard internship={row} />
+          {overviewContent.program_details ||
+          overviewContent.learning_outcomes?.length ||
+          overviewContent.responsibilities?.length ||
+          overviewContent.skills_and_requirements?.length ||
+          overviewContent.eligibility_information ? (
+            <div
+              className="briti-program-overview-card mt-5"
+              data-component="InternshipsProgramOverview"
+            >
+              <div className="row g-4">
+                <div className="col-lg-6">
+                  <span className="small text-uppercase fw-semibold text-secondary d-block mb-1">
+                    Program Structure &amp; Duration ({overviewContent.duration})
+                  </span>
+                  <h3 className="h4 fw-bold mb-3">{overviewContent.title}</h3>
+                  {overviewContent.program_details ? (
+                    <p className="text-secondary mb-3" style={{ whiteSpace: "pre-wrap" }}>
+                      {overviewContent.program_details}
+                    </p>
+                  ) : null}
+                  {overviewContent.eligibility_information ? (
+                    <div className="small text-secondary">
+                      <span className="fw-semibold text-dark">Eligibility &amp; Regions: </span>
+                      <span>{overviewContent.eligibility_information}</span>
+                    </div>
+                  ) : null}
                 </div>
-              ))}
+                <div className="col-lg-6">
+                  <div className="row g-3">
+                    {overviewContent.learning_outcomes?.length ? (
+                      <div className="col-sm-6">
+                        <p className="fw-bold small text-uppercase text-secondary mb-2">
+                          Learning Outcomes
+                        </p>
+                        <ul className="list-unstyled small text-secondary mb-0 d-flex flex-column gap-1">
+                          {overviewContent.learning_outcomes.map((item) => (
+                            <li key={item} className="d-flex align-items-start gap-2">
+                              <i
+                                className="ri-checkbox-circle-fill text-success mt-1"
+                                aria-hidden
+                              />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    {overviewContent.responsibilities?.length ? (
+                      <div className="col-sm-6">
+                        <p className="fw-bold small text-uppercase text-secondary mb-2">
+                          Responsibilities
+                        </p>
+                        <ul className="list-unstyled small text-secondary mb-0 d-flex flex-column gap-1">
+                          {overviewContent.responsibilities.map((item) => (
+                            <li key={item} className="d-flex align-items-start gap-2">
+                              <i className="ri-check-line text-primary mt-1" aria-hidden />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                    {overviewContent.skills_and_requirements?.length ? (
+                      <div className="col-12 pt-2 border-top">
+                        <p className="fw-bold small text-uppercase text-secondary mb-2">
+                          Skills &amp; Requirements
+                        </p>
+                        <div className="d-flex flex-wrap gap-2">
+                          {overviewContent.skills_and_requirements.map((skill) => (
+                            <span
+                              key={skill}
+                              className="internship-intro-card__pill internship-intro-card__pill--status"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
-
-          <div className="d-flex flex-wrap align-items-center gap-3">
-            <Link href="/domains" className="main-btn black">
-              Browse all domains
-            </Link>
-          </div>
+          ) : null}
 
           <div className="mt-5">
-            <StartDateSelector />
+            <StartDateSelector overviewContent={overviewContent} />
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

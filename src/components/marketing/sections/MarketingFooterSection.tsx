@@ -3,7 +3,7 @@ import Link from "next/link";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { FooterNavLink, SiteSettings } from "@/lib/sanity/types";
 
-const FOOTER_LOGO_SRC = marketingImage("logo/logo.webp");
+const FOOTER_LOGO_SRC = `${marketingImage("logo/logo.webp")}?v=3`;
 const DEFAULT_EMAIL = "hello@briticana.com";
 const EMAIL_PATTERN = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
 

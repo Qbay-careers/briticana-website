@@ -9,7 +9,7 @@ import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { SiteSettings } from "@/lib/sanity/types";
 import { buildApplyHref } from "@/lib/studentApplicationForm";
 
-const LOGO_SRC = marketingImage("logo/logo.webp");
+const LOGO_SRC = `${marketingImage("logo/logo.webp")}?v=3`;
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },

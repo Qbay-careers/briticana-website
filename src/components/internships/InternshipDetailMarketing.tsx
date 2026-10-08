@@ -1,20 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 import InternshipIntroCard from "@/components/marketing/InternshipIntroCard";
 import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
-import { splitInternshipTitle } from "@/lib/splitInternshipTitle";
+import type { EnrichedInternship } from "@/lib/internships/internshipContentApi";
+import {
+  clarifyInternshipForCard,
+  formatInternshipBatchDate,
+  sanitizeInternshipText,
+} from "@/lib/internships/internshipRoleClarifier";
 import { urlForSanityImage } from "@/lib/sanity/image";
-import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
+import type { InternshipApplicationStatus } from "@/lib/sanity/types";
 import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 export type InternshipDetailMarketingProps = {
-  internship: Internship;
-  related: Internship[];
+  internship: EnrichedInternship;
+  related: EnrichedInternship[];
 };
 
-function truncateForBreadcrumb(title: string, max = 52): string {
-  const t = title.trim();
+function truncateForBreadcrumb(title: string, max = 56): string {
+  const t = sanitizeInternshipText(title);
   if (t.length <= max) return t;
   return `${t.slice(0, max - 1)}…`;
 }
@@ -22,121 +28,288 @@ function truncateForBreadcrumb(title: string, max = 52): string {
 function detailStatusLabel(status: InternshipApplicationStatus | undefined): string {
   switch (status) {
     case "open":
-      return "Applications open";
+      return "Applications Open";
     case "closed":
-      return "Applications closed";
+      return "Applications Closed";
     case "coming-soon":
-      return "Coming soon";
+      return "Coming Soon";
     default:
-      return "Status";
+      return "Applications Open";
   }
 }
 
-function formatBatch(batchStartDate: string | undefined): string {
-  if (!batchStartDate) return "TBC";
-  return new Date(batchStartDate).toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function statusMetaClass(status: InternshipApplicationStatus | undefined): { icon: string; text: string } {
-  switch (status) {
-    case "open":
-      return { icon: "ri-checkbox-circle-line text-success", text: "text-body" };
-    case "closed":
-      return { icon: "ri-close-circle-line text-danger", text: "text-body" };
-    case "coming-soon":
-      return { icon: "ri-timer-line text-warning", text: "text-body" };
-    default:
-      return { icon: "ri-information-line text-secondary", text: "text-secondary" };
-  }
-}
-
-export default function InternshipDetailMarketing({ internship, related }: InternshipDetailMarketingProps) {
+export default function InternshipDetailMarketing({
+  internship,
+  related,
+}: InternshipDetailMarketingProps) {
   const imgUrl = urlForSanityImage(internship.featuredImage, 1100);
   const domainSlug = internship.domain?.slug?.current?.trim();
-  const domainFilterHref = domainSlug ? `/internships?domain=${encodeURIComponent(domainSlug)}` : null;
+  const domainFilterHref = domainSlug
+    ? `/internships?domain=${encodeURIComponent(domainSlug)}`
+    : "/internships";
   const domainLabel = internshipDomainLabel(internship.domain ?? undefined);
-  const showApply = internship.applicationStatus === "open";
+  const info = clarifyInternshipForCard(internship);
+  const { visual } = info;
+
+  const isOpen = (internship.applicationStatus ?? "open") === "open";
+  const showApply = isOpen;
   const applyHref = showApply
-    ? buildApplyHref({ internship: internship.title, domain: domainLabel, source: "internship-detail" })
+    ? buildApplyHref({
+        internship: info.cleanTitle,
+        domain: domainLabel,
+        source: "internship-detail",
+      })
     : undefined;
-  const { main, subtitle } = splitInternshipTitle(internship.title);
-  const statusMeta = statusMetaClass(internship.applicationStatus);
+
+  const introText =
+    sanitizeInternshipText(internship.customIntroductoryText) ||
+    "Mentor-led remote & hybrid internship track";
+  const ctaButtonText =
+    sanitizeInternshipText(internship.customCtaButtonText) || "Apply Now";
+  const batchDateText = formatInternshipBatchDate(internship.batchStartDate);
+
+  const cleanOverview = sanitizeInternshipText(internship.overview);
+  const cleanProjectStructure = sanitizeInternshipText(internship.projectStructure);
+  const cleanCertification = sanitizeInternshipText(internship.certificationDetails);
+  const cleanInstructions = sanitizeInternshipText(internship.customApplicationInstructions);
+
+  const rawTools = (internship.toolsUsed ?? [])
+    .map((t) => sanitizeInternshipText(t))
+    .filter(Boolean);
+  const rawResponsibilities = (internship.customResponsibilities ?? [])
+    .map((r) => sanitizeInternshipText(r))
+    .filter(Boolean);
+
+  // Combine role-clarified skills with any extra non-generic skills from the DB/CMS
+  const rawSkills = (internship.skillsCovered ?? [])
+    .map((s) => sanitizeInternshipText(s))
+    .filter(Boolean);
+  const displaySkills =
+    rawSkills.length > 0 &&
+    !(
+      rawSkills[0]?.toLowerCase() === "data analysis" &&
+      rawSkills[1]?.toLowerCase() === "documentation"
+    )
+      ? rawSkills
+      : info.learnSkills;
+
+  const heroVars = {
+    "--detail-accent": visual.accent,
+    "--detail-accent-secondary": visual.accentSecondary,
+    "--detail-icon-bg": visual.iconBg,
+    "--detail-icon-border": visual.iconBorder,
+    "--detail-top-bar": visual.topBar,
+    "--detail-glow": visual.cardGlow,
+  } as CSSProperties;
 
   return (
-    <>
-      <div className="page-banner-area position-relative z-1 pt-100 pb-0">
-        <div className="container mw-1345">
-          <div className="position-relative z-1">
-            <div className="page-banner-content">
-              <ul className="p-0 list-unstyled d-flex flex-wrap">
-                <li>
-                  <Link href="/">Home</Link>
-                </li>
-                <li>
-                  <Link href="/internships">Internships</Link>
-                </li>
-                <li>
-                  <span>{truncateForBreadcrumb(internship.title)}</span>
-                </li>
-              </ul>
-              <h2 className="mb-3">
-                {main}
-                {subtitle ? (
-                  <>
+    <div className="briti-detail-page" style={heroVars}>
+      {/* 1. PREMIUM HERO BANNER */}
+      <section className="briti-detail-hero">
+        <div className="briti-detail-hero__grid-bg" aria-hidden="true" />
+        <div className="container mw-1380 position-relative z-1">
+          {/* Clean Sanitized Breadcrumbs */}
+          <nav aria-label="Breadcrumb" className="briti-detail-hero__breadcrumb-nav">
+            <ol className="briti-detail-hero__breadcrumbs list-unstyled m-0 p-0">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li aria-hidden="true" className="briti-detail-hero__breadcrumb-sep">
+                /
+              </li>
+              <li>
+                <Link href="/internships">Internships</Link>
+              </li>
+              <li aria-hidden="true" className="briti-detail-hero__breadcrumb-sep">
+                /
+              </li>
+              <li>
+                <Link href={domainFilterHref}>{info.categoryDisplay}</Link>
+              </li>
+              <li aria-hidden="true" className="briti-detail-hero__breadcrumb-sep">
+                /
+              </li>
+              <li aria-current="page" className="briti-detail-hero__breadcrumb-current">
+                {truncateForBreadcrumb(info.cleanTitle)}
+              </li>
+            </ol>
+          </nav>
+
+          <div className="briti-detail-hero__layout">
+            {/* Left Column: Badges, Executive Role Heading, Plain Explanation, Key Metrics & CTAs */}
+            <div className="briti-detail-hero__main">
+              <div className="briti-detail-hero__badges">
+                <span className="briti-detail-hero__category-pill">
+                  <span className="briti-detail-hero__category-icon" aria-hidden="true">
+                    {visual.icon}
+                  </span>
+                  <span>{info.categoryDisplay}</span>
+                </span>
+
+                <span className="briti-detail-hero__track-pill">
+                  <i className="ri-verified-badge-line" aria-hidden="true" />
+                  <span>90-Day Mentor-Led Track</span>
+                </span>
+
+                <span
+                  className={`briti-detail-hero__status-pill${
+                    isOpen ? " briti-detail-hero__status-pill--open" : ""
+                  }`}
+                >
+                  <span className="briti-detail-hero__status-dot" aria-hidden="true" />
+                  <span>{detailStatusLabel(internship.applicationStatus)}</span>
+                </span>
+              </div>
+
+              <h1 className="briti-detail-hero__title">
+                {info.cleanTitle}
+                {info.specialization ? (
+                  <span className="briti-detail-hero__title-accent">
                     {" "}
-                    <span className="internship-detail-banner__subtitle">— {subtitle}</span>
-                  </>
+                    — {info.specialization}
+                  </span>
                 ) : null}
-              </h2>
+              </h1>
+
+              <p className="briti-detail-hero__lead">{info.plainExplanation}</p>
+
+              {/* 4 Key Info Pills: Duration • Next Batch • Location • Level */}
+              <div className="briti-detail-hero__metrics">
+                <div className="briti-detail-hero__metric-card">
+                  <span className="briti-detail-hero__metric-icon" aria-hidden="true">
+                    <i className="ri-calendar-event-line" />
+                  </span>
+                  <div>
+                    <span className="briti-detail-hero__metric-label">Next Batch</span>
+                    <strong className="briti-detail-hero__metric-val">{batchDateText}</strong>
+                  </div>
+                </div>
+
+                <div className="briti-detail-hero__metric-card">
+                  <span className="briti-detail-hero__metric-icon" aria-hidden="true">
+                    <i className="ri-time-line" />
+                  </span>
+                  <div>
+                    <span className="briti-detail-hero__metric-label">Duration</span>
+                    <strong className="briti-detail-hero__metric-val">{info.durationLabel}</strong>
+                  </div>
+                </div>
+
+                <div className="briti-detail-hero__metric-card">
+                  <span className="briti-detail-hero__metric-icon" aria-hidden="true">
+                    <i className="ri-map-pin-2-line" />
+                  </span>
+                  <div>
+                    <span className="briti-detail-hero__metric-label">Location &amp; Mode</span>
+                    <strong className="briti-detail-hero__metric-val">{info.locationLabel}</strong>
+                  </div>
+                </div>
+
+                <div className="briti-detail-hero__metric-card">
+                  <span className="briti-detail-hero__metric-icon" aria-hidden="true">
+                    <i className="ri-Focus-3-line ri-award-line" />
+                  </span>
+                  <div>
+                    <span className="briti-detail-hero__metric-label">Experience Level</span>
+                    <strong className="briti-detail-hero__metric-val">{info.levelLabel}</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero Action Buttons */}
+              <div className="briti-detail-hero__actions">
+                {applyHref ? (
+                  <Link href={applyHref} className="briti-detail-apply-btn text-decoration-none">
+                    <span>{ctaButtonText}</span>
+                    <i className="ri-arrow-right-line" aria-hidden="true" />
+                  </Link>
+                ) : null}
+
+                <Link
+                  href="/internships"
+                  className="briti-detail-secondary-btn text-decoration-none"
+                >
+                  <i className="ri-layout-grid-line" aria-hidden="true" />
+                  <span>Explore All Internships</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Glassmorphic Role Snapshot Card */}
+            <div className="briti-detail-hero__aside">
+              <div className="briti-detail-snapshot">
+                <div className="briti-detail-snapshot__top">
+                  <div className="briti-detail-snapshot__icon" aria-hidden="true">
+                    {visual.icon}
+                  </div>
+                  <div>
+                    <span className="briti-detail-snapshot__kicker">Role Career Snapshot</span>
+                    <h2 className="briti-detail-snapshot__domain">{domainLabel}</h2>
+                  </div>
+                </div>
+
+                <div className="briti-detail-snapshot__section">
+                  <span className="briti-detail-snapshot__label">What you&apos;ll learn</span>
+                  <div className="briti-detail-snapshot__skills">
+                    {info.learnSkills.map((skill) => (
+                      <span key={skill} className="briti-detail-snapshot__skill-chip">
+                        <i className="ri-check-line" aria-hidden="true" />
+                        <span>{skill}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="briti-detail-snapshot__section">
+                  <span className="briti-detail-snapshot__label">What you&apos;ll walk away with</span>
+                  <ul className="briti-detail-snapshot__deliverables list-unstyled m-0 p-0">
+                    <li>
+                      <i className="ri-checkbox-circle-fill" aria-hidden="true" />
+                      <span>Verified real-world project portfolio proof</span>
+                    </li>
+                    <li>
+                      <i className="ri-checkbox-circle-fill" aria-hidden="true" />
+                      <span>Structured mentor feedback &amp; practical reviews</span>
+                    </li>
+                    <li>
+                      <i className="ri-checkbox-circle-fill" aria-hidden="true" />
+                      <span>Official Briticana Internship Completion Certificate</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="briti-detail-snapshot__footer">
+                  <div>
+                    <span className="briti-detail-snapshot__batch-caption">Upcoming Intake</span>
+                    <strong className="briti-detail-snapshot__batch-date">{batchDateText}</strong>
+                  </div>
+                  {applyHref ? (
+                    <Link
+                      href={applyHref}
+                      className="briti-detail-snapshot__cta text-decoration-none"
+                    >
+                      <span>{ctaButtonText}</span>
+                      <i className="ri-arrow-right-up-line" aria-hidden="true" />
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="course-details-area pt-100 pb-120 bg-f7f7f7">
-        <div className="container mw-1345">
-          <div className="course-title text-center internship-detail-title">
-            {/* <h2 className="mb-0">{internship.title}</h2> */}
-            <ul className="p-0 m-0 list-unstyled d-flex flex-wrap justify-content-center align-items-center gap-md-4 gap-2 mt-3">
-              <li className="d-flex align-items-center gap-1">
-                <i className={`${statusMeta.icon} lh-1`} aria-hidden />
-                <span className={`fw-semibold ${statusMeta.text}`}>{detailStatusLabel(internship.applicationStatus)}</span>
-              </li>
-              <li className="d-flex align-items-center gap-1 text-secondary">
-                <i className="ri-calendar-event-line lh-1" aria-hidden />
-                <span>Next batch: {formatBatch(internship.batchStartDate)}</span>
-              </li>
-              {domainFilterHref ? (
-                <li>
-                  <Link
-                    href={domainFilterHref}
-                    className="d-flex text-decoration-none align-items-center gap-2 text-secondary"
-                  >
-                    <i className="ri-folder-user-line lh-1" aria-hidden />
-                    <span>Domain: {domainLabel}</span>
-                  </Link>
-                </li>
-              ) : (
-                <li className="d-flex align-items-center gap-1 text-secondary">
-                  <i className="ri-folder-user-line lh-1" aria-hidden />
-                  <span>Domain: {domainLabel}</span>
-                </li>
-              )}
-            </ul>
-          </div>
-
+      {/* 2. MAIN CONTENT & STICKY SIDEBAR */}
+      <section className="briti-detail-body">
+        <div className="container mw-1380">
           <div className="row g-4">
             <div className="col-lg-8">
-              <div className="course-details-content internship-detail-content bg-white rounded-4 p-4 p-lg-5">
+              <div className="briti-detail-content-card">
                 {imgUrl ? (
-                  <div className="ratio ratio-21x9 mb-4 rounded-3 overflow-hidden bg-body-secondary position-relative internship-detail-hero">
+                  <div className="ratio ratio-21x9 mb-4 rounded-4 overflow-hidden bg-body-secondary position-relative internship-detail-hero">
                     <Image
                       src={imgUrl}
-                      alt=""
+                      alt={info.cleanTitle}
                       fill
                       className="object-fit-cover"
                       sizes="(max-width: 991px) 100vw, 860px"
@@ -145,142 +318,229 @@ export default function InternshipDetailMarketing({ internship, related }: Inter
                   </div>
                 ) : null}
 
-                {internship.overview ? (
-                  <>
-                    <h2>Overview</h2>
-                    <p className="mb-0" style={{ whiteSpace: "pre-wrap" }}>
-                      {internship.overview}
+                {/* Role Overview */}
+                <div className="briti-detail-block">
+                  <div className="briti-detail-block__head">
+                    <span className="briti-detail-block__icon" aria-hidden="true">
+                      <i className="ri-compass-3-line" />
+                    </span>
+                    <h2 className="briti-detail-block__title">Internship Overview</h2>
+                  </div>
+                  <p className="briti-detail-block__highlight">{info.plainExplanation}</p>
+                  {cleanOverview && cleanOverview !== info.plainExplanation ? (
+                    <p className="briti-detail-block__text mb-0" style={{ whiteSpace: "pre-wrap" }}>
+                      {cleanOverview}
                     </p>
-                  </>
+                  ) : null}
+                </div>
+
+                {/* Skills Covered */}
+                {displaySkills.length > 0 ? (
+                  <div className="briti-detail-block">
+                    <div className="briti-detail-block__head">
+                      <span className="briti-detail-block__icon" aria-hidden="true">
+                        <i className="ri-lightbulb-flash-line" />
+                      </span>
+                      <h2 className="briti-detail-block__title">Skills You&apos;ll Gain</h2>
+                    </div>
+                    <div className="briti-detail-skills-grid">
+                      {displaySkills.map((skill) => (
+                        <div key={skill} className="briti-detail-skill-item">
+                          <i className="ri-checkbox-circle-fill" aria-hidden="true" />
+                          <span>{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 ) : null}
 
-                {internship.skillsCovered?.length ? (
-                  <>
-                    <h2>Skills covered</h2>
-                    <ul className="mb-0">
-                      {internship.skillsCovered.map((s) => (
-                        <li key={s}>{s}</li>
+                {/* Tools Used */}
+                {rawTools.length > 0 ? (
+                  <div className="briti-detail-block">
+                    <div className="briti-detail-block__head">
+                      <span className="briti-detail-block__icon" aria-hidden="true">
+                        <i className="ri-tools-line" />
+                      </span>
+                      <h2 className="briti-detail-block__title">Tools &amp; Workflows</h2>
+                    </div>
+                    <div className="briti-detail-tools-wrap">
+                      {rawTools.map((tool) => (
+                        <span key={tool} className="briti-detail-tool-badge">
+                          <i className="ri-stack-line" aria-hidden="true" />
+                          <span>{tool}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* Project Structure */}
+                {cleanProjectStructure ? (
+                  <div className="briti-detail-block">
+                    <div className="briti-detail-block__head">
+                      <span className="briti-detail-block__icon" aria-hidden="true">
+                        <i className="ri-Folders-line ri-folder-chart-line" />
+                      </span>
+                      <h2 className="briti-detail-block__title">Project Structure</h2>
+                    </div>
+                    <p className="briti-detail-block__text mb-0" style={{ whiteSpace: "pre-wrap" }}>
+                      {cleanProjectStructure}
+                    </p>
+                  </div>
+                ) : null}
+
+                {/* Responsibilities */}
+                {rawResponsibilities.length > 0 ? (
+                  <div className="briti-detail-block">
+                    <div className="briti-detail-block__head">
+                      <span className="briti-detail-block__icon" aria-hidden="true">
+                        <i className="ri-task-line" />
+                      </span>
+                      <h2 className="briti-detail-block__title">What You&apos;ll Work On</h2>
+                    </div>
+                    <ul className="briti-detail-resp-list list-unstyled m-0 p-0">
+                      {rawResponsibilities.map((item) => (
+                        <li key={item}>
+                          <i className="ri-arrow-right-circle-fill" aria-hidden="true" />
+                          <span>{item}</span>
+                        </li>
                       ))}
                     </ul>
-                  </>
+                  </div>
                 ) : null}
 
-                {internship.toolsUsed?.length ? (
-                  <>
-                    <h2>Tools used</h2>
-                    <ul className="mb-0">
-                      {internship.toolsUsed.map((t) => (
-                        <li key={t}>{t}</li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
-
-                {internship.projectStructure ? (
-                  <>
-                    <h2>Project structure</h2>
-                    <p className="mb-0" style={{ whiteSpace: "pre-wrap" }}>
-                      {internship.projectStructure}
-                    </p>
-                  </>
-                ) : null}
-
-                {internship.certificationDetails ? (
-                  <>
-                    <h2>Certification</h2>
-                    <p className="mb-0" style={{ whiteSpace: "pre-wrap" }}>
-                      {internship.certificationDetails}
-                    </p>
-                  </>
-                ) : null}
+                {/* Certification */}
+                <div className="briti-detail-block briti-detail-block--cert mb-0">
+                  <div className="briti-detail-block__head">
+                    <span className="briti-detail-block__icon" aria-hidden="true">
+                      <i className="ri-medal-line" />
+                    </span>
+                    <h2 className="briti-detail-block__title">
+                      Certification &amp; Verified Proof
+                    </h2>
+                  </div>
+                  <p className="briti-detail-block__text mb-0" style={{ whiteSpace: "pre-wrap" }}>
+                    {cleanCertification ||
+                      "Upon successful completion of your project milestones and mentor evaluations, you receive a verified Briticana Internship Certificate and documented project proof for your CV and LinkedIn profile."}
+                  </p>
+                </div>
               </div>
             </div>
 
+            {/* Sticky Application Sidebar */}
             <div className="col-lg-4">
-              <div className="course-details-sidebar internship-detail-sidebar">
-                <p className="small text-secondary text-uppercase fw-semibold mb-2">Program</p>
-                <p className="fw-bold fs-4 mb-1">{domainLabel}</p>
-                <p className="text-secondary small mb-4">Mentor-led internship track</p>
+              <aside className="briti-detail-sidebar">
+                <div className="briti-detail-sidebar__head">
+                  <span className="briti-detail-sidebar__kicker">Internship Track</span>
+                  <h3 className="briti-detail-sidebar__domain">{domainLabel}</h3>
+                  <p className="briti-detail-sidebar__intro mb-0">{introText}</p>
+                </div>
+
+                <div className="briti-detail-sidebar__batch-box">
+                  <div className="briti-detail-sidebar__batch-icon" aria-hidden="true">
+                    <i className="ri-calendar-check-line" />
+                  </div>
+                  <div>
+                    <span className="briti-detail-sidebar__batch-label">Next Batch Starts</span>
+                    <strong className="briti-detail-sidebar__batch-val">{batchDateText}</strong>
+                  </div>
+                </div>
 
                 {applyHref ? (
                   <Link
-                    className="main-btn rounded-3 gap-2 d-flex justify-content-center align-items-center w-100"
+                    className="briti-detail-apply-btn briti-detail-apply-btn--full text-decoration-none"
                     href={applyHref}
                   >
-                    <span>Apply now</span>
-                    <i className="ri-arrow-right-long-line lh-1" aria-hidden />
+                    <span>{ctaButtonText}</span>
+                    <i className="ri-arrow-right-line" aria-hidden="true" />
                   </Link>
                 ) : (
                   <Link
                     href="/internships"
-                    className="main-btn black rounded-3 gap-2 d-flex justify-content-center align-items-center w-100"
+                    className="briti-detail-secondary-btn w-100 justify-content-center text-decoration-none"
                   >
-                    <span>Browse internships</span>
-                    <i className="ri-arrow-right-long-line lh-1" aria-hidden />
+                    <span>Browse Internships</span>
+                    <i className="ri-arrow-right-line" aria-hidden="true" />
                   </Link>
                 )}
 
-                <ul className="p-0 m-0 list-unstyled internship-detail-sidebar-meta">
-                  <li className="d-flex justify-content-between align-items-start gap-3">
-                    <div className="d-flex align-items-center gap-2">
-                      <i className="ri-folder-user-line fs-5 text-secondary" aria-hidden />
-                      <span className="label">Domain</span>
-                    </div>
-                    <span className="text-secondary text-end">
-                      {domainFilterHref ? (
-                        <Link href={domainFilterHref} className="text-decoration-none">
-                          {domainLabel}
-                        </Link>
-                      ) : (
-                        domainLabel
-                      )}
+                <ul className="briti-detail-sidebar__meta list-unstyled m-0 p-0">
+                  <li>
+                    <span className="briti-detail-sidebar__meta-key">
+                      <i className="ri-folder-user-line" aria-hidden="true" />
+                      <span>Domain</span>
+                    </span>
+                    <span className="briti-detail-sidebar__meta-val">
+                      <Link href={domainFilterHref} className="text-decoration-none">
+                        {domainLabel}
+                      </Link>
                     </span>
                   </li>
-                  {internship.availableRegions?.length ? (
-                    <li className="d-flex justify-content-between align-items-start gap-3">
-                      <div className="d-flex align-items-center gap-2">
-                        <i className="ri-map-pin-line fs-5 text-secondary" aria-hidden />
-                        <span className="label">Regions</span>
-                      </div>
-                      <span className="text-secondary text-end">{internship.availableRegions.join(", ")}</span>
-                    </li>
-                  ) : null}
-                  {internship.durationOptions?.length ? (
-                    <li className="d-flex justify-content-between align-items-start gap-3">
-                      <div className="d-flex align-items-center gap-2">
-                        <i className="ri-time-line fs-5 text-secondary" aria-hidden />
-                        <span className="label">Durations</span>
-                      </div>
-                      <span className="text-secondary text-end">{internship.durationOptions.join(", ")}</span>
-                    </li>
-                  ) : null}
-                  <li className="d-flex justify-content-between align-items-start gap-3">
-                    <div className="d-flex align-items-center gap-2">
-                      <i className="ri-calendar-event-line fs-5 text-secondary" aria-hidden />
-                      <span className="label">Next batch</span>
-                    </div>
-                    <span className="text-secondary text-end">{formatBatch(internship.batchStartDate)}</span>
+
+                  <li>
+                    <span className="briti-detail-sidebar__meta-key">
+                      <i className="ri-calendar-event-line" aria-hidden="true" />
+                      <span>Next batch</span>
+                    </span>
+                    <span className="briti-detail-sidebar__meta-val fw-bold text-dark">
+                      {batchDateText}
+                    </span>
+                  </li>
+
+                  <li>
+                    <span className="briti-detail-sidebar__meta-key">
+                      <i className="ri-time-line" aria-hidden="true" />
+                      <span>Durations</span>
+                    </span>
+                    <span className="briti-detail-sidebar__meta-val">
+                      {internship.durationOptions?.length
+                        ? internship.durationOptions.join(", ")
+                        : info.durationLabel}
+                    </span>
+                  </li>
+
+                  <li>
+                    <span className="briti-detail-sidebar__meta-key">
+                      <i className="ri-map-pin-line" aria-hidden="true" />
+                      <span>Regions</span>
+                    </span>
+                    <span className="briti-detail-sidebar__meta-val">
+                      {internship.availableRegions?.length
+                        ? internship.availableRegions.join(", ")
+                        : "UK & Europe (Remote / Hybrid)"}
+                    </span>
+                  </li>
+
+                  <li>
+                    <span className="briti-detail-sidebar__meta-key">
+                      <i className="ri-award-line" aria-hidden="true" />
+                      <span>Level</span>
+                    </span>
+                    <span className="briti-detail-sidebar__meta-val">{info.levelLabel}</span>
                   </li>
                 </ul>
-              </div>
+
+                {cleanInstructions ? (
+                  <p className="briti-detail-sidebar__note mb-0">{cleanInstructions}</p>
+                ) : null}
+              </aside>
             </div>
           </div>
 
           {related.length > 0 ? (
-            <div className="mt-5 pt-4 border-top">
-              <div className="section-title mw-100 text-center mx-auto mb-4">
-                <div className="position-relative z-1">
-                  <h2>
-                    More in <span>this domain</span>
-                  </h2>
-                  <p className="text-secondary col-lg-8 mx-auto mt-3 mb-0">
-                    Comparable tracks you may want to review before you apply.
-                  </p>
-                </div>
+            <div className="briti-detail-related">
+              <div className="briti-detail-related__header">
+                <span className="briti-career-matcher__eyebrow">Similar Opportunities</span>
+                <h2 className="briti-detail-related__title">
+                  More Internships in <span>{domainLabel}</span>
+                </h2>
+                <p className="briti-detail-related__subtitle">
+                  Explore comparable mentor-led tracks in this career domain before you apply.
+                </p>
               </div>
-              <div className="row g-4">
+              <div className="briti-internship-cards-grid">
                 {related.map((r) => (
-                  <div key={r._id} className="col-md-6 d-flex">
+                  <div key={r._id} className="briti-internship-cards-grid__cell d-flex">
                     <InternshipIntroCard internship={r} />
                   </div>
                 ))}
@@ -288,7 +548,7 @@ export default function InternshipDetailMarketing({ internship, related }: Inter
             </div>
           ) : null}
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }

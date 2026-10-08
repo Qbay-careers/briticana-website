@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 
 .briticana-experience-page {
-  --ink: #080512;
-  --muted: #686471;
-  --violet: #7a4dfc;
-  --violet2: #a88cff;
-  --paper: #f5f5f7;
-  --white: #fff;
-  --line: #e2dfe8;
-  --glass: rgba(255, 255, 255, 0.13);
+  --ink: #0b132b;
+  --muted: #475569;
+  --violet: #2563eb;
+  --violet2: #6d4aff;
+  --briti-gradient: linear-gradient(135deg, #2563eb 0%, #6d4aff 100%);
+  --briti-gradient-hover: linear-gradient(135deg, #1d4ed8 0%, #5b38eb 100%);
+  --briti-gradient-deep: linear-gradient(135deg, #0b132b 0%, #1e3a8a 52%, #3730a3 100%);
+  --paper: #f8fafc;
+  --white: #ffffff;
+  --line: #e2e8f0;
+  --glass: rgba(255, 255, 255, 0.12);
 
   background: var(--paper);
   color: var(--ink);
@@ -45,35 +48,38 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 54px;
-  padding: 0 29px;
-  border-radius: 99px;
-  background: var(--violet);
+  min-height: 52px;
+  padding: 0 30px;
+  border-radius: 999px;
+  background: var(--briti-gradient);
   color: #fff !important;
-  font-weight: 700;
-  box-shadow: 0 14px 36px rgba(122, 77, 252, 0.25);
-  transition: 0.25s;
+  font-weight: 600;
+  box-shadow: 0 12px 30px -4px rgba(37, 99, 235, 0.34);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   text-decoration: none;
   border: none;
   cursor: pointer;
 }
 
 .briticana-experience-page .button:hover {
-  transform: translateY(-3px);
-  background: #6337ed;
+  transform: translateY(-2px);
+  background: var(--briti-gradient-hover);
+  box-shadow: 0 16px 36px -4px rgba(37, 99, 235, 0.44);
   color: #fff !important;
 }
 
 .briticana-experience-page .hero {
   position: relative;
-  min-height: 790px;
+  min-height: 760px;
   display: flex;
   align-items: center;
   overflow: hidden;
   color: #fff;
   isolation: isolate;
-  background: radial-gradient(circle at 84% 12%, rgba(122, 77, 252, 0.45), transparent 29%),
-    linear-gradient(135deg, #080512, #171124 55%, #09060f);
+  background:
+    radial-gradient(circle at 84% 14%, rgba(37, 99, 235, 0.38), transparent 34%),
+    radial-gradient(circle at 18% 82%, rgba(109, 74, 255, 0.24), transparent 36%),
+    linear-gradient(135deg, #0b132b 0%, #0f172a 55%, #172554 100%);
 }
 
 .briticana-experience-page .hero:after {
@@ -81,7 +87,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  opacity: 0.16;
+  opacity: 0.14;
   background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 58px 58px;
@@ -98,16 +104,16 @@
 }
 
 .briticana-experience-page .glass {
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 34px 90px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(26px) saturate(145%);
-  -webkit-backdrop-filter: blur(26px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 34px 90px rgba(11, 19, 43, 0.35);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
 }
 
 .briticana-experience-page .hero-copy {
   padding: 45px;
-  border-radius: 34px;
+  border-radius: 30px;
 }
 
 .briticana-experience-page .eyebrow {
@@ -120,7 +126,7 @@
 }
 
 .briticana-experience-page .hero .eyebrow {
-  color: #c0adff;
+  color: #93c5fd;
 }
 
 .briticana-experience-page h1,
@@ -132,25 +138,29 @@
 
 .briticana-experience-page h1 {
   margin-bottom: 26px;
-  font-size: clamp(3.2rem, 5.5vw, 5.9rem);
-  line-height: 0.92;
-  letter-spacing: -0.055em;
+  font-size: clamp(3.1rem, 5.2vw, 5.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
   font-weight: 700;
 }
 
 .briticana-experience-page h1 span {
-  color: var(--violet2);
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #93c5fd;
 }
 
 .briticana-experience-page .subhead {
-  font-size: clamp(1.28rem, 2vw, 1.72rem);
+  font-size: clamp(1.24rem, 1.9vw, 1.64rem);
   font-weight: 600;
-  line-height: 1.28;
+  line-height: 1.32;
   margin-bottom: 1rem;
 }
 
 .briticana-experience-page .intro {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 1.06rem;
   margin-bottom: 2rem;
 }
@@ -165,9 +175,9 @@
   inset: 14px 0 72px 24px;
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 42px;
-  box-shadow: 0 44px 110px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 36px;
+  box-shadow: 0 40px 100px rgba(11, 19, 43, 0.45);
   transform: perspective(1200px) rotateY(-4deg);
 }
 
@@ -175,7 +185,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 48%, rgba(8, 5, 18, 0.5));
+  background: linear-gradient(180deg, transparent 48%, rgba(11, 19, 43, 0.55));
 }
 
 .briticana-experience-page .visual > figure img {
@@ -187,7 +197,7 @@
 .briticana-experience-page .float-card {
   position: absolute;
   z-index: 3;
-  border-radius: 22px;
+  border-radius: 20px;
 }
 
 .briticana-experience-page .stat {
@@ -199,7 +209,7 @@
 }
 
 .briticana-experience-page .stat small {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -234,7 +244,7 @@
   width: 360px;
   height: 360px;
   border-radius: 45% 55% 62% 38% / 42% 35% 65% 58%;
-  background: linear-gradient(135deg, rgba(144, 103, 255, 0.42), rgba(53, 20, 140, 0.06));
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.36), rgba(109, 74, 255, 0.08));
   animation: experienceMorph 12s ease-in-out infinite alternate;
 }
 
@@ -250,7 +260,9 @@
 }
 
 .briticana-experience-page .dark-strip {
-  background: var(--ink);
+  background: #0f172a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 
@@ -265,10 +277,11 @@
   margin: 0;
   font-size: 1.08rem;
   line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .briticana-experience-page .section {
-  padding: 105px 0;
+  padding: 100px 0;
 }
 
 .briticana-experience-page .section.white {
@@ -276,7 +289,7 @@
 }
 
 .briticana-experience-page .section.lavender {
-  background: #eee9ff;
+  background: #eef2ff;
 }
 
 .briticana-experience-page .section-head {
@@ -295,10 +308,11 @@
 
 .briticana-experience-page h2 {
   margin-bottom: 26px;
-  font-size: clamp(2.5rem, 4.5vw, 4.7rem);
-  line-height: 1;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.4rem, 4.2vw, 4.3rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
   font-weight: 700;
+  color: var(--ink);
 }
 
 .briticana-experience-page .section-head h2 {
@@ -324,37 +338,40 @@
 .briticana-experience-page .card {
   padding: 34px;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 22px;
   background: #fff;
-  transition: 0.28s;
-  box-shadow: none;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  box-shadow: 0 4px 20px rgba(11, 19, 43, 0.04);
 }
 
 .briticana-experience-page .card:hover {
-  transform: translateY(-7px);
-  border-color: rgba(122, 77, 252, 0.4);
-  box-shadow: 0 24px 60px rgba(30, 13, 75, 0.12);
+  transform: translateY(-6px);
+  border-color: rgba(37, 99, 235, 0.32);
+  box-shadow: 0 22px 50px rgba(37, 99, 235, 0.1);
 }
 
 .briticana-experience-page .card.purple {
-  background: var(--violet);
-  border-color: var(--violet);
+  background: var(--briti-gradient);
+  border-color: transparent;
   color: #fff;
-  transform: translateY(-15px);
+  transform: translateY(-14px);
+  box-shadow: 0 22px 50px rgba(37, 99, 235, 0.24);
 }
 
 .briticana-experience-page .card.purple:hover {
-  transform: translateY(-22px);
+  transform: translateY(-20px);
+  box-shadow: 0 28px 60px rgba(37, 99, 235, 0.34);
 }
 
 .briticana-experience-page .card .num {
   display: block;
-  color: #aaa6b2;
+  color: #94a3b8;
   text-align: right;
   font-weight: 700;
 }
 
 .briticana-experience-page .card.purple .num,
+.briticana-experience-page .card.purple h3,
 .briticana-experience-page .card.purple p {
   color: #fff;
 }
@@ -372,9 +389,10 @@
 }
 
 .briticana-experience-page .card h3 {
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 12px;
+  color: var(--ink);
 }
 
 .briticana-experience-page .card p {
@@ -395,7 +413,7 @@
 }
 
 .briticana-experience-page .sticky .index {
-  color: #c8c4cf;
+  color: #cbd5e1;
   font-size: 4.2rem;
   font-weight: 800;
   line-height: 1;
@@ -410,13 +428,19 @@
 .briticana-experience-page .panel {
   padding: 48px;
   border: 1px solid var(--line);
-  border-radius: 26px;
+  border-radius: 24px;
   background: var(--paper);
 }
 
 .briticana-experience-page .panel.dark {
   background: var(--ink);
   border-color: var(--ink);
+  color: #fff;
+  box-shadow: 0 24px 60px rgba(11, 19, 43, 0.18);
+}
+
+.briticana-experience-page .panel.dark h2,
+.briticana-experience-page .panel.dark h3 {
   color: #fff;
 }
 
@@ -452,7 +476,7 @@
 }
 
 .briticana-experience-page .panel.dark .checks li:before {
-  color: #bca7ff;
+  color: #60a5fa;
 }
 
 .briticana-experience-page .media {
@@ -460,8 +484,8 @@
   height: 550px;
   margin: 0 0 48px;
   overflow: hidden;
-  border-radius: 34px;
-  box-shadow: 0 32px 80px rgba(27, 12, 68, 0.18);
+  border-radius: 30px;
+  box-shadow: 0 32px 80px rgba(11, 19, 43, 0.16);
 }
 
 .briticana-experience-page .media img {
@@ -486,15 +510,15 @@
   grid-template-columns: 1fr 1fr;
   gap: 1px;
   overflow: hidden;
-  border: 1px solid rgba(122, 77, 252, 0.2);
-  border-radius: 24px;
-  background: rgba(122, 77, 252, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  border-radius: 22px;
+  background: rgba(37, 99, 235, 0.18);
 }
 
 .briticana-experience-page .statements p {
   margin: 0;
   padding: 32px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .briticana-experience-page .wide-list {
@@ -528,8 +552,9 @@
 .briticana-experience-page .story {
   padding: 44px;
   border-top: 4px solid var(--violet);
-  border-radius: 0 0 24px 24px;
+  border-radius: 0 0 22px 22px;
   background: #fff;
+  box-shadow: 0 8px 30px rgba(11, 19, 43, 0.04);
 }
 
 .briticana-experience-page .story p {
@@ -542,8 +567,12 @@
 }
 
 .briticana-experience-page .vision {
-  padding: 115px 0;
-  background: var(--violet);
+  padding: 110px 0;
+  background: var(--briti-gradient-deep);
+  color: #fff;
+}
+
+.briticana-experience-page .vision h2 {
   color: #fff;
 }
 
@@ -554,22 +583,24 @@
 }
 
 .briticana-experience-page .vision .eyebrow {
-  color: #d8ccff;
+  color: #93c5fd;
 }
 
 .briticana-experience-page .vision-copy {
   padding-left: 65px;
-  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .briticana-experience-page .vision-copy p {
   margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .briticana-experience-page .vision-copy .big {
   margin: 36px 0 8px;
   font-size: 1.8rem;
   font-weight: 800;
+  color: #fff;
 }
 
 .briticana-experience-page .office-grid {
@@ -581,8 +612,16 @@
 .briticana-experience-page .office {
   padding: 38px;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 22px;
   background: #fff;
+  box-shadow: 0 4px 20px rgba(11, 19, 43, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.briticana-experience-page .office:hover {
+  transform: translateY(-4px);
+  border-color: rgba(37, 99, 235, 0.28);
+  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.08);
 }
 
 .briticana-experience-page .office .flag {
@@ -592,10 +631,11 @@
 }
 
 .briticana-experience-page .office h3 {
-  font-size: 1.7rem;
-  line-height: 1.18;
+  font-size: 1.65rem;
+  line-height: 1.2;
   font-weight: 700;
   margin-bottom: 14px;
+  color: var(--ink);
 }
 
 .briticana-experience-page .office p,
@@ -623,7 +663,11 @@
 }
 
 .briticana-experience-page .process {
-  background: var(--ink);
+  background: linear-gradient(180deg, #0b132b 0%, #0f172a 100%);
+  color: #fff;
+}
+
+.briticana-experience-page .process h2 {
   color: #fff;
 }
 
@@ -634,26 +678,26 @@
 }
 
 .briticana-experience-page .process p {
-  color: #b8b4c0;
+  color: #cbd5e1;
 }
 
 .briticana-experience-page .steps {
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid #3c3844;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .briticana-experience-page .steps li {
   display: grid;
   grid-template-columns: 58px 1fr;
   padding: 16px 0;
-  border-bottom: 1px solid #3c3844;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   font-size: 1.1rem;
 }
 
 .briticana-experience-page .steps span {
-  color: #b79fff;
+  color: #60a5fa;
   font-weight: 800;
 }
 
@@ -679,7 +723,7 @@
   height: 38px;
   margin-right: 15px;
   border-radius: 50%;
-  background: #eee9ff;
+  background: rgba(37, 99, 235, 0.1);
   color: var(--violet);
   flex-shrink: 0;
 }
@@ -696,7 +740,8 @@
   gap: 16px;
   padding: 22px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .briticana-experience-page .directory .flag {
@@ -718,6 +763,7 @@
   opacity: 1;
   transform: none;
 }
+
 
 @keyframes experienceMorph {
   to {

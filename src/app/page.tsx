@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import { homeHeroFromSanity } from "@/components/marketing/homeHero";
 import MarketingPageShell from "@/components/marketing/MarketingPageShell";
 import MarketingVendorScripts from "@/components/marketing/MarketingVendorScripts";
+import {
+  fetchAllInternshipContent,
+  mergeInternshipWithDbContent,
+} from "@/lib/internships/internshipContentApi";
 import { resolveFeaturedInternships } from "@/lib/marketing/resolveFeaturedInternships";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
@@ -17,6 +21,8 @@ import type { HomePage, Internship, InternshipDomainDoc, SiteSettings, Testimoni
 
 import "@/styles/marketing-home.css";
 
+export const dynamic = "force-dynamic";
+
 const SANITY_REVALIDATE_SECONDS = 60;
 const sanityFetchOptions = { next: { revalidate: SANITY_REVALIDATE_SECONDS } };
 
@@ -24,9 +30,6 @@ export const metadata: Metadata = {
   title: "Home",
   description:
     "Briticana — internship experiences and a startup showcase. Learn the skills of tomorrow with mentor-led programs across Europe.",
-  icons: {
-    icon: "/edumove/images/favicon.png",
-  },
 };
 
 export default async function HomePage() {
@@ -35,6 +38,8 @@ export default async function HomePage() {
   let featuredInternships: Internship[] = resolveFeaturedInternships([]);
   let testimonials: Testimonial[] = [];
   let siteSettings: SiteSettings | null = null;
+
+  const dbContentPromise = fetchAllInternshipContent();
 
   if (isSanityConfigured()) {
     try {
@@ -58,6 +63,18 @@ export default async function HomePage() {
       siteSettings = null;
     }
   }
+
+  const allDbContent = await dbContentPromise;
+  const dbTrackMap = new Map(
+    allDbContent
+      .filter((item) => item.page_type === "track")
+      .map((item) => [item.page_key, item]),
+  );
+  featuredInternships = featuredInternships.map((item) => {
+    const slug = item.slug?.current?.trim() || "";
+    return mergeInternshipWithDbContent(item, dbTrackMap.get(slug));
+  });
+
   const homeHero = homeHeroFromSanity(homeDoc);
 
   return (

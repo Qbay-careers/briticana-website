@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import type { HomeHeroData } from "@/components/marketing/homeHero";
-import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 
 const BRITICANA_BULLETS = [
   "Work on real business challenges",
@@ -12,80 +11,106 @@ const BRITICANA_BULLETS = [
   "Gain confidence through real experience",
 ] as const;
 
+const GROWTH_PATH_STEPS = [
+  {
+    step: "01",
+    title: "Structured Startup Projects",
+    desc: "Work on practical business & tech challenges instead of passive theory.",
+  },
+  {
+    step: "02",
+    title: "Guided Team Execution",
+    desc: "Collaborate in real workflows with direct feedback from industry mentors.",
+  },
+  {
+    step: "03",
+    title: "Industry-Ready Portfolio",
+    desc: "Graduate with verified project proof and confidence for your career.",
+  },
+] as const;
+
 export type MarketingAboutSectionProps = {
   homeHero: HomeHeroData;
 };
 
-export default function MarketingAboutSection({ homeHero }: MarketingAboutSectionProps) {
+export default function MarketingAboutSection(_props: MarketingAboutSectionProps) {
   return (
-    <div className="about-area marketing-home-section-y">
-      <div className="container mw-1345">
-        <div className="row g-4 align-items-center" data-cues="slideInUp">
-          <div className="col-lg-6">
-            <div className="about-img position-relative z-1">
-              {/* Main image: managed via Sanity "About section" tab */}
-              <img
-                src={homeHero.aboutImage}
-                className="about-main-img"
-                alt="What is Briticana?"
-              />
-              <img src={marketingImage("shape5.png")} className="shape5 position-absolute d-none d-lg-inline-block" alt="" />
-              <img src={marketingImage("shape6.png")} className="shape6 position-absolute d-none d-lg-inline-block" alt="" />
-              <img src={marketingImage("shape7.png")} className="shape7 position-absolute d-none d-lg-inline-block" alt="" />
+    <section className="briti-about-section">
+      <div className="container mw-1380">
+        <div className="briti-about__grid">
+          {/* Left Column: Compact, Proportionate "Structured Growth Path" Card Matching Royal Blue Hero */}
+          <div className="briti-about__path-card">
+            <div className="briti-about__path-top">
+              <span className="briti-about__path-badge">
+                <span className="briti-about__path-dot" aria-hidden="true" />
+                Structured Growth Path
+              </span>
+              <h3 className="briti-about__path-heading">
+                From Classroom Theory to Real Career Proof
+              </h3>
+            </div>
+
+            <div className="briti-about__path-steps">
+              {GROWTH_PATH_STEPS.map((item) => (
+                <div key={item.step} className="briti-about__path-step">
+                  <span className="briti-about__path-num">{item.step}</span>
+                  <div className="briti-about__path-step-body">
+                    <strong>{item.title}</strong>
+                    <span>{item.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="briti-about__path-goal">
+              <span className="briti-about__path-goal-icon" aria-hidden="true">
+                <i className="ri-shield-check-line" />
+              </span>
+              <p>
+                <strong>Our goal is simple:</strong> help students become industry-ready
+                through hands-on project experience.
+              </p>
             </div>
           </div>
-          <div className="col-lg-6">
-            <div className="about-content">
-              <div className="d-inline-block position-relative z-1 mb-3">
-                <p
-                  className="small fw-semibold text-secondary text-uppercase mb-2"
-                  style={{ letterSpacing: "0.06em" }}
-                >
-                  What is Briticana?
-                </p>
-                <h2>
-                  Not just a course. Not just an internship. A real{" "}
-                  <span>experience platform.</span>
-                </h2>
-                <img src={marketingImage("title-shape.png")} className="ms-lg-5" alt="" />
-                <img
-                  src={marketingImage("shape4.png")}
-                  className="shape4 position-absolute top-0"
-                  style={{ right: "-20px" }}
-                  alt=""
-                />
-              </div>
-              <p className="dec mb-3">
-                Briticana is a project-driven experience platform for students, freshers, and aspiring professionals.
-                Instead of only learning theory, participants work on structured startup-style projects in
-                collaborative teams, guided by mentors and industry-focused workflows.
-              </p>
-              <p className="fw-semibold mb-2">At Briticana, you will:</p>
-              <ul className="list-unstyled mb-4 about-bullets row g-2">
-                {BRITICANA_BULLETS.map((item) => (
-                  <li key={item} className="col-sm-6 d-flex gap-2">
-                    <span
-                      className="flex-shrink-0"
-                      style={{ color: "var(--mainColor, #7a4dfc)" }}
-                      aria-hidden
-                    >
-                      ●
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="dec mb-4">
-                <span className="fw-semibold">Our goal is simple:</span> help students become industry-ready through
-                hands-on project experience.
-              </p>
-              <Link href="/internships" className="main-btn">
-                Explore internships
+
+          {/* Right Column: Clean, Simple, User-Friendly Overview & Check Grid */}
+          <div className="briti-about__content">
+            <span className="briti-about__eyebrow">What is Briticana?</span>
+
+            <h2 className="briti-about__title">
+              Not just a course. Not just an internship. A real{" "}
+              <span className="briti-about__title-accent">experience platform.</span>
+            </h2>
+
+            <p className="briti-about__desc">
+              Briticana is a project-driven experience platform for students, freshers, and
+              aspiring professionals. Instead of only learning theory, participants work on
+              structured startup-style projects in collaborative teams, guided by mentors and
+              industry-focused workflows.
+            </p>
+
+            <p className="briti-about__list-heading">At Briticana, you will:</p>
+
+            <ul className="briti-about__check-grid">
+              {BRITICANA_BULLETS.map((item) => (
+                <li key={item} className="briti-about__check-item">
+                  <span className="briti-about__check-icon" aria-hidden="true">
+                    <i className="ri-check-line" />
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="briti-about__actions">
+              <Link href="/internships" className="briti-about__cta">
+                <span>Explore Internships</span>
+                <i className="ri-arrow-right-line" aria-hidden="true" />
               </Link>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

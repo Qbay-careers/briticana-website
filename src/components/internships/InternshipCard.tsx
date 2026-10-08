@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { formatInternshipBatchDate } from "@/lib/internships/internshipRoleClarifier";
 import { internshipDomainLabel } from "@/lib/internshipDomainLabels";
 import type { Internship, InternshipApplicationStatus } from "@/lib/sanity/types";
 
@@ -40,13 +41,7 @@ export default function InternshipCard({ internship }: InternshipCardProps) {
   const detailHref = slug ? `/internships/${slug}` : "/internships";
   const regions = internship.availableRegions?.length ? internship.availableRegions.join(", ") : "—";
   const durations = internship.durationOptions?.length ? internship.durationOptions.join(", ") : "—";
-  const batch = internship.batchStartDate
-    ? new Date(internship.batchStartDate).toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })
-    : "TBC";
+  const batch = formatInternshipBatchDate(internship.batchStartDate);
 
   return (
     <div className="card shadow-sm h-100" data-component="InternshipCard">
