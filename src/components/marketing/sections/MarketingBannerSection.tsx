@@ -285,7 +285,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
 
                 <div className="briti-royal-hero__actions">
                   <Link
-                    href={homeHero.ctaApplyHref || "/apply"}
+                    href="/internships"
                     className="briti-royal-hero__btn-primary"
                     prefetch={true}
                   >
@@ -294,7 +294,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
                   </Link>
 
                   <Link
-                    href={homeHero.ctaExploreHref || "/internships"}
+                    href="/internships"
                     className="briti-royal-hero__btn-secondary"
                     prefetch={true}
                   >

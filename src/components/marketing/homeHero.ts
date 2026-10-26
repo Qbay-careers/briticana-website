@@ -56,8 +56,7 @@ export const defaultHomeHero: HomeHeroData = {
     "Work on real startup projects, collaborate with ambitious teams, and build practical experience that helps you stand out in today's competitive job market.",
   overview:
     "Briticana is an execution-focused experience platform where students collaborate on real-world projects under guided mentorship and structured workflows inspired by modern startups and professional teams.",
-  ctaApplyHref:
-    "https://docs.google.com/forms/d/e/1FAIpQLSfPhiyXsWr8-jnrMOWAx6lUVJ75NUFNxdOiqwWGx59G-w6LGA/viewform?usp=header",
+  ctaApplyHref: "/internships",
   ctaExploreHref: "/internships",
   ctaApplyLabel: "Apply Now",
   ctaExploreLabel: "View Internships",
@@ -155,7 +154,7 @@ export function homeHeroFromSanity(doc: HomePage | null | undefined): HomeHeroDa
     headline: doc.heroHeadline,
     subheadline: doc.heroSubheadline ?? defaultHomeHero.subheadline,
     overview: doc.heroOverview ?? defaultHomeHero.overview,
-    ctaApplyHref: doc.heroCtaApplyUrl?.trim() || defaultHomeHero.ctaApplyHref,
+    ctaApplyHref: "/internships",
     ctaExploreHref: doc.heroCtaExploreUrl?.trim() || defaultHomeHero.ctaExploreHref,
     ctaApplyLabel: defaultHomeHero.ctaApplyLabel,
     ctaExploreLabel: defaultHomeHero.ctaExploreLabel,
