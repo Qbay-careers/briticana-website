@@ -1,15 +1,15 @@
 /* ==========================================================================
-   Briticana Home Promotional Internship Flyer Popup
-   Appears after 2 seconds on the bottom-right corner of the Home Page.
-   Matches Briticana Royal Blue brand theme, ticket boarding-pass flyer.
+   Briticana Home Promotional Internship 3D Poster Flyer Popup
+   Appears after 1 second on the bottom-right corner of the Home Page Hero.
+   Renders the full 3D rendered Google Internship Dublin 2027 poster artwork.
    ========================================================================== */
 
 .briti-promo-flyer-wrap {
   position: absolute;
-  bottom: 112px;
-  right: 18px;
+  bottom: 108px;
+  right: 20px;
   z-index: 25;
-  width: 276px;
+  width: 220px;
   max-width: calc(100% - 24px);
   pointer-events: auto;
   animation: britiFlyerSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -21,8 +21,8 @@
     bottom: auto;
     right: auto;
     left: auto;
-    margin: 20px auto 0;
-    width: 280px;
+    margin: 22px auto 0;
+    width: 250px;
     max-width: calc(100% - 24px);
   }
 }
@@ -53,380 +53,75 @@
   }
 }
 
-.briti-promo-flyer {
+/* 3D Poster Card Container */
+.briti-promo-poster-card {
   position: relative;
+  border-radius: 20px;
   overflow: hidden;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #eaf2ff 0%, #dbeafe 36%, #e8f1fd 74%, #c7dbf8 100%);
-  border: 1.5px solid #003885;
+  background: #001f4d;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
   box-shadow:
-    0 16px 36px -8px rgba(0, 32, 96, 0.30),
-    0 4px 14px rgba(0, 32, 96, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  padding: 12px 13px 10px;
-  color: #0b1c3e;
-  font-family: inherit;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    0 22px 48px -10px rgba(0, 24, 72, 0.45),
+    0 8px 20px rgba(0, 24, 72, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  line-height: 0;
 }
 
-/* Background decorative corner accents */
-.briti-promo-flyer__corner-tr {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 24px;
-  height: 24px;
-  background: #f59e0b;
-  clip-path: polygon(100% 0, 100% 100%, 0 0);
-  opacity: 0.85;
+.briti-promo-poster-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow:
+    0 30px 60px -12px rgba(0, 24, 72, 0.55),
+    0 12px 28px rgba(0, 24, 72, 0.28);
 }
 
-.briti-promo-flyer__dot-tl {
-  position: absolute;
-  top: 9px;
-  left: 9px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #2563eb;
-  opacity: 0.85;
+.briti-promo-poster-link {
+  display: block;
+  text-decoration: none;
+  line-height: 0;
+  cursor: pointer;
 }
 
-.briti-promo-flyer__dot-tr {
-  position: absolute;
-  top: 32px;
-  right: -5px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: #10b981;
-  opacity: 0.85;
+.briti-promo-poster-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 576 / 1024;
+  display: block;
+  object-fit: cover;
+  border-radius: 18px;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* Close / Dismiss Button */
 .briti-promo-flyer__close {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 25px;
-  height: 25px;
+  top: 9px;
+  right: 9px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 56, 133, 0.2);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0, 56, 133, 0.25);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: #003885;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
   padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 24, 72, 0.25);
 }
 
 .briti-promo-flyer__close:hover {
   background: #003885;
   color: #ffffff;
   border-color: #003885;
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(1.08);
 }
-
-/* Header & Crest */
-.briti-promo-flyer__header {
-  text-align: center;
-  margin-bottom: 7px;
-}
-
-.briti-promo-flyer__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 5px;
-}
-
-.briti-promo-flyer__brand-crest {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  display: inline-block;
-  filter: drop-shadow(0 2px 4px rgba(0, 32, 96, 0.3));
-}
-
-.briti-promo-flyer__brand-name {
-  font-size: 1.02rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #0b1c3e;
-}
-
-.briti-promo-flyer__open-pill {
-  display: inline-block;
-  padding: 3px 11px;
-  border-radius: 999px;
-  background: #003885;
-  color: #ffffff;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  box-shadow: 0 2px 6px rgba(0, 56, 133, 0.25);
-}
-
-/* Main Headline */
-.briti-promo-flyer__title-wrap {
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-.briti-promo-flyer__title {
-  font-size: 1.18rem;
-  line-height: 1.12;
-  font-weight: 900;
-  color: #091734;
-  margin: 0 0 3px;
-  letter-spacing: -0.025em;
-}
-
-.briti-promo-flyer__title span {
-  display: block;
-}
-
-.briti-promo-flyer__title-year {
-  color: #003885 !important;
-  display: inline !important;
-}
-
-.briti-promo-flyer__location {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #1e293b;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Boarding Pass Ticket */
-.briti-promo-flyer__ticket {
-  display: flex;
-  position: relative;
-  background: #ffffff;
-  border: 1px solid rgba(0, 40, 120, 0.16);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0, 32, 96, 0.10), 0 1px 2px rgba(0, 0, 0, 0.04);
-  margin-bottom: 8px;
-  transform: none; /* Flat and straight for 100% crisp, razor-sharp font and edge rendering */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.briti-promo-flyer__ticket:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 32, 96, 0.18), 0 2px 4px rgba(0, 0, 0, 0.06);
-}
-
-.briti-promo-flyer__ticket-main {
-  flex: 1;
-  background: #ffffff;
-  padding: 7px 10px 7px 11px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  min-width: 0;
-}
-
-.briti-promo-flyer__ticket-subhead {
-  font-size: 0.58rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #4b586e;
-  margin-bottom: 1px;
-  line-height: 1.15;
-}
-
-.briti-promo-flyer__ticket-code {
-  font-size: 1.85rem;
-  font-weight: 950;
-  line-height: 1;
-  color: #081a38;
-  letter-spacing: -0.04em;
-  margin-bottom: 2px;
-}
-
-.briti-promo-flyer__ticket-roles {
-  font-size: 0.64rem;
-  font-weight: 600;
-  color: #475569;
-  line-height: 1.2;
-}
-
-/* Perforated edge between ticket parts */
-.briti-promo-flyer__ticket-stub {
-  width: 50px;
-  background: #d92525;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 3px 5px;
-  position: relative;
-  border-left: 2px dashed rgba(255, 255, 255, 0.85);
-  flex-shrink: 0;
-}
-
-.briti-promo-flyer__stub-notch-top,
-.briti-promo-flyer__stub-notch-bottom {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: #dbeafe;
-  border: 1px solid rgba(0, 40, 120, 0.14);
-  border-radius: 50%;
-  left: -7px;
-  z-index: 3;
-}
-
-.briti-promo-flyer__stub-notch-top {
-  top: -7px;
-}
-
-.briti-promo-flyer__stub-notch-bottom {
-  bottom: -7px;
-}
-
-.briti-promo-flyer__stub-vertical-text {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  font-size: 0.52rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ffffff;
-  line-height: 1;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-
-.briti-promo-flyer__stub-number {
-  font-size: 1.4rem;
-  font-weight: 950;
-  line-height: 1;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-
-/* Bottom Dark Capsule with Closing Date and CTA Button */
-.briti-promo-flyer__bottom-bar {
-  background: #071530;
-  border-radius: 12px;
-  padding: 6px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
-  position: relative;
-  z-index: 2;
-}
-
-.briti-promo-flyer__closes-badge {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #f59e0b;
-  border: 1.5px dashed rgba(15, 23, 42, 0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #0b1426;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
-}
-
-.briti-promo-flyer__closes-label {
-  font-size: 0.50rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-.briti-promo-flyer__closes-date {
-  font-size: 0.70rem;
-  font-weight: 900;
-  line-height: 1.1;
-  margin-top: 1px;
-}
-
-.briti-promo-flyer__cta-btn {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: #004ecc;
-  color: #ffffff !important;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-decoration: none !important;
-  border: none;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  box-shadow: 0 2px 8px rgba(0, 78, 204, 0.4);
-}
-
-.briti-promo-flyer__cta-btn:hover {
-  background: #003da6;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 78, 204, 0.55);
-  color: #ffffff !important;
-}
-
-.briti-promo-flyer__cta-btn i {
-  font-size: 0.88rem;
-  transition: transform 0.18s ease;
-}
-
-.briti-promo-flyer__cta-btn:hover i {
-  transform: translateX(3px);
-}
-
-/* Dublin Cityline Silhouette Graphic at Bottom of Card */
-.briti-promo-flyer__skyline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.28;
-}
-
-/* Mobile responsiveness */
-@media (max-width: 480px) {
-  .briti-promo-flyer-wrap {
-    bottom: 14px;
-    right: 14px;
-    left: 14px;
-    width: auto;
-    max-width: none;
-  }
-
-  .briti-promo-flyer {
-    padding: 18px 14px 14px;
-  }
-}
-
 
 /* ==========================================================================
    Google Internship Cards & 3D Graphics Enhancement for Home Internship Section
