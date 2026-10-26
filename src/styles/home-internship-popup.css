@@ -1,9 +1,8 @@
 /* ==========================================================================
-   Briticana Home Promotional Internship 3D Poster Flyer Popup
-   Appears after 1 second on the bottom-right corner of the Home Page Hero.
-   Renders the compact, perfectly-proportioned Google Internship Dublin 2027 poster.
-   Includes interactive "Explore ->" button navigating directly to /internships.
-   Fully responsive across all viewport sizes with ample heading headroom.
+   Briticana Home Promotional Internship 3D Robot Pulling Poster Animation
+   3D white & blue robot enters hero pulling the poster into exact final position.
+   Robot celebrates, unhooks golden rope, and exits gracefully.
+   Poster settles into position, fully responsive, interactive & accessible.
    ========================================================================== */
 
 .briti-promo-flyer-wrap {
@@ -14,7 +13,17 @@
   width: 268px;
   max-width: calc(100% - 24px);
   pointer-events: auto;
-  animation: britiFlyerSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 0.3s ease;
+}
+
+/* Robot pulling entrance keyframes */
+.briti-promo-flyer-wrap.is-pulling-in {
+  animation: britiFlyerRobotPullIn 2.8s cubic-bezier(0.2, 0.85, 0.4, 1) forwards;
+}
+
+.briti-promo-flyer-wrap.is-closing {
+  animation: britiFlyerSlideOut 0.35s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
 /* Medium / Laptop Desktops */
@@ -60,29 +69,144 @@
   }
 }
 
-.briti-promo-flyer-wrap.is-closing {
-  animation: britiFlyerSlideOut 0.35s cubic-bezier(0.4, 0, 1, 1) forwards;
+/* 3D Robot pulling element positioned to the left of the poster card */
+.briti-pulling-robot-wrap {
+  position: absolute;
+  right: calc(100% - 14px);
+  top: 8px;
+  width: 280px;
+  height: auto;
+  pointer-events: none;
+  z-index: 30;
+  transform-origin: 90% 15%;
 }
 
-@keyframes britiFlyerSlideIn {
+.briti-pulling-robot-wrap.is-pulling {
+  animation: britiRobotPullStrain 0.38s ease-in-out infinite alternate;
+}
+
+.briti-pulling-robot-wrap.is-celebrating {
+  animation: britiRobotCelebrateAndExit 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.briti-pulling-robot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 22px rgba(0, 18, 56, 0.45));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Tablet Robot sizing */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .briti-pulling-robot-wrap {
+    width: 230px;
+    right: calc(100% - 10px);
+    top: 6px;
+  }
+}
+
+/* Mobile Robot sizing */
+@media (max-width: 767.98px) {
+  .briti-pulling-robot-wrap {
+    width: 175px;
+    right: calc(100% - 8px);
+    top: 5px;
+  }
+}
+
+@media (max-width: 419.98px) {
+  .briti-pulling-robot-wrap {
+    width: 140px;
+    right: calc(100% - 6px);
+    top: 4px;
+  }
+}
+
+/* Keyframes: Flyer moving into place following the robot's pull */
+@keyframes britiFlyerRobotPullIn {
   0% {
+    transform: translate3d(calc(100% + 140px), 0, 0) rotate(3.5deg);
     opacity: 0;
-    transform: translateY(24px) scale(0.96);
+  }
+  12% {
+    opacity: 1;
+  }
+  78% {
+    transform: translate3d(-10px, 0, 0) rotate(-1.5deg);
+  }
+  90% {
+    transform: translate3d(3px, 0, 0) rotate(0.8deg);
   }
   100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
-    transform: translateY(0) scale(1);
+  }
+}
+
+/* Keyframes: Robot walking backwards with footstep bobs and pulling tension */
+@keyframes britiRobotPullStrain {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translate3d(-3px, -3px, 0) rotate(1deg);
+  }
+  100% {
+    transform: translate3d(0, 2px, 0) rotate(-1.5deg);
+  }
+}
+
+/* Keyframes: Robot celebrates victory, unhooks, and exits smoothly */
+@keyframes britiRobotCelebrateAndExit {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    /* Happy jump with glowing smile */
+    transform: translate3d(-12px, -20px, 0) scale(1.12) rotate(8deg);
+    opacity: 1;
+  }
+  50% {
+    /* Land & victory lean */
+    transform: translate3d(-30px, -6px, 0) scale(1.04) rotate(-6deg);
+    opacity: 1;
+  }
+  75% {
+    /* Dashing away */
+    transform: translate3d(-120px, 10px, 0) scale(0.85) rotate(-12deg);
+    opacity: 0.75;
+  }
+  100% {
+    /* Exits off-screen */
+    transform: translate3d(-300px, 40px, 0) scale(0.4) rotate(-20deg);
+    opacity: 0;
   }
 }
 
 @keyframes britiFlyerSlideOut {
   0% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translateY(24px) scale(0.96);
+    transform: translate3d(24px, 0, 0) scale(0.96);
+  }
+}
+
+/* Accessible Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .briti-promo-flyer-wrap,
+  .briti-promo-flyer-wrap.is-pulling-in {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .briti-pulling-robot-wrap {
+    display: none !important;
   }
 }
 

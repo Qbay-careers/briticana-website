@@ -6,24 +6,41 @@ import Link from "next/link";
 export default function HomeInternshipPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [animStage, setAnimStage] = useState<"pulling" | "celebrating" | "finished">("pulling");
 
   useEffect(() => {
-    // Clear any previous session dismissal keys so page refresh always shows popup after 1s
-    try {
-      if (typeof window !== "undefined") {
-        sessionStorage.removeItem("briti_promo_flyer_dismissed");
-        localStorage.removeItem("briti_promo_flyer_dismissed");
-      }
-    } catch {
-      // Ignore storage errors in restricted contexts
+    // Check if user prefers reduced motion
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      setIsOpen(true);
+      setAnimStage("finished");
+      return;
     }
 
-    // Show popup after exactly 1 second (1s delay as requested)
-    const timer = setTimeout(() => {
+    // 1. Initial 400ms delay before robot enters pulling the poster
+    const startTimer = setTimeout(() => {
       setIsOpen(true);
-    }, 1000);
+      setAnimStage("pulling");
+    }, 400);
 
-    return () => clearTimeout(timer);
+    // 2. Poster reaches exact final position at 3.2s; robot celebrates and unhooks
+    const celebrateTimer = setTimeout(() => {
+      setAnimStage("celebrating");
+    }, 3200);
+
+    // 3. Robot exits completely at 4.2s, leaving the static interactive poster
+    const finishTimer = setTimeout(() => {
+      setAnimStage("finished");
+    }, 4200);
+
+    return () => {
+      clearTimeout(startTimer);
+      clearTimeout(celebrateTimer);
+      clearTimeout(finishTimer);
+    };
   }, []);
 
   const handleClose = (e: React.MouseEvent) => {
@@ -33,7 +50,6 @@ export default function HomeInternshipPopup() {
     setTimeout(() => {
       setIsOpen(false);
       setIsClosing(false);
-      // Do NOT set sessionStorage here so refreshing the page pops it up again
     }, 320);
   };
 
@@ -41,9 +57,29 @@ export default function HomeInternshipPopup() {
 
   return (
     <aside
-      className={`briti-promo-flyer-wrap ${isClosing ? "is-closing" : ""}`}
+      className={`briti-promo-flyer-wrap ${
+        animStage === "pulling" ? "is-pulling-in" : ""
+      } ${isClosing ? "is-closing" : ""}`}
       aria-label="Google Internship Programs 2027 Dublin Announcement"
     >
+      {/* 3D Robot pulling the poster with a golden rope */}
+      {animStage !== "finished" && (
+        <div
+          className={`briti-pulling-robot-wrap ${
+            animStage === "celebrating" ? "is-celebrating" : "is-pulling"
+          }`}
+          aria-hidden="true"
+        >
+          <img
+            src="/assets/briti-robot-pulling.png"
+            alt="3D Robot pulling internship poster"
+            className="briti-pulling-robot-img"
+            width={360}
+            height={265}
+          />
+        </div>
+      )}
+
       <div className="briti-promo-poster-card">
         {/* Dismiss / Close Button */}
         <button
