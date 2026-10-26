@@ -10,6 +10,7 @@ import {
   type EnrichedInternship,
 } from "@/lib/internships/internshipContentApi";
 import { sanitizeInternshipText } from "@/lib/internships/internshipRoleClarifier";
+import { getSupplementalTrackBySlug } from "@/lib/internships/supplementalTracks";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import { getAllInternships, getInternshipBySlug } from "@/lib/sanity/queries";
@@ -23,6 +24,10 @@ type InternshipDetailPageProps = {
 };
 
 export async function generateMetadata({ params }: InternshipDetailPageProps) {
+  const supp = getSupplementalTrackBySlug(params.slug);
+  if (supp?.title) {
+    return { title: `${sanitizeInternshipText(supp.title)} | Briticana` };
+  }
   const dbContent = await fetchInternshipContentByKey(params.slug);
   if (dbContent?.title) {
     return { title: `${sanitizeInternshipText(dbContent.title)} | Briticana` };
@@ -80,6 +85,8 @@ export default async function InternshipDetailPage({ params }: InternshipDetailP
     internship = mergeInternshipWithDbContent(sanityInternship, dbContent);
   } else if (dbContent && dbContent.page_type === "track") {
     internship = dbContentToInternship(dbContent);
+  } else {
+    internship = getSupplementalTrackBySlug(params.slug);
   }
 
   if (!internship) {

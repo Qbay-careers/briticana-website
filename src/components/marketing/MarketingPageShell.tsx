@@ -3,6 +3,8 @@ import MarketingHomeSections from "@/components/marketing/MarketingHomeSections"
 import MarketingNav from "@/components/marketing/MarketingNav";
 import type { Internship, InternshipDomainDoc, SiteSettings, Testimonial } from "@/lib/sanity/types";
 
+import "@/styles/home-internship-popup.css";
+
 type MarketingPageShellProps = {
   homeHero: HomeHeroData;
   internshipDomains?: InternshipDomainDoc[];

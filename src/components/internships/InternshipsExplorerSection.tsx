@@ -11,6 +11,7 @@ import {
   sanitizeInternshipText,
   type QuickCategoryFilter,
 } from "@/lib/internships/internshipRoleClarifier";
+import { SUPPLEMENTAL_CORE_TRACKS } from "@/lib/internships/supplementalTracks";
 
 export interface InternshipsExplorerSectionProps {
   internships: EnrichedInternship[];
@@ -21,125 +22,6 @@ export interface InternshipsExplorerSectionProps {
   /** Optional children rendered directly above the search/filter bar (e.g., advanced domain/region dropdowns on /internships). */
   advancedFilterSlot?: React.ReactNode;
 }
-
-/** Curated representative tracks (using real Sanity slugs) so every category tab on the Homepage has tracks. */
-const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
-  {
-    _id: "showcase-software-development",
-    _type: "internship",
-    title: "Software Development & Cloud Engineering",
-    slug: { _type: "slug", current: "enterprise-cloud-native-net-devops" },
-    domain: {
-      _id: "internshipDomain-software-development",
-      _type: "internshipDomain",
-      title: "Software Development",
-      slug: { _type: "slug", current: "software-development" },
-    },
-    overview:
-      "Build websites and applications while learning how real software teams work.",
-    skillsCovered: ["Programming", "Web development", "APIs & backend", "Git & teamwork"],
-    durationOptions: ["3 months", "6 months", "9 months"],
-    availableRegions: ["United Kingdom", "Ireland", "Germany"],
-    applicationStatus: "open",
-    batchStartDate: "2026-10-10",
-  },
-  {
-    _id: "showcase-digital-marketing",
-    _type: "internship",
-    title: "Digital Marketing, Brand Growth & Campaign Analytics",
-    slug: { _type: "slug", current: "enterprise-digital-marketing-analytics-optimization" },
-    domain: {
-      _id: "internshipDomain-marketing",
-      _type: "internshipDomain",
-      title: "Marketing",
-      slug: { _type: "slug", current: "marketing" },
-    },
-    overview:
-      "Plan digital campaigns, grow brand awareness and learn how startups attract and engage customers.",
-    skillsCovered: [
-      "Campaign strategy",
-      "Content marketing",
-      "SEO & analytics",
-      "Brand growth",
-    ],
-    durationOptions: ["3 months", "6 months", "9 months"],
-    availableRegions: ["United Kingdom", "Ireland", "Germany"],
-    applicationStatus: "open",
-    batchStartDate: "2026-10-10",
-  },
-  {
-    _id: "showcase-ui-ux-design",
-    _type: "internship",
-    title: "UI/UX & Brand Design Studio",
-    slug: { _type: "slug", current: "graphic-design-branding-creative-operations" },
-    domain: {
-      _id: "internshipDomain-ux",
-      _type: "internshipDomain",
-      title: "UX",
-      slug: { _type: "slug", current: "ux" },
-    },
-    overview:
-      "Design intuitive websites, mobile apps and brand visuals through user research and interactive prototypes.",
-    skillsCovered: [
-      "UI/UX wireframing",
-      "Visual branding",
-      "Figma prototypes",
-      "Design systems",
-    ],
-    durationOptions: ["3 months", "6 months", "9 months"],
-    availableRegions: ["United Kingdom", "Ireland", "Germany"],
-    applicationStatus: "open",
-    batchStartDate: "2026-10-10",
-  },
-  {
-    _id: "showcase-finance-accounting",
-    _type: "internship",
-    title: "Finance, FP&A & Financial Analytics",
-    slug: { _type: "slug", current: "financial-analytics-accounting-automation" },
-    domain: {
-      _id: "internshipDomain-finance",
-      _type: "internshipDomain",
-      title: "Finance",
-      slug: { _type: "slug", current: "finance" },
-    },
-    overview:
-      "Analyse financial performance, build budgets and support smart investment and business decisions.",
-    skillsCovered: [
-      "Financial modeling",
-      "Budgeting & FP&A",
-      "Market analysis",
-      "Financial reporting",
-    ],
-    durationOptions: ["3 months", "6 months", "9 months"],
-    availableRegions: ["United Kingdom", "Ireland", "Germany"],
-    applicationStatus: "open",
-    batchStartDate: "2026-10-10",
-  },
-  {
-    _id: "showcase-human-resources",
-    _type: "internship",
-    title: "Human Resources (HR) & People Operations",
-    slug: { _type: "slug", current: "startup-hr-operations-digital-people" },
-    domain: {
-      _id: "internshipDomain-hr",
-      _type: "internshipDomain",
-      title: "HR",
-      slug: { _type: "slug", current: "hr" },
-    },
-    overview:
-      "Help companies recruit great talent, onboard new team members and build a strong workplace culture.",
-    skillsCovered: [
-      "Talent recruitment",
-      "People analytics",
-      "Onboarding workflows",
-      "Team culture",
-    ],
-    durationOptions: ["3 months", "6 months", "9 months"],
-    availableRegions: ["United Kingdom", "Ireland", "Germany"],
-    applicationStatus: "open",
-    batchStartDate: "2026-10-10",
-  },
-];
 
 interface CareerPathOption {
   id: string;
@@ -273,10 +155,9 @@ export default function InternshipsExplorerSection({
   const [searchQuery, setSearchQuery] = useState("");
   const gridAnchorRef = useRef<HTMLDivElement | null>(null);
 
-  // Combine dynamic internships with supplemental core tracks when in homepage preview mode
-  // so every category filter button (All, Business, Technology, Marketing, Design, Finance) has rich roles.
+  // Combine dynamic internships with supplemental core tracks (including official Google Dublin roles)
+  // so every category filter button (All, Business, Technology, Marketing, Design, Finance) and the full /internships page has rich roles.
   const sourceInternships = useMemo(() => {
-    if (!isHomePreview) return internships;
     const existingSlugs = new Set(
       internships.map((i) => i.slug?.current?.trim()).filter(Boolean),
     );
@@ -288,7 +169,7 @@ export default function InternshipsExplorerSection({
       }
     }
     return merged;
-  }, [internships, isHomePreview]);
+  }, [internships]);
 
   const enrichedItems = useMemo(() => {
     return sourceInternships.map((item) => ({
@@ -317,21 +198,32 @@ export default function InternshipsExplorerSection({
       return haystack.includes(q);
     });
 
-    if (isHomePreview && selectedCategory === "All" && !q) {
-      // Show a balanced 6-card showcase on the homepage across distinct categories
-      const seenCategories = new Set<string>();
-      const diverse: typeof matches = [];
-      for (const m of matches) {
-        if (!seenCategories.has(m.clarified.categoryDisplay) && diverse.length < 6) {
-          seenCategories.add(m.clarified.categoryDisplay);
-          diverse.push(m);
+    if (!q) {
+      // Interleave official Google Dublin roles with Briticana tracks so they appear
+      // tastefully mixed together across the grid.
+      const googleRoles = matches.filter((m) =>
+        (m.internship.title || "").toLowerCase().includes("google"),
+      );
+      const otherRoles = matches.filter(
+        (m) => !(m.internship.title || "").toLowerCase().includes("google"),
+      );
+
+      const mixed: typeof matches = [];
+      const maxSlots = isHomePreview && selectedCategory === "All" ? 8 : matches.length;
+      let gIdx = 0;
+      let oIdx = 0;
+
+      // Interleave: Google Dublin role, Briticana track, Google Dublin role, Briticana track...
+      while (mixed.length < maxSlots && (gIdx < googleRoles.length || oIdx < otherRoles.length)) {
+        if (gIdx < googleRoles.length && mixed.length < maxSlots) {
+          mixed.push(googleRoles[gIdx++]);
+        }
+        if (oIdx < otherRoles.length && mixed.length < maxSlots) {
+          mixed.push(otherRoles[oIdx++]);
         }
       }
-      for (const m of matches) {
-        if (diverse.length >= 6) break;
-        if (!diverse.includes(m)) diverse.push(m);
-      }
-      return diverse;
+
+      return mixed;
     }
 
     return matches;

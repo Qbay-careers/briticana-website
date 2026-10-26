@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 
+import HomeInternshipPopup from "@/components/marketing/HomeInternshipPopup";
 import type { HomeHeroData } from "@/components/marketing/homeHero";
 import UkEuropeGoldMap from "@/components/marketing/sections/UkEuropeGoldMap";
 
@@ -10,7 +11,7 @@ export type MarketingBannerSectionProps = {
   homeHero: HomeHeroData;
 };
 
-type SixFeatureTheme = "blue" | "indigo" | "emerald" | "amber" | "slate" | "teal";
+type SixFeatureTheme = "blue" | "indigo" | "emerald" | "amber" | "purple" | "cyan";
 
 type SixFeatureItem = {
   id: string;
@@ -122,7 +123,7 @@ const SIX_FEATURE_DIVS: SixFeatureItem[] = [
     tag: "Idea to Product",
     title: "Product Building Journey",
     description: "Experience the journey from idea to product.",
-    theme: "slate",
+    theme: "purple",
     symbol: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -154,7 +155,7 @@ const SIX_FEATURE_DIVS: SixFeatureItem[] = [
     tag: "Global Team Exposure",
     title: "Gain Real Exposure",
     description: "Get practical exposure by working with real projects and teams.",
-    theme: "teal",
+    theme: "cyan",
     symbol: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.75" />
@@ -318,6 +319,8 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
                 </div>
               </div>
             </div>
+            {/* Pinned in Home Hero banner only */}
+            <HomeInternshipPopup />
           </div>
         </div>
       </section>

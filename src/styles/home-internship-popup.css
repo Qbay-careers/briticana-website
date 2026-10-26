@@ -1,0 +1,580 @@
+/* ==========================================================================
+   Briticana Home Promotional Internship Flyer Popup
+   Appears after 2 seconds on the bottom-right corner of the Home Page.
+   Matches Briticana Royal Blue brand theme, ticket boarding-pass flyer.
+   ========================================================================== */
+
+.briti-promo-flyer-wrap {
+  position: absolute;
+  bottom: 38px;
+  right: 18px;
+  z-index: 25;
+  width: 308px;
+  max-width: calc(100% - 28px);
+  pointer-events: auto;
+  animation: britiFlyerSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (max-width: 991.98px) {
+  .briti-promo-flyer-wrap {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    margin: 20px auto 0;
+    width: 308px;
+    max-width: calc(100% - 28px);
+  }
+}
+
+.briti-promo-flyer-wrap.is-closing {
+  animation: britiFlyerSlideOut 0.35s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes britiFlyerSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes britiFlyerSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+}
+
+.briti-promo-flyer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #eaf2ff 0%, #dbeafe 36%, #e8f1fd 74%, #c7dbf8 100%);
+  border: 1.5px solid #003885;
+  box-shadow:
+    0 18px 40px -10px rgba(0, 32, 96, 0.32),
+    0 6px 16px rgba(0, 32, 96, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 16px 15px 13px;
+  color: #0b1c3e;
+  font-family: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background decorative corner accents */
+.briti-promo-flyer__corner-tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: #f59e0b;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  opacity: 0.85;
+}
+
+.briti-promo-flyer__dot-tl {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2563eb;
+  opacity: 0.85;
+}
+
+.briti-promo-flyer__dot-tr {
+  position: absolute;
+  top: 36px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.85;
+}
+
+/* Close / Dismiss Button */
+.briti-promo-flyer__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 56, 133, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  color: #003885;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.18s ease;
+  padding: 0;
+}
+
+.briti-promo-flyer__close:hover {
+  background: #003885;
+  color: #ffffff;
+  border-color: #003885;
+  transform: rotate(90deg);
+}
+
+/* Header & Crest */
+.briti-promo-flyer__header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.briti-promo-flyer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+
+.briti-promo-flyer__brand-crest {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: inline-block;
+  filter: drop-shadow(0 2px 5px rgba(0, 32, 96, 0.35));
+}
+
+.briti-promo-flyer__brand-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0b1c3e;
+}
+
+.briti-promo-flyer__open-pill {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #003885;
+  color: #ffffff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 8px rgba(0, 56, 133, 0.25);
+}
+
+/* Main Headline */
+.briti-promo-flyer__title-wrap {
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.briti-promo-flyer__title {
+  font-size: 1.45rem;
+  line-height: 1.14;
+  font-weight: 900;
+  color: #091734;
+  margin: 0 0 5px;
+  letter-spacing: -0.03em;
+}
+
+.briti-promo-flyer__title span {
+  display: block;
+}
+
+.briti-promo-flyer__title-year {
+  color: #003885 !important;
+  display: inline !important;
+}
+
+.briti-promo-flyer__location {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Boarding Pass Ticket */
+.briti-promo-flyer__ticket {
+  display: flex;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(0, 40, 120, 0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 32, 96, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
+  transform: none; /* Flat and straight for 100% crisp, razor-sharp font and edge rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.briti-promo-flyer__ticket:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 32, 96, 0.18), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.briti-promo-flyer__ticket-main {
+  flex: 1;
+  background: #ffffff;
+  padding: 10px 12px 10px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  min-width: 0;
+}
+
+.briti-promo-flyer__ticket-subhead {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4b586e;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.briti-promo-flyer__ticket-code {
+  font-size: 2.3rem;
+  font-weight: 950;
+  line-height: 1;
+  color: #081a38;
+  letter-spacing: -0.04em;
+  margin-bottom: 3px;
+}
+
+.briti-promo-flyer__ticket-roles {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #475569;
+  line-height: 1.25;
+}
+
+/* Perforated edge between ticket parts */
+.briti-promo-flyer__ticket-stub {
+  width: 60px;
+  background: #d92525;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 6px;
+  position: relative;
+  border-left: 2px dashed rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+}
+
+.briti-promo-flyer__stub-notch-top,
+.briti-promo-flyer__stub-notch-bottom {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #dbeafe;
+  border: 1px solid rgba(0, 40, 120, 0.14);
+  border-radius: 50%;
+  left: -8px;
+  z-index: 3;
+}
+
+.briti-promo-flyer__stub-notch-top {
+  top: -8px;
+}
+
+.briti-promo-flyer__stub-notch-bottom {
+  bottom: -8px;
+}
+
+.briti-promo-flyer__stub-vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.briti-promo-flyer__stub-number {
+  font-size: 1.65rem;
+  font-weight: 950;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Bottom Dark Capsule with Closing Date and CTA Button */
+.briti-promo-flyer__bottom-bar {
+  background: #071530;
+  border-radius: 14px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.briti-promo-flyer__closes-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f59e0b;
+  border: 2px dashed rgba(15, 23, 42, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #0b1426;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+}
+
+.briti-promo-flyer__closes-label {
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.briti-promo-flyer__closes-date {
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-top: 1px;
+}
+
+.briti-promo-flyer__cta-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #004ecc;
+  color: #ffffff !important;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-decoration: none !important;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 3px 10px rgba(0, 78, 204, 0.45);
+}
+
+.briti-promo-flyer__cta-btn:hover {
+  background: #003da6;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(0, 78, 204, 0.6);
+  color: #ffffff !important;
+}
+
+.briti-promo-flyer__cta-btn i {
+  font-size: 0.95rem;
+  transition: transform 0.18s ease;
+}
+
+.briti-promo-flyer__cta-btn:hover i {
+  transform: translateX(3px);
+}
+
+/* Dublin Cityline Silhouette Graphic at Bottom of Card */
+.briti-promo-flyer__skyline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.28;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .briti-promo-flyer-wrap {
+    bottom: 14px;
+    right: 14px;
+    left: 14px;
+    width: auto;
+    max-width: none;
+  }
+
+  .briti-promo-flyer {
+    padding: 18px 14px 14px;
+  }
+}
+
+
+/* ==========================================================================
+   Google Internship Cards & 3D Graphics Enhancement for Home Internship Section
+   ========================================================================== */
+
+#internships {
+  scroll-margin-top: 86px;
+}
+
+/* 3D Visual Depth for the Internship Section */
+.marketing-home-root .briti-internship-section {
+  position: relative;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(66, 133, 244, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(0, 56, 133, 0.05) 0%, transparent 45%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 40%, #f1f5f9 100%) !important;
+  perspective: 1200px;
+}
+
+/* 3D Elevated Cards */
+.marketing-home-root .briti-role-card {
+  transform-style: preserve-3d;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 40, 110, 0.1) !important;
+  box-shadow:
+    0 12px 28px -10px rgba(0, 32, 96, 0.08),
+    0 3px 8px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  transition:
+    transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.32s ease !important;
+}
+
+.marketing-home-root .briti-role-card:hover {
+  transform: translateY(-8px) scale(1.012) !important;
+  box-shadow:
+    0 24px 48px -12px rgba(0, 40, 120, 0.16),
+    0 8px 18px -4px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 #ffffff !important;
+  border-color: rgba(0, 56, 133, 0.28) !important;
+}
+
+/* ── DISTINCT GOOGLE CARDS (Dublin, Ireland 2027) ─────────────────── */
+.marketing-home-root .briti-role-card--google {
+  background: linear-gradient(172deg, #ffffff 0%, #f8faff 50%, #edf4fe 100%) !important;
+  border: 1.5px solid rgba(66, 133, 244, 0.45) !important;
+  box-shadow:
+    0 16px 36px -10px rgba(66, 133, 244, 0.22),
+    0 4px 12px rgba(66, 133, 244, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+.marketing-home-root .briti-role-card--google::before {
+  content: "" !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4.5px !important;
+  background: linear-gradient(90deg, #4285F4 0% 25%, #EA4335 25% 50%, #FBBC05 50% 75%, #34A853 75% 100%) !important;
+  opacity: 1 !important;
+  z-index: 2;
+}
+
+.marketing-home-root .briti-role-card--google:hover {
+  transform: translateY(-9px) scale(1.018) !important;
+  border-color: #4285F4 !important;
+  box-shadow:
+    0 28px 56px -12px rgba(66, 133, 244, 0.32),
+    0 10px 22px -4px rgba(66, 133, 244, 0.15),
+    inset 0 1px 0 #ffffff !important;
+}
+
+.marketing-home-root .briti-role-card__icon--google {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  border: 1.5px solid rgba(66, 133, 244, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.18) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.marketing-home-root .briti-role-card__badge--google {
+  background: #e8f0fe !important;
+  color: #1a73e8 !important;
+  border: 1px solid #c2e7ff !important;
+  font-weight: 700 !important;
+}
+
+.marketing-home-root .briti-role-card__badge--google .briti-role-card__badge-dot {
+  background: #34A853 !important;
+  box-shadow: 0 0 8px rgba(52, 168, 83, 0.6) !important;
+}
+
+.marketing-home-root .briti-role-card__title-link--google {
+  color: #0b1c3e !important;
+  font-weight: 800 !important;
+}
+
+.marketing-home-root .briti-role-card:hover .briti-role-card__title-link--google {
+  color: #1a73e8 !important;
+}
+
+.marketing-home-root .briti-role-card__apply-link--google {
+  background: #1a73e8 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(26, 115, 232, 0.38) !important;
+  border-radius: 999px !important;
+}
+
+.marketing-home-root .briti-role-card__apply-link--google:hover {
+  background: #1557b0 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(26, 115, 232, 0.52) !important;
+}
+
+/* 3D Category Chips Bar */
+.marketing-home-root .briti-internship-chip {
+  transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+.marketing-home-root .briti-internship-chip:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.marketing-home-root .briti-internship-chip.is-active {
+  background: #003885 !important;
+  color: #ffffff !important;
+  border-color: #003885 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px -2px rgba(0, 56, 133, 0.4) !important;
+}
+
+/* 3D Career Matcher Cards */
+.marketing-home-root .briti-career-matcher__card {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease !important;
+}
+
+.marketing-home-root .briti-career-matcher__card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 36px -8px rgba(0, 32, 96, 0.12) !important;
+}

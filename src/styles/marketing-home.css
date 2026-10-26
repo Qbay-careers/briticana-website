@@ -1,4 +1,5 @@
 /* Marketing landing (purchased HTML theme) — vendor CSS; Bootstrap core from globals.css npm import. */
+@import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap");
 @import url("/edumove/css/owl.theme.default.min.css");
 @import url("/edumove/css/owl.carousel.min.css");
 @import url("/edumove/css/magnific-popup.css");
@@ -35,6 +36,9 @@
 }
 
 .marketing-home-root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background-color: var(--briti-bg);
   color: var(--briti-slate);
 }
@@ -715,258 +719,137 @@
   }
 }
 
-/* ── Six Feature Divs Section Directly Below Hero ────────────── */
+/* ── Six Feature Divs Section Directly Below Hero (Clean White Cards, Royal Blue Icons) ── */
 .marketing-home-root .briti-six-features-section {
-  padding: clamp(52px, 6.5vw, 84px) 0 clamp(28px, 4vw, 48px);
-  background:
-    radial-gradient(circle at 14% 22%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 86% 78%, rgba(139, 92, 246, 0.08) 0%, transparent 45%),
-    linear-gradient(180deg, #f3f7ff 0%, #f8fafc 100%);
+  padding: clamp(48px, 5.5vw, 68px) 0 !important;
+  background: #003885 !important;
+  border-top: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 .marketing-home-root .briti-six-features-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 22px;
 }
 
 .marketing-home-root .briti-six-feature-card {
-  --card-accent: #2563eb;
-  --card-accent-secondary: #38bdf8;
-  --card-border: rgba(37, 99, 235, 0.16);
-  --card-border-hover: rgba(37, 99, 235, 0.38);
-  --card-glow: rgba(37, 99, 235, 0.14);
-  --card-icon-bg: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  --card-icon-border: rgba(59, 130, 246, 0.25);
-  --card-tag-bg: rgba(37, 99, 235, 0.09);
-  --card-tag-text: #1d4ed8;
-  --card-top-bar: linear-gradient(90deg, #2563eb 0%, #38bdf8 55%, #f59e0b 100%);
-
   position: relative;
   overflow: hidden;
-  padding: 28px 26px 26px;
-  border-radius: 22px;
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 255, 0.94) 100%);
-  border: 1px solid var(--card-border);
-  box-shadow:
-    0 12px 32px -10px rgba(15, 23, 42, 0.06),
-    0 4px 12px rgba(15, 23, 42, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  padding: 24px 22px !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 4px 20px rgba(0, 18, 56, 0.22) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.3s ease;
-  z-index: 1;
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease !important;
 }
 
-/* Vibrant top accent bar on each card */
-.marketing-home-root .briti-six-feature-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--card-top-bar);
-  opacity: 0.88;
-  transition: height 0.25s ease, opacity 0.25s ease;
-}
-
-/* Ambient radial corner glow inside card */
+.marketing-home-root .briti-six-feature-card::before,
 .marketing-home-root .briti-six-feature-card__glow {
-  position: absolute;
-  top: -48px;
-  right: -48px;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  display: none !important;
 }
 
 .marketing-home-root .briti-six-feature-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--card-border-hover);
-  box-shadow:
-    0 22px 44px -12px var(--card-glow),
-    0 8px 20px -6px rgba(15, 23, 42, 0.06),
-    inset 0 1px 0 #ffffff;
+  transform: translateY(-2px) !important;
+  border-color: #93c5fd !important;
+  box-shadow: 0 10px 24px -8px rgba(0, 53, 148, 0.12) !important;
 }
 
-.marketing-home-root .briti-six-feature-card:hover::before {
-  height: 5px;
-  opacity: 1;
-}
-
-.marketing-home-root .briti-six-feature-card:hover .briti-six-feature-card__glow {
-  transform: scale(1.25);
-}
-
-/* Per-Card Distinct Color Themes */
-.marketing-home-root .briti-six-feature-card--blue {
-  --card-accent: #2563eb;
-  --card-border: rgba(37, 99, 235, 0.16);
-  --card-border-hover: rgba(37, 99, 235, 0.4);
-  --card-glow: rgba(37, 99, 235, 0.16);
-  --card-icon-bg: linear-gradient(135deg, #eff6ff 0%, #dbeafe 60%, #fef3c7 100%);
-  --card-icon-border: rgba(59, 130, 246, 0.28);
-  --card-tag-bg: rgba(37, 99, 235, 0.1);
-  --card-tag-text: #1d4ed8;
-  --card-top-bar: linear-gradient(90deg, #2563eb 0%, #0ea5e9 55%, #f59e0b 100%);
-}
-
-.marketing-home-root .briti-six-feature-card--purple {
-  --card-accent: #7c3aed;
-  --card-border: rgba(124, 58, 237, 0.16);
-  --card-border-hover: rgba(124, 58, 237, 0.4);
-  --card-glow: rgba(124, 58, 237, 0.16);
-  --card-icon-bg: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 60%, #fce7f3 100%);
-  --card-icon-border: rgba(139, 92, 246, 0.28);
-  --card-tag-bg: rgba(124, 58, 237, 0.1);
-  --card-tag-text: #6d28d9;
-  --card-top-bar: linear-gradient(90deg, #7c3aed 0%, #ec4899 55%, #f97316 100%);
-}
-
-.marketing-home-root .briti-six-feature-card--emerald {
-  --card-accent: #059669;
-  --card-border: rgba(16, 185, 129, 0.18);
-  --card-border-hover: rgba(16, 185, 129, 0.42);
-  --card-glow: rgba(16, 185, 129, 0.16);
-  --card-icon-bg: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 60%, #fef3c7 100%);
-  --card-icon-border: rgba(16, 185, 129, 0.3);
-  --card-tag-bg: rgba(16, 185, 129, 0.11);
-  --card-tag-text: #047857;
-  --card-top-bar: linear-gradient(90deg, #10b981 0%, #14b8a6 55%, #f59e0b 100%);
-}
-
-.marketing-home-root .briti-six-feature-card--amber {
-  --card-accent: #d97706;
-  --card-border: rgba(245, 158, 11, 0.2);
-  --card-border-hover: rgba(245, 158, 11, 0.45);
-  --card-glow: rgba(245, 158, 11, 0.17);
-  --card-icon-bg: linear-gradient(135deg, #fffbeb 0%, #fef3c7 55%, #ffedd5 100%);
-  --card-icon-border: rgba(245, 158, 11, 0.32);
-  --card-tag-bg: rgba(245, 158, 11, 0.12);
-  --card-tag-text: #b45309;
-  --card-top-bar: linear-gradient(90deg, #f59e0b 0%, #f97316 55%, #ec4899 100%);
-}
-
-.marketing-home-root .briti-six-feature-card--indigo {
-  --card-accent: #4f46e5;
-  --card-border: rgba(79, 70, 229, 0.16);
-  --card-border-hover: rgba(79, 70, 229, 0.4);
-  --card-glow: rgba(79, 70, 229, 0.16);
-  --card-icon-bg: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 55%, #e0f2fe 100%);
-  --card-icon-border: rgba(99, 102, 241, 0.28);
-  --card-tag-bg: rgba(79, 70, 229, 0.1);
-  --card-tag-text: #4338ca;
-  --card-top-bar: linear-gradient(90deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
-}
-
-.marketing-home-root .briti-six-feature-card--cyan {
-  --card-accent: #0284c7;
-  --card-border: rgba(14, 165, 233, 0.18);
-  --card-border-hover: rgba(14, 165, 233, 0.42);
-  --card-glow: rgba(14, 165, 233, 0.16);
-  --card-icon-bg: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 55%, #dcfce7 100%);
-  --card-icon-border: rgba(14, 165, 233, 0.3);
-  --card-tag-bg: rgba(14, 165, 233, 0.11);
-  --card-tag-text: #0369a1;
-  --card-top-bar: linear-gradient(90deg, #0ea5e9 0%, #10b981 55%, #6366f1 100%);
-}
-
-/* Header row inside each card: Colorful SVG Symbol + Category Tag + Step Number */
 .marketing-home-root .briti-six-feature-card__top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-bottom: 16px !important;
 }
 
 .marketing-home-root .briti-six-feature-card__icon-wrap {
-  width: 58px;
-  height: 58px;
-  border-radius: 16px;
-  background: var(--card-icon-bg);
-  border: 1px solid var(--card-icon-border);
-  box-shadow:
-    0 6px 16px -4px var(--card-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 10px !important;
+  background: #003885 !important;
+  border: 1px solid #003885 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  transition: background-color 0.18s ease, border-color 0.18s ease !important;
 }
 
 .marketing-home-root .briti-six-feature-card:hover .briti-six-feature-card__icon-wrap {
-  transform: scale(1.08) rotate(-3deg);
-  box-shadow:
-    0 10px 22px -4px var(--card-glow),
-    inset 0 1px 0 #ffffff;
+  transform: none !important;
+  background: #004ecc !important;
+  border-color: #004ecc !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
 }
 
 .marketing-home-root .briti-six-feature-card__meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-end !important;
 }
 
 .marketing-home-root .briti-six-feature-card__tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: var(--card-tag-bg);
-  color: var(--card-tag-text);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 4px 11px !important;
+  border-radius: 6px !important;
+  background: #eff6ff !important;
+  border: 1px solid #dbeafe !important;
+  color: #003885 !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
 }
 
 .marketing-home-root .briti-six-feature-card__num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 28px;
-  height: 24px;
-  padding: 0 7px;
-  border-radius: 8px;
-  background: rgba(15, 23, 42, 0.04);
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  font-size: 0.73rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #64748b;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 28px !important;
+  height: 24px !important;
+  padding: 0 7px !important;
+  border-radius: 6px !important;
+  background: #eff6ff !important;
+  border: 1px solid #dbeafe !important;
+  font-size: 0.73rem !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: 0.02em !important;
+  color: #003885 !important;
 }
 
 .marketing-home-root .briti-six-feature-card__title {
-  font-size: 1.18rem;
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  color: #071026;
-  margin: 0 0 8px;
-  line-height: 1.3;
-  transition: color 0.2s ease;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.015em !important;
+  color: #0b1c3e !important;
+  margin: 0 0 6px !important;
+  line-height: 1.3 !important;
+  transition: color 0.18s ease !important;
 }
 
 .marketing-home-root .briti-six-feature-card:hover .briti-six-feature-card__title {
-  color: var(--card-accent);
+  color: #003885 !important;
 }
 
 .marketing-home-root .briti-six-feature-card__desc {
-  font-size: 0.94rem;
-  line-height: 1.58;
-  color: #475569;
-  margin: 0;
+  font-size: 0.94rem !important;
+  line-height: 1.55 !important;
+  color: #475569 !important;
+  margin: 0 !important;
 }
 
 @media (min-width: 576px) and (max-width: 991.98px) {
@@ -2136,7 +2019,9 @@
 
 /* Prevent horizontal overflow on entire marketing layout */
 .marketing-home-root {
-  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Unify dark & light section backgrounds across Homepage & Portal */
@@ -5195,112 +5080,6 @@
   color: #cbd5e1;
 }
 
-/* 3. Six Feature Cards Section (.briti-six-features-section): Clean, Simple, Human-Designed & Matched to Hero Royal Blue */
-.marketing-home-root .briti-six-features-section {
-  padding: clamp(44px, 5vw, 64px) 0 !important;
-  background: #f4f7fc !important;
-  border-bottom: 1px solid #e2e8f0 !important;
-}
-
-.marketing-home-root .briti-six-features-grid {
-  gap: 20px !important;
-}
-
-.marketing-home-root .briti-six-feature-card {
-  position: relative;
-  overflow: hidden;
-  padding: 24px !important;
-  border-radius: 14px !important;
-  background: #ffffff !important;
-  border: 1px solid #dbe6f5 !important;
-  box-shadow: 0 2px 10px rgba(0, 46, 133, 0.05) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease !important;
-}
-
-.marketing-home-root .briti-six-feature-card::before,
-.marketing-home-root .briti-six-feature-card__glow {
-  display: none !important;
-}
-
-.marketing-home-root .briti-six-feature-card:hover {
-  transform: translateY(-2px) !important;
-  border-color: #93c5fd !important;
-  box-shadow: 0 10px 24px -8px rgba(0, 53, 148, 0.12) !important;
-}
-
-.marketing-home-root .briti-six-feature-card__top {
-  align-items: center !important;
-  margin-bottom: 16px !important;
-}
-
-.marketing-home-root .briti-six-feature-card__icon-wrap {
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 10px !important;
-  background: #003594 !important;
-  border: 1px solid #003594 !important;
-  color: #ffffff !important;
-  box-shadow: none !important;
-  transform: none !important;
-  transition: background-color 0.18s ease, border-color 0.18s ease !important;
-}
-
-.marketing-home-root .briti-six-feature-card:hover .briti-six-feature-card__icon-wrap {
-  transform: none !important;
-  background: #0d55e0 !important;
-  border-color: #0d55e0 !important;
-  color: #ffffff !important;
-  box-shadow: none !important;
-}
-
-.marketing-home-root .briti-six-feature-card__tag {
-  padding: 4px 11px !important;
-  border-radius: 6px !important;
-  background: #eff6ff !important;
-  border: 1px solid #dbeafe !important;
-  color: #003594 !important;
-  font-size: 0.75rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0 !important;
-}
-
-.marketing-home-root .briti-six-feature-card__num {
-  min-width: 28px !important;
-  height: 24px !important;
-  padding: 0 7px !important;
-  border-radius: 6px !important;
-  background: #eff6ff !important;
-  border: 1px solid #dbeafe !important;
-  font-size: 0.73rem !important;
-  font-weight: 700 !important;
-  font-variant-numeric: tabular-nums !important;
-  letter-spacing: 0.02em !important;
-  color: #003594 !important;
-}
-
-.marketing-home-root .briti-six-feature-card__title {
-  font-size: 1.08rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
-  color: #0b1c3e !important;
-  margin: 0 0 6px !important;
-}
-
-.marketing-home-root .briti-six-feature-card:hover .briti-six-feature-card__title {
-  color: #003594 !important;
-}
-
-.marketing-home-root .briti-six-feature-card__desc {
-  font-size: 0.925rem !important;
-  line-height: 1.56 !important;
-  color: #475569 !important;
-}
-
 /* 4. Explore Internship Domains Section (.briti-home-domains-section & .briti-domain-card) */
 .marketing-home-root .briti-home-domains-section,
 .marketing-home-root .briti-domains-section {
@@ -6324,6 +6103,7 @@
 }
 
 .marketing-home-root .briti-cert__gothic-title {
+  font-family: "UnifrakturCook", "Cinzel Decorative", "Old English Text MT", "Cloister Black", Georgia, serif;
   font-size: clamp(1.95rem, 2.75vw, 2.65rem);
   font-weight: 700;
   color: #1d2b40;

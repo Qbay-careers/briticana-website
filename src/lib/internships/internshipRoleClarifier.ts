@@ -571,6 +571,11 @@ function cleanRoleTitle(rawTitle: string, fallbackCategory: string): {
     return { cleanTitle: fallbackCategory };
   }
 
+  // Preserve official Google internship titles cleanly
+  if (/^google\b/i.test(t)) {
+    return { cleanTitle: t };
+  }
+
   // Remove repetitive "Advanced 90-Day Remote Internship Program" prefix
   t = t
     .replace(/^Advanced\s+90-Day\s+Remote\s+Internship\s+Program\s*[–—-]?\s*/i, "")

@@ -81,6 +81,7 @@ export async function fetchAllInternshipContent(): Promise<InternshipPageContent
       method: "GET",
       headers: { Accept: "application/json" },
       cache: "no-store",
+      signal: AbortSignal.timeout(2000),
     });
     if (!res.ok) return [];
     const data = (await res.json()) as { results?: InternshipPageContentDTO[] };
@@ -101,6 +102,7 @@ export async function fetchInternshipContentByKey(
         method: "GET",
         headers: { Accept: "application/json" },
         cache: "no-store",
+        signal: AbortSignal.timeout(2000),
       },
     );
     if (!res.ok) return null;

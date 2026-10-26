@@ -1,14 +1,7 @@
 import type { ReactNode } from "react";
-import { UnifrakturCook } from "next/font/google";
 import Link from "next/link";
 
 import type { HomeHeroData } from "@/components/marketing/homeHero";
-
-const gothicCertFont = UnifrakturCook({
-  weight: "700",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 type CertFeatureCard = {
   id: string;
@@ -163,7 +156,7 @@ export default function MarketingCertificationSection(_props: MarketingCertifica
               <div className="briti-cert__inner-border">
                 {/* Gothic / Old English Certificate Heading */}
                 <div className="briti-cert__header-center">
-                  <h3 className={`briti-cert__gothic-title ${gothicCertFont.className}`}>
+                  <h3 className="briti-cert__gothic-title">
                     Certificate of Completion
                   </h3>
                   <p className="briti-cert__presented-kicker">THIS CERTIFIES THAT</p>

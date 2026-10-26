@@ -8,7 +8,7 @@ export type MarketingCoursesSectionProps = {
 
 export default function MarketingCoursesSection({ internships }: MarketingCoursesSectionProps) {
   return (
-    <section className="courses-area briti-internship-section">
+    <section id="internships" className="courses-area briti-internship-section">
       <div className="container mw-1380">
         <InternshipSectionIntro showBreadcrumbs={false} />
         <InternshipsExplorerSection internships={internships} isHomePreview={true} />
