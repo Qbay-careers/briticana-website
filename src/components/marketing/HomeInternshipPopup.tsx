@@ -79,7 +79,7 @@ export default function HomeInternshipPopup() {
             alt="Google Internship Programs 2027 - Dublin, Ireland (10 Roles) - Briticana"
             className="briti-promo-poster-img"
             width={576}
-            height={1024}
+            height={840}
             loading="eager"
           />
 
