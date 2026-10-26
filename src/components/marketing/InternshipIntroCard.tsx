@@ -32,7 +32,7 @@ function statusBadgeText(status: InternshipApplicationStatus | undefined): strin
 
 function GoogleLogoIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
       <path
         fill="#4285F4"
         d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"
@@ -99,6 +99,11 @@ export default function InternshipIntroCard({
       }h-100 w-100 d-flex flex-column`}
       style={cardVars}
     >
+      {/* Google 4-Color Signature Rainbow Accent Bar */}
+      {isGoogle && (
+        <div className="briti-google-card-top-bar" aria-hidden="true" />
+      )}
+
       {/* 1. Top Area: Role Icon / Google G Logo + Category Name + Small Badge */}
       <div className="briti-role-card__top">
         <div className="briti-role-card__category-wrap">
@@ -111,10 +116,18 @@ export default function InternshipIntroCard({
             {isGoogle ? <GoogleLogoIcon /> : visual.icon}
           </div>
           <div className="briti-role-card__category-text">
-            <span className="briti-role-card__category-label">
+            <span
+              className={`briti-role-card__category-label ${
+                isGoogle ? "briti-role-card__category-label--google" : ""
+              }`}
+            >
               {isGoogle ? "Google Dublin • EMEA HQ" : info.categoryDisplay}
             </span>
-            <span className="briti-role-card__spec-label">
+            <span
+              className={`briti-role-card__spec-label ${
+                isGoogle ? "briti-role-card__spec-label--google" : ""
+              }`}
+            >
               {isGoogle ? "Official 2027 Cohort 🇮🇪" : info.specialization || "Structured Program"}
             </span>
           </div>
@@ -146,10 +159,17 @@ export default function InternshipIntroCard({
       </div>
 
       {/* 3. Clear Meta Specs: Duration • Next Batch • Location • Level */}
-      <div className="briti-role-card__meta" aria-label="Internship key details">
+      <div
+        className={`briti-role-card__meta ${
+          isGoogle ? "briti-role-card__meta--google" : ""
+        }`}
+        aria-label="Internship key details"
+      >
         <div className="briti-role-card__meta-item">
           <svg
-            className="briti-role-card__meta-icon"
+            className={`briti-role-card__meta-icon ${
+              isGoogle ? "briti-role-card__meta-icon--google-duration" : ""
+            }`}
             width="15"
             height="15"
             viewBox="0 0 24 24"
@@ -167,7 +187,9 @@ export default function InternshipIntroCard({
 
         <div className="briti-role-card__meta-item briti-role-card__meta-item--batch">
           <svg
-            className="briti-role-card__meta-icon"
+            className={`briti-role-card__meta-icon ${
+              isGoogle ? "briti-role-card__meta-icon--google-batch" : ""
+            }`}
             width="15"
             height="15"
             viewBox="0 0 24 24"
@@ -192,7 +214,11 @@ export default function InternshipIntroCard({
           </svg>
           <span>
             <strong>Next batch:</strong>{" "}
-            <span className="briti-role-card__batch-val">
+            <span
+              className={`briti-role-card__batch-val ${
+                isGoogle ? "briti-role-card__batch-val--google" : ""
+              }`}
+            >
               {isGoogle ? "Closes Nov 13 • Summer 2027" : info.nextBatchLabel}
             </span>
           </span>
@@ -200,7 +226,9 @@ export default function InternshipIntroCard({
 
         <div className="briti-role-card__meta-item">
           <svg
-            className="briti-role-card__meta-icon"
+            className={`briti-role-card__meta-icon ${
+              isGoogle ? "briti-role-card__meta-icon--google-location" : ""
+            }`}
             width="15"
             height="15"
             viewBox="0 0 24 24"
@@ -222,7 +250,9 @@ export default function InternshipIntroCard({
 
         <div className="briti-role-card__meta-item">
           <svg
-            className="briti-role-card__meta-icon"
+            className={`briti-role-card__meta-icon ${
+              isGoogle ? "briti-role-card__meta-icon--google-level" : ""
+            }`}
             width="15"
             height="15"
             viewBox="0 0 24 24"
@@ -240,15 +270,28 @@ export default function InternshipIntroCard({
         </div>
       </div>
 
-      {/* 4. What You'll Learn */}
+      {/* 4. What You'll Learn / Core Focus & Skills */}
       <div className="briti-role-card__learn">
-        <p className="briti-role-card__learn-heading">
+        <p
+          className={`briti-role-card__learn-heading ${
+            isGoogle ? "briti-role-card__learn-heading--google" : ""
+          }`}
+        >
           {isGoogle ? "Core Focus & Skills" : "What you'll learn"}
         </p>
-        <div className="briti-role-card__learn-tags">
+        <div
+          className={`briti-role-card__learn-tags ${
+            isGoogle ? "briti-role-card__learn-tags--google" : ""
+          }`}
+        >
           {info.learnSkills.map((skill, idx) => (
-            <span key={skill} className="briti-role-card__learn-tag">
-              {idx > 0 ? (
+            <span
+              key={skill}
+              className={`briti-role-card__learn-tag ${
+                isGoogle ? "briti-role-card__learn-tag--google" : ""
+              }`}
+            >
+              {!isGoogle && idx > 0 ? (
                 <span className="briti-role-card__learn-sep" aria-hidden="true">
                   •
                 </span>

@@ -5338,7 +5338,7 @@
   -webkit-backdrop-filter: none !important;
 }
 
-.marketing-home-root .briti-role-card::before,
+.marketing-home-root .briti-role-card:not(.briti-role-card--google)::before,
 .marketing-home-root .briti-detail-snapshot::before,
 .marketing-home-root .briti-detail-sidebar::before {
   display: none !important;

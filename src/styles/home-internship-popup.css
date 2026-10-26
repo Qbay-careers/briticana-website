@@ -2,28 +2,61 @@
    Briticana Home Promotional Internship 3D Poster Flyer Popup
    Appears after 1 second on the bottom-right corner of the Home Page Hero.
    Renders the full 3D rendered Google Internship Dublin 2027 poster artwork.
+   Includes interactive "Explore ->" button navigating directly to /internships.
+   Fully responsive across all viewport sizes.
    ========================================================================== */
 
 .briti-promo-flyer-wrap {
   position: absolute;
-  bottom: 108px;
-  right: 20px;
+  bottom: 88px;
+  right: 24px;
   z-index: 25;
-  width: 220px;
+  width: 254px;
   max-width: calc(100% - 24px);
   pointer-events: auto;
   animation: britiFlyerSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@media (max-width: 991.98px) {
+/* Medium / Laptop Desktops */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .briti-promo-flyer-wrap {
+    width: 242px;
+    bottom: 84px;
+    right: 18px;
+  }
+}
+
+/* Tablets (Hero stacks vertically) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .briti-promo-flyer-wrap {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    margin: 28px auto 0;
+    width: 280px;
+    max-width: 90vw;
+  }
+}
+
+/* Mobile Screens */
+@media (max-width: 767.98px) {
   .briti-promo-flyer-wrap {
     position: relative;
     bottom: auto;
     right: auto;
     left: auto;
     margin: 22px auto 0;
-    width: 250px;
-    max-width: calc(100% - 24px);
+    width: min(285px, 86vw);
+    max-width: 100%;
+  }
+}
+
+/* Compact Mobile Screens */
+@media (max-width: 379.98px) {
+  .briti-promo-flyer-wrap {
+    width: min(250px, 92vw);
+    margin: 18px auto 0;
   }
 }
 
@@ -56,28 +89,29 @@
 /* 3D Poster Card Container */
 .briti-promo-poster-card {
   position: relative;
-  border-radius: 20px;
+  border-radius: 22px;
   overflow: hidden;
   background: #001f4d;
   border: 1.5px solid rgba(255, 255, 255, 0.9);
   box-shadow:
-    0 22px 48px -10px rgba(0, 24, 72, 0.45),
-    0 8px 20px rgba(0, 24, 72, 0.22),
+    0 24px 52px -10px rgba(0, 24, 72, 0.48),
+    0 8px 22px rgba(0, 24, 72, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
   line-height: 0;
 }
 
 .briti-promo-poster-card:hover {
   transform: translateY(-4px) scale(1.015);
   box-shadow:
-    0 30px 60px -12px rgba(0, 24, 72, 0.55),
+    0 32px 64px -12px rgba(0, 24, 72, 0.58),
     0 12px 28px rgba(0, 24, 72, 0.28);
 }
 
 .briti-promo-poster-link {
+  position: relative;
   display: block;
-  text-decoration: none;
+  text-decoration: none !important;
   line-height: 0;
   cursor: pointer;
 }
@@ -88,9 +122,53 @@
   aspect-ratio: 576 / 1024;
   display: block;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 20px;
   -webkit-user-drag: none;
   user-select: none;
+}
+
+/* Interactive 3D Explore Button over the bottom blue pill */
+.briti-promo-poster__explore-btn {
+  position: absolute;
+  right: 8.2%;
+  bottom: 5.6%;
+  width: 39.5%;
+  height: 7.2%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #1d6fee 0%, #004ecc 100%);
+  color: #ffffff !important;
+  font-size: clamp(0.72rem, 1vw, 0.84rem);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-shadow:
+    0 4px 14px rgba(0, 78, 204, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  z-index: 6;
+  letter-spacing: -0.01em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.briti-promo-poster-link:hover .briti-promo-poster__explore-btn,
+.briti-promo-poster__explore-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  background: linear-gradient(180deg, #2b7ff0 0%, #0042b3 100%);
+  box-shadow:
+    0 6px 20px rgba(0, 78, 204, 0.72),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.briti-promo-poster__explore-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.briti-promo-poster-link:hover .briti-promo-poster__explore-btn svg,
+.briti-promo-poster__explore-btn:hover svg {
+  transform: translateX(3px);
 }
 
 /* Close / Dismiss Button */
@@ -124,7 +202,7 @@
 }
 
 /* ==========================================================================
-   Google Internship Cards & 3D Graphics Enhancement for Home Internship Section
+   Google Internship Cards & Distinct Google Material Design 3 Enhancement
    ========================================================================== */
 
 #internships {
@@ -141,7 +219,7 @@
   perspective: 1200px;
 }
 
-/* 3D Elevated Cards */
+/* 3D Elevated Standard Cards */
 .marketing-home-root .briti-role-card {
   transform-style: preserve-3d;
   border-radius: 20px !important;
@@ -166,83 +244,241 @@
   border-color: rgba(0, 56, 133, 0.28) !important;
 }
 
-/* ── DISTINCT GOOGLE CARDS (Dublin, Ireland 2027) ─────────────────── */
+/* ── DISTINCT GOOGLE CARDS (Google Material 3 Signature Design) ────────── */
 .marketing-home-root .briti-role-card--google {
-  background: linear-gradient(172deg, #ffffff 0%, #f8faff 50%, #edf4fe 100%) !important;
-  border: 1.5px solid rgba(66, 133, 244, 0.45) !important;
+  position: relative !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  border: 1.5px solid rgba(66, 133, 244, 0.35) !important;
   box-shadow:
-    0 16px 36px -10px rgba(66, 133, 244, 0.22),
-    0 4px 12px rgba(66, 133, 244, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    0 12px 32px -10px rgba(66, 133, 244, 0.18),
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 #ffffff !important;
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease !important;
+  overflow: hidden !important;
+  padding: 24px 22px 22px !important;
 }
 
-.marketing-home-root .briti-role-card--google::before {
-  content: "" !important;
+.marketing-home-root .briti-role-card--google:hover {
+  transform: translateY(-6px) !important;
+  border-color: #4285F4 !important;
+  box-shadow:
+    0 24px 48px -12px rgba(66, 133, 244, 0.30),
+    0 0 0 1.5px #4285F4 !important;
+}
+
+/* Google 4-Color Signature Top Accent Bar */
+.marketing-home-root .briti-google-card-top-bar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 4.5px !important;
+  height: 5px;
   background: linear-gradient(90deg, #4285F4 0% 25%, #EA4335 25% 50%, #FBBC05 50% 75%, #34A853 75% 100%) !important;
-  opacity: 1 !important;
-  z-index: 2;
+  border-radius: 22px 22px 0 0;
+  z-index: 10;
+  pointer-events: none;
 }
 
-.marketing-home-root .briti-role-card--google:hover {
-  transform: translateY(-9px) scale(1.018) !important;
-  border-color: #4285F4 !important;
-  box-shadow:
-    0 28px 56px -12px rgba(66, 133, 244, 0.32),
-    0 10px 22px -4px rgba(66, 133, 244, 0.15),
-    inset 0 1px 0 #ffffff !important;
+.marketing-home-root .briti-role-card--google::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 5px !important;
+  background: linear-gradient(90deg, #4285F4 0% 25%, #EA4335 25% 50%, #FBBC05 50% 75%, #34A853 75% 100%) !important;
+  border-radius: 22px 22px 0 0 !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
 }
 
+/* Google Official "G" Icon Badge */
 .marketing-home-root .briti-role-card__icon--google {
-  width: 44px !important;
-  height: 44px !important;
+  width: 48px !important;
+  height: 48px !important;
   border-radius: 12px !important;
   background: #ffffff !important;
-  border: 1.5px solid rgba(66, 133, 244, 0.3) !important;
-  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.18) !important;
+  border: 1.5px solid rgba(66, 133, 244, 0.28) !important;
+  box-shadow: 0 4px 14px rgba(66, 133, 244, 0.18) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
-.marketing-home-root .briti-role-card__badge--google {
-  background: #e8f0fe !important;
+.marketing-home-root .briti-role-card--google:hover .briti-role-card__icon--google {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 6px 18px rgba(66, 133, 244, 0.28) !important;
+}
+
+/* Category Label & Spec */
+.marketing-home-root .briti-role-card__category-label--google {
   color: #1a73e8 !important;
-  border: 1px solid #c2e7ff !important;
+  font-weight: 750 !important;
+  font-size: 0.88rem !important;
+  letter-spacing: -0.01em !important;
+}
+
+.marketing-home-root .briti-role-card__spec-label--google {
+  color: #5f6368 !important;
+  font-weight: 500 !important;
+  font-size: 0.74rem !important;
+}
+
+/* Google Status Pill (Google Green "Open") */
+.marketing-home-root .briti-role-card__badge--google {
+  background: #e6f4ea !important;
+  color: #137333 !important;
+  border: 1px solid #ceead6 !important;
+  border-radius: 999px !important;
   font-weight: 700 !important;
+  font-size: 0.76rem !important;
+  padding: 4px 12px !important;
 }
 
 .marketing-home-root .briti-role-card__badge--google .briti-role-card__badge-dot {
   background: #34A853 !important;
-  box-shadow: 0 0 8px rgba(52, 168, 83, 0.6) !important;
+  box-shadow: 0 0 8px rgba(52, 168, 83, 0.7) !important;
 }
 
+/* Title & Explanation */
 .marketing-home-root .briti-role-card__title-link--google {
-  color: #0b1c3e !important;
+  color: #202124 !important;
   font-weight: 800 !important;
+  font-size: 1.15rem !important;
+  letter-spacing: -0.02em !important;
+  transition: color 0.18s ease !important;
 }
 
 .marketing-home-root .briti-role-card:hover .briti-role-card__title-link--google {
   color: #1a73e8 !important;
 }
 
+.marketing-home-root .briti-role-card--google .briti-role-card__explanation {
+  color: #5f6368 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Meta Box Google Workspace Design */
+.marketing-home-root .briti-role-card__meta--google {
+  background: #f8fafd !important;
+  border: 1px solid #e1e7f0 !important;
+  border-radius: 14px !important;
+  padding: 13px 15px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.marketing-home-root .briti-role-card__meta-icon--google-duration {
+  color: #4285F4 !important;
+}
+
+.marketing-home-root .briti-role-card__meta-icon--google-batch {
+  color: #EA4335 !important;
+}
+
+.marketing-home-root .briti-role-card__batch-val--google {
+  background: #fce8e6 !important;
+  color: #c5221f !important;
+  border: 1px solid #fad2cf !important;
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+  font-weight: 700 !important;
+  font-size: 0.76rem !important;
+  display: inline-block !important;
+}
+
+.marketing-home-root .briti-role-card__meta-icon--google-location {
+  color: #34A853 !important;
+}
+
+.marketing-home-root .briti-role-card__meta-icon--google-level {
+  color: #FBBC05 !important;
+}
+
+/* Core Focus & Skills - Material 3 Pill Chips */
+.marketing-home-root .briti-role-card__learn-heading--google {
+  color: #5f6368 !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 8px !important;
+}
+
+.marketing-home-root .briti-role-card__learn-tags--google {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+.marketing-home-root .briti-role-card__learn-tag--google {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 4px 11px !important;
+  border-radius: 8px !important;
+  background: #e8f0fe !important;
+  border: 1px solid #d2e3fc !important;
+  color: #1967d2 !important;
+  font-size: 0.77rem !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.01em !important;
+  transition: all 0.18s ease !important;
+}
+
+.marketing-home-root .briti-role-card__learn-tag--google:hover {
+  background: #d2e3fc !important;
+  color: #1557b0 !important;
+  border-color: #aecbfa !important;
+}
+
+/* Footer CTA Buttons */
+.marketing-home-root .briti-role-card--google .briti-role-card__view-btn {
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  border: 1.5px solid #dadce0 !important;
+  color: #1a73e8 !important;
+  font-weight: 700 !important;
+  padding: 9px 18px !important;
+  transition: all 0.2s ease !important;
+}
+
+.marketing-home-root .briti-role-card--google .briti-role-card__view-btn:hover {
+  background: #f8fafd !important;
+  border-color: #1a73e8 !important;
+  color: #1557b0 !important;
+  transform: translateY(-1px) !important;
+}
+
 .marketing-home-root .briti-role-card__apply-link--google {
+  border-radius: 999px !important;
   background: #1a73e8 !important;
+  border: 1.5px solid #1a73e8 !important;
   color: #ffffff !important;
   font-weight: 700 !important;
-  box-shadow: 0 4px 14px rgba(26, 115, 232, 0.38) !important;
-  border-radius: 999px !important;
+  padding: 9px 20px !important;
+  box-shadow: 0 4px 14px rgba(26, 115, 232, 0.35) !important;
+  transition: all 0.2s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
 }
 
 .marketing-home-root .briti-role-card__apply-link--google:hover {
   background: #1557b0 !important;
+  border-color: #1557b0 !important;
   color: #ffffff !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 18px rgba(26, 115, 232, 0.52) !important;
+  box-shadow: 0 6px 20px rgba(26, 115, 232, 0.48) !important;
 }
 
 /* 3D Category Chips Bar */

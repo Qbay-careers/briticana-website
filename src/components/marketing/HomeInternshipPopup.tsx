@@ -28,24 +28,13 @@ export default function HomeInternshipPopup() {
 
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     setIsClosing(true);
     setTimeout(() => {
       setIsOpen(false);
       setIsClosing(false);
       // Do NOT set sessionStorage here so refreshing the page pops it up again
     }, 320);
-  };
-
-  const handleCtaClick = (e: React.MouseEvent) => {
-    const section =
-      document.getElementById("internships") ||
-      document.getElementById("courses") ||
-      document.querySelector(".briti-internship-section");
-
-    if (section) {
-      e.preventDefault();
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
   };
 
   if (!isOpen) return null;
@@ -56,7 +45,7 @@ export default function HomeInternshipPopup() {
       aria-label="Google Internship Programs 2027 Dublin Announcement"
     >
       <div className="briti-promo-poster-card">
-        {/* Close / Dismiss Button */}
+        {/* Dismiss / Close Button */}
         <button
           type="button"
           className="briti-promo-flyer__close"
@@ -79,12 +68,11 @@ export default function HomeInternshipPopup() {
           </svg>
         </button>
 
-        {/* Clickable 3D Poster that smoothly scrolls to Google Internship roles */}
+        {/* Clickable 3D Poster navigating directly to /internships page */}
         <Link
-          href="/internships#internships"
-          onClick={handleCtaClick}
+          href="/internships"
           className="briti-promo-poster-link"
-          aria-label="Explore Google Internship Programs 2027 in Dublin, Ireland"
+          aria-label="Explore Google Internship Programs 2027 on Briticana"
         >
           <img
             src="/assets/google-internship-promo-poster.jpg"
@@ -94,6 +82,27 @@ export default function HomeInternshipPopup() {
             height={1024}
             loading="eager"
           />
+
+          {/* Glowing 3D Explore Button over the bottom pill */}
+          <span
+            className="briti-promo-poster__explore-btn"
+            aria-hidden="true"
+          >
+            <span>Explore</span>
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </span>
         </Link>
       </div>
     </aside>
