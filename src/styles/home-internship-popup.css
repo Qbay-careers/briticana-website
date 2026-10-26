@@ -6,11 +6,11 @@
 
 .briti-promo-flyer-wrap {
   position: absolute;
-  bottom: 38px;
+  bottom: 112px;
   right: 18px;
   z-index: 25;
-  width: 308px;
-  max-width: calc(100% - 28px);
+  width: 276px;
+  max-width: calc(100% - 24px);
   pointer-events: auto;
   animation: britiFlyerSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -22,8 +22,8 @@
     right: auto;
     left: auto;
     margin: 20px auto 0;
-    width: 308px;
-    max-width: calc(100% - 28px);
+    width: 280px;
+    max-width: calc(100% - 24px);
   }
 }
 
@@ -56,14 +56,14 @@
 .briti-promo-flyer {
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 18px;
   background: linear-gradient(180deg, #eaf2ff 0%, #dbeafe 36%, #e8f1fd 74%, #c7dbf8 100%);
   border: 1.5px solid #003885;
   box-shadow:
-    0 18px 40px -10px rgba(0, 32, 96, 0.32),
-    0 6px 16px rgba(0, 32, 96, 0.12),
+    0 16px 36px -8px rgba(0, 32, 96, 0.30),
+    0 4px 14px rgba(0, 32, 96, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  padding: 16px 15px 13px;
+  padding: 12px 13px 10px;
   color: #0b1c3e;
   font-family: inherit;
   -webkit-font-smoothing: antialiased;
@@ -75,8 +75,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   background: #f59e0b;
   clip-path: polygon(100% 0, 100% 100%, 0 0);
   opacity: 0.85;
@@ -84,10 +84,10 @@
 
 .briti-promo-flyer__dot-tl {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 16px;
-  height: 16px;
+  top: 9px;
+  left: 9px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #2563eb;
   opacity: 0.85;
@@ -95,10 +95,10 @@
 
 .briti-promo-flyer__dot-tr {
   position: absolute;
-  top: 36px;
-  right: -6px;
-  width: 18px;
-  height: 18px;
+  top: 32px;
+  right: -5px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background: #10b981;
   opacity: 0.85;
@@ -107,10 +107,10 @@
 /* Close / Dismiss Button */
 .briti-promo-flyer__close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
+  top: 8px;
+  right: 8px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 1px solid rgba(0, 56, 133, 0.2);
   background: rgba(255, 255, 255, 0.85);
@@ -135,26 +135,26 @@
 /* Header & Crest */
 .briti-promo-flyer__header {
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 7px;
 }
 
 .briti-promo-flyer__brand {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  margin-bottom: 8px;
+  gap: 6px;
+  margin-bottom: 5px;
 }
 
 .briti-promo-flyer__brand-crest {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   display: inline-block;
-  filter: drop-shadow(0 2px 5px rgba(0, 32, 96, 0.35));
+  filter: drop-shadow(0 2px 4px rgba(0, 32, 96, 0.3));
 }
 
 .briti-promo-flyer__brand-name {
-  font-size: 1.15rem;
+  font-size: 1.02rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #0b1c3e;
@@ -162,29 +162,29 @@
 
 .briti-promo-flyer__open-pill {
   display: inline-block;
-  padding: 4px 14px;
+  padding: 3px 11px;
   border-radius: 999px;
   background: #003885;
   color: #ffffff;
-  font-size: 0.76rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  box-shadow: 0 2px 8px rgba(0, 56, 133, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 56, 133, 0.25);
 }
 
 /* Main Headline */
 .briti-promo-flyer__title-wrap {
   text-align: center;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .briti-promo-flyer__title {
-  font-size: 1.45rem;
-  line-height: 1.14;
+  font-size: 1.18rem;
+  line-height: 1.12;
   font-weight: 900;
   color: #091734;
-  margin: 0 0 5px;
-  letter-spacing: -0.03em;
+  margin: 0 0 3px;
+  letter-spacing: -0.025em;
 }
 
 .briti-promo-flyer__title span {
@@ -197,12 +197,12 @@
 }
 
 .briti-promo-flyer__location {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #1e293b;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 /* Boarding Pass Ticket */
@@ -211,10 +211,10 @@
   position: relative;
   background: #ffffff;
   border: 1px solid rgba(0, 40, 120, 0.16);
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 32, 96, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 12px;
+  box-shadow: 0 3px 10px rgba(0, 32, 96, 0.10), 0 1px 2px rgba(0, 0, 0, 0.04);
+  margin-bottom: 8px;
   transform: none; /* Flat and straight for 100% crisp, razor-sharp font and edge rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -230,7 +230,7 @@
 .briti-promo-flyer__ticket-main {
   flex: 1;
   background: #ffffff;
-  padding: 10px 12px 10px 14px;
+  padding: 7px 10px 7px 11px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,41 +239,41 @@
 }
 
 .briti-promo-flyer__ticket-subhead {
-  font-size: 0.65rem;
+  font-size: 0.58rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #4b586e;
-  margin-bottom: 2px;
-  line-height: 1.2;
+  margin-bottom: 1px;
+  line-height: 1.15;
 }
 
 .briti-promo-flyer__ticket-code {
-  font-size: 2.3rem;
+  font-size: 1.85rem;
   font-weight: 950;
   line-height: 1;
   color: #081a38;
   letter-spacing: -0.04em;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .briti-promo-flyer__ticket-roles {
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 600;
   color: #475569;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 /* Perforated edge between ticket parts */
 .briti-promo-flyer__ticket-stub {
-  width: 60px;
+  width: 50px;
   background: #d92525;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 4px 6px;
+  padding: 6px 3px 5px;
   position: relative;
   border-left: 2px dashed rgba(255, 255, 255, 0.85);
   flex-shrink: 0;
@@ -282,30 +282,30 @@
 .briti-promo-flyer__stub-notch-top,
 .briti-promo-flyer__stub-notch-bottom {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   background: #dbeafe;
   border: 1px solid rgba(0, 40, 120, 0.14);
   border-radius: 50%;
-  left: -8px;
+  left: -7px;
   z-index: 3;
 }
 
 .briti-promo-flyer__stub-notch-top {
-  top: -8px;
+  top: -7px;
 }
 
 .briti-promo-flyer__stub-notch-bottom {
-  bottom: -8px;
+  bottom: -7px;
 }
 
 .briti-promo-flyer__stub-vertical-text {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
-  font-size: 0.58rem;
+  font-size: 0.52rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #ffffff;
   line-height: 1;
@@ -313,7 +313,7 @@
 }
 
 .briti-promo-flyer__stub-number {
-  font-size: 1.65rem;
+  font-size: 1.4rem;
   font-weight: 950;
   line-height: 1;
   color: #ffffff;
@@ -323,23 +323,23 @@
 /* Bottom Dark Capsule with Closing Date and CTA Button */
 .briti-promo-flyer__bottom-bar {
   background: #071530;
-  border-radius: 14px;
-  padding: 8px 10px;
+  border-radius: 12px;
+  padding: 6px 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  gap: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   z-index: 2;
 }
 
 .briti-promo-flyer__closes-badge {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #f59e0b;
-  border: 2px dashed rgba(15, 23, 42, 0.4);
+  border: 1.5px dashed rgba(15, 23, 42, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -347,19 +347,19 @@
   text-align: center;
   color: #0b1426;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
 }
 
 .briti-promo-flyer__closes-label {
-  font-size: 0.56rem;
+  font-size: 0.50rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1;
 }
 
 .briti-promo-flyer__closes-date {
-  font-size: 0.78rem;
+  font-size: 0.70rem;
   font-weight: 900;
   line-height: 1.1;
   margin-top: 1px;
@@ -370,29 +370,29 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 10px 14px;
+  gap: 5px;
+  padding: 8px 12px;
   border-radius: 999px;
   background: #004ecc;
   color: #ffffff !important;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 800;
   text-decoration: none !important;
   border: none;
   cursor: pointer;
   transition: all 0.18s ease;
-  box-shadow: 0 3px 10px rgba(0, 78, 204, 0.45);
+  box-shadow: 0 2px 8px rgba(0, 78, 204, 0.4);
 }
 
 .briti-promo-flyer__cta-btn:hover {
   background: #003da6;
   transform: translateY(-1px);
-  box-shadow: 0 5px 14px rgba(0, 78, 204, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 78, 204, 0.55);
   color: #ffffff !important;
 }
 
 .briti-promo-flyer__cta-btn i {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   transition: transform 0.18s ease;
 }
 
@@ -406,7 +406,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48px;
+  height: 40px;
   pointer-events: none;
   z-index: 1;
   opacity: 0.28;
