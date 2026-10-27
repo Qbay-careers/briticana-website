@@ -1,0 +1,486 @@
+/* ==========================================================================
+   Clean & Simple Application Form Styles
+   Strictly scoped under .google-internship-form-root
+   ========================================================================== */
+
+.google-internship-form-root {
+  --app-primary: #152a52;
+  --app-primary-hover: #0e1e3d;
+  --app-accent: #2563eb;
+  --app-accent-light: #eff6ff;
+  --app-surface: #ffffff;
+  --app-bg: #f8fafc;
+  --app-border: #e2e8f0;
+  --app-border-focus: #3b82f6;
+  --app-text: #0f172a;
+  --app-text-secondary: #475569;
+  --app-text-muted: #94a3b8;
+  --app-red: #ef4444;
+  --app-red-light: #fef2f2;
+  --app-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+  --app-radius: 12px;
+  --app-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  min-height: 100vh;
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: var(--app-font);
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 40px 16px 80px;
+}
+
+.google-app-container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Header Back Link */
+.google-app-back-nav {
+  margin-bottom: 20px;
+}
+
+.google-app-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--app-text-secondary);
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid var(--app-border);
+  transition: all 0.15s ease;
+}
+
+.google-app-back-link:hover {
+  background: #f1f5f9;
+  color: var(--app-text);
+  text-decoration: none;
+}
+
+/* Card Shell */
+.google-app-card {
+  background: var(--app-surface);
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  box-shadow: var(--app-shadow);
+  overflow: hidden;
+}
+
+/* Clean Header Section */
+.google-app-hero {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--app-border);
+  background: #ffffff;
+}
+
+.google-app-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--app-text);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* Card Body */
+.google-app-body {
+  padding: 32px;
+}
+
+/* Form Groups */
+.google-form-group {
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.google-form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--app-text);
+  margin-bottom: 6px;
+}
+
+.google-form-label .required-star {
+  color: var(--app-red);
+  margin-left: 2px;
+}
+
+/* Text Input & Select */
+.google-form-input,
+.google-form-select {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--app-text);
+  background: #ffffff;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.google-form-input:focus,
+.google-form-select:focus {
+  border-color: var(--app-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.google-form-input.is-invalid,
+.google-form-select.is-invalid {
+  border-color: var(--app-red);
+  background: var(--app-red-light);
+}
+
+.google-form-error-msg {
+  color: var(--app-red);
+  font-size: 12px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Searchable Country Dropdown Component */
+.google-country-picker {
+  position: relative;
+}
+
+.google-country-toggle {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--app-text);
+  background: #ffffff;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  font-family: inherit;
+}
+
+.google-country-toggle:focus,
+.google-country-toggle.is-open {
+  border-color: var(--app-border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.google-country-toggle.is-invalid {
+  border-color: var(--app-red);
+  background: var(--app-red-light);
+}
+
+.google-country-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+  z-index: 50;
+  max-height: 260px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.google-country-search-wrap {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--app-border);
+  background: #f8fafc;
+}
+
+.google-country-search-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid var(--app-border);
+  border-radius: 6px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.google-country-search-input:focus {
+  border-color: var(--app-border-focus);
+}
+
+.google-country-list {
+  overflow-y: auto;
+  max-height: 200px;
+  padding: 4px 0;
+  margin: 0;
+  list-style: none;
+}
+
+.google-country-item {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--app-text);
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+}
+
+.google-country-item:hover,
+.google-country-item.is-selected {
+  background: var(--app-accent-light);
+  color: var(--app-accent);
+  font-weight: 500;
+}
+
+.google-country-empty {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--app-text-muted);
+  text-align: center;
+}
+
+/* File Upload Box */
+.google-file-dropzone {
+  border: 2px dashed var(--app-border);
+  border-radius: 8px;
+  padding: 24px 16px;
+  text-align: center;
+  background: #fafbfc;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.google-file-dropzone:hover,
+.google-file-dropzone.is-dragging {
+  border-color: var(--app-border-focus);
+  background: var(--app-accent-light);
+}
+
+.google-file-dropzone.is-invalid {
+  border-color: var(--app-red);
+}
+
+.google-file-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--app-text-muted);
+  margin-bottom: 8px;
+}
+
+.google-file-primary-txt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--app-text);
+  margin: 0 0 4px;
+}
+
+.google-file-primary-txt span {
+  color: var(--app-accent);
+  text-decoration: underline;
+}
+
+.google-file-sub-txt {
+  font-size: 12px;
+  color: var(--app-text-muted);
+  margin: 0;
+}
+
+/* Selected File Chip */
+.google-file-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f1f5f9;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.google-file-chip-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.google-file-chip-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--app-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.google-file-chip-size {
+  font-size: 11px;
+  color: var(--app-text-secondary);
+}
+
+.google-file-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--app-red);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.google-file-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Notice / Banner */
+.google-app-notice {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.google-app-notice--error {
+  background: var(--app-red-light);
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Submit Actions */
+.google-app-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--app-border);
+}
+
+.google-app-submit-btn {
+  background: var(--app-primary);
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  font-family: inherit;
+}
+
+.google-app-submit-btn:hover:not(:disabled) {
+  background: var(--app-primary-hover);
+}
+
+.google-app-submit-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Spinner */
+.google-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: app-spin 0.8s linear infinite;
+}
+
+@keyframes app-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Redirect / Success View */
+.google-app-success {
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.google-app-success-icon {
+  width: 56px;
+  height: 56px;
+  background: #ecfdf5;
+  color: #059669;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  border: 1px solid #a7f3d0;
+}
+
+.google-app-success-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--app-text);
+  margin: 0 0 10px;
+}
+
+.google-app-success-msg {
+  font-size: 14px;
+  color: var(--app-text-secondary);
+  max-width: 500px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.google-app-success-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 24px;
+  background: var(--app-primary);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.google-app-success-btn:hover {
+  background: var(--app-primary-hover);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .google-internship-form-root {
+    padding: 20px 12px 60px;
+  }
+  .google-app-hero {
+    padding: 20px;
+  }
+  .google-app-body {
+    padding: 20px;
+  }
+  .google-app-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

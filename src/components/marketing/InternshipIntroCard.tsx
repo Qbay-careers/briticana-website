@@ -8,6 +8,7 @@ import {
   GOOGLE_CAREERS_DUBLIN_URL,
   isGoogleInternship,
 } from "@/lib/internships/supplementalTracks";
+import { buildGoogleApplyHref } from "@/lib/googleInternships";
 import type { InternshipApplicationStatus } from "@/lib/sanity/types";
 import { buildApplyHref } from "@/lib/studentApplicationForm";
 
@@ -69,7 +70,7 @@ export default function InternshipIntroCard({
   const applyLabel =
     internship.customCtaButtonText?.trim() || defaultCtaText?.trim() || defaultApplyText;
 
-  const googleApplyUrl = internship.googleFormLink || GOOGLE_CAREERS_DUBLIN_URL;
+  const googleApplyUrl = buildGoogleApplyHref(info.cleanTitle);
   const standardApplyHref = buildApplyHref({
     internship: info.cleanTitle,
     domain: domainLabel,
@@ -310,15 +311,13 @@ export default function InternshipIntroCard({
         </Link>
 
         {isGoogle ? (
-          <a
+          <Link
             href={googleApplyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="briti-role-card__apply-link briti-role-card__apply-link--google text-decoration-none"
           >
             <span>{applyLabel}</span>
-            <i className="ri-external-link-line briti-role-card__apply-icon" aria-hidden="true" />
-          </a>
+            <i className="ri-arrow-right-up-line briti-role-card__apply-icon" aria-hidden="true" />
+          </Link>
         ) : (
           <Link href={standardApplyHref} className="briti-role-card__apply-link text-decoration-none">
             <span>{applyLabel}</span>

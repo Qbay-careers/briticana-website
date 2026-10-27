@@ -1,4 +1,5 @@
 import type { EnrichedInternship } from "@/lib/internships/internshipContentApi";
+import { buildGoogleApplyHref } from "@/lib/googleInternships";
 
 export const GOOGLE_CAREERS_DUBLIN_URL =
   "https://www.google.com/about/careers/applications/jobs/results?e=72477625&location=Dublin,%20Ireland&q=Intern&src=Online/Social/GS_EMEA";
@@ -44,7 +45,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Software Engineering Intern (Dublin, Ireland)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Software Engineering 2027",
     customResponsibilities: [
@@ -82,7 +83,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Site Reliability Engineering (SRE) Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Site Reliability Engineering 2027",
     customResponsibilities: [
@@ -120,7 +121,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Cloud Solutions & Architecture Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Cloud Solutions 2027",
     customResponsibilities: [
@@ -158,7 +159,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Data Center Facilities Operations Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Data Center Operations 2027",
     customResponsibilities: [
@@ -197,7 +198,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Business & Global Customer Growth Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Business Operations 2027",
     customResponsibilities: [
@@ -235,7 +236,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Business Analyst MBA Intern (Dublin, Ireland)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin MBA Strategy 2027",
     customResponsibilities: [
@@ -274,7 +275,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 APMM Product Marketing Intern (Dublin, Ireland)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin APMM Product Marketing 2027",
     customResponsibilities: [
@@ -312,7 +313,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Media & Digital Campaign Analytics Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Campaign Analytics 2027",
     customResponsibilities: [
@@ -351,7 +352,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 Financial Analyst & Commercial FP&A Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Commercial Finance 2027",
     customResponsibilities: [
@@ -389,7 +390,7 @@ export const SUPPLEMENTAL_CORE_TRACKS: EnrichedInternship[] = [
     availableRegions: ["Ireland"],
     applicationStatus: "open",
     batchStartDate: "2027-06-01",
-    googleFormLink: GOOGLE_CAREERS_DUBLIN_URL,
+    googleFormLink: buildGoogleApplyHref("Google \u2014 UI/UX & Digital Product Design Intern (Dublin)"),
     customCtaButtonText: "Apply via Google",
     customHeading: "Google Dublin Product Design 2027",
     customResponsibilities: [

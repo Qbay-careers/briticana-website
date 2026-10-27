@@ -12,6 +12,8 @@ import {
 } from "@/lib/internships/internshipRoleClarifier";
 import { urlForSanityImage } from "@/lib/sanity/image";
 import type { InternshipApplicationStatus } from "@/lib/sanity/types";
+import { isGoogleInternship } from "@/lib/internships/supplementalTracks";
+import { buildGoogleApplyHref } from "@/lib/googleInternships";
 import { buildApplyHref } from "@/lib/studentApplicationForm";
 
 export type InternshipDetailMarketingProps = {
@@ -53,12 +55,15 @@ export default function InternshipDetailMarketing({
 
   const isOpen = (internship.applicationStatus ?? "open") === "open";
   const showApply = isOpen;
+  const isGoogle = isGoogleInternship(internship);
   const applyHref = showApply
-    ? buildApplyHref({
-        internship: info.cleanTitle,
-        domain: domainLabel,
-        source: "internship-detail",
-      })
+    ? isGoogle
+      ? buildGoogleApplyHref(info.cleanTitle)
+      : buildApplyHref({
+          internship: info.cleanTitle,
+          domain: domainLabel,
+          source: "internship-detail",
+        })
     : undefined;
 
   const introText =

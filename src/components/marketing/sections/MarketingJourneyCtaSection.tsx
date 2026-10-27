@@ -4,7 +4,7 @@ import { buildApplyHref } from "@/lib/studentApplicationForm";
 const TALK_TO_US_PHONE_HREF = "tel:+17342498898";
 
 export default function MarketingJourneyCtaSection() {
-  const applyHref = buildApplyHref({ source: "journey-cta" });
+  const applyHref = "/internships";
   return (
     <section className="briti-journey-cta-section">
       <div className="container mw-1380">

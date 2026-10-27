@@ -3,43 +3,38 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+export type AnimationScene =
+  | "scene1_pulling"  // 0.0s – 2.6s: Robot stands in place, pulls with hands & tough expression as poster slowly glides in
+  | "settled";        // 2.6s+: Robot stands proud in hero pose beside poster with natural cyan eye blinking
+
 export default function HomeInternshipPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [animStage, setAnimStage] = useState<"pulling" | "celebrating" | "finished">("pulling");
+  const [scene, setScene] = useState<AnimationScene>("scene1_pulling");
 
   useEffect(() => {
-    // Check if user prefers reduced motion
+    // Respect reduced-motion accessibility settings
     const prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) {
       setIsOpen(true);
-      setAnimStage("finished");
+      setScene("settled");
       return;
     }
 
-    // 1. Initial 400ms delay before robot enters pulling the poster
-    const startTimer = setTimeout(() => {
-      setIsOpen(true);
-      setAnimStage("pulling");
-    }, 400);
+    // 1. Initial State: Robot is in position pulling with hands & tough expression, poster glides in slowly
+    setIsOpen(true);
+    setScene("scene1_pulling");
 
-    // 2. Poster reaches exact final position at 3.2s; robot celebrates and unhooks
-    const celebrateTimer = setTimeout(() => {
-      setAnimStage("celebrating");
-    }, 3200);
-
-    // 3. Robot exits completely at 4.2s, leaving the static interactive poster
-    const finishTimer = setTimeout(() => {
-      setAnimStage("finished");
-    }, 4200);
+    // 2. Settled State (2.6s): Poster arrives, robot transitions to hero standing pose with eye blink
+    const tSettle = setTimeout(() => {
+      setScene("settled");
+    }, 2600);
 
     return () => {
-      clearTimeout(startTimer);
-      clearTimeout(celebrateTimer);
-      clearTimeout(finishTimer);
+      clearTimeout(tSettle);
     };
   }, []);
 
@@ -56,30 +51,55 @@ export default function HomeInternshipPopup() {
   if (!isOpen) return null;
 
   return (
-    <aside
-      className={`briti-promo-flyer-wrap ${
-        animStage === "pulling" ? "is-pulling-in" : ""
-      } ${isClosing ? "is-closing" : ""}`}
+    <div
+      className={`briti-cinematic-stage is-${scene} ${isClosing ? "is-closing" : ""}`}
       aria-label="Google Internship Programs 2027 Dublin Announcement"
     >
-      {/* 3D Robot pulling the poster with a golden rope */}
-      {animStage !== "finished" && (
-        <div
-          className={`briti-pulling-robot-wrap ${
-            animStage === "celebrating" ? "is-celebrating" : "is-pulling"
-          }`}
-          aria-hidden="true"
-        >
-          <img
-            src="/assets/briti-robot-pulling.png"
-            alt="3D Robot pulling internship poster"
-            className="briti-pulling-robot-img"
-            width={360}
-            height={265}
-          />
-        </div>
-      )}
+      {/* ------------------------------------------------------------------
+          1. Articulated 3D Robot Character Actor Body [z-index: 25]
+          Stands in place: Pulls Poster in with Hands & Tough Expression -> Hero Pose
+          ------------------------------------------------------------------ */}
+      <div className="briti-robot-actor-wrap" aria-hidden="true">
+        <div className="briti-robot-rig">
+          {/* Tough Pull Layer: Standing in position, hands pulling, determined cyan eyes */}
+          <div className="briti-robot-layer briti-robot-layer--pull">
+            <img
+              src="/assets/kunj-robot-pull-tough.png"
+              alt="3D Chibi Robot Pulling with Tough Expression"
+              className="briti-robot-part-img"
+              width={1024}
+              height={1024}
+            />
+          </div>
 
+          {/* Mass Hero Pose Layer: Leaning proudly against poster with swagger attitude & natural eye blink */}
+          <div className="briti-robot-layer briti-robot-layer--hero">
+            <img
+              src="/assets/kunj-robot-lean-mass.png"
+              alt="3D Chibi Robot Leaning Mass Hero Pose"
+              className="briti-robot-part-img"
+              width={1024}
+              height={1024}
+            />
+            {/* Natural Eye Blink Overlay: Blinks cyan eyes naturally */}
+            <img
+              src="/assets/kunj-lean-blink.png"
+              alt="Robot Eye Blink Overlay"
+              className="briti-robot-eye-blink-overlay"
+              width={1024}
+              height={1024}
+            />
+          </div>
+
+          {/* Dynamic Ground Contact Shadow */}
+          <div className="briti-robot-contact-shadow" />
+        </div>
+      </div>
+
+      {/* ------------------------------------------------------------------
+          2. Original 3D Poster Card [z-index: 26]
+          Glides in slowly from right as robot pulls with hands -> Settles in place
+          ------------------------------------------------------------------ */}
       <div className="briti-promo-poster-card">
         {/* Dismiss / Close Button */}
         <button
@@ -115,32 +135,32 @@ export default function HomeInternshipPopup() {
             alt="Google Internship Programs 2027 - Dublin, Ireland (10 Roles) - Briticana"
             className="briti-promo-poster-img"
             width={576}
-            height={840}
+            height={1024}
             loading="eager"
           />
 
-          {/* Glowing 3D Explore Button over the bottom pill */}
-          <span
-            className="briti-promo-poster__explore-btn"
-            aria-hidden="true"
-          >
-            <span>Explore</span>
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </span>
+          {/* Luxury Metallic Light Sheen Sweep across poster on settle */}
+          <span className="briti-poster-shimmer-sweep" aria-hidden="true" />
         </Link>
       </div>
-    </aside>
+
+      {/* ------------------------------------------------------------------
+          3. Robot Front Fists Overlay [z-index: 30]
+          Layered ON TOP of poster edge so hands visibly clamp the poster!
+          ------------------------------------------------------------------ */}
+      <div className="briti-robot-actor-wrap briti-robot-actor-wrap--fist-overlay" aria-hidden="true">
+        <div className="briti-robot-rig">
+          <div className="briti-robot-layer briti-robot-layer--pull">
+            <img
+              src="/assets/kunj-pull-front-fist.png"
+              alt="Robot Closed Fist Clamping Poster"
+              className="briti-robot-part-img"
+              width={1024}
+              height={1024}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

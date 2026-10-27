@@ -1,20 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useMemo, useRef, useState } from "react";
-
-import ApplyFormControl from "@/components/apply/ApplyFormControl";
-import ApplyFormSection from "@/components/apply/ApplyFormSection";
-import ApplyYesNoGroup from "@/components/apply/ApplyYesNoGroup";
-import {
-  CONFIDENCE_LEVEL_OPTIONS,
-  CURRENT_STATUS_OPTIONS,
-  INTERNSHIP_DURATION_OPTIONS,
-  MIN_CAREER_GOAL_LENGTH,
-  VISA_STATUS_OPTIONS,
-  normaliseDurationPrefill,
-  type YesNo,
-} from "@/lib/applications/applicationTypes";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import "@/styles/internship-application-form.css";
 
 export type ApplyFormInitial = {
   internship?: string;
@@ -24,1041 +12,693 @@ export type ApplyFormInitial = {
   source?: string;
 };
 
-type FieldErrors = Record<string, string>;
+// Google Apps Script Web App Webhook URL (connected to Google Sheet & Drive)
+const WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbwDbIQBUm5Y3YYJcuwfPgieamXeX9FWzpKNZxcm8PnxJZji9H5BIjfHfGLotBR96fAX/exec";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DOMAIN_OPTIONS = [
+  "Administration",
+  "Artificial Intelligence",
+  "Asset Management",
+  "Audit",
+  "Business Analysis",
+  "Clinical",
+  "Compliance",
+  "Cybersecurity",
+  "Other / Not sure yet",
+];
 
-const STEPS = [
-  { id: "personal", title: "Personal", icon: "ri-user-3-line" },
-  { id: "internship", title: "Internship", icon: "ri-stack-line" },
-  { id: "education", title: "Experience", icon: "ri-graduation-cap-line" },
-  { id: "skills", title: "Skills", icon: "ri-tools-line" },
-  { id: "visa-resume", title: "Visa & CV", icon: "ri-passport-line" },
-  { id: "career-goals", title: "Career goals", icon: "ri-compass-3-line" },
-  { id: "feedback", title: "Feedback", icon: "ri-chat-quote-line" },
-  { id: "consent", title: "Consent", icon: "ri-shield-check-line" },
-] as const;
+const DURATION_OPTIONS = [
+  "3 Months",
+  "6 Months",
+  "9 Months",
+  "12 Months",
+  "15 Months",
+  "18 Months",
+  "21 Months",
+  "24 Months",
+];
 
-const TOTAL_STEPS = STEPS.length;
+function matchDomainOption(domain?: string): string {
+  if (!domain) return "";
+  const clean = domain.trim().toLowerCase();
+  for (const opt of DOMAIN_OPTIONS) {
+    if (opt.toLowerCase() === clean || clean.includes(opt.toLowerCase())) {
+      return opt;
+    }
+  }
+  return "";
+}
 
-/** Maps each field to the step it lives on, so we can jump to the first error. */
-const FIELD_STEP: Record<string, number> = {
-  firstName: 0,
-  lastName: 0,
-  email: 0,
-  phone: 0,
-  country: 0,
-  university: 0,
-  currentQualification: 0,
-  linkedIn: 0,
-  duration: 1,
-  careerAssistance: 1,
-  jobOpportunitiesAfter: 1,
-  previousInternship: 2,
-  previousInternshipDetails: 2,
-  relevantWorkExperience: 2,
-  relevantWorkExperienceDetails: 2,
-  currentStatus: 2,
-  relevantSkills: 3,
-  projectsCertificationsCourses: 3,
-  projectsCertificationsDetails: 3,
-  visaStatus: 4,
-  visaDetails: 4,
-  resume: 4,
-  industryOrCareerPath: 5,
-  biggestCareerChallenge: 5,
-  whyChoseInternship: 5,
-  careerGrowthHelp: 5,
-  whyChoseBriticana: 6,
-  internshipExpectations: 6,
-  impactAcademicProfessionalGrowth: 6,
-  specificLearningOutcomes: 6,
-  challengesToOvercome: 6,
-  confidenceLevel: 6,
-  declarationAccepted: 7,
-};
+function matchDurationOption(duration?: string): string {
+  if (!duration) return "";
+  const clean = duration.trim().toLowerCase();
+  for (const opt of DURATION_OPTIONS) {
+    if (opt.toLowerCase().startsWith(clean.slice(0, 2))) {
+      return opt;
+    }
+  }
+  return "";
+}
+
+function fileToBase64(file: File): Promise<{ base64: string; mimeType: string; name: string }> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const res = (reader.result as string) || "";
+      const base64 = res.split(",")[1] || "";
+      resolve({
+        base64,
+        mimeType: file.type || "application/octet-stream",
+        name: file.name,
+      });
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
-  const resumeInputRef = useRef<HTMLInputElement>(null);
-  const durationLegendId = useId();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  const [step, setStep] = useState(0);
+  // Theme: light / dark
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(isDark ? "dark" : "light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
+  // Section 1: Personal Information
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState(initial?.region || "");
   const [university, setUniversity] = useState("");
   const [currentQualification, setCurrentQualification] = useState("");
   const [linkedIn, setLinkedIn] = useState("");
-  const [duration, setDuration] = useState(normaliseDurationPrefill(initial?.duration));
-  const [careerAssistance, setCareerAssistance] = useState<YesNo | "">("");
-  const [jobOpportunitiesAfter, setJobOpportunitiesAfter] = useState<YesNo | "">("");
-  const [previousInternship, setPreviousInternship] = useState<YesNo | "">("");
-  const [previousInternshipDetails, setPreviousInternshipDetails] = useState("");
-  const [relevantWorkExperience, setRelevantWorkExperience] = useState<YesNo | "">("");
-  const [relevantWorkExperienceDetails, setRelevantWorkExperienceDetails] = useState("");
-  const [currentStatus, setCurrentStatus] = useState("");
-  const [relevantSkills, setRelevantSkills] = useState("");
-  const [projectsCertificationsCourses, setProjectsCertificationsCourses] = useState<YesNo | "">("");
-  const [projectsCertificationsDetails, setProjectsCertificationsDetails] = useState("");
-  const [visaStatus, setVisaStatus] = useState("");
-  const [visaDetails, setVisaDetails] = useState("");
-  const [industryOrCareerPath, setIndustryOrCareerPath] = useState("");
-  const [biggestCareerChallenge, setBiggestCareerChallenge] = useState("");
-  const [whyChoseInternship, setWhyChoseInternship] = useState("");
-  const [careerGrowthHelp, setCareerGrowthHelp] = useState("");
-  const [whyChoseBriticana, setWhyChoseBriticana] = useState("");
-  const [internshipExpectations, setInternshipExpectations] = useState("");
-  const [impactAcademicProfessionalGrowth, setImpactAcademicProfessionalGrowth] = useState("");
-  const [specificLearningOutcomes, setSpecificLearningOutcomes] = useState("");
-  const [challengesToOvercome, setChallengesToOvercome] = useState("");
-  const [confidenceLevel, setConfidenceLevel] = useState("");
-  const [declarationAccepted, setDeclarationAccepted] = useState(false);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [website, setWebsite] = useState("");
 
-  const confidenceLegendId = useId();
+  // Section 2: Internship Details
+  const [domain, setDomain] = useState(() => matchDomainOption(initial?.domain));
+  const [duration, setDuration] = useState(() => matchDurationOption(initial?.duration));
+  const [currentStatus, setCurrentStatus] = useState("");
+  const [careerAssistance, setCareerAssistance] = useState("");
+  const [jobInterest, setJobInterest] = useState("");
 
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-  const [formError, setFormError] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [maxVisited, setMaxVisited] = useState(0);
+  // Consent & state
+  const [consent, setConsent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
 
-  const goalTooShort = (value: string) => !value || value.trim().length < MIN_CAREER_GOAL_LENGTH;
+  // Error tracking for validation
+  const [touched, setTouched] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
 
-  function required(label: string) {
-    return (
-      <>
-        {label} <span className="apply-required">*</span>
-      </>
-    );
-  }
+  // Progress Calculation
+  const progressPercent = useMemo(() => {
+    const requiredChecks = [
+      Boolean(firstName.trim()),
+      Boolean(lastName.trim()),
+      Boolean(country.trim()),
+      Boolean(university.trim()),
+      Boolean(currentQualification.trim()),
+      Boolean(resumeFile),
+      Boolean(domain.trim()),
+      Boolean(duration.trim()),
+      Boolean(currentStatus.trim()),
+      Boolean(careerAssistance.trim()),
+      Boolean(jobInterest.trim()),
+      Boolean(consent),
+    ];
+    const completed = requiredChecks.filter(Boolean).length;
+    return Math.min(100, Math.round((completed / requiredChecks.length) * 100));
+  }, [
+    firstName,
+    lastName,
+    country,
+    university,
+    currentQualification,
+    resumeFile,
+    domain,
+    duration,
+    currentStatus,
+    careerAssistance,
+    jobInterest,
+    consent,
+  ]);
 
-  /** Client-side required-field checks for a single step (server still does full validation). */
-  function validateStep(index: number): FieldErrors {
-    const e: FieldErrors = {};
-    switch (index) {
-      case 0:
-        if (!firstName.trim()) e.firstName = "Please enter your first name.";
-        if (!lastName.trim()) e.lastName = "Please enter your last name.";
-        if (!email.trim()) e.email = "Please enter your email.";
-        else if (!EMAIL_RE.test(email.trim())) e.email = "Please enter a valid email.";
-        if (!phone.trim()) e.phone = "Please enter your contact number.";
-        if (!country.trim()) e.country = "Please enter your country of residence.";
-        if (!university.trim()) e.university = "Please enter your university or institution name.";
-        if (!currentQualification.trim()) e.currentQualification = "Please enter your current qualification.";
-        break;
-      case 1:
-        if (!duration) e.duration = "Please select a preferred internship duration.";
-        if (!careerAssistance) e.careerAssistance = "Please indicate if you require career assistance.";
-        if (!jobOpportunitiesAfter)
-          e.jobOpportunitiesAfter = "Please indicate if you are interested in job opportunities after the internship.";
-        break;
-      case 2:
-        if (!previousInternship) e.previousInternship = "Please answer about previous internship experience.";
-        if (previousInternship === "yes" && !previousInternshipDetails.trim())
-          e.previousInternshipDetails = "Please share your internship details and duration.";
-        if (!relevantWorkExperience)
-          e.relevantWorkExperience = "Please answer about relevant work experience in this field.";
-        if (relevantWorkExperience === "yes" && !relevantWorkExperienceDetails.trim())
-          e.relevantWorkExperienceDetails = "Please share your experience and duration.";
-        if (!currentStatus) e.currentStatus = "Please select what you are currently doing.";
-        break;
-      case 3:
-        if (!relevantSkills.trim()) e.relevantSkills = "Please describe skills relevant to this internship.";
-        if (!projectsCertificationsCourses)
-          e.projectsCertificationsCourses =
-            "Please answer about projects, certifications, or courses related to this field.";
-        if (projectsCertificationsCourses === "yes" && !projectsCertificationsDetails.trim())
-          e.projectsCertificationsDetails = "Please provide details of your projects, certifications, or courses.";
-        break;
-      case 4:
-        if (!visaStatus) e.visaStatus = "Please select your current visa status.";
-        if (visaStatus === "other" && !visaDetails.trim()) e.visaDetails = "Please describe your visa type.";
-        if (!resumeFile) e.resume = "Please upload your resume (PDF or Word, max 5 MB).";
-        break;
-      case 5:
-        if (goalTooShort(industryOrCareerPath))
-          e.industryOrCareerPath = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(biggestCareerChallenge))
-          e.biggestCareerChallenge = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(whyChoseInternship))
-          e.whyChoseInternship = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(careerGrowthHelp))
-          e.careerGrowthHelp = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        break;
-      case 6:
-        if (goalTooShort(whyChoseBriticana))
-          e.whyChoseBriticana = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(internshipExpectations))
-          e.internshipExpectations = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(impactAcademicProfessionalGrowth))
-          e.impactAcademicProfessionalGrowth = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(specificLearningOutcomes))
-          e.specificLearningOutcomes = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (goalTooShort(challengesToOvercome))
-          e.challengesToOvercome = `Please share at least ${MIN_CAREER_GOAL_LENGTH} characters.`;
-        if (!confidenceLevel)
-          e.confidenceLevel = "Please rate your current confidence level in your chosen domain.";
-        break;
-      case 7:
-        if (!declarationAccepted)
-          e.declarationAccepted = "Please confirm the declaration to submit your application.";
-        break;
-      default:
-        break;
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setResumeFile(file);
     }
-    return e;
-  }
+  };
 
-  function goToStep(target: number) {
-    setFormError(null);
-    setStep(target);
-    setMaxVisited((m) => Math.max(m, target));
-    if (typeof window !== "undefined") {
-      window.requestAnimationFrame(() => {
-        document.getElementById("apply-card-top")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-  }
-
-  function handleNext() {
-    const stepErrors = validateStep(step);
-    if (Object.keys(stepErrors).length > 0) {
-      setFieldErrors((prev) => ({ ...prev, ...stepErrors }));
-      setFormError("Please complete the highlighted fields before continuing.");
-      return;
-    }
-    goToStep(Math.min(step + 1, TOTAL_STEPS - 1));
-  }
-
-  function handleBack() {
-    goToStep(Math.max(step - 1, 0));
-  }
-
-  function handleTabClick(target: number) {
-    if (target === step) return;
-    // Allow going back freely; going forward validates the current step first.
-    if (target < step) {
-      goToStep(target);
-      return;
-    }
-    const stepErrors = validateStep(step);
-    if (Object.keys(stepErrors).length > 0) {
-      setFieldErrors((prev) => ({ ...prev, ...stepErrors }));
-      setFormError("Please complete the highlighted fields before continuing.");
-      return;
-    }
-    goToStep(target);
-  }
-
-  function jumpToFirstError(errors: FieldErrors) {
-    const steps = Object.keys(errors)
-      .map((field) => FIELD_STEP[field])
-      .filter((s): s is number => typeof s === "number");
-    if (steps.length > 0) {
-      goToStep(Math.min(...steps));
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    setFormError(null);
+    setDragOver(true);
+  };
 
-    // Validate every step before sending.
-    let allErrors: FieldErrors = {};
-    for (let i = 0; i < TOTAL_STEPS; i += 1) {
-      allErrors = { ...allErrors, ...validateStep(i) };
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      setResumeFile(file);
     }
-    if (Object.keys(allErrors).length > 0) {
-      setFieldErrors(allErrors);
-      setFormError("Please complete the highlighted fields.");
-      jumpToFirstError(allErrors);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setTouched(true);
+
+    const isFirstValid = Boolean(firstName.trim());
+    const isLastValid = Boolean(lastName.trim());
+    const isCountryValid = Boolean(country.trim());
+    const isUniValid = Boolean(university.trim());
+    const isQualValid = Boolean(currentQualification.trim());
+    const isResumeValid = Boolean(resumeFile);
+    const isDomainValid = Boolean(domain.trim());
+    const isDurationValid = Boolean(duration.trim());
+    const isStatusValid = Boolean(currentStatus.trim());
+    const isCareerValid = Boolean(careerAssistance.trim());
+    const isJobValid = Boolean(jobInterest.trim());
+    const isConsentValid = Boolean(consent);
+
+    const allValid =
+      isFirstValid &&
+      isLastValid &&
+      isCountryValid &&
+      isUniValid &&
+      isQualValid &&
+      isResumeValid &&
+      isDomainValid &&
+      isDurationValid &&
+      isStatusValid &&
+      isCareerValid &&
+      isJobValid &&
+      isConsentValid;
+
+    if (!allValid) {
+      // Find and scroll to the first invalid field
+      const firstInvalidEl = document.querySelector(
+        ".briti-app-form-root .fg.invalid, .briti-app-form-root .consent.invalid",
+      );
+      if (firstInvalidEl) {
+        firstInvalidEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
       return;
     }
 
-    setFieldErrors({});
-    setSubmitting(true);
+    setIsSubmitting(true);
 
-    const body = new FormData();
-    body.set("firstName", firstName);
-    body.set("lastName", lastName);
-    body.set("email", email);
-    body.set("phone", phone);
-    body.set("country", country);
-    body.set("university", university);
-    body.set("currentQualification", currentQualification);
-    body.set("linkedIn", linkedIn);
-    body.set("duration", duration);
-    body.set("careerAssistance", careerAssistance);
-    body.set("jobOpportunitiesAfter", jobOpportunitiesAfter);
-    body.set("previousInternship", previousInternship);
-    body.set("previousInternshipDetails", previousInternshipDetails);
-    body.set("relevantWorkExperience", relevantWorkExperience);
-    body.set("relevantWorkExperienceDetails", relevantWorkExperienceDetails);
-    body.set("currentStatus", currentStatus);
-    body.set("relevantSkills", relevantSkills);
-    body.set("projectsCertificationsCourses", projectsCertificationsCourses);
-    body.set("projectsCertificationsDetails", projectsCertificationsDetails);
-    body.set("visaStatus", visaStatus);
-    body.set("visaDetails", visaDetails);
-    body.set("industryOrCareerPath", industryOrCareerPath);
-    body.set("biggestCareerChallenge", biggestCareerChallenge);
-    body.set("whyChoseInternship", whyChoseInternship);
-    body.set("careerGrowthHelp", careerGrowthHelp);
-    body.set("whyChoseBriticana", whyChoseBriticana);
-    body.set("internshipExpectations", internshipExpectations);
-    body.set("impactAcademicProfessionalGrowth", impactAcademicProfessionalGrowth);
-    body.set("specificLearningOutcomes", specificLearningOutcomes);
-    body.set("challengesToOvercome", challengesToOvercome);
-    body.set("confidenceLevel", confidenceLevel);
-    body.set("declarationAccepted", declarationAccepted ? "yes" : "no");
-    body.set("internshipTrack", initial?.internship ?? "");
-    body.set("source", initial?.source ?? "apply-page");
-    body.set("website", website);
-    if (resumeFile) body.set("resume", resumeFile);
+    const payload: Record<string, string> = {
+      submittedAt: new Date().toISOString(),
+      source: initial?.source || initial?.internship || "Web Form",
+      "First Name": firstName.trim(),
+      "Last Name": lastName.trim(),
+      "Country of Residence": country.trim(),
+      "University / Institution": university.trim(),
+      "Current Qualification": currentQualification.trim(),
+      "LinkedIn Profile": linkedIn.trim(),
+      "Preferred Domain": domain,
+      "Preferred Duration": duration,
+      "Current Status": currentStatus,
+      "Career Assistance": careerAssistance,
+      "Job Interest": jobInterest,
+      "Declaration Consent": "Agreed",
+      "Resume File": "",
+      "Resume Base64": "",
+      "Resume MimeType": "",
+    };
+
+    if (initial?.internship) {
+      payload["Internship Title"] = initial.internship;
+    }
+
+    if (resumeFile) {
+      try {
+        const fileData = await fileToBase64(resumeFile);
+        payload["Resume File"] = fileData.name;
+        payload["Resume Base64"] = fileData.base64;
+        payload["Resume MimeType"] = fileData.mimeType;
+      } catch (err) {
+        console.warn("Could not read resume file as Base64", err);
+        payload["Resume File"] = resumeFile.name;
+      }
+    }
 
     try {
-      const res = await fetch("/api/applications", { method: "POST", body });
-      const data = (await res.json().catch(() => null)) as
-        | { ok?: boolean; error?: string; fields?: FieldErrors }
-        | null;
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
 
-      if (res.ok && data?.ok) {
-        setSubmitted(true);
-        return;
+      setSubmittedName(firstName.trim());
+      setIsSuccess(true);
+      if (cardRef.current) {
+        cardRef.current.scrollIntoView({ behavior: "smooth" });
       }
-
-      if (data?.fields) {
-        setFieldErrors(data.fields);
-        jumpToFirstError(data.fields);
-      }
-      setFormError(data?.error ?? "Something went wrong. Please try again.");
-    } catch {
-      setFormError("Network error. Please check your connection and try again.");
+    } catch (err) {
+      console.warn("Submit error:", err);
+      alert("Could not send application. Please check your internet connection and try again.");
     } finally {
-      setSubmitting(false);
+      setIsSubmitting(false);
     }
-  }
-
-  const progressPct = useMemo(() => Math.round(((step + 1) / TOTAL_STEPS) * 100), [step]);
-
-  if (submitted) {
-    return (
-      <div className="apply-card" role="status">
-        <div className="apply-card__body text-center py-5">
-          <i className="ri-checkbox-circle-fill text-success" style={{ fontSize: "3rem" }} aria-hidden />
-          <h3 className="mt-3 mb-2">Application received</h3>
-          <p className="text-secondary mb-4 mx-auto" style={{ maxWidth: "560px" }}>
-            Thank you for applying{firstName ? `, ${firstName}` : ""}. Our team will review your application and follow
-            up by email with the next steps.
-          </p>
-          <div className="d-flex flex-wrap gap-3 justify-content-center">
-            <Link href="/internships" className="main-btn">
-              Explore more internships
-            </Link>
-            <Link href="/" className="main-btn black">
-              Back to home
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  };
 
   return (
-    <div className="apply-card" id="apply-card-top">
-      <div className="apply-card__head">
-        <span className="apply-card__head-icon" aria-hidden>
-          <i className="ri-quill-pen-line" />
-        </span>
-        <div>
-          <p className="apply-card__title">Internship application form</p>
-          <p className="apply-card__subtitle">
-            Step {step + 1} of {TOTAL_STEPS} — {STEPS[step].title}. Fields marked with * are required.
-          </p>
-        </div>
-      </div>
-
-      <div className="apply-stepper" role="tablist" aria-label="Application steps">
-        <div className="apply-progress" aria-hidden>
-          <div className="apply-progress__bar" style={{ width: `${progressPct}%` }} />
-        </div>
-        <div className="apply-stepper__track">
-          {STEPS.map((s, i) => {
-            const state = i === step ? "is-active" : i < maxVisited || i < step ? "is-complete" : "";
-            return (
-              <button
-                type="button"
-                key={s.id}
-                role="tab"
-                aria-selected={i === step}
-                className={`apply-step-tab ${state}`}
-                onClick={() => handleTabClick(i)}
-              >
-                <span className="apply-step-tab__num">
-                  {i < step ? <i className="ri-check-line" aria-hidden /> : i + 1}
-                </span>
-                <span className="apply-step-tab__label">
-                  <i className={`${s.icon} me-1`} aria-hidden />
-                  {s.title}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <form className="apply-form apply-card__body" onSubmit={(e) => void handleSubmit(e)} noValidate>
-        {initial?.internship && step === 0 ? (
-          <div className="apply-note mb-4" role="note">
-            <i className="ri-briefcase-4-line" aria-hidden />
-            <span>
-              Applying for <strong>{initial.internship}</strong>
-            </span>
-          </div>
-        ) : null}
-
-        {formError ? (
-          <div className="alert alert-danger py-2 small mb-4" role="alert">
-            {formError}
-          </div>
-        ) : null}
-
-        {step === 0 ? (
-          <ApplyFormSection icon="ri-user-3-line" title="Personal information">
-            <ApplyFormControl
-              id="apply-first-name"
-              label={required("First name")}
-              icon="ri-user-line"
-              error={fieldErrors.firstName}
-              inputProps={{
-                value: firstName,
-                onChange: (e) => setFirstName(e.target.value),
-                placeholder: "First name",
-                autoComplete: "given-name",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-last-name"
-              label={required("Last name")}
-              icon="ri-user-line"
-              error={fieldErrors.lastName}
-              inputProps={{
-                value: lastName,
-                onChange: (e) => setLastName(e.target.value),
-                placeholder: "Last name",
-                autoComplete: "family-name",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-email"
-              label={required("Email address")}
-              icon="ri-mail-line"
-              error={fieldErrors.email}
-              inputProps={{
-                type: "email",
-                value: email,
-                onChange: (e) => setEmail(e.target.value),
-                placeholder: "you@example.com",
-                autoComplete: "email",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-phone"
-              label={required("Contact number")}
-              icon="ri-phone-line"
-              error={fieldErrors.phone}
-              inputProps={{
-                type: "tel",
-                value: phone,
-                onChange: (e) => setPhone(e.target.value),
-                placeholder: "+44 7700 900000",
-                autoComplete: "tel",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-country"
-              label={required("Country of residence")}
-              icon="ri-map-pin-line"
-              error={fieldErrors.country}
-              inputProps={{
-                value: country,
-                onChange: (e) => setCountry(e.target.value),
-                placeholder: "e.g. United Kingdom",
-                autoComplete: "country-name",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-university"
-              label={required("University / institution name")}
-              icon="ri-building-4-line"
-              error={fieldErrors.university}
-              inputProps={{
-                value: university,
-                onChange: (e) => setUniversity(e.target.value),
-                placeholder: "University or institution name",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-qualification"
-              label={required("Current qualification")}
-              icon="ri-award-line"
-              error={fieldErrors.currentQualification}
-              inputProps={{
-                value: currentQualification,
-                onChange: (e) => setCurrentQualification(e.target.value),
-                placeholder: "e.g. BSc Computer Science, MBA",
-                required: true,
-              }}
-            />
-            <ApplyFormControl
-              id="apply-linkedin"
-              label="LinkedIn profile"
-              icon="ri-linkedin-box-line"
-              error={fieldErrors.linkedIn}
-              inputProps={{
-                type: "url",
-                value: linkedIn,
-                onChange: (e) => setLinkedIn(e.target.value),
-                placeholder: "https://linkedin.com/in/your-profile",
-              }}
-            />
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 1 ? (
-          <ApplyFormSection icon="ri-stack-line" title="Internship details">
-            <div className="col-12 apply-choice-group" role="radiogroup" aria-labelledby={durationLegendId}>
-              <p id={durationLegendId} className="form-label apply-fieldset__legend">
-                {required("Preferred internship duration")}
-              </p>
-              <div className="apply-choice-group__field">
-                <div className={`apply-pill-group${fieldErrors.duration ? " is-invalid-group" : ""}`}>
-                  {INTERNSHIP_DURATION_OPTIONS.map((d) => (
-                    <label key={d} className={`apply-pill${duration === d ? " is-selected" : ""}`}>
-                      <input
-                        type="radio"
-                        name="duration"
-                        value={d}
-                        checked={duration === d}
-                        onChange={() => setDuration(d)}
-                        className="visually-hidden"
-                      />
-                      {d}
-                    </label>
-                  ))}
-                </div>
-              </div>
-              {fieldErrors.duration ? (
-                <div className="invalid-feedback d-block">{fieldErrors.duration}</div>
-              ) : null}
-            </div>
-
-            <ApplyYesNoGroup
-              name="careerAssistance"
-              legend={required("Do you require career assistance?")}
-              value={careerAssistance}
-              onChange={setCareerAssistance}
-              error={fieldErrors.careerAssistance}
-            />
-
-            <ApplyYesNoGroup
-              name="jobOpportunitiesAfter"
-              legend={required("Are you interested in job opportunities after the internship?")}
-              value={jobOpportunitiesAfter}
-              onChange={setJobOpportunitiesAfter}
-              error={fieldErrors.jobOpportunitiesAfter}
-            />
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 2 ? (
-          <ApplyFormSection icon="ri-graduation-cap-line" title="Education & experience">
-            <ApplyYesNoGroup
-              name="previousInternship"
-              legend={required("Have you completed any internships before?")}
-              value={previousInternship}
-              onChange={setPreviousInternship}
-              error={fieldErrors.previousInternship}
-            />
-
-            {previousInternship === "yes" ? (
-              <ApplyFormControl
-                id="apply-prev-internship"
-                label={required("If yes, please share the internship details and duration")}
-                icon="ri-briefcase-4-line"
-                colClass="col-12"
-                textarea
-                error={fieldErrors.previousInternshipDetails}
-                textareaProps={{
-                  rows: 3,
-                  value: previousInternshipDetails,
-                  onChange: (e) => setPreviousInternshipDetails(e.target.value),
-                  placeholder: "Organisation, role, domain, and duration…",
-                }}
-              />
-            ) : null}
-
-            <ApplyYesNoGroup
-              name="relevantWorkExperience"
-              legend={required("Do you have any relevant work experience in this field?")}
-              value={relevantWorkExperience}
-              onChange={setRelevantWorkExperience}
-              error={fieldErrors.relevantWorkExperience}
-            />
-
-            {relevantWorkExperience === "yes" ? (
-              <ApplyFormControl
-                id="apply-work-exp"
-                label={required("If yes, please share the experience and duration")}
-                icon="ri-file-text-line"
-                colClass="col-12"
-                textarea
-                error={fieldErrors.relevantWorkExperienceDetails}
-                textareaProps={{
-                  rows: 3,
-                  value: relevantWorkExperienceDetails,
-                  onChange: (e) => setRelevantWorkExperienceDetails(e.target.value),
-                  placeholder: "Describe your experience and how long you worked in this field…",
-                }}
-              />
-            ) : null}
-
-            <ApplyFormControl
-              id="apply-current-status"
-              label={required("Are you currently")}
-              icon="ri-briefcase-line"
-              error={fieldErrors.currentStatus}
-              selectProps={{
-                value: currentStatus,
-                onChange: (e) => setCurrentStatus(e.target.value),
-                required: true,
-                children: (
-                  <>
-                    <option value="">Select…</option>
-                    {CURRENT_STATUS_OPTIONS.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </>
-                ),
-              }}
-            />
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 3 ? (
-          <ApplyFormSection icon="ri-tools-line" title="Skills & background">
-            <ApplyFormControl
-              id="apply-skills"
-              label={required("What skills do you have that are relevant to this internship?")}
-              icon="ri-star-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.relevantSkills}
-              textareaProps={{
-                rows: 4,
-                value: relevantSkills,
-                onChange: (e) => setRelevantSkills(e.target.value),
-                placeholder: "Technical skills, tools, domain knowledge…",
-              }}
-            />
-
-            <ApplyYesNoGroup
-              name="projectsCertificationsCourses"
-              legend={required(
-                "Have you completed any projects, certifications, or courses related to this field?",
-              )}
-              value={projectsCertificationsCourses}
-              onChange={setProjectsCertificationsCourses}
-              error={fieldErrors.projectsCertificationsCourses}
-            />
-
-            {projectsCertificationsCourses === "yes" ? (
-              <ApplyFormControl
-                id="apply-projects-details"
-                label={required("If yes, please provide details")}
-                icon="ri-folder-open-line"
-                colClass="col-12"
-                textarea
-                error={fieldErrors.projectsCertificationsDetails}
-                textareaProps={{
-                  rows: 3,
-                  value: projectsCertificationsDetails,
-                  onChange: (e) => setProjectsCertificationsDetails(e.target.value),
-                  placeholder: "Projects, certifications, courses, platforms, or institutions…",
-                }}
-              />
-            ) : null}
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 4 ? (
-          <ApplyFormSection icon="ri-passport-line" title="Visa & resume" subtitle="Visa details and CV upload">
-            <ApplyFormControl
-              id="apply-visa-status"
-              label={required("Current visa status")}
-              icon="ri-shield-check-line"
-              error={fieldErrors.visaStatus}
-              selectProps={{
-                value: visaStatus,
-                onChange: (e) => setVisaStatus(e.target.value),
-                required: true,
-                children: (
-                  <>
-                    <option value="">Select visa status…</option>
-                    {VISA_STATUS_OPTIONS.map((o) => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </>
-                ),
-              }}
-            />
-            {visaStatus === "other" ? (
-              <ApplyFormControl
-                id="apply-visa-details"
-                label={required("Please describe your visa type")}
-                icon="ri-file-text-line"
-                colClass="col-12"
-                error={fieldErrors.visaDetails}
-                inputProps={{
-                  value: visaDetails,
-                  onChange: (e) => setVisaDetails(e.target.value),
-                  placeholder: "Your visa type",
-                }}
-              />
-            ) : null}
-
-            <div className="col-12">
-              <label htmlFor="apply-resume" className="form-label">
-                {required("Upload resume / CV")}
-              </label>
-              <p className="small text-secondary mb-2">PDF or Word, max 5 MB</p>
-              <div
-                className={`apply-file-upload${fieldErrors.resume ? " is-invalid-group" : ""}${resumeFile ? " has-file" : ""}`}
-              >
-                <input
-                  ref={resumeInputRef}
-                  id="apply-resume"
-                  type="file"
-                  className="visually-hidden"
-                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  onChange={(e) => setResumeFile(e.target.files?.[0] ?? null)}
-                />
-                <i className="ri-upload-cloud-2-line apply-file-upload__icon" aria-hidden />
-                {resumeFile ? (
-                  <>
-                    <p className="apply-file-upload__name mb-2">{resumeFile.name}</p>
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-outline-secondary"
-                      onClick={() => {
-                        setResumeFile(null);
-                        if (resumeInputRef.current) resumeInputRef.current.value = "";
-                      }}
-                    >
-                      Remove file
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <p className="apply-file-upload__hint mb-2">Drag and drop or choose a file</p>
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-outline-primary"
-                      onClick={() => resumeInputRef.current?.click()}
-                    >
-                      Choose file
-                    </button>
-                  </>
-                )}
-              </div>
-              {fieldErrors.resume ? <div className="invalid-feedback d-block">{fieldErrors.resume}</div> : null}
-            </div>
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 5 ? (
-          <ApplyFormSection
-            icon="ri-compass-3-line"
-            title="Career goals"
-            subtitle={`Please answer in detail (min. ${MIN_CAREER_GOAL_LENGTH} characters each)`}
-          >
-            <ApplyFormControl
-              id="apply-industry"
-              label={required("Which industry or career path are you interested in?")}
-              icon="ri-compass-3-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.industryOrCareerPath}
-              textareaProps={{
-                rows: 3,
-                value: industryOrCareerPath,
-                onChange: (e) => setIndustryOrCareerPath(e.target.value),
-                placeholder: "Industry, role, or career direction you are pursuing…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-challenge"
-              label={required("What is your biggest career challenge currently?")}
-              icon="ri-flag-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.biggestCareerChallenge}
-              textareaProps={{
-                rows: 3,
-                value: biggestCareerChallenge,
-                onChange: (e) => setBiggestCareerChallenge(e.target.value),
-                placeholder: "The main obstacle or challenge you are facing in your career…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-why"
-              label={required("Why did you choose this internship programme?")}
-              icon="ri-lightbulb-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.whyChoseInternship}
-              textareaProps={{
-                rows: 4,
-                value: whyChoseInternship,
-                onChange: (e) => setWhyChoseInternship(e.target.value),
-                placeholder: "What motivated you to apply for this programme…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-growth"
-              label={required(
-                "How do you believe this internship will help your career growth and future goals?",
-              )}
-              icon="ri-rocket-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.careerGrowthHelp}
-              textareaProps={{
-                rows: 4,
-                value: careerGrowthHelp,
-                onChange: (e) => setCareerGrowthHelp(e.target.value),
-                placeholder: "How this opportunity supports your long-term career goals…",
-              }}
-            />
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 6 ? (
-          <ApplyFormSection
-            icon="ri-chat-quote-line"
-            title="Feedback & expectations"
-            subtitle={`Please answer in detail (min. ${MIN_CAREER_GOAL_LENGTH} characters each)`}
-          >
-            <ApplyFormControl
-              id="apply-why-briticana"
-              label={required(
-                "Why did you choose the Briticana Internship Program? (Please share the key reasons that motivated you to apply for this internship.)",
-              )}
-              icon="ri-lightbulb-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.whyChoseBriticana}
-              textareaProps={{
-                rows: 4,
-                value: whyChoseBriticana,
-                onChange: (e) => setWhyChoseBriticana(e.target.value),
-                placeholder: "Key reasons that motivated you to apply…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-expectations"
-              label={required(
-                "What are your expectations from this internship? (What skills, knowledge, exposure, or career outcomes are you hoping to gain?)",
-              )}
-              icon="ri-flag-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.internshipExpectations}
-              textareaProps={{
-                rows: 4,
-                value: internshipExpectations,
-                onChange: (e) => setInternshipExpectations(e.target.value),
-                placeholder: "Skills, knowledge, exposure, or career outcomes you hope to gain…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-impact"
-              label={required(
-                "How do you believe this internship will impact your academic, professional, or career growth? (Please explain how this opportunity aligns with your long-term goals.)",
-              )}
-              icon="ri-rocket-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.impactAcademicProfessionalGrowth}
-              textareaProps={{
-                rows: 4,
-                value: impactAcademicProfessionalGrowth,
-                onChange: (e) => setImpactAcademicProfessionalGrowth(e.target.value),
-                placeholder: "How this opportunity aligns with your long-term goals…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-learning-outcomes"
-              label={required(
-                "What specific learning outcomes would you like to achieve during the internship? (Examples: Technical skills, industry exposure, research experience, professional networking, portfolio development, etc.)",
-              )}
-              icon="ri-book-open-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.specificLearningOutcomes}
-              textareaProps={{
-                rows: 4,
-                value: specificLearningOutcomes,
-                onChange: (e) => setSpecificLearningOutcomes(e.target.value),
-                placeholder: "Technical skills, industry exposure, networking, portfolio development…",
-              }}
-            />
-            <ApplyFormControl
-              id="apply-challenges-overcome"
-              label={required(
-                "What challenges do you expect to overcome through this internship experience? (Examples: Lack of practical experience, career clarity, technical skills gap, communication skills, interview readiness, etc.)",
-              )}
-              icon="ri-shield-star-line"
-              colClass="col-12"
-              textarea
-              error={fieldErrors.challengesToOvercome}
-              textareaProps={{
-                rows: 4,
-                value: challengesToOvercome,
-                onChange: (e) => setChallengesToOvercome(e.target.value),
-                placeholder: "Practical experience, career clarity, skills gap, communication, interview readiness…",
-              }}
-            />
-
-            <div className="col-12 apply-choice-group" role="radiogroup" aria-labelledby={confidenceLegendId}>
-              <p id={confidenceLegendId} className="form-label apply-fieldset__legend">
-                {required("How would you rate your current confidence level in your chosen domain?")}
-              </p>
-              <div className="apply-choice-group__field">
-                <div className={`apply-pill-group${fieldErrors.confidenceLevel ? " is-invalid-group" : ""}`}>
-                  {CONFIDENCE_LEVEL_OPTIONS.map((opt) => (
-                    <label
-                      key={opt.value}
-                      className={`apply-pill${confidenceLevel === opt.value ? " is-selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="confidenceLevel"
-                        value={opt.value}
-                        checked={confidenceLevel === opt.value}
-                        onChange={() => setConfidenceLevel(opt.value)}
-                        className="visually-hidden"
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
-              </div>
-              {fieldErrors.confidenceLevel ? (
-                <div className="invalid-feedback d-block">{fieldErrors.confidenceLevel}</div>
-              ) : null}
-            </div>
-          </ApplyFormSection>
-        ) : null}
-
-        {step === 7 ? (
-          <ApplyFormSection icon="ri-shield-check-line" title="Declaration & consent" subtitle="Please read and confirm">
-            <div className="col-12">
-              <div className={`apply-declaration${fieldErrors.declarationAccepted ? " is-invalid-group" : ""}`}>
-                <p className="fw-semibold mb-2">I hereby confirm that:</p>
-                <ul>
-                  <li>The information provided by me is true and accurate to the best of my knowledge.</li>
-                  <li>
-                    I understand that Briticana offers remote internship programmes and participation does not
-                    guarantee employment or placement.
-                  </li>
-                  <li>
-                    I consent to the processing of my information for internship administration, career support, and
-                    related professional opportunities.
-                  </li>
-                  <li>
-                    I agree to maintain professionalism and adhere to the ethical standards expected during the
-                    internship.
-                  </li>
-                </ul>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={declarationAccepted}
-                    onChange={(e) => setDeclarationAccepted(e.target.checked)}
-                  />
-                  <span>I confirm the above declaration and consent to submit my application.</span>
-                </label>
-              </div>
-              {fieldErrors.declarationAccepted ? (
-                <div className="invalid-feedback d-block">{fieldErrors.declarationAccepted}</div>
-              ) : null}
-            </div>
-          </ApplyFormSection>
-        ) : null}
-
-        <div className="d-none" aria-hidden>
-          <label htmlFor="apply-website">Website</label>
-          <input
-            id="apply-website"
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-        </div>
-
-        <div className="apply-wizard__nav">
+    <div className="briti-app-form-root" data-theme={theme}>
+      <div className="shell">
+        {/* Topbar with Theme Toggle */}
+        <div className="topbar">
           <button
             type="button"
-            className="main-btn black apply-wizard__back"
-            onClick={handleBack}
-            disabled={step === 0 || submitting}
+            className="icon-btn"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
           >
-            <i className="ri-arrow-left-long-line me-2" aria-hidden /> Back
+            {theme === "dark" ? (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            ) : (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              </svg>
+            )}
           </button>
+        </div>
 
-          {step < TOTAL_STEPS - 1 ? (
-            <button type="button" className="main-btn apply-wizard__next" onClick={handleNext}>
-              Next <i className="ri-arrow-right-long-line ms-2" aria-hidden />
-            </button>
+        {/* Main Application Card */}
+        <div className="card" ref={cardRef}>
+          {/* Hero Section */}
+          <div className="hero">
+            <div className="logo">
+              <img
+                src="/assets/briticana-logo.webp"
+                alt="Briticana logo"
+                width={100}
+                height={100}
+                onError={(e) => {
+                  // Fallback if image fails to load
+                  (e.target as HTMLElement).style.display = "none";
+                }}
+              />
+            </div>
+            <h1>Internship Application</h1>
+            <p>
+              Apply below to join the Briticana remote internship programme. Upload your CV — it covers education,
+              skills and experience.
+            </p>
+            <span className="badge">Briticana · Since 2001</span>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="progress-wrap">
+            <div
+              className="progress-bar"
+              style={{ width: isSuccess ? "100%" : `${progressPercent}%` }}
+            />
+          </div>
+
+          {/* Success View */}
+          {isSuccess ? (
+            <div className="success show">
+              <div className="tick">
+                <svg
+                  width="44"
+                  height="44"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+              </div>
+              <h2>Application Submitted 🎉</h2>
+              <p>
+                Thank you{submittedName ? `, ${submittedName}` : ""}! Your Briticana Internship application has been
+                received. Our team will assess your application and match you to the right project domain, then reach out
+                with next steps.
+              </p>
+              <Link href="/internships">Explore internship domains</Link>
+            </div>
           ) : (
-            <button type="submit" className="main-btn apply-submit apply-wizard__next" disabled={submitting}>
-              {submitting ? (
-                "Submitting application…"
-              ) : (
-                <>
-                  Submit application <i className="ri-arrow-right-long-line ms-2" aria-hidden />
-                </>
+            /* Application Form */
+            <form onSubmit={handleSubmit} noValidate>
+              {/* Optional Internship Pill Banner if preselected */}
+              {initial?.internship && (
+                <div className="applying-banner">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                  </svg>
+                  <span>
+                    Applying for <strong>{initial.internship}</strong>
+                  </span>
+                </div>
               )}
-            </button>
+
+              {/* Section 1: Personal Information */}
+              <section className="section">
+                <div className="section-head">
+                  <span className="num">1</span>
+                  <h2>Personal Information</h2>
+                </div>
+                <div className="grid two">
+                  {/* First Name */}
+                  <div className={`fg ${touched && !firstName.trim() ? "invalid" : ""}`}>
+                    <label htmlFor="first-name">
+                      First Name<span className="req">*</span>
+                    </label>
+                    <input
+                      id="first-name"
+                      type="text"
+                      name="First Name"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    />
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Last Name */}
+                  <div className={`fg ${touched && !lastName.trim() ? "invalid" : ""}`}>
+                    <label htmlFor="last-name">
+                      Last Name<span className="req">*</span>
+                    </label>
+                    <input
+                      id="last-name"
+                      type="text"
+                      name="Last Name"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Country of Residence */}
+                  <div className={`fg ${touched && !country.trim() ? "invalid" : ""}`}>
+                    <label htmlFor="country-residence">
+                      Country of Residence<span className="req">*</span>
+                    </label>
+                    <input
+                      id="country-residence"
+                      type="text"
+                      name="Country of Residence"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                      required
+                    />
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* University / Institution */}
+                  <div className={`fg ${touched && !university.trim() ? "invalid" : ""}`}>
+                    <label htmlFor="university">
+                      University / Institution<span className="req">*</span>
+                    </label>
+                    <input
+                      id="university"
+                      type="text"
+                      name="University / Institution"
+                      value={university}
+                      onChange={(e) => setUniversity(e.target.value)}
+                      required
+                    />
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Current Qualification */}
+                  <div className={`fg ${touched && !currentQualification.trim() ? "invalid" : ""}`}>
+                    <label htmlFor="qualification">
+                      Current Qualification<span className="req">*</span>
+                    </label>
+                    <input
+                      id="qualification"
+                      type="text"
+                      name="Current Qualification"
+                      placeholder="e.g. BSc Computer Science"
+                      value={currentQualification}
+                      onChange={(e) => setCurrentQualification(e.target.value)}
+                      required
+                    />
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* LinkedIn Profile (Optional) */}
+                  <div className="fg">
+                    <label htmlFor="linkedin-profile">
+                      LinkedIn Profile<span className="opt">optional</span>
+                    </label>
+                    <input
+                      id="linkedin-profile"
+                      type="url"
+                      name="LinkedIn Profile"
+                      placeholder="https://linkedin.com/in/..."
+                      value={linkedIn}
+                      onChange={(e) => setLinkedIn(e.target.value)}
+                    />
+                  </div>
+
+                  {/* Upload Resume / CV */}
+                  <div className={`fg full ${touched && !resumeFile ? "invalid" : ""}`}>
+                    <label>
+                      Upload Resume / CV<span className="req">*</span>
+                    </label>
+                    <label
+                      className={`file ${dragOver ? "is-dragover" : ""}`}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                      </svg>
+                      <span className="fname">
+                        {resumeFile ? resumeFile.name : "Click to upload (PDF, DOC, DOCX)"}
+                      </span>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        id="resume"
+                        accept=".pdf,.doc,.docx"
+                        onChange={handleFileChange}
+                      />
+                    </label>
+                    <span className="err">Please upload your resume</span>
+                  </div>
+                </div>
+              </section>
+
+              {/* Section 2: Internship Details */}
+              <section className="section">
+                <div className="section-head">
+                  <span className="num">2</span>
+                  <h2>Internship Details</h2>
+                </div>
+                <div className="grid two">
+                  {/* Preferred Domain */}
+                  <div className={`fg ${touched && !domain ? "invalid" : ""}`}>
+                    <label htmlFor="preferred-domain">
+                      Preferred Domain<span className="req">*</span>
+                    </label>
+                    <select
+                      id="preferred-domain"
+                      name="Preferred Domain"
+                      value={domain}
+                      onChange={(e) => setDomain(e.target.value)}
+                      required
+                    >
+                      <option value="">Select…</option>
+                      {DOMAIN_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Preferred Duration */}
+                  <div className={`fg ${touched && !duration ? "invalid" : ""}`}>
+                    <label htmlFor="preferred-duration">
+                      Preferred Duration<span className="req">*</span>
+                    </label>
+                    <select
+                      id="preferred-duration"
+                      name="Preferred Duration"
+                      value={duration}
+                      onChange={(e) => setDuration(e.target.value)}
+                      required
+                    >
+                      <option value="">Select…</option>
+                      {DURATION_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Are you currently */}
+                  <div className={`fg ${touched && !currentStatus ? "invalid" : ""}`}>
+                    <label htmlFor="current-status">
+                      Are you currently<span className="req">*</span>
+                    </label>
+                    <select
+                      id="current-status"
+                      name="Current Status"
+                      value={currentStatus}
+                      onChange={(e) => setCurrentStatus(e.target.value)}
+                      required
+                    >
+                      <option value="">Select…</option>
+                      <option value="Studying">Studying</option>
+                      <option value="Working">Working</option>
+                      <option value="Both Studying & Working">Both Studying &amp; Working</option>
+                      <option value="Neither">Neither</option>
+                    </select>
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Require Career Assistance? */}
+                  <div className={`fg ${touched && !careerAssistance ? "invalid" : ""}`}>
+                    <label htmlFor="career-assistance">
+                      Require Career Assistance?<span className="req">*</span>
+                    </label>
+                    <select
+                      id="career-assistance"
+                      name="Career Assistance"
+                      value={careerAssistance}
+                      onChange={(e) => setCareerAssistance(e.target.value)}
+                      required
+                    >
+                      <option value="">Select…</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                    <span className="err">Required</span>
+                  </div>
+
+                  {/* Interested in jobs after internship? */}
+                  <div className={`fg ${touched && !jobInterest ? "invalid" : ""}`}>
+                    <label htmlFor="job-interest">
+                      Interested in jobs after internship?<span className="req">*</span>
+                    </label>
+                    <select
+                      id="job-interest"
+                      name="Job Interest"
+                      value={jobInterest}
+                      onChange={(e) => setJobInterest(e.target.value)}
+                      required
+                    >
+                      <option value="">Select…</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                    <span className="err">Required</span>
+                  </div>
+                </div>
+
+                {/* Consent Checkbox */}
+                <div className={`consent ${touched && !consent ? "invalid" : ""}`}>
+                  <label className="check">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      required
+                    />
+                    <span>
+                      I confirm the information is accurate and I consent to Briticana processing my application for the
+                      remote internship programme.
+                    </span>
+                  </label>
+                  <span className="err">Please confirm the declaration to proceed</span>
+                </div>
+              </section>
+
+              {/* Submit Actions */}
+              <div className="actions">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  id="submitBtn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Submitting…" : "Submit Application"}
+                </button>
+              </div>
+            </form>
           )}
         </div>
 
-        {step === TOTAL_STEPS - 1 ? (
-          <p className="small text-secondary text-center mt-3 mb-0 apply-consent">
-            By submitting, you agree to our <Link href="/privacy-policy">Privacy Policy</Link> and{" "}
-            <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>. Your information and resume will be
-            stored securely for review by the Briticana team.
-          </p>
-        ) : null}
-      </form>
+        {/* Footer */}
+        <footer className="legal">
+          Copyright Briticana · All Rights Reserved · Remote Internship Programme
+        </footer>
+      </div>
     </div>
   );
 }

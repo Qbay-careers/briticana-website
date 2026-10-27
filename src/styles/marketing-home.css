@@ -721,10 +721,10 @@
 
 /* ── Six Feature Divs Section Directly Below Hero (Clean White Cards, Royal Blue Icons) ── */
 .marketing-home-root .briti-six-features-section {
-  padding: clamp(24px, 3vw, 36px) 0 !important;
-  background: #003885 !important;
-  border-top: none !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: clamp(28px, 3.5vw, 42px) 0 !important;
+  background: var(--briti-bg, #f8fafc) !important;
+  border-top: 1px solid rgba(0, 40, 110, 0.08) !important;
+  border-bottom: 1px solid rgba(0, 40, 110, 0.06) !important;
 }
 
 .marketing-home-root .briti-six-features-grid {
@@ -743,8 +743,8 @@
   justify-content: space-between !important;
   border-radius: 12px !important;
   background: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  box-shadow: 0 4px 16px rgba(0, 18, 56, 0.18) !important;
+  border: 1px solid rgba(0, 40, 110, 0.09) !important;
+  box-shadow: 0 4px 18px rgba(0, 24, 72, 0.06) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   transition:
@@ -760,8 +760,8 @@
 
 .marketing-home-root .briti-six-feature-card:hover {
   transform: translateY(-2px) !important;
-  border-color: #93c5fd !important;
-  box-shadow: 0 10px 24px -8px rgba(0, 53, 148, 0.12) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 10px 24px -6px rgba(0, 53, 148, 0.14) !important;
 }
 
 .marketing-home-root .briti-six-feature-card__top {

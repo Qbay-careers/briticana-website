@@ -34,7 +34,7 @@ export type MarketingNavProps = {
 
 export default function MarketingNav({ settings: _settings }: MarketingNavProps) {
   const pathname = usePathname() ?? "";
-  const applyUrl = buildApplyHref({ source: "nav" });
+  const applyUrl = "/internships";
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 

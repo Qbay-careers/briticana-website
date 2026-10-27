@@ -1,0 +1,645 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
+@import url("/edumove/css/remixicon.css");
+
+/* ==========================================================================
+   Briticana Dedicated Administration Portal & Dashboard Styles
+   Scoped strictly to .briti-admin-shell so public pages are untouched.
+   ========================================================================== */
+
+.briti-admin-shell {
+  --admin-primary: #7a4dfc;
+  --admin-primary-hover: #673ab7;
+  --admin-primary-soft: rgba(122, 77, 252, 0.1);
+  --admin-dark: #0f172a;
+  --admin-heading: #03010d;
+  --admin-text: #334155;
+  --admin-muted: #64748b;
+  --admin-bg: #f4f6fb;
+  --admin-surface: #ffffff;
+  --admin-surface-subtle: #f8fafc;
+  --admin-border: #e2e8f0;
+  --admin-border-strong: #cbd5e1;
+  --admin-radius-lg: 16px;
+  --admin-radius-md: 12px;
+  --admin-radius-sm: 8px;
+  --admin-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --admin-shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.07), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --admin-shadow-lg: 0 20px 45px -10px rgba(15, 23, 42, 0.1), 0 8px 18px -4px rgba(15, 23, 42, 0.05);
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.briti-admin-shell h1,
+.briti-admin-shell h2,
+.briti-admin-shell h3,
+.briti-admin-shell h4,
+.briti-admin-shell h5,
+.briti-admin-shell h6 {
+  color: var(--admin-heading);
+  font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
+  background: none !important;
+  text-decoration: none !important;
+}
+
+/* Explicitly guarantee no decorative underline or background image under any title span */
+.briti-admin-shell h1 span,
+.briti-admin-shell h2 span,
+.briti-admin-shell h3 span {
+  background: none !important;
+  background-image: none !important;
+  text-decoration: none !important;
+  padding-bottom: 0 !important;
+}
+
+/* ── Dedicated Admin Topbar ─────────────────────────────────────────────── */
+.briti-admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.briti-admin-topbar-inner {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.briti-admin-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--admin-heading);
+}
+
+.briti-admin-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.briti-admin-brand-divider {
+  width: 1px;
+  height: 26px;
+  background-color: var(--admin-border-strong);
+}
+
+.briti-admin-brand-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.briti-admin-brand-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--admin-heading);
+  letter-spacing: -0.01em;
+}
+
+.briti-admin-brand-subtitle {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--admin-muted);
+}
+
+.briti-admin-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background-color: var(--admin-surface-subtle);
+  border: 1px solid var(--admin-border);
+  color: var(--admin-text);
+}
+
+.briti-admin-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+}
+
+/* ── Container & Layout ─────────────────────────────────────────────────── */
+.briti-admin-container {
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Login Portal Layout ────────────────────────────────────────────────── */
+.briti-admin-login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 3.5rem 0 4.5rem;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(122, 77, 252, 0.07) 0%, transparent 42%),
+    radial-gradient(circle at 88% 82%, rgba(122, 77, 252, 0.05) 0%, transparent 40%),
+    var(--admin-bg);
+}
+
+.briti-admin-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background-color: var(--admin-primary-soft);
+  color: var(--admin-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.briti-admin-portal-title {
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  color: var(--admin-heading);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.briti-admin-portal-lead {
+  font-size: 1.05rem;
+  color: var(--admin-muted);
+  line-height: 1.65;
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+
+.briti-admin-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 520px;
+}
+
+.briti-admin-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 1rem 1.15rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.briti-admin-feature-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: var(--admin-primary-soft);
+  color: var(--admin-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.briti-admin-feature-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--admin-heading);
+  margin-bottom: 0.15rem;
+}
+
+.briti-admin-feature-desc {
+  font-size: 0.84rem;
+  color: var(--admin-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.briti-admin-login-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 20px;
+  box-shadow: var(--admin-shadow-lg);
+  padding: 2.5rem;
+}
+
+.briti-admin-login-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7a4dfc 0%, #5b21b6 100%);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 20px -4px rgba(122, 77, 252, 0.45);
+}
+
+/* ── Dashboard Workspace ────────────────────────────────────────────────── */
+.briti-admin-dashboard-main {
+  flex: 1;
+  padding: 2rem 0 4rem;
+}
+
+.briti-admin-page-header {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--admin-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.briti-admin-dashboard-title {
+  font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  color: var(--admin-heading);
+  margin: 0 0 0.25rem;
+  line-height: 1.2;
+}
+
+.briti-admin-dashboard-subtitle {
+  font-size: 0.92rem;
+  color: var(--admin-muted);
+  margin: 0;
+}
+
+.briti-admin-kpi-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.briti-admin-kpi-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: var(--admin-radius-md);
+  background: var(--admin-surface-subtle);
+  border: 1px solid var(--admin-border);
+}
+
+.briti-admin-kpi-chip i {
+  font-size: 1.1rem;
+  color: var(--admin-primary);
+}
+
+.briti-admin-kpi-label {
+  font-size: 0.75rem;
+  color: var(--admin-muted);
+  display: block;
+  line-height: 1.1;
+}
+
+.briti-admin-kpi-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--admin-heading);
+  line-height: 1.2;
+}
+
+/* ── Navigation Tabs ────────────────────────────────────────────────────── */
+.briti-admin-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  padding: 0.4rem;
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.briti-admin-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--admin-muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.briti-admin-tab-btn:hover {
+  color: var(--admin-heading);
+  background: var(--admin-surface-subtle);
+}
+
+.briti-admin-tab-btn.is-active {
+  background: var(--admin-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(122, 77, 252, 0.28);
+}
+
+.briti-admin-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.08);
+  color: inherit;
+}
+
+.briti-admin-tab-btn.is-active .briti-admin-tab-badge {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* ── Cards & Panels ─────────────────────────────────────────────────────── */
+.briti-admin-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-lg);
+  box-shadow: var(--admin-shadow-sm);
+  padding: 1.5rem 1.65rem;
+}
+
+.briti-admin-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.briti-admin-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--admin-heading);
+  margin: 0;
+}
+
+.briti-admin-card-subtitle {
+  font-size: 0.83rem;
+  color: var(--admin-muted);
+  margin: 0.2rem 0 0;
+}
+
+/* ── Forms & Inputs ─────────────────────────────────────────────────────── */
+.briti-admin-shell .form-label {
+  color: var(--admin-heading);
+  font-size: 0.84rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.briti-admin-shell .form-control,
+.briti-admin-shell .form-select {
+  border-color: var(--admin-border-strong);
+  border-radius: var(--admin-radius-sm);
+  font-size: 0.92rem;
+  padding: 0.6rem 0.85rem;
+  color: var(--admin-heading);
+  background-color: var(--admin-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.briti-admin-shell .form-control:focus,
+.briti-admin-shell .form-select:focus {
+  border-color: var(--admin-primary);
+  box-shadow: 0 0 0 3px rgba(122, 77, 252, 0.15);
+}
+
+.briti-admin-shell .input-group-text {
+  border-color: var(--admin-border-strong);
+  color: var(--admin-muted);
+  background-color: var(--admin-surface-subtle);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.briti-admin-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-primary);
+  background-color: var(--admin-primary);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  text-decoration: none;
+}
+
+.briti-admin-btn-primary:hover:not(:disabled) {
+  background-color: var(--admin-primary-hover);
+  border-color: var(--admin-primary-hover);
+  color: #ffffff;
+  box-shadow: 0 6px 16px -3px rgba(122, 77, 252, 0.35);
+}
+
+.briti-admin-btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.briti-admin-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid var(--admin-border-strong);
+  background-color: var(--admin-surface);
+  color: var(--admin-text);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.briti-admin-btn-secondary:hover:not(:disabled) {
+  background-color: var(--admin-surface-subtle);
+  border-color: #94a3b8;
+  color: var(--admin-heading);
+}
+
+.briti-admin-btn-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--admin-radius-sm);
+  border: 1px solid #fecdd3;
+  background-color: #fff1f2;
+  color: #be123c;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.briti-admin-btn-logout:hover {
+  background-color: #ffe4e6;
+  border-color: #fda4af;
+  color: #9f1239;
+}
+
+/* ── Table Styling ──────────────────────────────────────────────────────── */
+.briti-admin-table-wrap {
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+.briti-admin-table {
+  width: 100%;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+}
+
+.briti-admin-table thead th {
+  background-color: var(--admin-surface-subtle);
+  color: var(--admin-muted);
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 0.65rem;
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+.briti-admin-table tbody td {
+  padding: 0.75rem 0.65rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--admin-border);
+  color: var(--admin-text);
+}
+
+.briti-admin-table thead th:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 3;
+  background-color: var(--admin-surface-subtle);
+  box-shadow: -4px 0 8px rgba(15, 23, 42, 0.04);
+  text-align: right;
+}
+
+.briti-admin-table tbody td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background-color: var(--admin-surface);
+  box-shadow: -4px 0 8px rgba(15, 23, 42, 0.04);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.briti-admin-table tbody tr:hover td:last-child {
+  background-color: #f8fafc;
+}
+
+.briti-admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.briti-admin-code-pill {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  border: 1px solid var(--admin-border);
+  color: var(--admin-heading);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.briti-admin-filter-box {
+  background-color: var(--admin-surface-subtle);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Responsive Adjustments ─────────────────────────────────────────────── */
+@media (max-width: 991.98px) {
+  .briti-admin-login-main {
+    padding: 2.25rem 0 3rem;
+  }
+
+  .briti-admin-login-card {
+    padding: 1.75rem;
+  }
+
+  .briti-admin-page-header {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .briti-admin-topbar-inner,
+  .briti-admin-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .briti-admin-brand-divider {
+    display: none;
+  }
+
+  .briti-admin-card {
+    padding: 1.15rem;
+  }
+
+  .briti-admin-tabs {
+    width: 100%;
+  }
+
+  .briti-admin-tab-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
