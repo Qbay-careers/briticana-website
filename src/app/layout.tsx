@@ -86,6 +86,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
+        <link rel="preload" as="image" href="/assets/google-internship-promo-poster.jpg" />
+        <link rel="preload" as="image" href="/assets/kunj-robot-pull-tough.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

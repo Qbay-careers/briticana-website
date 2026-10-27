@@ -24,17 +24,60 @@ export default function HomeInternshipPopup() {
       return;
     }
 
-    // 1. Initial State: Robot is in position pulling with hands & tough expression, poster glides in slowly
-    setIsOpen(true);
-    setScene("scene1_pulling");
+    const posterSrc = "/assets/google-internship-promo-poster.jpg";
+    const robotPullSrc = "/assets/kunj-robot-pull-tough.png";
+    const robotHeroSrc = "/assets/kunj-robot-lean-mass.png";
 
-    // 2. Settled State (2.6s): Poster arrives, robot transitions to hero standing pose with eye blink
-    const tSettle = setTimeout(() => {
-      setScene("settled");
-    }, 2600);
+    let mounted = true;
+    let tSettle: NodeJS.Timeout | null = null;
+    let started = false;
+
+    const startAnimation = () => {
+      if (!mounted || started) return;
+      started = true;
+      setIsOpen(true);
+      setScene("scene1_pulling");
+
+      tSettle = setTimeout(() => {
+        if (mounted) {
+          setScene("settled");
+        }
+      }, 2600);
+    };
+
+    // Preload critical assets before triggering the entrance sequence
+    let loadedCount = 0;
+    const onAssetReady = () => {
+      loadedCount++;
+      if (loadedCount >= 2) {
+        startAnimation();
+      }
+    };
+
+    [posterSrc, robotPullSrc].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      if (img.complete) {
+        onAssetReady();
+      } else {
+        img.onload = onAssetReady;
+        img.onerror = onAssetReady;
+      }
+    });
+
+    // Also warm up hero pose in memory so 2.6s swap is instantaneous
+    const heroWarmup = new Image();
+    heroWarmup.src = robotHeroSrc;
+
+    // Safety fallback: reveal within 350ms max so it never delays if browser already cached
+    const fallbackTimer = setTimeout(() => {
+      startAnimation();
+    }, 350);
 
     return () => {
-      clearTimeout(tSettle);
+      mounted = false;
+      if (tSettle) clearTimeout(tSettle);
+      clearTimeout(fallbackTimer);
     };
   }, []);
 
@@ -67,8 +110,11 @@ export default function HomeInternshipPopup() {
               src="/assets/kunj-robot-pull-tough.png"
               alt="3D Chibi Robot Pulling with Tough Expression"
               className="briti-robot-part-img"
-              width={1024}
-              height={1024}
+              width={512}
+              height={512}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
 
@@ -78,16 +124,20 @@ export default function HomeInternshipPopup() {
               src="/assets/kunj-robot-lean-mass.png"
               alt="3D Chibi Robot Leaning Mass Hero Pose"
               className="briti-robot-part-img"
-              width={1024}
-              height={1024}
+              width={512}
+              height={512}
+              loading="eager"
+              decoding="async"
             />
             {/* Natural Eye Blink Overlay: Blinks cyan eyes naturally */}
             <img
               src="/assets/kunj-lean-blink.png"
               alt="Robot Eye Blink Overlay"
               className="briti-robot-eye-blink-overlay"
-              width={1024}
-              height={1024}
+              width={512}
+              height={512}
+              loading="eager"
+              decoding="async"
             />
           </div>
 
@@ -137,6 +187,8 @@ export default function HomeInternshipPopup() {
             width={576}
             height={1024}
             loading="eager"
+            decoding="async"
+            fetchPriority="high"
           />
 
           {/* Luxury Metallic Light Sheen Sweep across poster on settle */}
@@ -155,8 +207,10 @@ export default function HomeInternshipPopup() {
               src="/assets/kunj-pull-front-fist.png"
               alt="Robot Closed Fist Clamping Poster"
               className="briti-robot-part-img"
-              width={1024}
-              height={1024}
+              width={512}
+              height={512}
+              loading="eager"
+              decoding="async"
             />
           </div>
         </div>
