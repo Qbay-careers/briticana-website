@@ -55,9 +55,15 @@ function fileToBase64(file: File): Promise<{ base64: string; mimeType: string; n
 const GOOGLE_CAREERS_URL =
   "https://www.google.com/about/careers/applications/jobs/results?e=72477625&location=Dublin,%20Ireland&q=Intern&src=Online/Social/GS_EMEA";
 
+// Deployed Google Apps Script Web App fallback URL for production
+const DEFAULT_APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbz0DoH3Gbfy2NyP2zrxXptyjh4xcrLyM0hMCY5qQ-5VOZ3fB0OSsUYJf3DZASbC1uVwYQ/exec";
+
 export default function GoogleInternshipApplyForm({ initialRole }: GoogleApplyFormProps) {
-  // Web App URL from environment
-  const webAppUrl = process.env.NEXT_PUBLIC_GOOGLE_INTERNSHIP_APPS_SCRIPT_URL?.trim() || "";
+  // Web App URL from environment with deployed production fallback
+  const webAppUrl =
+    process.env.NEXT_PUBLIC_GOOGLE_INTERNSHIP_APPS_SCRIPT_URL?.trim() ||
+    DEFAULT_APPS_SCRIPT_URL;
 
   // Form Fields
   const [fullName, setFullName] = useState("");
