@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 import "@/styles/globals.css";
 
@@ -93,8 +93,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
-      <body className="d-flex flex-column min-vh-100">{children}</body>
+      <body className="d-flex flex-column min-vh-100">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
-

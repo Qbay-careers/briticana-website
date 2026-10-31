@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1073.0",
     "@sanity/image-url": "^1.1.0",
+    "@vercel/analytics": "^2.0.1",
     "bootstrap": "^5.3.3",
     "googleapis": "^173.0.0",
     "next": "14.2.18",
