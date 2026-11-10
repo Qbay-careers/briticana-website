@@ -135,7 +135,11 @@ export default function Footer({ settings }: FooterProps) {
           </div>
         </div>
         <hr className="border-secondary my-4" />
-        <p className="small text-secondary mb-0">© {new Date().getFullYear()} Briticana. All rights reserved.</p>
+        <p className="small text-secondary mb-2">&copy; {new Date().getFullYear()} Briticana. All rights reserved.</p>
+        <p className="small text-secondary mb-0">
+          Briticana process personal data in accordance with the UK GDPR, EU GDPR, and other
+          applicable data protection laws.
+        </p>
       </div>
     </div>
   );

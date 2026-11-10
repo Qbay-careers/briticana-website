@@ -1219,10 +1219,110 @@
   color: var(--briti-navy);
 }
 
-/* Footer — logo sizing (same asset as nav; no tile/filter) */
+/* Footer - exact midnight navy design matching reference + GDPR compliance bar */
+.marketing-home-root .footer-area.bg-03010d,
+.marketing-home-root .copyright-area.bg-03010d {
+  background: #070d1f !important;
+}
+
+.marketing-home-root .briti-footer-main {
+  padding-top: 84px;
+  padding-bottom: 72px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 .marketing-home-root .footer-area .marketing-footer-logo {
   max-width: min(300px, 85vw);
   object-fit: contain;
+}
+
+.marketing-home-root .footer-area .briti-footer-tagline {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.94rem;
+  line-height: 1.65;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 0;
+  max-width: 295px;
+}
+
+.marketing-home-root .footer-area .briti-footer-social-link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 1 !important;
+  border-radius: 50%;
+  background-color: #ffffff !important;
+  color: #070d1f !important;
+  font-size: 16px;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.marketing-home-root .footer-area .briti-footer-social-link:hover {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.marketing-home-root .footer-area .footer-single-item h3 {
+  color: #ffffff;
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.marketing-home-root .footer-area .footer-single-item .import-links li {
+  margin-bottom: 14px;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.marketing-home-root .footer-area .footer-single-item .import-links li:last-child {
+  margin-bottom: 0;
+}
+
+.marketing-home-root .footer-area .footer-single-item .import-links li a,
+.marketing-home-root .footer-area .footer-single-item .import-links li span {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.marketing-home-root .footer-area .footer-single-item .import-links li a:hover {
+  color: #60a5fa !important;
+}
+
+.marketing-home-root .footer-area .footer-single-item .import-links li i {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.marketing-home-root .copyright-area.bg-03010d {
+  padding: 24px 0 28px;
+  text-align: center;
+}
+
+.marketing-home-root .briti-footer-copyright {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 0 auto 8px;
+}
+
+.marketing-home-root .briti-footer-copyright span {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.marketing-home-root .briti-footer-gdpr {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  max-width: 820px;
+  margin: 0 auto;
 }
 
 /* Home: "How Briticana works" phase cards */
