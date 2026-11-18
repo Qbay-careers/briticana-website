@@ -2,15 +2,35 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 
+import { buildPageAlternates, getSiteBaseUrl, PRODUCTION_SITE_URL } from "@/lib/seo/siteSeo";
+
 import "@/styles/globals.css";
 
+const siteBaseUrl = getSiteBaseUrl();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteBaseUrl),
   title: {
-    default: "Briticana — Internships & startup showcase",
+    default: "Briticana: Real Project Internships, Work & Skill Experience",
     template: "%s | Briticana",
   },
   description:
-    "Briticana connects learners with structured internship experiences and showcases collaboration with startups across Ireland, the UK, Germany, and Finland.",
+    "Join Briticana for real project internships and hands-on work experience. Learn practical skills, view Google & European tracks, and grow your career.",
+  authors: [{ name: "Briticana", url: `${siteBaseUrl}/experience-centers` }],
+  creator: "Briticana",
+  publisher: "Briticana",
+  alternates: buildPageAlternates("/"),
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico?v=3", sizes: "48x48" },
@@ -27,9 +47,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Briticana — Internships & startup showcase",
+    title: "Briticana: Real Project Internships, Work & Skill Experience",
     description:
-      "Briticana connects learners with structured internship experiences and showcases collaboration with startups across Ireland, the UK, Germany, and Finland.",
+      "Join Briticana for real project internships and hands-on work experience. Learn practical skills, view Google & European tracks, and grow your career.",
     url: "https://www.briticana.us",
     siteName: "Briticana",
     images: [
@@ -50,30 +70,74 @@ const organizationJsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://www.briticana.us/#organization",
+      "@id": `${PRODUCTION_SITE_URL}/#organization`,
       name: "Briticana",
-      url: "https://www.briticana.us",
+      url: PRODUCTION_SITE_URL,
+      description:
+        "Briticana connects learners with structured internship experiences and showcases collaboration with startups across Ireland, the UK, Germany, and Finland.",
+      email: "Info@briticana.us",
+      telephone: "+17342498898",
+      sameAs: ["https://www.linkedin.com/company/briticana/"],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "2nd Floor, Room Number 019, 206 E Huron St",
+        addressLocality: "Ann Arbor",
+        addressRegion: "MI",
+        postalCode: "48104",
+        addressCountry: "US",
+      },
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "customer support",
+          email: "support@briticana.us",
+          telephone: "+17342498898",
+          availableLanguage: ["English"],
+        },
+      ],
       logo: {
         "@type": "ImageObject",
-        url: "https://www.briticana.us/android-chrome-512x512.png?v=3",
+        url: `${PRODUCTION_SITE_URL}/android-chrome-512x512.png?v=3`,
         width: 512,
         height: 512,
       },
-      image: "https://www.briticana.us/android-chrome-512x512.png?v=3",
+      image: `${PRODUCTION_SITE_URL}/android-chrome-512x512.png?v=3`,
     },
     {
       "@type": "WebSite",
-      "@id": "https://www.briticana.us/#website",
-      url: "https://www.briticana.us",
+      "@id": `${PRODUCTION_SITE_URL}/#website`,
+      url: PRODUCTION_SITE_URL,
       name: "Briticana",
+      inLanguage: "en",
       publisher: {
-        "@id": "https://www.briticana.us/#organization",
+        "@id": `${PRODUCTION_SITE_URL}/#organization`,
       },
       potentialAction: {
         "@type": "SearchAction",
-        target: "https://www.briticana.us/internships?q={search_term_string}",
+        target: `${PRODUCTION_SITE_URL}/internships?q={search_term_string}`,
         "query-input": "required name=search_term_string",
       },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${siteBaseUrl}/#webpage`,
+      url: siteBaseUrl,
+      name: "Briticana: Real Project Internships, Work & Skill Experience",
+      isPartOf: {
+        "@id": `${PRODUCTION_SITE_URL}/#website`,
+      },
+      about: {
+        "@id": `${PRODUCTION_SITE_URL}/#organization`,
+      },
+      author: {
+        "@id": `${PRODUCTION_SITE_URL}/#organization`,
+      },
+      publisher: {
+        "@id": `${PRODUCTION_SITE_URL}/#organization`,
+      },
+      datePublished: "2026-01-15T00:00:00Z",
+      dateModified: "2026-11-12T00:00:00Z",
+      inLanguage: "en",
     },
   ],
 };
@@ -86,8 +150,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" href="/assets/google-internship-promo-poster.jpg" />
-        <link rel="preload" as="image" href="/assets/kunj-robot-pull-tough.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=UnifrakturCook:wght@700&display=swap"
+        />
+        <link rel="stylesheet" href="/edumove/css/owl.theme.default.min.css" />
+        <link rel="stylesheet" href="/edumove/css/owl.carousel.min.css" />
+        <link rel="stylesheet" href="/edumove/css/magnific-popup.css" />
+        <link rel="stylesheet" href="/edumove/css/scrollcue.css" />
+        <link rel="stylesheet" href="/edumove/css/remixicon.css" />
+        <link rel="stylesheet" href="/edumove/css/style.css" />
+        <link rel="stylesheet" href="/edumove/css/responsive.css" />
+        <link rel="preload" as="image" href="/images/hero-global-gold-map.webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

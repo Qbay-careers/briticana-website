@@ -1,6 +1,15 @@
 // TODO: build Courses page
+import type { Metadata } from "next";
+
 import SectionHeading from "@/components/shared/SectionHeading";
 import WhatsAppCta from "@/components/shared/WhatsAppCta";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
+
+export const metadata: Metadata = {
+  title: "Courses",
+  description: "Short-form Briticana skills modules complementing mentor-led internship tracks.",
+  alternates: buildPageAlternates("/courses"),
+};
 
 export default function CoursesPage() {
   return (

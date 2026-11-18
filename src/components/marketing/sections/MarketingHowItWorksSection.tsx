@@ -60,9 +60,9 @@ export default function MarketingHowItWorksSection() {
             <h2>
               A simple yet powerful <span>learning journey</span>
             </h2>
-            <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
+            <img src={marketingImage("title-shape.webp")} className="d-none d-lg-inline-block" alt="" />
             <img
-              src={marketingImage("shape4.png")}
+              src={marketingImage("shape4.webp")}
               className="d-none d-lg-inline-block position-absolute top-0"
               style={{ right: "-40px" }}
               alt=""

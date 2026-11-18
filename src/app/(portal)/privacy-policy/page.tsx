@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { LegalSections } from "@/components/marketing/LegalSections";
 import MarketingPolicyLayout from "@/components/marketing/MarketingPolicyLayout";
 import { privacyPolicyBlocks } from "@/content/legal/privacyPolicyBlocks";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
   description:
     "How Briticana collects, uses, and protects personal data for applications, programmes, and internship experiences across the UK and EU.",
+  alternates: buildPageAlternates("/privacy-policy"),
 };
 
 const LAST_UPDATED = "16 June 2026";

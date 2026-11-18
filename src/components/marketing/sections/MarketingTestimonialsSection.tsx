@@ -26,9 +26,9 @@ export default function MarketingTestimonialsSection({ testimonials, homeHero }:
             <h2>
               Real experiences from <span>our participants</span>
             </h2>
-            <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
+            <img src={marketingImage("title-shape.webp")} className="d-none d-lg-inline-block" alt="" />
             <img
-              src={marketingImage("shape4.png")}
+              src={marketingImage("shape4.webp")}
               className="d-none d-lg-inline-block position-absolute top-0"
               style={{ right: "-40px" }}
               alt=""
@@ -38,7 +38,7 @@ export default function MarketingTestimonialsSection({ testimonials, homeHero }:
         <div className="testimonial-slide owl-carousel owl-theme">
           {hasSanity
             ? testimonials.map((t) => {
-                const photoUrl = urlForSanityImage(t.photo, 80, 80) ?? marketingImage("user1.jpg");
+                const photoUrl = urlForSanityImage(t.photo, 80, 80) ?? marketingImage("user1.webp");
                 return (
                   <div key={t._id} className="testimonial-single-item bg-f7f7f7">
                     <img src={marketingImage("quat.svg")} className="quat" alt="" />

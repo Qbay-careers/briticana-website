@@ -15,6 +15,7 @@ import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import { getAllInternshipDomains, getInternshipsFiltered } from "@/lib/sanity/queries";
 import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
   title: "Internships",
   description:
     "Explore real-world internship opportunities designed to help you build practical skills, gain experience and become career-ready.",
+  alternates: buildPageAlternates("/internships"),
 };
 
 type InternshipsPageProps = {
@@ -85,7 +87,11 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
       .map((item) => dbContentToInternship(item));
   }
 
-  const filterDomains = sanityBundle.domains;
+  const filterDomains = sanityBundle.domains.filter(
+    (d) =>
+      !(d.title || "").toLowerCase().includes("google") &&
+      !(d.slug?.current || "").toLowerCase().includes("google"),
+  );
 
   return (
     <>

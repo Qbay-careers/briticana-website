@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import RevealObserver from "@/components/experience/RevealObserver";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 import "@/styles/experience-pages.css";
 
 export const metadata: Metadata = {
   title: "Briticana Around the World",
   description: "Briticana Around the World: global, mentor-led digital internship experiences.",
+  alternates: buildPageAlternates("/briticana-world"),
 };
 
 export default function BriticanaWorldPage() {
@@ -36,7 +38,7 @@ export default function BriticanaWorldPage() {
           <div className="visual">
             <figure>
               <img
-                src="/assets/world-hero.png"
+                src="/assets/world-hero.webp"
                 alt="A diverse group of students collaborating in an international learning hub"
               />
             </figure>
@@ -45,7 +47,7 @@ export default function BriticanaWorldPage() {
               <strong>08 global locations</strong>
             </div>
             <div className="float-card video-card glass">
-              <video autoPlay muted loop playsInline poster="/assets/world-hero.png">
+              <video autoPlay muted loop playsInline poster="/assets/world-hero.webp">
                 <source src="/assets/tech-work.mp4" type="video/mp4" />
               </video>
               <span>● &nbsp; Digital-first. Human-led.</span>

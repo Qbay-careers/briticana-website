@@ -1,7 +1,16 @@
 // TODO: build Programs overview page
+import type { Metadata } from "next";
+
 import DomainCard from "@/components/programs/DomainCard";
 import DurationCard from "@/components/programs/DurationCard";
 import SectionHeading from "@/components/shared/SectionHeading";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
+
+export const metadata: Metadata = {
+  title: "Programs",
+  description: "Overview of Briticana mentor-led internship domains and program durations.",
+  alternates: buildPageAlternates("/programs"),
+};
 
 export default function ProgramsPage() {
   return (

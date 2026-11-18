@@ -72,8 +72,13 @@ export default function Footer({ settings }: FooterProps) {
                 </Link>
               </li>
               <li>
+                <Link className="link-light link-underline-opacity-0 link-underline-opacity-100-hover" href="/about">
+                  About Us
+                </Link>
+              </li>
+              <li>
                 <Link className="link-light link-underline-opacity-0 link-underline-opacity-100-hover" href="/contact">
-                  Contact
+                  Contact Us
                 </Link>
               </li>
             </ul>

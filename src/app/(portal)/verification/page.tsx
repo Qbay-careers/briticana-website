@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import VerificationLookup from "@/components/verification/VerificationLookup";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Verification",
   description:
     "Confirm a learner's Briticana internship status using the verification code issued alongside eligible certificates.",
+  alternates: buildPageAlternates("/verification"),
 };
 
 export default function VerificationPage() {

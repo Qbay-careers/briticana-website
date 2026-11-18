@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 
 import RevealObserver from "@/components/experience/RevealObserver";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 import "@/styles/experience-pages.css";
 
 export const metadata: Metadata = {
   title: "Briticana Experience Centers",
   description:
     "Briticana Experience Centers: hands-on learning, mentorship, innovation and student entrepreneurship.",
+  alternates: buildPageAlternates("/experience-centers"),
 };
 
 export default function ExperienceCentersPage() {
@@ -37,7 +39,7 @@ export default function ExperienceCentersPage() {
           <div className="visual">
             <figure>
               <img
-                src="/assets/experience-hero.png"
+                src="/assets/experience-hero.webp"
                 alt="Students collaborating with a mentor in a modern innovation studio"
               />
             </figure>
@@ -46,7 +48,7 @@ export default function ExperienceCentersPage() {
               <strong>Built together</strong>
             </div>
             <div className="float-card video-card glass">
-              <video autoPlay muted loop playsInline poster="/assets/founder-mentorship.png">
+              <video autoPlay muted loop playsInline poster="/assets/founder-mentorship.webp">
                 <source src="/assets/student-collaboration.mp4" type="video/mp4" />
               </video>
               <span>● &nbsp; Learning in motion</span>
@@ -188,7 +190,7 @@ export default function ExperienceCentersPage() {
           </div>
           <figure className="media">
             <img
-              src="/assets/founder-mentorship.png"
+              src="/assets/founder-mentorship.webp"
               alt="Student founders discussing a prototype with an experienced mentor"
             />
             <figcaption className="glass">Ideas become stronger through close, practical mentorship.</figcaption>

@@ -32,7 +32,7 @@ function loadScript(src: string): Promise<void> {
     }
     const el = document.createElement("script");
     el.src = src;
-    el.async = false;
+    el.async = true;
     el.dataset.marketingVendor = src;
     el.onload = () => resolve();
     el.onerror = () => reject(new Error(`Failed to load ${src}`));
@@ -56,25 +56,58 @@ type MarketingWindow = typeof window & {
 export default function MarketingVendorScripts() {
   useEffect(() => {
     let cancelled = false;
- 
-    (async () => {
-      try {
-        for (const file of SCRIPT_FILES) {
+
+    const startChain = () => {
+      (async () => {
+        try {
           if (cancelled) return;
-          await loadScript(`${SCRIPT_BASE}/${file}`);
+          // Step 1: Load jQuery first
+          await loadScript(`${SCRIPT_BASE}/jquery.min.js`);
+          if (cancelled) return;
+
+          // Step 2: Load dependent plugins in parallel
+          await Promise.all([
+            loadScript(`${SCRIPT_BASE}/bootstrap.bundle.min.js`),
+            loadScript(`${SCRIPT_BASE}/plugin.js`),
+            loadScript(`${SCRIPT_BASE}/jquery.meanmenu.js`),
+            loadScript(`${SCRIPT_BASE}/owl.carousel.min.js`),
+            loadScript(`${SCRIPT_BASE}/magnific-popup.min.js`),
+            loadScript(`${SCRIPT_BASE}/counterup.min.js`),
+            loadScript(`${SCRIPT_BASE}/waypoints.min.js`),
+            loadScript(`${SCRIPT_BASE}/scrollcue.js`),
+          ]);
+          if (cancelled) return;
+
+          // Step 3: Run custom template init once all plugins are active
+          await loadScript(`${SCRIPT_BASE}/custom.js`);
+        } catch (e) {
+          console.error("[MarketingVendorScripts] script chain", e);
+        } finally {
+          runScrollCueUpdate();
+          const globalWindow = window as MarketingWindow;
+          globalWindow.briticanaInitMeanMenu?.();
+          globalWindow.briticanaMarketingInit?.();
         }
-      } catch (e) {
-        console.error("[MarketingVendorScripts] script chain", e);
-      } finally {
-        runScrollCueUpdate();
-        const globalWindow = window as MarketingWindow;
-        globalWindow.briticanaInitMeanMenu?.();
-        globalWindow.briticanaMarketingInit?.();
-      }
-    })();
+      })();
+    };
+
+    let idleId: number | null = null;
+    let timerId: ReturnType<typeof setTimeout> | null = null;
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      idleId = (window as unknown as { requestIdleCallback: (cb: () => void, opts: { timeout: number }) => number }).requestIdleCallback(startChain, { timeout: 1500 });
+    } else {
+      timerId = setTimeout(startChain, 100);
+    }
 
     return () => {
       cancelled = true;
+      if (idleId !== null && typeof window !== "undefined" && "cancelIdleCallback" in window) {
+        (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(idleId);
+      }
+      if (timerId !== null) {
+        clearTimeout(timerId);
+      }
     };
   }, []);
 

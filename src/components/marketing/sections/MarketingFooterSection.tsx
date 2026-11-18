@@ -4,7 +4,7 @@ import Link from "next/link";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { FooterNavLink, SiteSettings } from "@/lib/sanity/types";
 
-const FOOTER_LOGO_SRC = `${marketingImage("logo/footer-logo.png")}?v=1`;
+const FOOTER_LOGO_SRC = `${marketingImage("logo/footer-logo.webp")}?v=1`;
 const DEFAULT_PHONE = "+17342498898.";
 const DEFAULT_EMAIL =
   "Info@briticana.us hr@briticana.us support@briticana.us career@briticana.us";
@@ -27,7 +27,8 @@ const DEFAULT_EXPLORE_LINKS: FooterNavLink[] = [
 ];
 
 const DEFAULT_PAGE_LINKS: FooterNavLink[] = [
-  // { _key: "1", label: "Contact", href: "/contact" },
+  { _key: "about", label: "About Us", href: "/about" },
+  { _key: "contact", label: "Contact Us", href: "/contact" },
   { _key: "2", label: "Privacy Policy", href: "/privacy-policy" },
   { _key: "3", label: "Terms & Conditions", href: "/terms-and-conditions" },
   { _key: "4", label: "Refund Policy", href: "/refund-policy" },
@@ -115,8 +116,18 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
 
   const exploreLinks =
     settings?.footerExploreLinks?.length ? settings.footerExploreLinks : DEFAULT_EXPLORE_LINKS;
-  const pageLinks =
+  const rawPageLinks =
     settings?.footerPageLinks?.length ? settings.footerPageLinks : DEFAULT_PAGE_LINKS;
+
+  const hasAbout = rawPageLinks.some((l) => l.href === "/about");
+  const hasContact = rawPageLinks.some((l) => l.href === "/contact");
+  const pageLinks: FooterNavLink[] = [...rawPageLinks];
+  if (!hasContact) {
+    pageLinks.unshift({ _key: "contact", label: "Contact Us", href: "/contact" });
+  }
+  if (!hasAbout) {
+    pageLinks.unshift({ _key: "about", label: "About Us", href: "/about" });
+  }
 
   const socials = socialLinksFromSettings(settings);
 
@@ -191,7 +202,11 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
           {/* Column 4 ? Contact Us */}
           <div className="col-lg-3 col-sm-6">
             <div className="footer-single-item">
-              {/* <h3>Contact Us</h3> */}
+              <h3>
+                <Link href="/contact" className="text-white text-decoration-none">
+                  Contact Us
+                </Link>
+              </h3>
               <ul className="import-links p-0 b-0 list-unstyled">
                 <li>
                   <div className="d-flex align-items-center gap-2">

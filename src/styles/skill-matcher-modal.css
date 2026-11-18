@@ -1,0 +1,1400 @@
+/* ==========================================================================
+   Briticana Skill Match — Hero Poster Card & Interactive Matcher Modal
+   Matches Briticana Royal Blue (#003580 / #003885) visual system
+   ========================================================================== */
+
+/* ── 1. Interactive Skill Match Poster Card (Frosted Royal Sapphire & Sky Cyan — Hero Matched) ── */
+.briti-promo-poster-card.briti-promo-poster-card--skill-match {
+  width: 278px !important;
+  max-width: calc(100vw - 24px) !important;
+  padding: 0 !important;
+  background:
+    radial-gradient(125% 70% at 50% -10%, rgba(118, 202, 249, 0.44) 0%, rgba(26, 120, 232, 0.24) 44%, transparent 74%),
+    radial-gradient(85% 65% at 95% 105%, rgba(56, 189, 248, 0.28) 0%, transparent 64%),
+    linear-gradient(162deg, #0b52ba 0%, #003a8f 48%, #002361 100%) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1.5px solid rgba(118, 202, 249, 0.62) !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 26px 54px -10px rgba(0, 14, 48, 0.62),
+    0 0 34px rgba(118, 202, 249, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(118, 202, 249, 0.16) !important;
+  line-height: normal !important;
+  overflow: hidden !important;
+  cursor: pointer;
+}
+
+.briti-promo-poster-card.briti-promo-poster-card--skill-match:hover {
+  border-color: rgba(186, 230, 253, 0.88) !important;
+  box-shadow:
+    0 30px 60px -10px rgba(0, 14, 48, 0.68),
+    0 0 42px rgba(118, 202, 249, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58) !important;
+}
+
+.briti-promo-poster-card.briti-promo-poster-card--skill-match .briti-promo-flyer__close {
+  top: 11px;
+  right: 11px;
+  width: 26px;
+  height: 26px;
+  background: rgba(0, 28, 78, 0.45);
+  border: 1px solid rgba(186, 230, 253, 0.34);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.briti-promo-poster-card.briti-promo-poster-card--skill-match .briti-promo-flyer__close:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+/* Luminous Sky-Cyan Top Highlight Edge */
+.briti-skill-poster-top-bar {
+  position: absolute;
+  top: 0;
+  left: 16%;
+  right: 16%;
+  height: 3px;
+  border-radius: 0 0 99px 99px;
+  background: linear-gradient(90deg, transparent 0%, #76caf9 30%, #ffffff 50%, #76caf9 70%, transparent 100%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* Subtle Tech Dot-Grid Mesh Behind Icon & Headline */
+.briti-skill-poster-mesh {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(186, 230, 253, 0.2) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(ellipse 95% 58% at 50% 18%, #000 0%, transparent 82%);
+  mask-image: radial-gradient(ellipse 95% 58% at 50% 18%, #000 0%, transparent 82%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.briti-skill-poster-trigger {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px 16px 18px;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  gap: 10px;
+  z-index: 2;
+}
+
+.briti-skill-poster-trigger:focus-visible {
+  outline: 2px solid #76caf9;
+  outline-offset: -3px;
+  border-radius: 22px;
+}
+
+/* Glowing Halo Icon Badge */
+.briti-skill-poster-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 20px;
+  background: rgba(118, 202, 249, 0.14);
+  border: 1px solid rgba(186, 230, 253, 0.34);
+  box-shadow: 0 0 28px rgba(118, 202, 249, 0.32);
+  z-index: 1;
+}
+
+.briti-skill-poster-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #38bdf8 0%, #0d6efd 52%, #003885 100%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 20px rgba(0, 22, 68, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* Frosted Pill Kicker with Live Cyan Dot */
+.briti-skill-poster-kicker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(118, 202, 249, 0.14);
+  border: 1px solid rgba(118, 202, 249, 0.36);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #bae6fd;
+  line-height: 1;
+}
+
+.briti-skill-poster-kicker__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #76caf9;
+  box-shadow: 0 0 8px #76caf9;
+  flex-shrink: 0;
+}
+
+/* Crisp Editorial Headline matching Hero Accent (#76caf9) */
+.briti-skill-poster-headline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.briti-skill-poster-headline strong {
+  font-size: 1.18rem;
+  font-weight: 800;
+  line-height: 1.18;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.briti-skill-poster-headline span {
+  font-size: 1.24rem;
+  font-weight: 800;
+  line-height: 1.18;
+  background: linear-gradient(90deg, #e0f2fe 0%, #76caf9 55%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+}
+
+.briti-skill-poster-desc {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 232px;
+  font-size: 0.77rem;
+  line-height: 1.48;
+  color: rgba(224, 242, 254, 0.9);
+}
+
+/* Compact Frosted Stats Pill */
+.briti-skill-poster-pills {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 24, 68, 0.36);
+  border: 1px solid rgba(118, 202, 249, 0.28);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #e0f2fe;
+  letter-spacing: 0.01em;
+}
+
+.briti-skill-poster-pills__sep {
+  color: #76caf9;
+}
+
+/* Single-Line Crisp Hero-White Pill CTA Button */
+.briti-skill-poster-cta {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2px;
+  padding: 6px 8px 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.96);
+  color: #003885;
+  font-size: 0.77rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow:
+    0 10px 24px rgba(0, 18, 56, 0.38),
+    inset 0 1px 0 #ffffff;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.briti-skill-poster-cta__label {
+  display: inline-block;
+  line-height: 1;
+}
+
+.briti-skill-poster-cta__arrow {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9 0%, #003885 100%);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(0, 56, 133, 0.36);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.briti-skill-poster-cta__arrow svg {
+  display: block;
+}
+
+.briti-skill-poster-trigger:hover .briti-skill-poster-cta {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow:
+    0 14px 28px rgba(0, 18, 56, 0.46),
+    0 0 0 3px rgba(118, 202, 249, 0.36);
+}
+
+.briti-skill-poster-trigger:hover .briti-skill-poster-cta__arrow {
+  background: linear-gradient(135deg, #38bdf8 0%, #0050b8 100%);
+  transform: translateX(2px);
+}
+
+.briti-skill-poster-note {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: rgba(219, 234, 254, 0.92);
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.briti-skill-poster-note svg {
+  color: #76caf9;
+  flex-shrink: 0;
+}
+
+/* Adjust robot placement cleanly beside 278px Skill Match poster card */
+.briti-cinematic-stage.briti-cinematic-stage--skill-match .briti-robot-actor-wrap {
+  right: 308px !important;
+}
+
+@media (max-width: 1024px) {
+  .briti-promo-poster-card.briti-promo-poster-card--skill-match {
+    width: 256px !important;
+  }
+
+  .briti-cinematic-stage.briti-cinematic-stage--skill-match .briti-robot-actor-wrap {
+    right: 278px !important;
+  }
+
+  .briti-skill-poster-trigger {
+    padding: 20px 14px 16px;
+    gap: 8px;
+  }
+
+  .briti-skill-poster-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .briti-skill-poster-headline strong,
+  .briti-skill-poster-headline span {
+    font-size: 1.06rem;
+  }
+
+  .briti-skill-poster-cta {
+    font-size: 0.72rem;
+    padding: 5px 6px 5px 12px;
+    gap: 7px;
+  }
+
+  .briti-skill-poster-cta__arrow {
+    width: 22px;
+    height: 22px;
+  }
+
+  .briti-skill-poster-cta__arrow svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .briti-promo-poster-card.briti-promo-poster-card--skill-match {
+    width: 248px !important;
+  }
+
+  .briti-cinematic-stage.briti-cinematic-stage--skill-match .briti-robot-actor-wrap {
+    right: 266px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .briti-promo-poster-card.briti-promo-poster-card--skill-match {
+    width: 228px !important;
+    bottom: 148px !important;
+    right: 10px !important;
+    border-radius: 19px !important;
+  }
+
+  .briti-cinematic-stage.briti-cinematic-stage--skill-match .briti-robot-actor-wrap {
+    right: 236px !important;
+  }
+
+  .briti-skill-poster-trigger {
+    padding: 17px 12px 13px;
+    gap: 6px;
+  }
+
+  .briti-skill-poster-icon-wrap {
+    padding: 4px;
+    border-radius: 14px;
+  }
+
+  .briti-skill-poster-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+  }
+
+  .briti-skill-poster-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .briti-skill-poster-kicker {
+    font-size: 0.56rem;
+    padding: 3px 9px;
+  }
+
+  .briti-skill-poster-headline strong,
+  .briti-skill-poster-headline span {
+    font-size: 0.92rem;
+  }
+
+  .briti-skill-poster-desc {
+    font-size: 0.67rem;
+  }
+
+  .briti-skill-poster-pills {
+    font-size: 0.62rem;
+    padding: 3px 9px;
+    gap: 6px;
+  }
+
+  .briti-skill-poster-cta {
+    font-size: 0.66rem;
+    padding: 5px 6px 5px 10px;
+    gap: 6px;
+  }
+
+  .briti-skill-poster-cta__arrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .briti-skill-poster-cta__arrow svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .briti-skill-poster-note {
+    font-size: 0.62rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .briti-promo-poster-card.briti-promo-poster-card--skill-match {
+    width: 214px !important;
+    bottom: 144px !important;
+    right: 8px !important;
+  }
+
+  .briti-cinematic-stage.briti-cinematic-stage--skill-match .briti-robot-actor-wrap {
+    right: 222px !important;
+  }
+
+  .briti-skill-poster-trigger {
+    padding: 15px 10px 12px;
+  }
+
+  .briti-skill-poster-cta {
+    font-size: 0.63rem;
+    padding: 5px 5px 5px 9px;
+    gap: 5px;
+  }
+
+  .briti-skill-poster-cta__arrow {
+    width: 18px;
+    height: 18px;
+  }
+
+  .briti-skill-poster-cta__arrow svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 379.98px) {
+  .briti-promo-poster-card.briti-promo-poster-card--skill-match {
+    width: 198px !important;
+    right: 6px !important;
+  }
+
+  .briti-cinematic-stage.briti-cinematic-stage--skill-match .briti-robot-actor-wrap {
+    right: 204px !important;
+  }
+
+  .briti-skill-poster-trigger {
+    padding: 14px 9px 11px;
+  }
+
+  .briti-skill-poster-cta {
+    font-size: 0.59rem;
+    padding: 4px 5px 4px 8px;
+    gap: 5px;
+  }
+
+  .briti-skill-poster-cta__arrow {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+/* ── 2. Interactive Briticana Skill Matcher Modal (User-Friendly Redesign) ── */
+.briti-sm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(5, 16, 44, 0.72);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  animation: britiSmFadeIn 0.2s ease-out;
+}
+
+@keyframes britiSmFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.briti-sm-dialog {
+  width: 100%;
+  max-width: 660px;
+  max-height: calc(100vh - 28px);
+  background: linear-gradient(165deg, #0949a8 0%, #003580 55%, #002763 100%);
+  border: 1px solid rgba(118, 202, 249, 0.35);
+  border-radius: 22px;
+  box-shadow:
+    0 32px 72px rgba(0, 10, 38, 0.52),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: britiSmPopIn 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes britiSmPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Royal Blue Header */
+.briti-sm-header {
+  padding: 18px 22px 15px;
+  color: #ffffff;
+  flex-shrink: 0;
+  background: radial-gradient(90% 100% at 85% 0%, rgba(118, 202, 249, 0.22) 0%, transparent 65%);
+}
+
+.briti-sm-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.briti-sm-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.briti-sm-brand-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(118, 202, 249, 0.2);
+  border: 1px solid rgba(186, 230, 253, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #e0f2fe;
+}
+
+.briti-sm-header-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.briti-sm-free-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(118, 202, 249, 0.16);
+  border: 1px solid rgba(118, 202, 249, 0.35);
+  color: #e0f2fe;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.briti-sm-close {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.briti-sm-close:hover {
+  background: rgba(239, 68, 68, 0.88);
+  border-color: #ef4444;
+  transform: rotate(90deg);
+}
+
+.briti-sm-title {
+  margin: 0 0 4px !important;
+  font-size: clamp(1.2rem, 2vw, 1.45rem) !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.015em;
+}
+
+.briti-sm-subtitle {
+  margin: 0;
+  font-size: 0.84rem;
+  color: rgba(224, 242, 254, 0.9);
+  line-height: 1.45;
+}
+
+/* Live 2-Step Progress Strip */
+.briti-sm-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.briti-sm-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(224, 242, 254, 0.7);
+}
+
+.briti-sm-step.is-active,
+.briti-sm-step.is-done {
+  color: #ffffff;
+}
+
+.briti-sm-step__num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.14);
+  color: #e0f2fe;
+}
+
+.briti-sm-step.is-active .briti-sm-step__num {
+  background: #ffffff;
+  color: #003885;
+}
+
+.briti-sm-step.is-done .briti-sm-step__num {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+.briti-sm-step__line {
+  width: 24px;
+  height: 1.5px;
+  background: rgba(186, 230, 253, 0.35);
+  border-radius: 99px;
+}
+
+/* Modal White Rounded Inner Container */
+.briti-sm-body-wrap {
+  padding: 0 10px 10px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.briti-sm-form-shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.briti-sm-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 22px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.briti-sm-card--form {
+  border-radius: 0;
+  padding: 18px 20px 14px;
+}
+
+/* Form Sections */
+.briti-sm-section {
+  margin-bottom: 16px;
+}
+
+.briti-sm-section--skills {
+  margin-bottom: 4px;
+  padding-top: 14px;
+  border-top: 1px solid #eef2f6;
+}
+
+.briti-sm-section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.briti-sm-section-head--inline {
+  margin-bottom: 0;
+}
+
+.briti-sm-section-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: #eaf2ff;
+  color: #003885;
+  font-size: 0.74rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.briti-sm-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* Compact 2-Column Grid for Email & Contact */
+.briti-sm-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.briti-sm-field {
+  margin-bottom: 11px;
+}
+
+.briti-sm-grid-2 .briti-sm-field {
+  margin-bottom: 0;
+}
+
+.briti-sm-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.briti-sm-skill-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.briti-sm-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 5px;
+}
+
+.briti-sm-req {
+  color: #ef4444;
+}
+
+.briti-sm-count-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.briti-sm-count-pill.has-items {
+  background: #eaf2ff;
+  color: #003885;
+}
+
+.briti-sm-clear-link {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 2px;
+  text-decoration: underline;
+}
+
+.briti-sm-clear-link:hover {
+  color: #ef4444;
+}
+
+/* Modern Icon Inputs */
+.briti-sm-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  border: 1.5px solid #dbe2ea;
+  background: #f8fafc;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.briti-sm-input-wrap:focus-within {
+  border-color: #003885;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 56, 133, 0.12);
+}
+
+.briti-sm-input-wrap.has-error {
+  border-color: #ef4444;
+  background: #fffafa;
+}
+
+.briti-sm-input-wrap.has-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.14);
+}
+
+.briti-sm-input-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 13px;
+  color: #64748b;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.briti-sm-input-wrap:focus-within .briti-sm-input-icon {
+  color: #003885;
+}
+
+.briti-sm-input {
+  width: 100%;
+  padding: 10px 13px 10px 9px;
+  border: none;
+  background: transparent;
+  color: #0f172a;
+  font-size: 15px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.briti-sm-input::placeholder {
+  color: #94a3b8;
+  font-size: 0.86rem;
+}
+
+.briti-sm-search-clear {
+  border: none;
+  background: #e2e8f0;
+  color: #334155;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.briti-sm-search-clear:hover {
+  background: #cbd5e1;
+}
+
+.briti-sm-field-err {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+/* Quick Category Filter Tabs */
+.briti-sm-cat-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding-bottom: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.briti-sm-cat-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.briti-sm-cat-tab {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  flex-shrink: 0;
+}
+
+.briti-sm-cat-tab:hover {
+  border-color: #93c5fd;
+  color: #003885;
+  background: #eff6ff;
+}
+
+.briti-sm-cat-tab.is-active {
+  background: #003885;
+  border-color: #003885;
+  color: #ffffff;
+}
+
+/* Selected Skills Summary Strip */
+.briti-sm-selected-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f0f7ff;
+  border: 1px solid #cfe2ff;
+}
+
+.briti-sm-selected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #003885;
+  color: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.briti-sm-selected-tag button {
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.briti-sm-selected-tag button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Scrollable Skill Pills Tray */
+.briti-sm-skills-box {
+  margin-top: 10px;
+  max-height: 156px;
+  overflow-y: auto;
+  padding: 2px 4px 4px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.briti-sm-skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid #dbe2ea;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.briti-sm-skill-chip:hover {
+  border-color: #003885;
+  color: #003885;
+  background: #f4f8ff;
+  transform: translateY(-1px);
+}
+
+.briti-sm-skill-chip.is-selected {
+  background: #003885;
+  border-color: #003885;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0, 56, 133, 0.22);
+}
+
+.briti-sm-add-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 10px;
+  border: 1.5px dashed #003885;
+  background: #eff6ff;
+  color: #003885;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.briti-sm-empty-hint {
+  font-size: 0.8rem;
+  color: #64748b;
+  padding: 6px 2px;
+}
+
+/* Sticky Bottom Footer (Consent + Submit Always Visible) */
+.briti-sm-sticky-footer {
+  flex-shrink: 0;
+  padding: 12px 20px 16px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.briti-sm-consent {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.4;
+  user-select: none;
+}
+
+.briti-sm-consent.has-error {
+  color: #dc2626;
+}
+
+.briti-sm-consent input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1.5px solid #94a3b8;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.briti-sm-consent input[type="checkbox"]:checked {
+  background: #003885;
+  border-color: #003885;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 11px 11px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.briti-sm-submit {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #0b52ba 0%, #003885 100%);
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  box-shadow: 0 8px 20px rgba(0, 56, 133, 0.28);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.briti-sm-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0d5ed4 0%, #002d6e 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 56, 133, 0.34);
+}
+
+.briti-sm-submit:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.briti-sm-submit__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.16s ease;
+}
+
+.briti-sm-submit:hover:not(:disabled) .briti-sm-submit__arrow {
+  transform: translateX(3px);
+}
+
+.briti-sm-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  animation: britiSmSpin 0.7s linear infinite;
+}
+
+@keyframes britiSmSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── 3. Matched Domains Result View ─────────────────────────────── */
+.briti-sm-result-intro {
+  margin-bottom: 14px;
+}
+
+.briti-sm-result-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.briti-sm-result-intro h3 {
+  margin: 0 !important;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+}
+
+.briti-sm-saved-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.briti-sm-result-intro p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.briti-sm-match-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.briti-sm-match-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 15px 16px;
+  background: #ffffff;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.briti-sm-match-card--top {
+  border-color: #003885;
+  background: #f5f9ff;
+  box-shadow: 0 6px 18px rgba(0, 56, 133, 0.08);
+}
+
+.briti-sm-match-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.briti-sm-match-rank {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #003885;
+  background: #eaf2ff;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.briti-sm-match-pct {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.briti-sm-match-bar {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.briti-sm-match-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #003885 0%, #38bdf8 100%);
+}
+
+.briti-sm-match-title {
+  margin: 0 0 4px !important;
+  font-size: 1.04rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.briti-sm-match-desc {
+  margin: 0 0 10px;
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.48;
+}
+
+.briti-sm-match-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.briti-sm-match-skills span {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #003885;
+  background: #ffffff;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.briti-sm-match-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.briti-sm-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.briti-sm-btn-sm--primary {
+  background: #003885;
+  color: #ffffff !important;
+  border: 1px solid #003885;
+}
+
+.briti-sm-btn-sm--primary:hover {
+  background: #002a66;
+}
+
+.briti-sm-btn-sm--secondary {
+  background: #ffffff;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1;
+}
+
+.briti-sm-btn-sm--secondary:hover {
+  border-color: #003885;
+  color: #003885 !important;
+}
+
+.briti-sm-result-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 575.98px) {
+  .briti-sm-backdrop {
+    padding: 8px;
+  }
+
+  .briti-sm-dialog {
+    max-height: calc(100vh - 16px);
+    border-radius: 18px;
+  }
+
+  .briti-sm-header {
+    padding: 15px 16px 12px;
+  }
+
+  .briti-sm-body-wrap {
+    padding: 0 7px 7px;
+  }
+
+  .briti-sm-card,
+  .briti-sm-card--form {
+    padding: 14px 14px 12px;
+  }
+
+  .briti-sm-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .briti-sm-sticky-footer {
+    padding: 10px 14px 13px;
+  }
+
+  .briti-sm-match-actions {
+    flex-direction: column;
+  }
+
+  .briti-sm-btn-sm {
+    width: 100%;
+  }
+}

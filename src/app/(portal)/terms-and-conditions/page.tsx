@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { LegalSections } from "@/components/marketing/LegalSections";
 import MarketingPolicyLayout from "@/components/marketing/MarketingPolicyLayout";
 import { termsAndConditionsBlocks } from "@/content/legal/termsAndConditionsBlocks";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Terms and conditions",
   description:
     "Terms governing use of Briticana websites, applications, portals, mentor-led programmes, and related services.",
+  alternates: buildPageAlternates("/terms-and-conditions"),
 };
 
 const LAST_UPDATED = "16 June 2026";

@@ -15,6 +15,7 @@ import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import { getAllInternships, getInternshipBySlug } from "@/lib/sanity/queries";
 import type { Internship } from "@/lib/sanity/types";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -24,16 +25,17 @@ type InternshipDetailPageProps = {
 };
 
 export async function generateMetadata({ params }: InternshipDetailPageProps) {
+  const alternates = buildPageAlternates(`/internships/${params.slug}`);
   const supp = getSupplementalTrackBySlug(params.slug);
   if (supp?.title) {
-    return { title: `${sanitizeInternshipText(supp.title)} | Briticana` };
+    return { title: `${sanitizeInternshipText(supp.title)} | Briticana`, alternates };
   }
   const dbContent = await fetchInternshipContentByKey(params.slug);
   if (dbContent?.title) {
-    return { title: `${sanitizeInternshipText(dbContent.title)} | Briticana` };
+    return { title: `${sanitizeInternshipText(dbContent.title)} | Briticana`, alternates };
   }
   if (!isSanityConfigured()) {
-    return { title: "Internship | Briticana" };
+    return { title: "Internship | Briticana", alternates };
   }
   const doc = await client.fetch<Internship | null>(
     getInternshipBySlug,
@@ -42,6 +44,7 @@ export async function generateMetadata({ params }: InternshipDetailPageProps) {
   );
   return {
     title: doc?.title ? `${sanitizeInternshipText(doc.title)} | Briticana` : "Internship | Briticana",
+    alternates,
   };
 }
 

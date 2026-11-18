@@ -410,33 +410,124 @@
 }
 
 /* ==========================================================================
-   Responsive Viewport Adaptations
+   Responsive Viewport Adaptations (iPad / Tablet & Mobile)
    ========================================================================== */
+
+/* iPad / Tablet (768px – 1024px) */
 @media (max-width: 1024px) {
   .briti-promo-poster-card {
-    width: 176px;
-    bottom: 84px;
+    width: 168px;
+    bottom: 96px;
     right: 20px;
   }
+
   .briti-robot-actor-wrap {
-    width: 132px;
-    height: 132px;
-    bottom: 80px;
-    right: 200px;
+    width: 136px;
+    height: 136px;
+    bottom: 90px;
+    right: 194px;
+  }
+
+  .briti-cinematic-stage.is-settled .briti-robot-actor-wrap {
+    transform: translate3d(18px, 0, 0) rotate(3deg);
   }
 }
 
-@media (max-width: 768px) {
+/* Tablets Portrait (768px - 991.98px) */
+@media (max-width: 991.98px) {
   .briti-promo-poster-card {
-    width: 152px;
-    bottom: 64px;
-    right: 14px;
+    width: 160px;
+    bottom: 92px;
+    right: 16px;
   }
+
   .briti-robot-actor-wrap {
-    width: 114px;
-    height: 114px;
-    bottom: 60px;
-    right: 168px;
+    width: 130px;
+    height: 130px;
+    bottom: 86px;
+    right: 182px;
+  }
+
+  .briti-cinematic-stage.is-settled .briti-robot-actor-wrap {
+    transform: translate3d(16px, 0, 0) rotate(3deg);
+  }
+}
+
+/* Mobile Landscape & Large Phones (576px – 767.98px) */
+@media (max-width: 767.98px) {
+  .briti-promo-poster-card {
+    width: 136px;
+    bottom: 155px;
+    right: 12px;
+  }
+
+  .briti-robot-actor-wrap {
+    width: 108px;
+    height: 108px;
+    bottom: 150px;
+    right: 154px;
+  }
+
+  .briti-cinematic-stage.is-settled .briti-robot-actor-wrap {
+    transform: translate3d(14px, 0, 0) rotate(3deg);
+  }
+}
+
+/* Standard Mobile Phones (< 576px) */
+@media (max-width: 575.98px) {
+  .briti-promo-poster-card {
+    width: 120px;
+    bottom: 148px;
+    right: 8px;
+    border-radius: 14px;
+  }
+
+  .briti-promo-poster-link,
+  .briti-promo-poster-img {
+    border-radius: 13px;
+  }
+
+  .briti-robot-actor-wrap {
+    width: 96px;
+    height: 96px;
+    bottom: 144px;
+    right: 132px;
+  }
+
+  .briti-cinematic-stage.is-settled .briti-robot-actor-wrap {
+    transform: translate3d(12px, 0, 0) rotate(3deg);
+  }
+
+  .briti-promo-flyer__close {
+    width: 24px;
+    height: 24px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .briti-promo-flyer__close svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Compact Mobile Phones (< 380px) */
+@media (max-width: 379.98px) {
+  .briti-promo-poster-card {
+    width: 108px;
+    bottom: 144px;
+    right: 6px;
+  }
+
+  .briti-robot-actor-wrap {
+    width: 86px;
+    height: 86px;
+    bottom: 140px;
+    right: 118px;
+  }
+
+  .briti-cinematic-stage.is-settled .briti-robot-actor-wrap {
+    transform: translate3d(10px, 0, 0) rotate(3deg);
   }
 }
 

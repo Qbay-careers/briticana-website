@@ -1,0 +1,1001 @@
+/* ==========================================================================
+   Briticana About & Contact Pages — Responsive Design System
+   Tested across: 1440px+, 1200px, 1024px, 768px (iPad), 576px, 375px, 320px
+   ========================================================================== */
+
+.briti-page {
+  --bp-ink: #0f172a;
+  --bp-body: #334155;
+  --bp-muted: #64748b;
+  --bp-brand: #003885;
+  --bp-brand-hover: #002a66;
+  --bp-brand-tint: #eaf2ff;
+  --bp-border: #e2e8f0;
+  --bp-border-hover: #b8cde8;
+  --bp-surface: #ffffff;
+  --bp-surface-soft: #f6f8fb;
+  --bp-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --bp-shadow-md: 0 10px 28px rgba(15, 23, 42, 0.07);
+  --bp-radius: 14px;
+
+  background: var(--bp-surface);
+  color: var(--bp-ink);
+  overflow-x: clip;
+  width: 100%;
+}
+
+.briti-wrap {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 3vw, 28px);
+  box-sizing: border-box;
+}
+
+/* ── 1. Soft Light Header Band ──────────────────────────────────── */
+.briti-top-band {
+  background: linear-gradient(180deg, #f2f6fc 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--bp-border);
+  padding: clamp(28px, 4.2vw, 56px) 0 clamp(32px, 4.8vw, 60px);
+}
+
+.briti-crumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  font-size: 0.86rem;
+  color: var(--bp-muted);
+}
+
+.briti-crumb li {
+  display: inline-flex;
+  align-items: center;
+  position: static;
+}
+
+.briti-crumb li::before,
+.briti-crumb li::after {
+  content: none !important;
+  display: none !important;
+}
+
+.briti-crumb a {
+  color: var(--bp-muted);
+  text-decoration: none !important;
+}
+
+.briti-crumb a:hover {
+  color: var(--bp-brand);
+}
+
+.briti-kicker {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--bp-brand);
+  margin-bottom: 10px;
+}
+
+.briti-h1 {
+  margin: 0 0 14px !important;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.025em !important;
+  color: var(--bp-ink) !important;
+  overflow-wrap: break-word;
+}
+
+.briti-lead {
+  margin: 0 !important;
+  font-size: clamp(0.95rem, 1.12vw, 1.08rem);
+  line-height: 1.66;
+  color: var(--bp-body);
+  max-width: 640px;
+}
+
+/* About Split with Real Photo */
+.briti-hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+}
+
+.briti-hero-split > * {
+  min-width: 0;
+}
+
+.briti-photo-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e2e8f0;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: var(--bp-shadow-md);
+  width: 100%;
+}
+
+.briti-photo-frame img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── 2. Shared Icons, Sections & Typography ─────────────────────── */
+.briti-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: var(--bp-brand-tint);
+  color: var(--bp-brand);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.briti-section {
+  padding: clamp(40px, 5.2vw, 76px) 0;
+}
+
+.briti-section--soft {
+  background: var(--bp-surface-soft);
+  border-top: 1px solid var(--bp-border);
+  border-bottom: 1px solid var(--bp-border);
+}
+
+.briti-section-head {
+  max-width: 660px;
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+.briti-section-head--center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.briti-h2 {
+  margin: 0 0 10px !important;
+  font-size: clamp(1.38rem, 2.3vw, 2.05rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.24 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--bp-ink) !important;
+  overflow-wrap: break-word;
+}
+
+.briti-h3 {
+  margin: 0 0 8px !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  color: var(--bp-ink) !important;
+}
+
+.briti-text {
+  margin: 0 0 14px;
+  font-size: 0.96rem;
+  line-height: 1.68;
+  color: var(--bp-body);
+}
+
+.briti-text:last-child {
+  margin-bottom: 0;
+}
+
+.briti-link {
+  color: var(--bp-brand);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none !important;
+}
+
+.briti-link:hover {
+  text-decoration: underline !important;
+}
+
+/* ── 3. About Cards & Locations Grids ───────────────────────────── */
+.briti-cards-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.briti-cards-5 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.briti-card {
+  background: #ffffff;
+  border: 1px solid var(--bp-border);
+  border-radius: var(--bp-radius);
+  padding: clamp(20px, 2.2vw, 24px);
+  box-shadow: var(--bp-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.briti-card:hover {
+  border-color: var(--bp-border-hover);
+  box-shadow: var(--bp-shadow-md);
+  transform: translateY(-2px);
+}
+
+.briti-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--bp-body);
+}
+
+.briti-loc-card {
+  background: #ffffff;
+  border: 1px solid var(--bp-border);
+  border-radius: var(--bp-radius);
+  padding: 20px 18px;
+  box-shadow: var(--bp-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+}
+
+.briti-loc-country {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--bp-brand);
+  background: var(--bp-brand-tint);
+  border-radius: 6px;
+  padding: 3px 9px;
+  margin-bottom: 10px;
+}
+
+.briti-loc-card h3 {
+  margin: 0 0 6px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: var(--bp-ink) !important;
+}
+
+.briti-loc-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--bp-muted);
+}
+
+/* ── 4. Comparison Table (Desktop Table -> Stacked Cards on Mobile) ── */
+.briti-table-card {
+  background: #ffffff;
+  border: 1px solid var(--bp-border);
+  border-radius: var(--bp-radius);
+  overflow: hidden;
+  box-shadow: var(--bp-shadow-sm);
+}
+
+.briti-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.briti-table th,
+.briti-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--bp-border);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  vertical-align: top;
+}
+
+.briti-table thead th {
+  background: #f8fafc;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bp-muted);
+}
+
+.briti-table thead th.is-brand {
+  background: var(--bp-brand);
+  color: #ffffff;
+}
+
+.briti-table tbody td.is-brand {
+  background: #f5f9ff;
+  color: var(--bp-ink);
+  font-weight: 600;
+}
+
+.briti-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.briti-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-right: 8px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── 5. Unified Contact Showcase (Royal Blue Left + Email Directory Right) ── */
+.briti-contact-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  background: #ffffff;
+  border: 1px solid var(--bp-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--bp-shadow-md);
+  margin-top: clamp(22px, 2.8vw, 32px);
+}
+
+.briti-contact-panel-blue {
+  background: var(--bp-brand);
+  color: #ffffff;
+  padding: clamp(24px, 3.2vw, 40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-width: 0;
+}
+
+.briti-contact-panel-blue h2 {
+  margin: 0 0 6px !important;
+  font-size: clamp(1.2rem, 1.8vw, 1.38rem) !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+.briti-contact-panel-blue__sub {
+  margin: 0 0 22px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.briti-blue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.briti-blue-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.briti-blue-item > div {
+  min-width: 0;
+}
+
+.briti-blue-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.briti-blue-item__label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(186, 224, 255, 0.92);
+  margin-bottom: 4px;
+}
+
+.briti-blue-phone {
+  display: inline-block;
+  font-size: clamp(1.06rem, 1.6vw, 1.22rem);
+  font-weight: 700;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  word-break: break-word;
+}
+
+.briti-blue-phone:hover {
+  text-decoration: underline !important;
+}
+
+.briti-blue-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+  overflow-wrap: break-word;
+}
+
+.briti-blue-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #bae6fd !important;
+  text-decoration: none !important;
+}
+
+.briti-blue-link:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+.briti-blue-footer {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.briti-blue-footer span {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+/* Right White Email Directory */
+.briti-contact-panel-emails {
+  padding: clamp(24px, 3.2vw, 40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.briti-contact-panel-emails h2 {
+  margin: 0 0 6px !important;
+  font-size: clamp(1.2rem, 1.8vw, 1.38rem) !important;
+  font-weight: 700 !important;
+  color: var(--bp-ink) !important;
+}
+
+.briti-contact-panel-emails__sub {
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+  color: var(--bp-muted);
+  line-height: 1.5;
+}
+
+.briti-email-rows {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--bp-border);
+}
+
+.briti-email-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 12px;
+  margin: 0 -12px;
+  border-bottom: 1px solid var(--bp-border);
+  border-radius: 10px;
+  transition: background-color 0.15s ease;
+}
+
+.briti-email-row:hover {
+  background: #f8fbff;
+}
+
+.briti-email-row__left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.briti-email-row__left > div {
+  min-width: 0;
+}
+
+.briti-email-row__title {
+  margin: 0 0 2px !important;
+  font-size: 0.96rem !important;
+  font-weight: 700 !important;
+  color: var(--bp-ink) !important;
+}
+
+.briti-email-row__desc {
+  margin: 0 0 5px;
+  font-size: 0.84rem;
+  color: var(--bp-muted);
+  line-height: 1.45;
+}
+
+.briti-email-row__addr {
+  display: inline-block;
+  font-size: clamp(0.95rem, 1.2vw, 1.02rem);
+  font-weight: 700;
+  color: var(--bp-brand) !important;
+  text-decoration: none !important;
+  word-break: break-all;
+}
+
+.briti-email-row__addr:hover {
+  text-decoration: underline !important;
+}
+
+.briti-email-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.briti-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: var(--bp-body);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 36px;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.briti-copy-btn:hover {
+  border-color: var(--bp-brand);
+  color: var(--bp-brand);
+  background: #f8fafc;
+}
+
+/* ── 6. Secondary Optional Message Form ─────────────────────────── */
+.briti-soft-form-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(22px, 4vw, 56px);
+  align-items: start;
+}
+
+.briti-form-card--quiet {
+  background: #ffffff;
+  border: 1px solid var(--bp-border);
+  border-radius: 14px;
+  padding: clamp(20px, 2.5vw, 30px);
+  box-shadow: none;
+  width: 100%;
+}
+
+.briti-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--bp-ink);
+  margin-bottom: 6px;
+}
+
+.briti-hint {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--bp-muted);
+  margin-bottom: 5px;
+}
+
+.briti-input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 9px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: var(--bp-ink);
+  font-size: 16px;
+  line-height: 1.45;
+  box-sizing: border-box;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.briti-input:focus {
+  outline: none;
+  border-color: var(--bp-brand);
+  box-shadow: 0 0 0 3px rgba(0, 56, 133, 0.12);
+}
+
+.briti-input::placeholder {
+  color: #94a3b8;
+}
+
+.briti-error {
+  display: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #dc2626;
+  margin-top: 5px;
+}
+
+.briti-input:user-invalid {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.briti-input:user-invalid + .briti-error {
+  display: block;
+}
+
+.briti-input:user-valid {
+  border-color: #16a34a;
+}
+
+/* ── 7. Clean Buttons & CTA Card ────────────────────────────────── */
+.briti-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.briti-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9px;
+  background: var(--bp-brand) !important;
+  border: 1.5px solid var(--bp-brand) !important;
+  color: #ffffff !important;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.briti-btn-primary:hover:not(:disabled) {
+  background: var(--bp-brand-hover) !important;
+  border-color: var(--bp-brand-hover) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.briti-btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.briti-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9px;
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: var(--bp-ink) !important;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+}
+
+.briti-btn-secondary:hover {
+  border-color: var(--bp-brand) !important;
+  color: var(--bp-brand) !important;
+  background: #f8fafc !important;
+}
+
+.briti-btn-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9px;
+  background: #ffffff !important;
+  border: 1.5px solid #ffffff !important;
+  color: var(--bp-brand) !important;
+  font-size: 0.94rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  min-height: 44px;
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.briti-btn-white:hover {
+  background: #f1f5f9 !important;
+  color: var(--bp-brand-hover) !important;
+  transform: translateY(-1px);
+}
+
+.briti-btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 9px;
+  background: transparent !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  min-height: 44px;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.briti-btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.briti-cta-card {
+  background: var(--bp-brand);
+  color: #ffffff;
+  border-radius: 18px;
+  padding: clamp(26px, 4vw, 48px) clamp(20px, 4vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.briti-cta-card h2 {
+  margin: 0 0 8px !important;
+  font-size: clamp(1.35rem, 2.3vw, 1.95rem) !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  line-height: 1.24 !important;
+}
+
+.briti-cta-card p {
+  margin: 0;
+  max-width: 560px;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.briti-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── 8. Comprehensive Responsive Breakpoints (All Screen Sizes) ─── */
+
+/* Small Laptops & iPad Pro Landscape (992px – 1140px) */
+@media (max-width: 1140px) {
+  .briti-cards-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .briti-cards-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* iPad Portrait & Tablets (<= 991.98px) */
+@media (max-width: 991.98px) {
+  .briti-hero-split,
+  .briti-contact-showcase,
+  .briti-soft-form-split {
+    grid-template-columns: 1fr;
+  }
+
+  /* Keep text before photo on mobile/tablet so two photos never collide back-to-back */
+  .briti-hero-split--reverse-mobile > :first-child {
+    order: 2;
+  }
+
+  .briti-hero-split--reverse-mobile > :last-child {
+    order: 1;
+  }
+
+  .briti-photo-frame img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .briti-cards-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .briti-cta-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Mobile Landscape & Large Phones (<= 767.98px) */
+@media (max-width: 767.98px) {
+  .briti-cards-4,
+  .briti-cards-5 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Transform comparison table into clean stacked mobile cards (zero horizontal scroll) */
+  .briti-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .briti-table,
+  .briti-table tbody,
+  .briti-table tr,
+  .briti-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .briti-table tr {
+    border-bottom: 2px solid var(--bp-border);
+  }
+
+  .briti-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .briti-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .briti-table td:last-child {
+    border-bottom: none;
+  }
+
+  .briti-table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--bp-muted);
+    margin-bottom: 4px;
+  }
+
+  .briti-table td.is-brand[data-label]::before {
+    color: var(--bp-brand);
+  }
+
+  .briti-email-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0;
+    padding: 16px 0;
+  }
+
+  .briti-email-row__actions {
+    padding-left: 58px;
+  }
+}
+
+/* Standard & Small Mobile Phones (<= 575.98px) */
+@media (max-width: 575.98px) {
+  .briti-actions,
+  .briti-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .briti-actions > a,
+  .briti-cta-actions > a,
+  .briti-form-submit-row > button {
+    width: 100%;
+  }
+
+  .briti-contact-showcase {
+    border-radius: 14px;
+  }
+
+  .briti-contact-panel-blue,
+  .briti-contact-panel-emails {
+    padding: 22px 18px;
+  }
+
+  .briti-icon-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+  }
+
+  .briti-email-row__left {
+    gap: 12px;
+  }
+
+  .briti-email-row__actions {
+    padding-left: 50px;
+  }
+
+  .briti-blue-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+/* Compact Mobile Phones (<= 380px) */
+@media (max-width: 380px) {
+  .briti-wrap {
+    padding: 0 14px;
+  }
+
+  .briti-contact-panel-blue,
+  .briti-contact-panel-emails,
+  .briti-form-card--quiet,
+  .briti-card {
+    padding: 18px 14px;
+  }
+
+  .briti-email-row__actions {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .briti-email-row__actions .briti-copy-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .briti-card,
+  .briti-btn-primary,
+  .briti-btn-secondary,
+  .briti-btn-white,
+  .briti-btn-outline-white,
+  .briti-copy-btn,
+  .briti-email-row {
+    transition: none !important;
+  }
+}

@@ -5,11 +5,13 @@ import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import { getInternshipDomainsWithCounts } from "@/lib/sanity/queries";
 import type { InternshipDomainListItem } from "@/lib/sanity/types";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Domains",
   description:
     "Browse Briticana internship domains — from data and software to operations and design — and jump to live tracks in each area.",
+  alternates: buildPageAlternates("/domains"),
 };
 
 export default async function DomainsPage() {
@@ -17,7 +19,14 @@ export default async function DomainsPage() {
 
   if (isSanityConfigured()) {
     try {
-      domains = await client.fetch<InternshipDomainListItem[]>(getInternshipDomainsWithCounts);
+      const fetched = await client.fetch<InternshipDomainListItem[]>(
+        getInternshipDomainsWithCounts,
+      );
+      domains = fetched.filter(
+        (d) =>
+          !(d.title || "").toLowerCase().includes("google") &&
+          !(d.slug?.current || "").toLowerCase().includes("google"),
+      );
     } catch {
       domains = [];
     }

@@ -11,7 +11,10 @@ import {
   sanitizeInternshipText,
   type QuickCategoryFilter,
 } from "@/lib/internships/internshipRoleClarifier";
-import { SUPPLEMENTAL_CORE_TRACKS } from "@/lib/internships/supplementalTracks";
+import {
+  SUPPLEMENTAL_CORE_TRACKS,
+  isGoogleInternship,
+} from "@/lib/internships/supplementalTracks";
 
 export interface InternshipsExplorerSectionProps {
   internships: EnrichedInternship[];
@@ -155,14 +158,16 @@ export default function InternshipsExplorerSection({
   const [searchQuery, setSearchQuery] = useState("");
   const gridAnchorRef = useRef<HTMLDivElement | null>(null);
 
-  // Combine dynamic internships with supplemental core tracks (including official Google Dublin roles)
+  // Combine dynamic internships with supplemental Briticana core tracks (excluding Google roles)
   // so every category filter button (All, Business, Technology, Marketing, Design, Finance) and the full /internships page has rich roles.
   const sourceInternships = useMemo(() => {
+    const cleanIncoming = internships.filter((item) => !isGoogleInternship(item));
     const existingSlugs = new Set(
-      internships.map((i) => i.slug?.current?.trim()).filter(Boolean),
+      cleanIncoming.map((i) => i.slug?.current?.trim()).filter(Boolean),
     );
-    const merged = [...internships];
+    const merged = [...cleanIncoming];
     for (const supp of SUPPLEMENTAL_CORE_TRACKS) {
+      if (isGoogleInternship(supp)) continue;
       const slug = supp.slug?.current?.trim();
       if (slug && !existingSlugs.has(slug)) {
         merged.push(supp);
@@ -198,32 +203,8 @@ export default function InternshipsExplorerSection({
       return haystack.includes(q);
     });
 
-    if (!q) {
-      // Interleave official Google Dublin roles with Briticana tracks so they appear
-      // tastefully mixed together across the grid.
-      const googleRoles = matches.filter((m) =>
-        (m.internship.title || "").toLowerCase().includes("google"),
-      );
-      const otherRoles = matches.filter(
-        (m) => !(m.internship.title || "").toLowerCase().includes("google"),
-      );
-
-      const mixed: typeof matches = [];
-      const maxSlots = isHomePreview && selectedCategory === "All" ? 8 : matches.length;
-      let gIdx = 0;
-      let oIdx = 0;
-
-      // Interleave: Google Dublin role, Briticana track, Google Dublin role, Briticana track...
-      while (mixed.length < maxSlots && (gIdx < googleRoles.length || oIdx < otherRoles.length)) {
-        if (gIdx < googleRoles.length && mixed.length < maxSlots) {
-          mixed.push(googleRoles[gIdx++]);
-        }
-        if (oIdx < otherRoles.length && mixed.length < maxSlots) {
-          mixed.push(otherRoles[oIdx++]);
-        }
-      }
-
-      return mixed;
+    if (!q && isHomePreview && selectedCategory === "All") {
+      return matches.slice(0, 8);
     }
 
     return matches;

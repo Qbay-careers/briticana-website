@@ -76,6 +76,9 @@ export default function MarketingNav({ settings: _settings }: MarketingNavProps)
               <img
                 src={LOGO_SRC}
                 alt="Briticana"
+                width={56}
+                height={56}
+                style={{ height: "56px", width: "auto", maxWidth: "100%" }}
                 className="briti-logo-img"
               />
             </Link>
@@ -102,7 +105,7 @@ export default function MarketingNav({ settings: _settings }: MarketingNavProps)
 
             {/* Desktop CTA */}
             <div className="briti-nav-cta d-flex align-items-center">
-              <MarketingCtaLink href={applyUrl} className="main-btn briti-apply-btn">
+              <MarketingCtaLink href={applyUrl} className="briti-apply-btn">
                 <span>Apply Now</span>
                 <i className="ri-arrow-right-up-line ms-1" aria-hidden="true" />
               </MarketingCtaLink>
@@ -120,13 +123,16 @@ export default function MarketingNav({ settings: _settings }: MarketingNavProps)
               <img
                 src={LOGO_SRC}
                 alt="Briticana"
+                width={44}
+                height={44}
+                style={{ height: "44px", width: "auto", maxWidth: "100%" }}
                 className="briti-mobile-logo-img"
               />
             </Link>
 
             {/* Right Action: Quick Apply + Hamburger Button */}
             <div className="d-flex align-items-center gap-2">
-              <MarketingCtaLink href={applyUrl} className="main-btn briti-mobile-cta-btn">
+              <MarketingCtaLink href={applyUrl} className="briti-mobile-cta-btn">
                 Apply
               </MarketingCtaLink>
 

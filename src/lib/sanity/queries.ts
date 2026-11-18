@@ -5,6 +5,23 @@ const internshipDomainExpand = `"domain": domain->{ _id, _type, title, slug, sho
 
 export const getHomePage = `*[_type == "homePage"]|order(_updatedAt desc)[0]`;
 
+export const getHomePageBundle = `{
+  "home": *[_type == "homePage"]|order(_updatedAt desc)[0],
+  "domains": *[_type == "internshipDomain" && defined(slug.current)] | order(coalesce(sortOrder, 999) asc, title asc) {
+    _id,
+    _type,
+    title,
+    slug,
+    icon
+  },
+  "featured": *[_type == "homePage"][0].featuredInternships[]->{
+    ...,
+    ${internshipDomainExpand}
+  },
+  "testimonials": *[_type == "testimonial"] | order(_createdAt desc),
+  "siteSettings": *[_type == "siteSettings"]|order(_updatedAt desc)[0]
+}`;
+
 /** Marketing home: internship domain tiles (slug used for /internships?domain= filter). */
 export const getAllInternshipDomains = `*[_type == "internshipDomain" && defined(slug.current)] | order(coalesce(sortOrder, 999) asc, title asc) {
   _id,

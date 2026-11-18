@@ -10,6 +10,10 @@ const DEMO_AUTH_COOKIE = "briticana_demo_auth";
 export const metadata: Metadata = {
   title: "Certificate",
   description: "View your Briticana experience certificate.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function CertificatePage() {

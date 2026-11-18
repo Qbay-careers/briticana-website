@@ -74,26 +74,54 @@ export function getBackendApiBaseUrl(): string {
   return (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
 }
 
+const DB_CACHE_TTL_MS = 60_000;
+let cachedAllDbContent: { data: InternshipPageContentDTO[]; timestamp: number } | null = null;
+const keyContentCache = new Map<string, { data: InternshipPageContentDTO | null; timestamp: number }>();
+let backendOfflineUntil = 0;
+
 export async function fetchAllInternshipContent(): Promise<InternshipPageContentDTO[]> {
+  const now = Date.now();
+  if (cachedAllDbContent && now - cachedAllDbContent.timestamp < DB_CACHE_TTL_MS) {
+    return cachedAllDbContent.data;
+  }
+  if (now < backendOfflineUntil) {
+    return cachedAllDbContent?.data ?? [];
+  }
+
   const baseUrl = getBackendApiBaseUrl();
   try {
     const res = await fetch(`${baseUrl}/api/v1/internships/content/`, {
       method: "GET",
       headers: { Accept: "application/json" },
-      cache: "no-store",
-      signal: AbortSignal.timeout(2000),
+      next: { revalidate: 60 },
+      signal: AbortSignal.timeout(200),
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      backendOfflineUntil = now + DB_CACHE_TTL_MS;
+      return cachedAllDbContent?.data ?? [];
+    }
     const data = (await res.json()) as { results?: InternshipPageContentDTO[] };
-    return Array.isArray(data.results) ? data.results : [];
+    const results = Array.isArray(data.results) ? data.results : [];
+    cachedAllDbContent = { data: results, timestamp: now };
+    return results;
   } catch {
-    return [];
+    backendOfflineUntil = now + DB_CACHE_TTL_MS;
+    return cachedAllDbContent?.data ?? [];
   }
 }
 
 export async function fetchInternshipContentByKey(
   pageKey: string,
 ): Promise<InternshipPageContentDTO | null> {
+  const now = Date.now();
+  const cached = keyContentCache.get(pageKey);
+  if (cached && now - cached.timestamp < DB_CACHE_TTL_MS) {
+    return cached.data;
+  }
+  if (now < backendOfflineUntil) {
+    return cached?.data ?? null;
+  }
+
   const baseUrl = getBackendApiBaseUrl();
   try {
     const res = await fetch(
@@ -101,15 +129,21 @@ export async function fetchInternshipContentByKey(
       {
         method: "GET",
         headers: { Accept: "application/json" },
-        cache: "no-store",
-        signal: AbortSignal.timeout(2000),
+        next: { revalidate: 60 },
+        signal: AbortSignal.timeout(200),
       },
     );
-    if (!res.ok) return null;
+    if (!res.ok) {
+      backendOfflineUntil = now + DB_CACHE_TTL_MS;
+      return cached?.data ?? null;
+    }
     const data = (await res.json()) as { content?: InternshipPageContentDTO };
-    return data.content ?? null;
+    const content = data.content ?? null;
+    keyContentCache.set(pageKey, { data: content, timestamp: now });
+    return content;
   } catch {
-    return null;
+    backendOfflineUntil = now + DB_CACHE_TTL_MS;
+    return cached?.data ?? null;
   }
 }
 

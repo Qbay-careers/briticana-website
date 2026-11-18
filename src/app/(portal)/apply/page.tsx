@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import ApplyForm, { type ApplyFormInitial } from "@/components/apply/ApplyForm";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Internship Application | Briticana",
   description:
     "Apply below to join the Briticana remote internship programme. Upload your CV — it covers education, skills and experience.",
+  alternates: buildPageAlternates("/apply"),
 };
 
 type ApplyPageProps = {

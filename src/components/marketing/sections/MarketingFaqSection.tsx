@@ -11,13 +11,13 @@ export default function MarketingFaqSection() {
                 Frequently <span>asked</span> questions
               </h2>
               <div className="ms-lg-5 d-none d-lg-block">
-                <img src={marketingImage("title-shape.png")} alt="" />
+                <img src={marketingImage("title-shape.webp")} alt="" />
               </div>
               <div className="d-none d-lg-block shape3 text-center ms-3 position-absolute mt-4">
-                <img src={marketingImage("shape3.png")} alt="" />
+                <img src={marketingImage("shape3.webp")} alt="" />
               </div>
               <img
-                src={marketingImage("shape4.png")}
+                src={marketingImage("shape4.webp")}
                 className="position-absolute top-0 d-none d-lg-inline-block"
                 style={{ right: "-30px" }}
                 alt=""

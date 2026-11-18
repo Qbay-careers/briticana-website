@@ -75,9 +75,9 @@ export default function MarketingChooseUsSection() {
             <h2>
               Real work. Real learning. <span>Real growth.</span>
             </h2>
-            <img src={marketingImage("title-shape.png")} className="d-none d-lg-inline-block" alt="" />
+            <img src={marketingImage("title-shape.webp")} className="d-none d-lg-inline-block" alt="" />
             <img
-              src={marketingImage("shape4.png")}
+              src={marketingImage("shape4.webp")}
               className="d-none d-lg-inline-block position-absolute top-0"
               style={{ right: "-40px" }}
               alt=""

@@ -37,7 +37,7 @@ Table Of Contents
 /*
 01 - Fonts Variable Style
 <<<<======================================================>>>>*/
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+/* Font loaded via layout.tsx <link> to prevent render blocking */
 /*
 02 - Color Variable Style
 <<<<======================================================>>>>*/
@@ -910,7 +910,7 @@ textarea.form-control {
   margin-bottom: 60px;
 }
 .banner-content-two h2 .online {
-  background-image: url(../images/online.png);
+  background-image: url(../images/online.webp);
   display: inline-block;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -918,7 +918,7 @@ textarea.form-control {
   padding: 0 10px;
 }
 .banner-content-two h2 .courses {
-  background-image: url(../images/underline.png);
+  background-image: url(../images/underline.webp);
   display: inline-block;
   background-repeat: no-repeat;
   background-size: revert;
@@ -972,7 +972,7 @@ textarea.form-control {
 }
 
 .under-line {
-  background-image: url(../images/underline2.png);
+  background-image: url(../images/underline2.webp);
   display: inline-block;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -1068,7 +1068,7 @@ textarea.form-control {
   line-height: 130%;
 }
 .page-banner-content h2 span {
-  background-image: url(../images/underline.png);
+  background-image: url(../images/underline.webp);
   background-position: 0 37px;
   background-repeat: no-repeat;
   background-size: contain;

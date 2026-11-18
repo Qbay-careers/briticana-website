@@ -8,28 +8,44 @@ import {
   mergeInternshipWithDbContent,
 } from "@/lib/internships/internshipContentApi";
 import { resolveFeaturedInternships } from "@/lib/marketing/resolveFeaturedInternships";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 import { client } from "@/lib/sanity/client";
 import { isSanityConfigured } from "@/lib/sanity/isSanityConfigured";
 import {
-  getAllInternshipDomains,
-  getAllTestimonials,
-  getFeaturedInternshipsForHome,
-  getHomePage,
-  getSiteSettings,
+  getHomePageBundle,
 } from "@/lib/sanity/queries";
 import type { HomePage, Internship, InternshipDomainDoc, SiteSettings, Testimonial } from "@/lib/sanity/types";
 
 import "@/styles/marketing-home.css";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 const SANITY_REVALIDATE_SECONDS = 60;
 const sanityFetchOptions = { next: { revalidate: SANITY_REVALIDATE_SECONDS } };
 
+type HomeSanityBundle = {
+  home: HomePage | null;
+  domains: InternshipDomainDoc[];
+  featured: Internship[];
+  testimonials: Testimonial[];
+  siteSettings: SiteSettings | null;
+};
+
+type HomeSanityCache = {
+  data: HomeSanityBundle;
+  timestamp: number;
+};
+
+let cachedHomeBundle: HomeSanityCache | null = null;
+const SANITY_CACHE_TTL_MS = 60_000;
+
 export const metadata: Metadata = {
-  title: "Home",
+  title: {
+    absolute: "Briticana: Real Project Internships, Work & Skill Experience",
+  },
   description:
-    "Briticana — internship experiences and a startup showcase. Learn the skills of tomorrow with mentor-led programs across Europe.",
+    "Join Briticana for real project internships and hands-on work experience. Learn practical skills, view Google & European tracks, and grow your career.",
+  alternates: buildPageAlternates("/"),
 };
 
 export default async function HomePage() {
@@ -41,26 +57,42 @@ export default async function HomePage() {
 
   const dbContentPromise = fetchAllInternshipContent();
 
-  if (isSanityConfigured()) {
+  const now = Date.now();
+  if (cachedHomeBundle && now - cachedHomeBundle.timestamp < SANITY_CACHE_TTL_MS) {
+    homeDoc = cachedHomeBundle.data.home;
+    internshipDomains = cachedHomeBundle.data.domains ?? [];
+    featuredInternships = resolveFeaturedInternships(cachedHomeBundle.data.featured ?? []);
+    testimonials = cachedHomeBundle.data.testimonials ?? [];
+    siteSettings = cachedHomeBundle.data.siteSettings ?? null;
+  } else if (isSanityConfigured()) {
     try {
-      const [fetchedHome, fetchedDomains, fetchedFeatured, fetchedTestimonials, fetchedSiteSettings] = await Promise.all([
-        client.fetch<HomePage | null>(getHomePage, {}, sanityFetchOptions),
-        client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, sanityFetchOptions),
-        client.fetch<Internship[]>(getFeaturedInternshipsForHome, {}, sanityFetchOptions),
-        client.fetch<Testimonial[]>(getAllTestimonials, {}, sanityFetchOptions),
-        client.fetch<SiteSettings | null>(getSiteSettings, {}, sanityFetchOptions),
-      ]);
-      homeDoc = fetchedHome;
-      internshipDomains = fetchedDomains;
-      featuredInternships = resolveFeaturedInternships(fetchedFeatured);
-      testimonials = fetchedTestimonials ?? [];
-      siteSettings = fetchedSiteSettings;
+      const data = await client.fetch<HomeSanityBundle>(
+        getHomePageBundle,
+        {},
+        sanityFetchOptions,
+      );
+      if (data) {
+        cachedHomeBundle = { data, timestamp: now };
+        homeDoc = data.home ?? null;
+        internshipDomains = data.domains ?? [];
+        featuredInternships = resolveFeaturedInternships(data.featured ?? []);
+        testimonials = data.testimonials ?? [];
+        siteSettings = data.siteSettings ?? null;
+      }
     } catch {
-      homeDoc = null;
-      internshipDomains = [];
-      featuredInternships = resolveFeaturedInternships([]);
-      testimonials = [];
-      siteSettings = null;
+      if (cachedHomeBundle) {
+        homeDoc = cachedHomeBundle.data.home;
+        internshipDomains = cachedHomeBundle.data.domains ?? [];
+        featuredInternships = resolveFeaturedInternships(cachedHomeBundle.data.featured ?? []);
+        testimonials = cachedHomeBundle.data.testimonials ?? [];
+        siteSettings = cachedHomeBundle.data.siteSettings ?? null;
+      } else {
+        homeDoc = null;
+        internshipDomains = [];
+        featuredInternships = resolveFeaturedInternships([]);
+        testimonials = [];
+        siteSettings = null;
+      }
     }
   }
 

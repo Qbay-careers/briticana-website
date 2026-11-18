@@ -19,24 +19,24 @@ export const TESTIMONIALS: TestimonialItem[] = [
     quote: "Briticana gave me my first real experience working in a structured team environment.",
     name: "Briticana Participant",
     role: "Program graduate",
-    img: "user1.jpg",
+    img: "user1.webp",
   },
   {
     quote: "I finally understood how startup workflows actually work.",
     name: "Briticana Participant",
     role: "Program graduate",
-    img: "user2.jpg",
+    img: "user2.webp",
   },
   {
     quote: "The project experience helped me improve my confidence and portfolio.",
     name: "Briticana Participant",
     role: "Program graduate",
-    img: "user3.jpg",
+    img: "user3.webp",
   },
   {
     quote: "This felt closer to real work than traditional internships.",
     name: "Briticana Participant",
     role: "Program graduate",
-    img: "user2.jpg",
+    img: "user2.webp",
   },
 ];

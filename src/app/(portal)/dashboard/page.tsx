@@ -11,6 +11,10 @@ const DEMO_AUTH_COOKIE = "briticana_demo_auth";
 export const metadata: Metadata = {
   title: "Student dashboard",
   description: "Track internship milestones, mentor reviews, and weekly submissions.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function DashboardPage() {

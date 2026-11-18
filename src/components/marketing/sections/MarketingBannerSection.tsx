@@ -273,9 +273,9 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
                 </div>
 
                 <h1 className="briti-royal-hero__headline">
-                  <span>Real Projects.</span>
-                  <span>Real Skills.</span>
-                  <span className="briti-royal-hero__headline-accent">Real Opportunities.</span>
+                  <span>Are You Looking for </span>
+                  <span>Real-World Internship </span>
+                  <span className="briti-royal-hero__headline-accent">Opportunities?</span>
                 </h1>
 
                 <p className="briti-royal-hero__subheadline">
@@ -305,6 +305,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
 
               {/* Right Column: Clean Blue Global Map + 4 Bottom Feature Icons */}
               <div className="briti-royal-hero__map-col">
+                <h2 className="visually-hidden">Europe &amp; Global Project Network</h2>
                 <UkEuropeGoldMap />
 
                 <div className="briti-royal-hero__pillars" role="list">
@@ -328,6 +329,7 @@ export default function MarketingBannerSection({ homeHero }: MarketingBannerSect
       {/* 2. Six Feature Cards Section Directly Below the Hero */}
       <section className="briti-six-features-section position-relative">
         <div className="container mw-1380">
+          <h2 className="visually-hidden">Build Real-World Skills Through Projects</h2>
           <div className="briti-six-features-grid">
             {SIX_FEATURE_DIVS.map((feature) => (
               <div

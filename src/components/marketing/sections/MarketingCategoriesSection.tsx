@@ -12,9 +12,14 @@ export type MarketingCategoriesSectionProps = {
 export default function MarketingCategoriesSection({
   internshipDomains = [],
 }: MarketingCategoriesSectionProps) {
-  const useSanityDomains = internshipDomains.length > 0;
+  const cleanSanityDomains = internshipDomains.filter(
+    (d) =>
+      !(d.title || "").toLowerCase().includes("google") &&
+      !(d.slug?.current || "").toLowerCase().includes("google"),
+  );
+  const useSanityDomains = cleanSanityDomains.length > 0;
   /** Show 8 domain cards + the 9th "All domains" card (3x3 balanced grid on desktop). */
-  const sanityDomainsToShow = internshipDomains.slice(0, 8);
+  const sanityDomainsToShow = cleanSanityDomains.slice(0, 8);
   const fallbackCategoriesToShow = CATEGORY_ITEMS.slice(0, 8);
 
   const cards = useSanityDomains

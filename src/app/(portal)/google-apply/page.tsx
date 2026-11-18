@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 import GoogleInternshipApplyForm from "@/components/apply/GoogleInternshipApplyForm";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Application | Briticana",
   description: "Internship Application Form",
+  alternates: buildPageAlternates("/google-apply"),
 };
 
 type GoogleApplyPageProps = {

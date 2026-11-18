@@ -14,6 +14,10 @@ body {
   background-color: var(--briticana-body-bg);
 }
 
+img {
+  max-width: 100%;
+}
+
 /* Remove chunky right-hand sidebar / scrollbar track while maintaining full smooth scroll */
 html {
   scrollbar-width: none;

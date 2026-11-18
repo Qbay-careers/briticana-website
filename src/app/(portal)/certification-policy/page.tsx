@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { LegalSections } from "@/components/marketing/LegalSections";
 import MarketingPolicyLayout from "@/components/marketing/MarketingPolicyLayout";
 import { certificationPolicyBlocks } from "@/content/legal/certificationPolicyBlocks";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Certification policy",
   description:
     "When Briticana issues experience certificates, mentor sign-off requirements, verification, and eligibility criteria.",
+  alternates: buildPageAlternates("/certification-policy"),
 };
 
 const LAST_UPDATED = "16 June 2026";

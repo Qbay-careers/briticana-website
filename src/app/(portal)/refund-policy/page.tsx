@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { LegalSections } from "@/components/marketing/LegalSections";
 import MarketingPolicyLayout from "@/components/marketing/MarketingPolicyLayout";
 import { refundPolicyBlocks } from "@/content/legal/refundPolicyBlocks";
+import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
 export const metadata: Metadata = {
   title: "Refund policy",
   description:
     "Briticana refund windows, cancellations, cohort changes, chargebacks, and how we handle programme fee disputes.",
+  alternates: buildPageAlternates("/refund-policy"),
 };
 
 const LAST_UPDATED = "16 June 2026";
