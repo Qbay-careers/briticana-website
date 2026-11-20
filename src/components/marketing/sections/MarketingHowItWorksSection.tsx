@@ -10,26 +10,42 @@ const PHASES: Phase[] = [
   {
     num: "01",
     title: "Apply & Get Assessed ",
-    points: ["Submit your application",
+    points: [
+      "Submit your application",
       "Share your interests and goals",
       "Highlight your current skill level",
       "Get matched to the right project domain and learning path",
-      ],
+    ],
   },
   {
     num: "02",
     title: "Research & Learning",
-    points: ["Self-learning tasks", "Industry understanding", "Tool familiarization", "Market & technical research"],
+    points: [
+      "Self-learning tasks",
+      "Industry understanding",
+      "Tool familiarization",
+      "Market & technical research",
+    ],
   },
   {
     num: "03",
     title: "Team Execution",
-    points: ["Weekly sprint tasks", "Team collaboration", "Problem solving", "Project development"],
+    points: [
+      "Weekly sprint tasks",
+      "Team collaboration",
+      "Problem solving",
+      "Project development",
+    ],
   },
   {
     num: "04",
     title: "Review & Mentorship",
-    points: ["Mentor feedback", "Performance reviews", "Quality improvement", "Communication assessments"],
+    points: [
+      "Mentor feedback",
+      "Performance reviews",
+      "Quality improvement",
+      "Communication assessments",
+    ],
   },
   {
     num: "05",
@@ -44,7 +60,12 @@ const PHASES: Phase[] = [
   {
     num: "06",
     title: "Certification & Career Readiness",
-    points: ["Experience certification", "Portfolio enhancement", "LinkedIn-ready project proof", "Career readiness guidance"],
+    points: [
+      "Experience certification",
+      "Portfolio enhancement",
+      "LinkedIn-ready project proof",
+      "Career readiness guidance",
+    ],
   },
 ];
 
@@ -52,7 +73,7 @@ export default function MarketingHowItWorksSection() {
   return (
     <div className="how-it-works-area marketing-home-section-y">
       <div className="container mw-1345">
-        <div className="section-title text-center mx-auto" style={{ maxWidth: "680px" }} data-cues="slideInUp">
+        <div className="section-title text-center mx-auto" style={{ maxWidth: "680px" }}>
           <div className="position-relative z-1">
             <p className="small fw-semibold text-secondary text-uppercase mb-2" style={{ letterSpacing: "0.06em" }}>
               How Briticana works
@@ -60,12 +81,24 @@ export default function MarketingHowItWorksSection() {
             <h2>
               A simple yet powerful <span>learning journey</span>
             </h2>
-            <img src={marketingImage("title-shape.webp")} className="d-none d-lg-inline-block" alt="" />
+            <img
+              src={marketingImage("title-shape.webp")}
+              className="d-none d-lg-inline-block"
+              alt="Decorative title underline"
+              loading="lazy"
+              decoding="async"
+              width={160}
+              height={14}
+            />
             <img
               src={marketingImage("shape4.webp")}
               className="d-none d-lg-inline-block position-absolute top-0"
               style={{ right: "-40px" }}
-              alt=""
+              alt="Decorative accent shape"
+              loading="lazy"
+              decoding="async"
+              width={38}
+              height={38}
             />
           </div>
           <p className="text-secondary mt-3 mb-0">
@@ -74,7 +107,7 @@ export default function MarketingHowItWorksSection() {
           </p>
         </div>
 
-        <div className="row g-4" data-cues="slideInUp">
+        <div className="row g-4">
           {PHASES.map((phase) => (
             <div key={phase.num} className="col-lg-4 col-md-6 d-flex">
               <div className="process-phase-card bg-white rounded-4 p-4 h-100 w-100">
@@ -87,7 +120,7 @@ export default function MarketingHowItWorksSection() {
                 <ul className="briti-check-list list-unstyled mb-0">
                   {phase.points.map((p) => (
                     <li key={p} className="d-flex gap-2 small text-secondary">
-                      <i className="ri-checkbox-circle-fill" aria-hidden />
+                      <i className="ri-checkbox-circle-fill" aria-hidden="true" />
                       <span>{p}</span>
                     </li>
                   ))}

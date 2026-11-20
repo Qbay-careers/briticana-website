@@ -12,10 +12,10 @@ const DEFAULT_FLOATING_IMAGES = [
 ] as const;
 
 const DEFAULT_STRIP_AVATARS = [
-  "/edumove/images/user1.webp",
-  "/edumove/images/user2.webp",
-  "/edumove/images/user3.webp",
-  "/edumove/images/user4.webp",
+  "/images/user1.webp",
+  "/images/user2.webp",
+  "/images/user3.webp",
+  "/images/user4.webp",
 ] as const;
 
 /** Hero block passed from Sanity (or defaults) into the marketing template. */
@@ -65,8 +65,8 @@ export const defaultHomeHero: HomeHeroData = {
   heroWideImage:
     "https://cdn.sanity.io/images/8lpmdwks/production/7d6001304b07c9116d0c1d20e8b1125926dae0bd-4146x6218-jpg.jpg?w=1600&auto=format",
   floatingImages: DEFAULT_FLOATING_IMAGES,
-  stripMainImage: "/edumove/images/banner-7.webp",
-  stripSideImage: "/edumove/images/banner-8.webp",
+  stripMainImage: "/images/banner-7.webp",
+  stripSideImage: "/images/banner-8.webp",
   stripAvatars: DEFAULT_STRIP_AVATARS,
   aboutImage:
     "https://cdn.sanity.io/images/8lpmdwks/production/c2505b56bab7b0f217b2a38897ca8df71c82edc9-1080x1080.webp?w=800&auto=format",

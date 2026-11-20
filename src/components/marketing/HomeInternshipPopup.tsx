@@ -26,8 +26,8 @@ export default function HomeInternshipPopup() {
       return;
     }
 
-    const robotPullSrc = "/assets/kunj-robot-pull-tough.webp";
-    const robotHeroSrc = "/assets/kunj-robot-lean-mass.webp";
+    const robotPullSrc = "/images/robot-pull.webp";
+    const robotHeroSrc = "/images/robot-hero.webp";
 
     let mounted = true;
     let tSettle: ReturnType<typeof setTimeout> | null = null;
@@ -91,34 +91,33 @@ export default function HomeInternshipPopup() {
             <div className="briti-robot-rig">
               <div className="briti-robot-layer briti-robot-layer--pull">
                 <img
-                  src="/assets/kunj-robot-pull-tough.webp"
-                  alt="3D Chibi Robot Pulling with Tough Expression"
+                  src="/images/robot-pull.webp"
+                  alt="Briticana Robot Character Pulling Skill Match Poster"
                   className="briti-robot-part-img"
                   width={512}
                   height={512}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
-                  fetchPriority="high"
                 />
               </div>
 
               <div className="briti-robot-layer briti-robot-layer--hero">
                 <img
-                  src="/assets/kunj-robot-lean-mass.webp"
-                  alt="3D Chibi Robot Leaning Mass Hero Pose"
+                  src="/images/robot-hero.webp"
+                  alt="Briticana Robot Mascot Standing in Hero Pose"
                   className="briti-robot-part-img"
                   width={512}
                   height={512}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
                 <img
-                  src="/assets/kunj-lean-blink.webp"
-                  alt="Robot Eye Blink Overlay"
+                  src="/images/robot-blink.webp"
+                  alt="Briticana Robot Mascot Eye Animation"
                   className="briti-robot-eye-blink-overlay"
                   width={512}
                   height={512}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </div>
@@ -232,12 +231,12 @@ export default function HomeInternshipPopup() {
             <div className="briti-robot-rig">
               <div className="briti-robot-layer briti-robot-layer--pull">
                 <img
-                  src="/assets/kunj-pull-front-fist.webp"
-                  alt="Robot Closed Fist Clamping Poster"
+                  src="/images/robot-fist.webp"
+                  alt="Briticana Robot Mascot Holding Poster Edge"
                   className="briti-robot-part-img"
                   width={512}
                   height={512}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                 />
               </div>

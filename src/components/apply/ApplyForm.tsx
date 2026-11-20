@@ -331,8 +331,8 @@ export default function ApplyForm({ initial }: { initial?: ApplyFormInitial }) {
           <div className="hero">
             <div className="logo">
               <img
-                src="/assets/briticana-logo.webp"
-                alt="Briticana logo"
+                src="/images/logo.webp"
+                alt="Briticana Logo"
                 width={100}
                 height={100}
                 onError={(e) => {

@@ -197,8 +197,8 @@ export default function AboutPage() {
 
             <div className="briti-photo-frame">
               <img
-                src="/assets/experience-hero.webp"
-                alt="Students and mentors collaborating on a real-world startup project at Briticana"
+                src="/images/experience.webp"
+                alt="Briticana students and mentors collaborating on a real-world startup project"
               />
             </div>
           </div>
@@ -211,8 +211,8 @@ export default function AboutPage() {
           <div className="briti-hero-split briti-hero-split--reverse-mobile">
             <div className="briti-photo-frame">
               <img
-                src="/assets/founder-mentorship.webp?v=2"
-                alt="Industry mentor reviewing project deliverables with Briticana internship cohort"
+                src="/images/mentorship.webp?v=2"
+                alt="Briticana industry mentor reviewing project deliverables with internship cohort"
               />
             </div>
 

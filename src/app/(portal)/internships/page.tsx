@@ -17,8 +17,7 @@ import { getAllInternshipDomains, getInternshipsFiltered } from "@/lib/sanity/qu
 import type { Internship, InternshipDomainDoc } from "@/lib/sanity/types";
 import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Internships",
@@ -51,15 +50,22 @@ export default async function InternshipsPage({ searchParams }: InternshipsPageP
         return { internships: [] as Internship[], domains: [] as InternshipDomainDoc[] };
       }
       try {
-        const [fetchedInternships, fetchedDomains] = await Promise.all([
+        const fetchPromise = Promise.all([
           client.fetch<Internship[]>(
             getInternshipsFiltered,
             { domain, region, duration },
-            { cache: "no-store" },
+            { next: { revalidate: 300 } },
           ),
-          client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, { cache: "no-store" }),
+          client.fetch<InternshipDomainDoc[]>(getAllInternshipDomains, {}, { next: { revalidate: 300 } }),
         ]);
-        return { internships: fetchedInternships, domains: fetchedDomains };
+        const timeoutPromise = new Promise<null>((resolve) =>
+          setTimeout(() => resolve(null), 2500),
+        );
+        const result = await Promise.race([fetchPromise, timeoutPromise]);
+        if (result && Array.isArray(result)) {
+          return { internships: result[0], domains: result[1] };
+        }
+        return { internships: [] as Internship[], domains: [] as InternshipDomainDoc[] };
       } catch {
         return { internships: [] as Internship[], domains: [] as InternshipDomainDoc[] };
       }

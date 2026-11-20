@@ -18,7 +18,7 @@ export default function DashboardShell({ profile, quickStats, children }: Dashbo
             src={profile.avatar}
             className="rounded-circle"
             style={{ width: "64px", height: "64px", objectFit: "cover" }}
-            alt=""
+            alt={`${profile.firstName} profile avatar`}
           />
           <div>
             <h2 className="mb-1">

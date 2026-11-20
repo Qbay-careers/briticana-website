@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { homeHeroFromSanity } from "@/components/marketing/homeHero";
 import MarketingPageShell from "@/components/marketing/MarketingPageShell";
-import MarketingVendorScripts from "@/components/marketing/MarketingVendorScripts";
 import {
   fetchAllInternshipContent,
   mergeInternshipWithDbContent,
@@ -18,9 +17,9 @@ import type { HomePage, Internship, InternshipDomainDoc, SiteSettings, Testimoni
 
 import "@/styles/marketing-home.css";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
-const SANITY_REVALIDATE_SECONDS = 60;
+const SANITY_REVALIDATE_SECONDS = 3600;
 const sanityFetchOptions = { next: { revalidate: SANITY_REVALIDATE_SECONDS } };
 
 type HomeSanityBundle = {
@@ -37,7 +36,7 @@ type HomeSanityCache = {
 };
 
 let cachedHomeBundle: HomeSanityCache | null = null;
-const SANITY_CACHE_TTL_MS = 60_000;
+const SANITY_CACHE_TTL_MS = 3_600_000;
 
 export const metadata: Metadata = {
   title: {
@@ -66,11 +65,15 @@ export default async function HomePage() {
     siteSettings = cachedHomeBundle.data.siteSettings ?? null;
   } else if (isSanityConfigured()) {
     try {
-      const data = await client.fetch<HomeSanityBundle>(
+      const fetchPromise = client.fetch<HomeSanityBundle>(
         getHomePageBundle,
         {},
         sanityFetchOptions,
       );
+      const timeoutPromise = new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), 2000),
+      );
+      const data = await Promise.race([fetchPromise, timeoutPromise]);
       if (data) {
         cachedHomeBundle = { data, timestamp: now };
         homeDoc = data.home ?? null;
@@ -110,15 +113,12 @@ export default async function HomePage() {
   const homeHero = homeHeroFromSanity(homeDoc);
 
   return (
-    <>
-      <MarketingPageShell
-        homeHero={homeHero}
-        internshipDomains={internshipDomains}
-        featuredInternships={featuredInternships}
-        testimonials={testimonials}
-        siteSettings={siteSettings}
-      />
-      <MarketingVendorScripts />
-    </>
+    <MarketingPageShell
+      homeHero={homeHero}
+      internshipDomains={internshipDomains}
+      featuredInternships={featuredInternships}
+      testimonials={testimonials}
+      siteSettings={siteSettings}
+    />
   );
 }

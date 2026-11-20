@@ -225,9 +225,13 @@ export default function MarketingCertificationSection(_props: MarketingCertifica
                     <div className="briti-cert__org-mark">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src="/edumove/images/logo/logo.webp?v=3"
-                        alt="Briticana"
+                        src="/images/logo.webp?v=4"
+                        alt="Briticana Logo"
                         className="briti-cert__org-shield"
+                        loading="lazy"
+                        decoding="async"
+                        width={48}
+                        height={48}
                       />
                     </div>
                     <div className="briti-cert__org-text">

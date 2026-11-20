@@ -620,7 +620,7 @@ export default function SkillMatcherModal({ isOpen, onClose }: SkillMatcherModal
                         type="text"
                         required
                         autoComplete="name"
-                        placeholder="e.g. Arjun Nair"
+                        placeholder="Name"
                         className="briti-sm-input"
                         value={fullName}
                         onChange={(e) => {

@@ -74,12 +74,25 @@ export function getBackendApiBaseUrl(): string {
   return (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000").replace(/\/+$/, "");
 }
 
+export function isBackendConfigured(): boolean {
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL?.trim();
+  if (!url) return false;
+  if (url.includes("localhost") || url.includes("127.0.0.1")) {
+    return process.env.NODE_ENV !== "production";
+  }
+  return true;
+}
+
 const DB_CACHE_TTL_MS = 60_000;
 let cachedAllDbContent: { data: InternshipPageContentDTO[]; timestamp: number } | null = null;
 const keyContentCache = new Map<string, { data: InternshipPageContentDTO | null; timestamp: number }>();
 let backendOfflineUntil = 0;
 
 export async function fetchAllInternshipContent(): Promise<InternshipPageContentDTO[]> {
+  if (!isBackendConfigured()) {
+    return [];
+  }
+
   const now = Date.now();
   if (cachedAllDbContent && now - cachedAllDbContent.timestamp < DB_CACHE_TTL_MS) {
     return cachedAllDbContent.data;
@@ -93,7 +106,7 @@ export async function fetchAllInternshipContent(): Promise<InternshipPageContent
     const res = await fetch(`${baseUrl}/api/v1/internships/content/`, {
       method: "GET",
       headers: { Accept: "application/json" },
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
       signal: AbortSignal.timeout(200),
     });
     if (!res.ok) {
@@ -113,6 +126,9 @@ export async function fetchAllInternshipContent(): Promise<InternshipPageContent
 export async function fetchInternshipContentByKey(
   pageKey: string,
 ): Promise<InternshipPageContentDTO | null> {
+  if (!isBackendConfigured()) {
+    return null;
+  }
   const now = Date.now();
   const cached = keyContentCache.get(pageKey);
   if (cached && now - cached.timestamp < DB_CACHE_TTL_MS) {

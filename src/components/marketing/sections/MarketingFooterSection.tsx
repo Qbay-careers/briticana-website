@@ -4,7 +4,7 @@ import Link from "next/link";
 import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { FooterNavLink, SiteSettings } from "@/lib/sanity/types";
 
-const FOOTER_LOGO_SRC = `${marketingImage("logo/footer-logo.webp")}?v=1`;
+const FOOTER_LOGO_SRC = "/images/logo-white.webp?v=2";
 const DEFAULT_PHONE = "+17342498898.";
 const DEFAULT_EMAIL =
   "Info@briticana.us hr@briticana.us support@briticana.us career@briticana.us";
@@ -141,9 +141,13 @@ export default function MarketingFooterSection({ settings }: MarketingFooterSect
               <Link href="/" className="logo d-inline-block text-decoration-none" aria-label="Briticana home">
                 <img
                   src={FOOTER_LOGO_SRC}
-                  alt="Briticana"
+                  alt="Briticana Logo"
                   className="marketing-footer-logo d-block"
                   style={{ height: `${FOOTER_LOGO_HEIGHT_PX}px`, width: "auto" }}
+                  loading="lazy"
+                  decoding="async"
+                  width={48}
+                  height={48}
                 />
               </Link>
               <p className="briti-footer-tagline">{tagline}</p>

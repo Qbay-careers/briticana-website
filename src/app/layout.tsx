@@ -63,6 +63,9 @@ export const metadata: Metadata = {
     type: "website",
   },
   manifest: "/site.webmanifest",
+  verification: {
+    google: "sXXCcXtHj-U8A3MQXDFLqVgLtUXALpst3mIyTkKSctQ",
+  },
 };
 
 const organizationJsonLd = {
@@ -150,20 +153,25 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
+        <meta
+          name="google-site-verification"
+          content="sXXCcXtHj-U8A3MQXDFLqVgLtUXALpst3mIyTkKSctQ"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=UnifrakturCook:wght@700&display=swap"
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
         />
-        <link rel="stylesheet" href="/edumove/css/owl.theme.default.min.css" />
-        <link rel="stylesheet" href="/edumove/css/owl.carousel.min.css" />
-        <link rel="stylesheet" href="/edumove/css/magnific-popup.css" />
-        <link rel="stylesheet" href="/edumove/css/scrollcue.css" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+        />
+        <link rel="preload" as="image" href="/images/hero-map.webp" fetchPriority="high" />
         <link rel="stylesheet" href="/edumove/css/remixicon.css" />
         <link rel="stylesheet" href="/edumove/css/style.css" />
         <link rel="stylesheet" href="/edumove/css/responsive.css" />
-        <link rel="preload" as="image" href="/images/hero-global-gold-map.webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

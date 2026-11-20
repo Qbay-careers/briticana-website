@@ -17,8 +17,7 @@ import { getAllInternships, getInternshipBySlug } from "@/lib/sanity/queries";
 import type { Internship } from "@/lib/sanity/types";
 import { buildPageAlternates } from "@/lib/seo/siteSeo";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 300;
 
 type InternshipDetailPageProps = {
   params: { slug: string };
@@ -37,11 +36,13 @@ export async function generateMetadata({ params }: InternshipDetailPageProps) {
   if (!isSanityConfigured()) {
     return { title: "Internship | Briticana", alternates };
   }
-  const doc = await client.fetch<Internship | null>(
+  const fetchDoc = client.fetch<Internship | null>(
     getInternshipBySlug,
     { slug: params.slug },
-    { cache: "no-store" },
+    { next: { revalidate: 300 } },
   );
+  const timeoutDoc = new Promise<null>((resolve) => setTimeout(() => resolve(null), 1500));
+  const doc = await Promise.race([fetchDoc, timeoutDoc]);
   return {
     title: doc?.title ? `${sanitizeInternshipText(doc.title)} | Briticana` : "Internship | Briticana",
     alternates,
@@ -65,18 +66,24 @@ export default async function InternshipDetailPage({ params }: InternshipDetailP
 
   if (isSanityConfigured()) {
     try {
-      const [fetchedDoc, fetchedAll] = await Promise.all([
+      const fetchPromise = Promise.all([
         client.fetch<Internship | null>(
           getInternshipBySlug,
           { slug: params.slug },
-          { cache: "no-store" },
+          { next: { revalidate: 300 } },
         ),
         client
-          .fetch<Internship[]>(getAllInternships, {}, { cache: "no-store" })
+          .fetch<Internship[]>(getAllInternships, {}, { next: { revalidate: 300 } })
           .catch(() => [] as Internship[]),
       ]);
-      sanityInternship = fetchedDoc;
-      allSanityInternships = fetchedAll;
+      const timeoutPromise = new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), 2000),
+      );
+      const res = await Promise.race([fetchPromise, timeoutPromise]);
+      if (res && Array.isArray(res)) {
+        sanityInternship = res[0];
+        allSanityInternships = res[1];
+      }
     } catch {
       sanityInternship = null;
       allSanityInternships = [];

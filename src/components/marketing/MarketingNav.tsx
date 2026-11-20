@@ -9,7 +9,7 @@ import { marketingImage } from "@/components/marketing/marketingAssetPaths";
 import type { SiteSettings } from "@/lib/sanity/types";
 import { buildApplyHref } from "@/lib/studentApplicationForm";
 
-const LOGO_SRC = `${marketingImage("logo/logo.webp")}?v=3`;
+const LOGO_SRC = "/images/logo.webp?v=4";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -75,11 +75,13 @@ export default function MarketingNav({ settings: _settings }: MarketingNavProps)
             <Link className="briti-brand d-inline-flex align-items-center text-decoration-none" href="/" aria-label="Briticana Home">
               <img
                 src={LOGO_SRC}
-                alt="Briticana"
+                alt="Briticana Logo"
                 width={56}
                 height={56}
                 style={{ height: "56px", width: "auto", maxWidth: "100%" }}
                 className="briti-logo-img"
+                loading="eager"
+                decoding="async"
               />
             </Link>
 
@@ -122,11 +124,13 @@ export default function MarketingNav({ settings: _settings }: MarketingNavProps)
             <Link className="briti-brand d-inline-flex align-items-center text-decoration-none" href="/" aria-label="Briticana Home">
               <img
                 src={LOGO_SRC}
-                alt="Briticana"
+                alt="Briticana Logo"
                 width={44}
                 height={44}
                 style={{ height: "44px", width: "auto", maxWidth: "100%" }}
                 className="briti-mobile-logo-img"
+                loading="eager"
+                decoding="async"
               />
             </Link>
 

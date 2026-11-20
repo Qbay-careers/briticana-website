@@ -39,8 +39,8 @@ export default function ExperienceCentersPage() {
           <div className="visual">
             <figure>
               <img
-                src="/assets/experience-hero.webp"
-                alt="Students collaborating with a mentor in a modern innovation studio"
+                src="/images/experience.webp"
+                alt="Briticana students collaborating with an industry mentor in a modern innovation studio"
               />
             </figure>
             <div className="float-card stat glass">
@@ -48,8 +48,8 @@ export default function ExperienceCentersPage() {
               <strong>Built together</strong>
             </div>
             <div className="float-card video-card glass">
-              <video autoPlay muted loop playsInline poster="/assets/founder-mentorship.webp">
-                <source src="/assets/student-collaboration.mp4" type="video/mp4" />
+              <video autoPlay muted loop playsInline poster="/images/mentorship.webp">
+                <source src="/images/student-collaboration.mp4" type="video/mp4" />
               </video>
               <span>● &nbsp; Learning in motion</span>
             </div>
@@ -190,8 +190,8 @@ export default function ExperienceCentersPage() {
           </div>
           <figure className="media">
             <img
-              src="/assets/founder-mentorship.webp"
-              alt="Student founders discussing a prototype with an experienced mentor"
+              src="/images/mentorship.webp"
+              alt="Briticana student founders discussing a project prototype with an experienced mentor"
             />
             <figcaption className="glass">Ideas become stronger through close, practical mentorship.</figcaption>
           </figure>

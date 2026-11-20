@@ -38,8 +38,8 @@ export default function BriticanaWorldPage() {
           <div className="visual">
             <figure>
               <img
-                src="/assets/world-hero.webp"
-                alt="A diverse group of students collaborating in an international learning hub"
+                src="/images/world.webp"
+                alt="Briticana international student cohort collaborating in a global innovation hub"
               />
             </figure>
             <div className="float-card stat glass">
@@ -47,8 +47,8 @@ export default function BriticanaWorldPage() {
               <strong>08 global locations</strong>
             </div>
             <div className="float-card video-card glass">
-              <video autoPlay muted loop playsInline poster="/assets/world-hero.webp">
-                <source src="/assets/tech-work.mp4" type="video/mp4" />
+              <video autoPlay muted loop playsInline poster="/images/world.webp">
+                <source src="/images/tech-work.mp4" type="video/mp4" />
               </video>
               <span>● &nbsp; Digital-first. Human-led.</span>
             </div>

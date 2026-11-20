@@ -67,7 +67,7 @@ export default function MarketingChooseUsSection() {
   return (
     <div className="choose-us-area bg-f7f7f7 marketing-home-section-y">
       <div className="container mw-1345">
-        <div className="section-title text-center mx-auto" style={{ maxWidth: "640px" }} data-cues="slideInUp">
+        <div className="section-title text-center mx-auto" style={{ maxWidth: "640px" }}>
           <div className="position-relative z-1">
             <p className="small fw-semibold text-secondary text-uppercase mb-2" style={{ letterSpacing: "0.06em" }}>
               Why students trust Briticana
@@ -75,12 +75,24 @@ export default function MarketingChooseUsSection() {
             <h2>
               Real work. Real learning. <span>Real growth.</span>
             </h2>
-            <img src={marketingImage("title-shape.webp")} className="d-none d-lg-inline-block" alt="" />
+            <img
+              src={marketingImage("title-shape.webp")}
+              className="d-none d-lg-inline-block"
+              alt="Decorative title underline"
+              loading="lazy"
+              decoding="async"
+              width={160}
+              height={14}
+            />
             <img
               src={marketingImage("shape4.webp")}
               className="d-none d-lg-inline-block position-absolute top-0"
               style={{ right: "-40px" }}
-              alt=""
+              alt="Decorative accent shape"
+              loading="lazy"
+              decoding="async"
+              width={38}
+              height={38}
             />
           </div>
           <p className="text-secondary mt-3 mb-0">
@@ -90,12 +102,19 @@ export default function MarketingChooseUsSection() {
           </p>
         </div>
 
-        <div className="row g-4 justify-content-center" data-cues="slideInUp">
+        <div className="row g-4 justify-content-center">
           {TRUST_FEATURES.map((feature) => (
             <div key={feature.title} className="col-lg-4 col-md-6 d-flex">
               <div className="trust-feature-card bg-white rounded-4 p-4 h-100 w-100">
                 <div className="trust-feature-card__icon d-flex justify-content-center align-items-center rounded-circle mb-3">
-                  <img src={feature.isThemeIcon ? marketingIcon(feature.icon) : marketingImage(feature.icon)} alt="" />
+                  <img
+                    src={feature.isThemeIcon ? marketingIcon(feature.icon) : marketingImage(feature.icon)}
+                    alt={`${feature.title} icon`}
+                    loading="lazy"
+                    decoding="async"
+                    width={28}
+                    height={28}
+                  />
                 </div>
                 <h3 className="h5 fw-bold mb-2">{feature.title}</h3>
                 <p className="text-secondary small mb-0">{feature.description}</p>

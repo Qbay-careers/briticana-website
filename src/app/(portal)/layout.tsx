@@ -1,9 +1,6 @@
 import type { ReactNode } from "react";
-import { Suspense } from "react";
 
 import MarketingNav from "@/components/marketing/MarketingNav";
-import MarketingVendorScripts from "@/components/marketing/MarketingVendorScripts";
-import ScrollCueRouteSync from "@/components/marketing/ScrollCueRouteSync";
 import MarketingCopyrightBar from "@/components/marketing/sections/MarketingCopyrightBar";
 import MarketingFooterSection from "@/components/marketing/sections/MarketingFooterSection";
 import { client } from "@/lib/sanity/client";
@@ -21,7 +18,11 @@ export default async function PortalLayout({ children }: PortalLayoutProps) {
   let settings: SiteSettings | null = null;
   if (isSanityConfigured()) {
     try {
-      settings = await client.fetch<SiteSettings | null>(getSiteSettings);
+      const fetchPromise = client.fetch<SiteSettings | null>(getSiteSettings);
+      const timeoutPromise = new Promise<null>((resolve) =>
+        setTimeout(() => resolve(null), 1500),
+      );
+      settings = await Promise.race([fetchPromise, timeoutPromise]);
     } catch {
       settings = null;
     }
@@ -35,10 +36,6 @@ export default async function PortalLayout({ children }: PortalLayoutProps) {
         <MarketingFooterSection settings={settings} />
         <MarketingCopyrightBar />
       </footer>
-      <MarketingVendorScripts />
-      <Suspense fallback={null}>
-        <ScrollCueRouteSync />
-      </Suspense>
     </div>
   );
 }

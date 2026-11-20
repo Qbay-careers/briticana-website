@@ -643,8 +643,8 @@ export default function AdminPortalClient() {
             <div className="briti-admin-brand">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/edumove/images/logo/logo.webp?v=3"
-                alt="Briticana"
+                src="/images/logo.webp?v=4"
+                alt="Briticana Logo"
                 className="briti-admin-logo"
               />
               <span className="briti-admin-brand-divider" aria-hidden="true" />
@@ -841,8 +841,8 @@ export default function AdminPortalClient() {
           <div className="briti-admin-brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/edumove/images/logo/logo.webp?v=3"
-              alt="Briticana"
+              src="/images/logo.webp?v=4"
+              alt="Briticana Logo"
               className="briti-admin-logo"
             />
             <span className="briti-admin-brand-divider" aria-hidden="true" />
